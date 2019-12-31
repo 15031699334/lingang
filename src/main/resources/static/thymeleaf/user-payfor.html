@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>付款记录</title>
+		<link rel="stylesheet" type="text/css" href="font/css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/idangerous.swiper.css"/>
+		<link rel="stylesheet" type="text/css" href="css/APlayer.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/head.css"/>
+		<link rel="stylesheet" type="text/css" href="css/footer.css"/>
+		<link rel="stylesheet" type="text/css" href="css/user.css"/>
+	</head>
+	<body>
+		<!-- 顶部导航 -->
+		<div class="headerpage"></div>
+		<!-- 页面主体 -->
+		<div class="main-user">
+			<div class="top-user"><img src="img/user-vip.png" >用户中心</div>
+			<div class="user-box clearfix">
+				<div class="user-left fl">
+					<div class="user-btm">
+						<div class="user-menu">
+							<span>个人账户</span>
+							<ul>
+								<li><a href="user-person.html">个人资料</a></li>
+								<li><a href="user-approve.html">会员认证</a></li>
+								<li><a href="user-set.html">安全设置</a></li>
+							</ul>
+						</div>
+						<div class="user-menu">
+							<span>企业账号</span>
+							<ul>
+								<li><a href="user-infor.html">企业信息</a></li>
+								<li><a href="user-address.html">收货地址</a></li>
+								<li><a href="">员工账号</a></li>
+								<li><a href="">账户管理</a></li>
+							</ul>
+						</div>
+						<div class="user-menu">
+							<span>订单管理</span>
+							<ul>
+								<li><a href="user-order.html">我的订单</a></li>
+								<li class="on"><a href="user-payfor.html">付款记录</a></li>
+							</ul>
+						</div>
+						<div class="user-menu">
+							<span>会员积分</span>
+							<ul>
+								<li><a href="user-integral.html">积分中心</a></li>
+								<li><a href="user-integralOrder.html">积分订单</a></li>
+								<li><a href="user-score.html">积分商城</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="user-right fr">
+					<div class="user-order">
+						<p class="userRight-tit"><img src="img/user/payfor.png" >付款记录</p>
+						<table class="order-table">
+							<thead>
+								<tr>
+									<th class="goods">订单</th>
+									<th class="quality">金额</th>
+									<th class="norms">时间</th>
+									<th class="factory">抬头</th>
+									<th class="house">状态</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>内容</td>
+									<td>内容</td>
+									<td>内容</td>
+									<td>内容</td>
+									<td>内容</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="page"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 主体结束 -->
+		<div class="footerpage"></div>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/right.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			$(function(){
+				/*公共部分
+				 * 导航栏
+				 * footer CopyRight
+				 */
+				$(".headerpage").load("header.html");
+				$(".footerpage").load("footer.html");
+			});
+		</script>
+	</body>
+</html>

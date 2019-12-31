@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>购物车</title>
+		<link rel="stylesheet" type="text/css" href="font/css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/idangerous.swiper.css"/>
+		<link rel="stylesheet" type="text/css" href="css/day.css"/>
+		<link rel="stylesheet" type="text/css" href="css/APlayer.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/head.css"/>
+		<link rel="stylesheet" type="text/css" href="css/footer.css"/>
+		<link rel="stylesheet" type="text/css" href="css/shop.css"/>
+	</head>
+	<body>
+		<!-- 顶部导航 -->
+		<div class="headerpage"></div>
+		<!-- 页面主体 -->
+		<div class="main-cart">
+			<div class="cart-box">
+				<div class="cart-list">
+					<!-- 有商品 -->
+					<div class="cart-full">
+						<div class="cartFull-tit">
+							购物车
+						</div>
+						<div class="cart-empty hidden">
+							购物车内没有商品。
+							<a class="cart-buy" href="">去商城选购 &gt;&gt;</a>
+						</div>
+						<div class="cartFull-box">
+							<form action="" method="">
+								<table class="cartFull-table">
+									<thead>
+										<tr>
+											<th>货物信息</th>
+											<th>规格</th>
+											<th>数量</th>
+											<th>单价</th>
+											<th>价格</th>
+											<th>是否加工</th>
+											<th>拼购</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="cartFull-address" colspan="8">
+												<input type="checkbox" name="" id="" value="" />
+												<span>地点</span>
+												仓库地址：01**市**区**路**号 联系电话：138******08
+											</td>
+										</tr>
+										<tr class="cartFull-mage">
+											<td>
+												鞍钢 冷轧卷
+											</td>
+											<td>ST12 1.200*1250.0*C</td>
+											<td>10.620吨</td>
+											<td>￥4220元</td>
+											<td>￥44816.4元</td>
+											<td class="forMake">
+												<input type="checkbox" name="" id="" value="" />加工
+												<span class="toMake">备注信息</span>
+												<br>
+												<textarea></textarea>
+											</td>
+											<td><a class="toPin" href="">去拼购</a></td>
+											<td>
+												<span class="cartFull-del">删除</span>
+											</td>
+										</tr>
+										</tbody>
+									<tbody>
+										<tr>
+											<td class="cartFull-address" colspan="8">
+												<input type="checkbox" name="" id="" value="" />
+												<span>地点</span>
+												仓库地址：02**市**区**路**号 联系电话：138******08
+											</td>
+										</tr>
+										<tr class="cartFull-mage">
+											<td>
+												鞍钢 冷轧卷
+											</td>
+											<td>ST12 1.200*1250.0*C</td>
+											<td>10.620吨</td>
+											<td>￥4220元</td>
+											<td>￥44816.4元</td>
+											<td class="forMake">
+												<input type="checkbox" name="" id="" value="" />加工 
+												<span class="toMake">备注信息</span>
+												<br>
+												<textarea></textarea>
+											</td>
+											<td><a class="toPin" href="">去拼购</a></td>
+											<td>
+												<span class="cartFull-del">删除</span>
+											</td>
+										</tr>
+										</tbody>
+								</table>
+								<div class="saleBox">
+									<h3>优惠券</h3>
+									<div class="sale-list">
+										<input type="radio" checked="checked" name="sale" id="saleNo" value="" />
+										<label for="saleNo">不使用优惠券</label>
+									</div>
+									<div class="sale-list">
+										<input type="radio" name="sale" id="saleHb" value="" />
+										<label for="saleHb">红包：500元</label>
+									</div>
+									<div class="sale-list">
+										<input type="radio" name="sale" id="saleSj" value="" />
+										<label for="saleSj">商家优惠：500元</label>
+									</div>
+									
+								</div>
+								<div class="iousBox">
+									<h3>白条支付</h3>
+									<div class="iousNum">
+										<span class="iousNum-list1">总额度：70000.00</span>&nbsp;￥
+										<span class="iousNum-list1">已用额度：60000.00</span>&nbsp;￥
+										<span class="iousNum-list3">可用额度：10000.00</span>&nbsp;￥
+									</div>
+									<div class="iousType">
+										<input type="checkbox" name="" id="iousType" value="" />
+										<label for="iousType">使用白条支付</label>
+										<br>
+										<span class="iousUse"><input type="text" id="" value="10000.00" /><i>￥</i></span>
+									</div>
+								</div>
+								<div class="cartFull-out clearfix">
+									<div class="cartFull-outbox fr">
+										<div class="cartFull-weight clearfix">
+											<span class="weightL fl">重量小计:</span>
+											<span class="weightR fl">10.00吨</span>
+										</div>
+										<div class="cartFull-price clearfix">
+											<span class="priceL fl">商品总价</span>
+											<span class="priceR fl">￥<strong>1234.5</strong></span>
+										</div>
+									</div>
+									<div class="cartFull-btn clearfix fr">
+										<input type="button" name="" id="" value="去下单" />
+										<!-- <input type="button" name="" id="" value="合伙拼购" style="background-color:
+										#21965f;" /> -->
+										<!-- <input type="button" name="" id="" value="计划采购" style="background-color:
+										#21965f;" /> -->
+										<!-- <input type="button" name="" id="" value="临钢白条" style="background-color:
+										#21965f;" /> -->
+										<span class="cartPlan">计划采购</span>
+									</div>
+								</div>
+								<div class="planTime">
+									<h3>请选择您的计划时间</h3>
+									<div class="group-time">
+										<input class="start-plan" id="startTime" type="text" name="" value="" placeholder="请选择计划时间" />
+									</div>
+									<div class="planBtn">
+										<a href="plan.html" style="display: inline-block;"><span class="planSub">提交</span></a>
+										<span class="planClo" onclick="planClo(this)">取消</span>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<!-- 没有商品 -->
+					
+					<div class="cart-del">
+						<i class="fa fa-trash" aria-hidden="true"></i>
+						清空购物车
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 主体结束 -->
+		<!-- 底部 -->
+		<div class="footerpage"></div>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/right.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/day.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			$('.start-plan').datePicker({
+				okFunc: function (date) {
+					console.log(date);
+				}
+			});
+		</script>
+		<script type="text/javascript">
+			$('.cart-del').click(function(){
+				$('.cartFull-table').find('tbody').remove();
+				$('.weightR').html('0');
+				$('.priceR').find('strong').html('0');
+				$('.cartFull-box').hide();
+				$('.cart-empty').removeClass('hidden');
+			});
+			$('.cartFull-del').click(function(){
+				$(this).parents('tbody').remove();
+			});
+			var makeFor = $('.forMake input')
+			if(makeFor.is(':checked')){
+				$('.toMake').show();
+			}
+			$(".forMake input").change(function() {
+				if ($(this).prop("checked")) {
+					$(this).siblings('.toMake').show();
+				} else {
+				   $(this).siblings('.toMake').hide();
+				}
+		
+			});
+			$("#iousType").change(function() {
+				if ($(this).prop("checked")) {
+					$(this).siblings('.iousUse').show();
+				} else {
+				   $(this).siblings('.iousUse').hide();
+				}
+					
+			});
+			$('.toMake').click(function(){
+				$(this).siblings('textarea').toggle();
+			});
+			$('.cartPlan').click(function(){
+				$('.planTime').show();
+			})
+			function planClo(cal){
+				$('.planTime').hide();
+			}
+		</script>
+		<script>
+		    $(function(){
+		        /*公共部分
+		         * 导航栏
+		         * footer CopyRight
+		         */
+		        $(".headerpage").load("header.html");
+		        $(".footerpage").load("footer.html");
+		    });
+		</script>
+	</body>
+</html>

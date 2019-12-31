@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="font/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/swiper.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/all.css" />
+		<link rel="stylesheet" type="text/css" href="css/detail.css" />
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/phone.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body style="padding-top: 50px;">
+		<div id="cart-head" class="show">
+			<div class="cart-head">
+				<a class="return" href="javascript:history.back(-1);">
+					<span class="arrow-left"></span>
+				</a>
+				<div class="head-title">采购计划</div>
+			</div>
+		</div>
+		<form action="" method="">
+			<div class="askPrice-list" style="margin-top: 0.4rem;">
+				<div class="askPrice-top">
+					<span class="askPrice-topL">计划月份：</span>
+					<select class="askPrice-topLR">
+						<option value ="">请选择月份</option>
+						<option value ="">2019-12</option>
+					</select>
+				</div>
+			</div>
+			<div class="askPrice-tit">货物明细</div>
+			<div class="askPrice-list askPrice-case">
+				<ul>
+					<li>
+						<span class="askPrice-name">钢厂：</span>
+						<input class="askPrice-ipt" type="text" name="" value="" placeholder="请输入钢厂...">
+					</li>
+					<li>
+						<span class="askPrice-name">品名：</span>
+						<select class="askPrice-sec" name="">
+							<option value="">请选择品名</option>
+							<option value="冷轧">冷轧</option>
+							<option value="酸洗">酸洗</option>
+							<option value="热轧">热轧</option>
+							<option value="冷成型">冷成型</option>
+							<option value="冷硬">冷硬</option>
+							<option value="冷轧盒板">冷轧盒板</option>
+							<option value="有花镀锌">有花镀锌</option>
+							<option value="无花镀锌">无花镀锌</option>
+							<option value="镀铝锌卷">镀铝锌卷</option>
+						</select>
+					</li>
+					<li>
+						<span class="askPrice-name">材质：</span>
+						<input class="askPrice-ipt" type="text" name="" value="" placeholder="请输入材质...">
+					</li>
+					<li class="clearfix">
+						<span class="askPrice-name">规格：</span>
+						<input class="askPrice-more" type="text" name="" value="" placeholder="厚度">
+						<b>＊</b>
+						<input class="askPrice-more" type="text" name="" value="" placeholder="宽度">
+						<b>＊</b>
+						<input class="askPrice-more" type="text" name="" value="" placeholder="长度">
+					</li>
+					<li>
+						<span class="askPrice-name">数量：</span>
+						<input class="askPrice-ipt" type="text" name="" value="" placeholder="请输入数量...">
+					</li>
+					<li>
+						<span class="askPrice-name">单位：</span>
+						<select class="askPrice-sec">
+							<option value ="">吨</option>
+							<option value ="">件</option>
+						</select>
+
+					</li>
+				</ul>
+			</div>
+			<div class="askPrice-handle clearfix">
+				<button class="askPrice-add fl" type="button" onclick="add()">增加一组</button>
+				<button class="askPrice-del fr" type="button" onclick="del()">删除一组</button>
+			</div>
+			<div class="askPrice-tit">备注</div>
+			<div class="askPrice-list">
+				<textarea class="askPrice-text" placeholder="对钢板的对角线或分条小卷的镰刀弯误差等..."></textarea>
+			</div>
+
+		</form>
+
+		<div class="footer askPrice-foot">
+			<a href="javascript:submit();">确认</a>
+		</div>
+		<script type="text/javascript">
+
+			function add(){
+			    var $group = $(".askPrice-case ul").first().clone();       //增加一行,克隆第一个对象
+			    $(".askPrice-case").append($group);
+			}
+
+			function del(){
+			    $(".askPrice-case ul:not(:first)").last().remove();      //移除最后一行,并且保留前两行
+			}
+		</script>
+	</body>
+</html>

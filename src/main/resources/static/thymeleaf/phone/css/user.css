@@ -1,0 +1,298 @@
+.user-head{
+	/*height: 4rem;*/
+	width: 100%;
+	background-size: 100% 200px;
+	background: -webkit-linear-gradient(left, #1e88e5 , #01579b);
+	background: -o-linear-gradient(right, #1e88e5, #01579b);
+	background: -moz-linear-gradient(right, #1e88e5, #01579b);
+	background: linear-gradient(to right, #1e88e5, #01579b);
+}
+.head-up{
+	height: 1rem;
+	position: relative;
+}
+.head-setup{
+	position: absolute;
+	left: 0.4rem;
+	top: 0.4rem;
+	height: 0.5rem;
+	width: 0.5rem;
+	background: url(../img/setup.png) center center no-repeat;
+	background-size: 0.5rem;
+}
+.head-signin{
+	position: absolute;
+	right: 1.4rem;
+	top: 0.2rem;
+	height: 0.5rem;
+	width: 0.5rem;
+	background: url(../img/signin.png) center center no-repeat;
+	background-size: 0.5rem;
+	padding: 0 0 0.4rem 0;
+}
+.head-message{
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	height: 25px;
+	width: 25px;
+	background: url(../img/message.png) center center no-repeat;
+	background-size: 25px;
+}
+.user-info{
+	height: 1.76rem;
+	padding: 0.4rem 0.2rem 0.4rem 1.68rem;
+	position: relative;
+	box-sizing: border-box;
+}
+.head-img{
+	width: 1rem;
+	height: 1rem;
+	display: block;
+	position: absolute;
+	left: 0.4rem;
+	top: 0.4rem;
+	border: rgba(255,255,255,.5) 2px solid;
+	border-radius: 50%;
+	overflow: hidden;
+}
+.user-info .info{
+	height: 0.48rem;
+	line-height: 0.48rem;
+	overflow: hidden;
+}
+.user-name{
+	font-size: 0.4rem;
+	color: #fff;
+	line-height: 0.48rem;
+	margin-right: 0.1rem;
+}
+.grade{
+	width: 0.8rem;
+	height: 0.4rem;
+	background: rgba(0,0,0,.2);
+	border-radius: 3px;
+	text-align: center;
+	color: #fff;
+	font-size: 0.24rem;
+	line-height: 0.4rem;
+	margin-top: 0.04rem;
+}
+.user-integral{
+	margin-top: 0.1rem;
+	padding-left: 0.04rem;
+}
+.integral,.gredit{
+	display: inline-block;
+	height: 0.4rem;
+	line-height: 0.4rem;
+	border: #fff 1px solid;
+	padding: 0 0.3rem 0 0.1rem;
+	border-radius: 3px;
+	color: #FFFFFF;
+	position: relative;
+}
+.integral-right{
+	position: absolute;
+	width: 0.12rem;
+	height: 0.12rem;
+	background: url(../img/integral-right.png) center center no-repeat;
+	background-size: 0.12rem;
+	right: 0.1rem;
+	top: 0.14rem;
+}
+.head-list{
+	height: 1.2rem;
+}
+.head-list ul{
+	padding: 0 0.4rem;
+}
+.head-list ul li{
+	float: left;
+	width: 25%;
+	text-align: center;
+}
+.head-num{
+	font-size: 0.4rem;
+	color: #fff;
+	height: 0.6rem;
+	line-height: 0.6rem;
+	overflow: hidden;
+}
+.head-list ul li p{
+	color: #fff;
+}
+.user-cont{
+	padding: 0 0.2rem;
+}
+.user-cont div:last-child{
+	margin-bottom: 100px;
+}
+.user-list{
+	margin-top: 0.2rem;
+	border-radius: 6px;
+	background: #FFFFFF;
+}
+.user-title{
+	height: 0.8rem;
+	position: relative;
+	border-bottom: #efefef 1px solid;
+	padding: 0 0.2rem;
+}
+.my-title{
+	display: block;
+	line-height: 0.8rem;
+	font-size: 0.32rem;
+}
+.my-all{
+	position: absolute;
+	right: 0.2rem;
+	top: 0.28rem;
+	font-size: 0.24rem;
+	color: #999;
+}
+.user-list ul li{
+	float: left;
+	width: 25%;
+	padding: 0.3rem 0 0 0;
+	position: relative;
+}
+.user-list ul li .img{
+	display: block;
+	margin-bottom: 0.1rem;
+	text-align: center;
+}
+.img img{
+	width: 0.8rem;
+	height: 0.8rem;
+}
+.my-zt{
+	text-align: center;
+	color: #999;
+	font-size: 0.28rem;
+	margin-top: 0;
+	margin-bottom: 0.2rem;
+}
+.my-num{
+	position: absolute;
+	top: 0.2rem;
+	left: 1.04rem;
+	font-size: 0.24rem;
+	width: 0.4rem;
+	height: 0.4rem;
+	line-height: 0.36rem;
+	color: #FFF;
+	background: rgb(81, 142, 57);
+	text-align: center;
+	border: #fff 1px solid;
+	border-radius: 50%;
+}
+/* 账户信息 */
+.account-card{
+	padding: 0 0.2rem;
+	margin-top: 0.2rem;
+}
+.account-main{
+	background: #045ca2;
+	border-radius: 6px;
+	padding: 0.6rem 0;
+	text-align: center;
+	position: relative;
+}
+.account-main span{
+	display: block;
+	color: #fff;
+}
+.company{
+	position: absolute;
+	left: 0;
+	top: 0.4rem;
+	background: rgba(0,0,0,.5);
+	padding: 0 0.2rem;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+.account-num{
+	font-size: 0.48rem;
+	font-weight: bold;
+	margin-top: 0.4rem;
+}
+.account-three{
+	height: 0.6rem;
+	padding: 0 0.2rem;
+	line-height: 0.6rem;
+	color: #666;
+	margin-top: 0.2rem;
+}
+.account-qe{
+	display: block;
+	width: 3.6rem;
+	margin: 0.2rem 0.1rem 0;
+	background: rgb(81, 142, 57);
+	height: 0.8rem;
+	color: #fff;
+	text-align: center;
+	line-height: 0.8rem;
+	border-radius: 3px;
+}
+/* 问答 */
+.know-qe{
+	padding: 0 0.2rem;
+	margin-top: 0.2rem;
+}
+.know-qe li{
+	background: #fff;
+	margin-bottom: 0.2rem;
+	border-radius: 6px;
+}
+.know-qe span{
+	display: block;
+}
+.know-top{
+	height: 1.12rem;
+	padding: 0.2rem;
+	border-bottom: #efefef 1px solid;
+	box-sizing: border-box;
+}
+.know-img{
+	width: 0.6rem;
+	height: 0.6rem;
+	border-radius: 4px;
+	overflow: hidden;
+}
+.know-name{
+	font-size: 0.32rem;
+	line-height: 0.6rem;
+	margin-left: 0.1rem;
+}
+.know-time{
+	line-height: 0.6rem;
+	color: #999;
+}
+.know-main{
+	padding: 0.2rem;
+	border-bottom: #efefef 1px solid;
+}
+.know-main p{
+	font-size: 0.32rem;
+	margin-bottom: 0.2rem;
+	color: #8f8f94;
+}
+.know-btm{
+	height: 0.9rem;
+	padding: 0.1rem 0.2rem;
+	box-sizing: border-box;
+}
+.know-txt{
+	line-height: 0.6rem;
+	color: #999;
+}
+.know-btn{
+	display: block;
+	width: 2rem;
+	line-height: 0.56rem;
+	border: rgb(81, 142, 57) 1px solid;
+	border-radius: 3px;
+	color: rgb(81, 142, 57);
+	text-align: center;
+}

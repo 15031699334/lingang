@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boot.gang.mapper.ArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.boot.gang.entity.Article" >
+    <constructor >
+      <idArg column="c_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_block_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_city_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_create_user" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_district_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_last_update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_last_update_user" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_province_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_article_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_create_user_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_if_approver" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_logo" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_recommend" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_shop_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_sort" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_summary" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_top" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_type" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_chl" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_chl_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_hide" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_article_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_chlid_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_chl_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_tags" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_end_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_shop_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_begin_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_clicks" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_hits" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_shares" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_shop_column_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_shop_column_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.boot.gang.entity.Article" >
+    <constructor >
+      <idArg column="c_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_block_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_city_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_create_user" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_district_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_last_update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_last_update_user" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_province_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_article_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_create_user_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_if_approver" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_logo" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_recommend" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_shop_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_sort" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_summary" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_top" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_type" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_chl" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_chl_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_hide" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_article_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_chlid_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_chl_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_tags" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_end_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_shop_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_begin_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_clicks" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_hits" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_shares" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_shop_column_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_shop_column_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_content" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_id, c_block_id, c_city_id, c_create_time, c_create_user, c_district_id, c_last_update_time, 
+    c_last_update_user, c_province_id, c_article_type, c_create_user_id, c_if_approver, 
+    c_logo, c_recommend, c_shop_id, c_sort, c_summary, c_title, c_top, c_type, c_url, 
+    c_chl, c_chl_id, c_hide, c_article_name, c_chlid_name, c_chl_name, c_tags, c_end_date, 
+    c_shop_name, c_begin_date, c_clicks, c_hits, c_shares, c_shop_column_id, c_shop_column_name
+  </sql>
+  <sql id="Blob_Column_List" >
+    c_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_article
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </select>
+  <select id="getAllNews" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_article
+    limit 0,10
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_article
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boot.gang.entity.Article" >
+    insert into t_article (c_id, c_block_id, c_city_id, 
+      c_create_time, c_create_user, c_district_id, 
+      c_last_update_time, c_last_update_user, c_province_id, 
+      c_article_type, c_create_user_id, c_if_approver, 
+      c_logo, c_recommend, c_shop_id, 
+      c_sort, c_summary, c_title, 
+      c_top, c_type, c_url, 
+      c_chl, c_chl_id, c_hide, 
+      c_article_name, c_chlid_name, c_chl_name, 
+      c_tags, c_end_date, c_shop_name, 
+      c_begin_date, c_clicks, c_hits, 
+      c_shares, c_shop_column_id, c_shop_column_name, 
+      c_content)
+    values (#{cId,jdbcType=VARCHAR}, #{cBlockId,jdbcType=VARCHAR}, #{cCityId,jdbcType=VARCHAR}, 
+      #{cCreateTime,jdbcType=TIMESTAMP}, #{cCreateUser,jdbcType=VARCHAR}, #{cDistrictId,jdbcType=VARCHAR}, 
+      #{cLastUpdateTime,jdbcType=TIMESTAMP}, #{cLastUpdateUser,jdbcType=VARCHAR}, #{cProvinceId,jdbcType=VARCHAR}, 
+      #{cArticleType,jdbcType=VARCHAR}, #{cCreateUserId,jdbcType=VARCHAR}, #{cIfApprover,jdbcType=INTEGER}, 
+      #{cLogo,jdbcType=VARCHAR}, #{cRecommend,jdbcType=INTEGER}, #{cShopId,jdbcType=VARCHAR}, 
+      #{cSort,jdbcType=INTEGER}, #{cSummary,jdbcType=VARCHAR}, #{cTitle,jdbcType=VARCHAR}, 
+      #{cTop,jdbcType=INTEGER}, #{cType,jdbcType=INTEGER}, #{cUrl,jdbcType=VARCHAR}, 
+      #{cChl,jdbcType=VARCHAR}, #{cChlId,jdbcType=VARCHAR}, #{cHide,jdbcType=VARCHAR}, 
+      #{cArticleName,jdbcType=VARCHAR}, #{cChlidName,jdbcType=VARCHAR}, #{cChlName,jdbcType=VARCHAR}, 
+      #{cTags,jdbcType=VARCHAR}, #{cEndDate,jdbcType=TIMESTAMP}, #{cShopName,jdbcType=VARCHAR}, 
+      #{cBeginDate,jdbcType=TIMESTAMP}, #{cClicks,jdbcType=INTEGER}, #{cHits,jdbcType=INTEGER}, 
+      #{cShares,jdbcType=INTEGER}, #{cShopColumnId,jdbcType=VARCHAR}, #{cShopColumnName,jdbcType=VARCHAR}, 
+      #{cContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boot.gang.entity.Article" >
+    insert into t_article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        c_id,
+      </if>
+      <if test="cBlockId != null" >
+        c_block_id,
+      </if>
+      <if test="cCityId != null" >
+        c_city_id,
+      </if>
+      <if test="cCreateTime != null" >
+        c_create_time,
+      </if>
+      <if test="cCreateUser != null" >
+        c_create_user,
+      </if>
+      <if test="cDistrictId != null" >
+        c_district_id,
+      </if>
+      <if test="cLastUpdateTime != null" >
+        c_last_update_time,
+      </if>
+      <if test="cLastUpdateUser != null" >
+        c_last_update_user,
+      </if>
+      <if test="cProvinceId != null" >
+        c_province_id,
+      </if>
+      <if test="cArticleType != null" >
+        c_article_type,
+      </if>
+      <if test="cCreateUserId != null" >
+        c_create_user_id,
+      </if>
+      <if test="cIfApprover != null" >
+        c_if_approver,
+      </if>
+      <if test="cLogo != null" >
+        c_logo,
+      </if>
+      <if test="cRecommend != null" >
+        c_recommend,
+      </if>
+      <if test="cShopId != null" >
+        c_shop_id,
+      </if>
+      <if test="cSort != null" >
+        c_sort,
+      </if>
+      <if test="cSummary != null" >
+        c_summary,
+      </if>
+      <if test="cTitle != null" >
+        c_title,
+      </if>
+      <if test="cTop != null" >
+        c_top,
+      </if>
+      <if test="cType != null" >
+        c_type,
+      </if>
+      <if test="cUrl != null" >
+        c_url,
+      </if>
+      <if test="cChl != null" >
+        c_chl,
+      </if>
+      <if test="cChlId != null" >
+        c_chl_id,
+      </if>
+      <if test="cHide != null" >
+        c_hide,
+      </if>
+      <if test="cArticleName != null" >
+        c_article_name,
+      </if>
+      <if test="cChlidName != null" >
+        c_chlid_name,
+      </if>
+      <if test="cChlName != null" >
+        c_chl_name,
+      </if>
+      <if test="cTags != null" >
+        c_tags,
+      </if>
+      <if test="cEndDate != null" >
+        c_end_date,
+      </if>
+      <if test="cShopName != null" >
+        c_shop_name,
+      </if>
+      <if test="cBeginDate != null" >
+        c_begin_date,
+      </if>
+      <if test="cClicks != null" >
+        c_clicks,
+      </if>
+      <if test="cHits != null" >
+        c_hits,
+      </if>
+      <if test="cShares != null" >
+        c_shares,
+      </if>
+      <if test="cShopColumnId != null" >
+        c_shop_column_id,
+      </if>
+      <if test="cShopColumnName != null" >
+        c_shop_column_name,
+      </if>
+      <if test="cContent != null" >
+        c_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        #{cId,jdbcType=VARCHAR},
+      </if>
+      <if test="cBlockId != null" >
+        #{cBlockId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCityId != null" >
+        #{cCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreateTime != null" >
+        #{cCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCreateUser != null" >
+        #{cCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cDistrictId != null" >
+        #{cDistrictId,jdbcType=VARCHAR},
+      </if>
+      <if test="cLastUpdateTime != null" >
+        #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cLastUpdateUser != null" >
+        #{cLastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cProvinceId != null" >
+        #{cProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cArticleType != null" >
+        #{cArticleType,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreateUserId != null" >
+        #{cCreateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="cIfApprover != null" >
+        #{cIfApprover,jdbcType=INTEGER},
+      </if>
+      <if test="cLogo != null" >
+        #{cLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="cRecommend != null" >
+        #{cRecommend,jdbcType=INTEGER},
+      </if>
+      <if test="cShopId != null" >
+        #{cShopId,jdbcType=VARCHAR},
+      </if>
+      <if test="cSort != null" >
+        #{cSort,jdbcType=INTEGER},
+      </if>
+      <if test="cSummary != null" >
+        #{cSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="cTitle != null" >
+        #{cTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="cTop != null" >
+        #{cTop,jdbcType=INTEGER},
+      </if>
+      <if test="cType != null" >
+        #{cType,jdbcType=INTEGER},
+      </if>
+      <if test="cUrl != null" >
+        #{cUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="cChl != null" >
+        #{cChl,jdbcType=VARCHAR},
+      </if>
+      <if test="cChlId != null" >
+        #{cChlId,jdbcType=VARCHAR},
+      </if>
+      <if test="cHide != null" >
+        #{cHide,jdbcType=VARCHAR},
+      </if>
+      <if test="cArticleName != null" >
+        #{cArticleName,jdbcType=VARCHAR},
+      </if>
+      <if test="cChlidName != null" >
+        #{cChlidName,jdbcType=VARCHAR},
+      </if>
+      <if test="cChlName != null" >
+        #{cChlName,jdbcType=VARCHAR},
+      </if>
+      <if test="cTags != null" >
+        #{cTags,jdbcType=VARCHAR},
+      </if>
+      <if test="cEndDate != null" >
+        #{cEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cShopName != null" >
+        #{cShopName,jdbcType=VARCHAR},
+      </if>
+      <if test="cBeginDate != null" >
+        #{cBeginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cClicks != null" >
+        #{cClicks,jdbcType=INTEGER},
+      </if>
+      <if test="cHits != null" >
+        #{cHits,jdbcType=INTEGER},
+      </if>
+      <if test="cShares != null" >
+        #{cShares,jdbcType=INTEGER},
+      </if>
+      <if test="cShopColumnId != null" >
+        #{cShopColumnId,jdbcType=VARCHAR},
+      </if>
+      <if test="cShopColumnName != null" >
+        #{cShopColumnName,jdbcType=VARCHAR},
+      </if>
+      <if test="cContent != null" >
+        #{cContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boot.gang.entity.Article" >
+    update t_article
+    <set >
+      <if test="cBlockId != null" >
+        c_block_id = #{cBlockId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCityId != null" >
+        c_city_id = #{cCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreateTime != null" >
+        c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCreateUser != null" >
+        c_create_user = #{cCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cDistrictId != null" >
+        c_district_id = #{cDistrictId,jdbcType=VARCHAR},
+      </if>
+      <if test="cLastUpdateTime != null" >
+        c_last_update_time = #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cLastUpdateUser != null" >
+        c_last_update_user = #{cLastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cProvinceId != null" >
+        c_province_id = #{cProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cArticleType != null" >
+        c_article_type = #{cArticleType,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreateUserId != null" >
+        c_create_user_id = #{cCreateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="cIfApprover != null" >
+        c_if_approver = #{cIfApprover,jdbcType=INTEGER},
+      </if>
+      <if test="cLogo != null" >
+        c_logo = #{cLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="cRecommend != null" >
+        c_recommend = #{cRecommend,jdbcType=INTEGER},
+      </if>
+      <if test="cShopId != null" >
+        c_shop_id = #{cShopId,jdbcType=VARCHAR},
+      </if>
+      <if test="cSort != null" >
+        c_sort = #{cSort,jdbcType=INTEGER},
+      </if>
+      <if test="cSummary != null" >
+        c_summary = #{cSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="cTitle != null" >
+        c_title = #{cTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="cTop != null" >
+        c_top = #{cTop,jdbcType=INTEGER},
+      </if>
+      <if test="cType != null" >
+        c_type = #{cType,jdbcType=INTEGER},
+      </if>
+      <if test="cUrl != null" >
+        c_url = #{cUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="cChl != null" >
+        c_chl = #{cChl,jdbcType=VARCHAR},
+      </if>
+      <if test="cChlId != null" >
+        c_chl_id = #{cChlId,jdbcType=VARCHAR},
+      </if>
+      <if test="cHide != null" >
+        c_hide = #{cHide,jdbcType=VARCHAR},
+      </if>
+      <if test="cArticleName != null" >
+        c_article_name = #{cArticleName,jdbcType=VARCHAR},
+      </if>
+      <if test="cChlidName != null" >
+        c_chlid_name = #{cChlidName,jdbcType=VARCHAR},
+      </if>
+      <if test="cChlName != null" >
+        c_chl_name = #{cChlName,jdbcType=VARCHAR},
+      </if>
+      <if test="cTags != null" >
+        c_tags = #{cTags,jdbcType=VARCHAR},
+      </if>
+      <if test="cEndDate != null" >
+        c_end_date = #{cEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cShopName != null" >
+        c_shop_name = #{cShopName,jdbcType=VARCHAR},
+      </if>
+      <if test="cBeginDate != null" >
+        c_begin_date = #{cBeginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cClicks != null" >
+        c_clicks = #{cClicks,jdbcType=INTEGER},
+      </if>
+      <if test="cHits != null" >
+        c_hits = #{cHits,jdbcType=INTEGER},
+      </if>
+      <if test="cShares != null" >
+        c_shares = #{cShares,jdbcType=INTEGER},
+      </if>
+      <if test="cShopColumnId != null" >
+        c_shop_column_id = #{cShopColumnId,jdbcType=VARCHAR},
+      </if>
+      <if test="cShopColumnName != null" >
+        c_shop_column_name = #{cShopColumnName,jdbcType=VARCHAR},
+      </if>
+      <if test="cContent != null" >
+        c_content = #{cContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.boot.gang.entity.Article" >
+    update t_article
+    set c_block_id = #{cBlockId,jdbcType=VARCHAR},
+      c_city_id = #{cCityId,jdbcType=VARCHAR},
+      c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
+      c_create_user = #{cCreateUser,jdbcType=VARCHAR},
+      c_district_id = #{cDistrictId,jdbcType=VARCHAR},
+      c_last_update_time = #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      c_last_update_user = #{cLastUpdateUser,jdbcType=VARCHAR},
+      c_province_id = #{cProvinceId,jdbcType=VARCHAR},
+      c_article_type = #{cArticleType,jdbcType=VARCHAR},
+      c_create_user_id = #{cCreateUserId,jdbcType=VARCHAR},
+      c_if_approver = #{cIfApprover,jdbcType=INTEGER},
+      c_logo = #{cLogo,jdbcType=VARCHAR},
+      c_recommend = #{cRecommend,jdbcType=INTEGER},
+      c_shop_id = #{cShopId,jdbcType=VARCHAR},
+      c_sort = #{cSort,jdbcType=INTEGER},
+      c_summary = #{cSummary,jdbcType=VARCHAR},
+      c_title = #{cTitle,jdbcType=VARCHAR},
+      c_top = #{cTop,jdbcType=INTEGER},
+      c_type = #{cType,jdbcType=INTEGER},
+      c_url = #{cUrl,jdbcType=VARCHAR},
+      c_chl = #{cChl,jdbcType=VARCHAR},
+      c_chl_id = #{cChlId,jdbcType=VARCHAR},
+      c_hide = #{cHide,jdbcType=VARCHAR},
+      c_article_name = #{cArticleName,jdbcType=VARCHAR},
+      c_chlid_name = #{cChlidName,jdbcType=VARCHAR},
+      c_chl_name = #{cChlName,jdbcType=VARCHAR},
+      c_tags = #{cTags,jdbcType=VARCHAR},
+      c_end_date = #{cEndDate,jdbcType=TIMESTAMP},
+      c_shop_name = #{cShopName,jdbcType=VARCHAR},
+      c_begin_date = #{cBeginDate,jdbcType=TIMESTAMP},
+      c_clicks = #{cClicks,jdbcType=INTEGER},
+      c_hits = #{cHits,jdbcType=INTEGER},
+      c_shares = #{cShares,jdbcType=INTEGER},
+      c_shop_column_id = #{cShopColumnId,jdbcType=VARCHAR},
+      c_shop_column_name = #{cShopColumnName,jdbcType=VARCHAR},
+      c_content = #{cContent,jdbcType=LONGVARCHAR}
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boot.gang.entity.Article" >
+    update t_article
+    set c_block_id = #{cBlockId,jdbcType=VARCHAR},
+      c_city_id = #{cCityId,jdbcType=VARCHAR},
+      c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
+      c_create_user = #{cCreateUser,jdbcType=VARCHAR},
+      c_district_id = #{cDistrictId,jdbcType=VARCHAR},
+      c_last_update_time = #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      c_last_update_user = #{cLastUpdateUser,jdbcType=VARCHAR},
+      c_province_id = #{cProvinceId,jdbcType=VARCHAR},
+      c_article_type = #{cArticleType,jdbcType=VARCHAR},
+      c_create_user_id = #{cCreateUserId,jdbcType=VARCHAR},
+      c_if_approver = #{cIfApprover,jdbcType=INTEGER},
+      c_logo = #{cLogo,jdbcType=VARCHAR},
+      c_recommend = #{cRecommend,jdbcType=INTEGER},
+      c_shop_id = #{cShopId,jdbcType=VARCHAR},
+      c_sort = #{cSort,jdbcType=INTEGER},
+      c_summary = #{cSummary,jdbcType=VARCHAR},
+      c_title = #{cTitle,jdbcType=VARCHAR},
+      c_top = #{cTop,jdbcType=INTEGER},
+      c_type = #{cType,jdbcType=INTEGER},
+      c_url = #{cUrl,jdbcType=VARCHAR},
+      c_chl = #{cChl,jdbcType=VARCHAR},
+      c_chl_id = #{cChlId,jdbcType=VARCHAR},
+      c_hide = #{cHide,jdbcType=VARCHAR},
+      c_article_name = #{cArticleName,jdbcType=VARCHAR},
+      c_chlid_name = #{cChlidName,jdbcType=VARCHAR},
+      c_chl_name = #{cChlName,jdbcType=VARCHAR},
+      c_tags = #{cTags,jdbcType=VARCHAR},
+      c_end_date = #{cEndDate,jdbcType=TIMESTAMP},
+      c_shop_name = #{cShopName,jdbcType=VARCHAR},
+      c_begin_date = #{cBeginDate,jdbcType=TIMESTAMP},
+      c_clicks = #{cClicks,jdbcType=INTEGER},
+      c_hits = #{cHits,jdbcType=INTEGER},
+      c_shares = #{cShares,jdbcType=INTEGER},
+      c_shop_column_id = #{cShopColumnId,jdbcType=VARCHAR},
+      c_shop_column_name = #{cShopColumnName,jdbcType=VARCHAR}
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </update>
+</mapper>

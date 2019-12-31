@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>会员中心</title>
+		<link rel="stylesheet" type="text/css" href="font/css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/idangerous.swiper.css"/>
+		<link rel="stylesheet" type="text/css" href="css/APlayer.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/head.css"/>
+		<link rel="stylesheet" type="text/css" href="css/footer.css"/>
+		<link rel="stylesheet" type="text/css" href="css/ulList.css"/>
+	</head>
+	<body>
+		<!-- 顶部导航 -->
+		<div class="headerpage"></div>
+		<!-- 页面主体 -->
+		<div class="main-banner help-banner">
+		</div>
+		<div class="main-cont clearfix">
+			<div class="help-left fl">
+				<div class="help-list">
+					<div class="help-tit active">新手指南<i class="fa fa-caret-down" aria-hidden="true"></i></div>
+					<ul class="help-item" style="display: block;">
+						<li class="help-that">
+							<a href="">免费注册</a>
+						</li>
+						<li>
+							<a href="">交易安全</a>
+						</li>
+						<li>
+							<a href="">在线帮助</a>
+						</li>
+						<li>
+							<a href="">官方微信</a>
+						</li>
+						<li>
+							<a href="">注册协议</a>
+						</li>
+					</ul>
+				</div>
+				<div class="help-list">
+					<div class="help-tit">操作指南<i class="fa fa-caret-right" aria-hidden="true"></i></div>
+					<ul class="help-item">
+						<li>
+							<a href="">免费找货</a>
+						</li>
+						<li>
+							<a href="">轻松购物</a>
+						</li>
+					</ul>
+				</div>
+				<div class="help-list">
+					<div class="help-tit">仓储加工<i class="fa fa-caret-right" aria-hidden="true"></i></div>
+					<ul class="help-item">
+						<li>
+							<a href="">免费找货</a>
+						</li>
+						<li>
+							<a href="">轻松购物</a>
+						</li>
+					</ul>
+				</div>
+				<div class="help-list">
+					<div class="help-tit">物流配送<i class="fa fa-caret-right" aria-hidden="true"></i></div>
+					<ul class="help-item">
+						<li>
+							<a href="">免费找货</a>
+						</li>
+						<li>
+							<a href="">轻松购物</a>
+						</li>
+					</ul>
+				</div>
+				<div class="help-list">
+					<div class="help-tit">文化科技<i class="fa fa-caret-right" aria-hidden="true"></i></div>
+					<ul class="help-item">
+						<li>
+							<a href="">免费找货</a>
+						</li>
+						<li>
+							<a href="">轻松购物</a>
+						</li>
+					</ul>
+				</div>
+				<div class="help-list">
+					<div class="help-tit">积分商城<i class="fa fa-caret-right" aria-hidden="true"></i></div>
+					<ul class="help-item">
+						<li>
+							<a href="">免费找货</a>
+						</li>
+						<li>
+							<a href="">轻松购物</a>
+						</li>
+					</ul>
+				</div>
+				<div class="help-list">
+					<div class="help-tit">服务规则<i class="fa fa-caret-right" aria-hidden="true"></i></div>
+					<ul class="help-item">
+						<li>
+							<a href="">免费找货</a>
+						</li>
+						<li>
+							<a href="">轻松购物</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="help-right fr">
+				<div class="right-cont">
+					<h1 class="right-cont-tit">免费注册</h1>
+					<p>（1）访问临钢网首页index</p>
+					<p>
+						<img src="img/fxxf.png" >
+					</p>
+				</div>
+			</div>
+		</div>	
+		<!-- 主体结束 -->
+		<div class="footerpage"></div>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/right.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$('.help-tit').click(function(){
+				$(this).parents('.help-left').find('.active').removeClass('active');
+				$(this).parents('.help-left').find('i').removeClass('fa-caret-down').addClass('fa-caret-right');
+				$(this).parents('.help-left').find('.help-item').hide(200);
+				$(this).addClass('active');
+				$(this).children('i').removeClass('fa-caret-right').addClass('fa-caret-down');
+				$(this).next('.help-item').show(200);
+			})
+		</script>
+		<script>
+		    $(function(){
+		        /*公共部分
+		         * 导航栏
+		         * footer CopyRight
+		         */
+		        $(".headerpage").load("header.html");
+		        $(".footerpage").load("footer.html");
+		    });
+		</script>
+	</body>
+</html>

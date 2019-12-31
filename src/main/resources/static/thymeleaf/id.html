@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1 th:text="'名字是：' + ${name}">姓名</h1>
+    <h1 th:text="'年龄是：' + ${age}">80</h1>
+    <h1 th:text="'邮箱是：' + ${email}">111111</h1>
+    <table>
+        <tr>
+            <td>姓名是: </td>
+            <td th:text="${name}">姓名</td>
+        </tr>
+        <tr>
+            <td>年龄是: </td>
+            <td th:text="${age}">16</td>
+        </tr>
+        <tr>
+            <td>邮箱: </td>
+            <td th:text="${email}">11111@163.com</td>
+        </tr>
+    </table>
+</body>
+</html>

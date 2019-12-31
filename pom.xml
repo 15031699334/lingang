@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.1.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.boot</groupId>
+    <artifactId>gang</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>gang</name>
+    <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+    <!--  boot 原始pom 只集成了web  -->
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions><!-- 去掉springboot默认配置 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency> <!-- 引入log4j2依赖 -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+
+        <!--  集成redis  -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.7.3</version>
+        </dependency>
+        <!-- lettuce pool 缓存连接池 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+        <!-- jackson json 优化缓存对象序列化 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <!--  集成redis    end    -->
+
+        <!--    activeMQ    start    -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-activemq</artifactId>
+            <version>1.5.6.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.jms</groupId>
+            <artifactId>javax.jms-api</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <!--消息队列连接池-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.activemq</groupId>-->
+            <!--<artifactId>activemq-pool</artifactId>-->
+            <!--<version>5.15.0</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.activemq</groupId>-->
+            <!--<artifactId>activemq-broker</artifactId>-->
+        <!--</dependency>-->
+
+        <!-- rabbit MQ start -->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-amqp</artifactId>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+
+        <!--  jwt  -->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+        <!--  json   -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
+        <!--   集成mybatis -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.47</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        <!--   集成mybatis     end    -->
+
+
+
+        <!--    页面静态化  thymeleaf(中小型)    或   freemarker(大型项目)  -->
+        <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-freemarker</artifactId>-->
+        <!--</dependency>-->
+
+        <!--   swagger2  相关jar -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+
+
+        <!-- mvc 除需导入activeMQ相关jar 之外的jar包-->
+        <!--<dependency>-->
+            <!--<groupId>javax.management.j2ee</groupId>-->
+            <!--<artifactId>javax.management.j2ee-api</artifactId>-->
+            <!--<version>1.1.2</version>-->
+        <!--</dependency>-->
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.fusesource.hawtbuf/hawtbuf &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.fusesource.hawtbuf</groupId>-->
+            <!--<artifactId>hawtbuf</artifactId>-->
+            <!--<version>1.11</version>-->
+        <!--</dependency>-->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
