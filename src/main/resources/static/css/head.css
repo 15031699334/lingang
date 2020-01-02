@@ -292,12 +292,7 @@
 	width: 100%;
 	position: relative;
 }
-.infor-banner{
-	height: 200px;
-	width: 100%;
-	background: url(../img/news-bg.png) center center no-repeat;
-	position: relative;
-}
+
 .main-tab{
 	position: absolute;
 	width: 240px;
@@ -438,9 +433,10 @@
 /* 1121头部 */
 .head-mid-box{
 	width: 100%;
-	height: 100px;
-	padding-bottom: 10px;
+	height: 120px;
+	padding: 10px 0;
 	background: #FFFFFF;
+	border-bottom: 1px solid #737373;
 }
 .head-mid{
 	width: 1200px;
@@ -454,27 +450,28 @@
 	width: 180px;
 	position: absolute;
 	left: 0;
-	top: 18px;
+	top: 27px;
 }
 .head-mid .head-gif{
 	width: 170px;
 	position: absolute;
 	left: 176px;
-	top: 26px;
+	top: 35px;
 }
 .head-mid-right{
 	width: 100%;
 }
 .head-search{
 	width: 400px;
-	height: 30px;
+	height: 40px;
 	margin-top: 10px;
 	position: relative;
+	margin-right: 20px;
 }
 .Hsearch-txt{
 	width: 100%;
-	height: 30px;
-	padding: 0 70px 0 10px;
+	height: 40px;
+	padding: 0 250px 0 10px;
 	box-sizing: border-box;
 	border: 1px solid #6aaff7;
 	background: none;
@@ -482,8 +479,8 @@
 	behavior:url(pie.htc);
 }
 .Hsearch-btn{
-	width: 60px;
-	height: 30px;
+	width: 80px;
+	height: 40px;
 	line-height: 30px;
 	color: #FFFFFF;
 	background: #6aaff7;
@@ -492,6 +489,21 @@
 	right: 0;
 	top: 0;
 	behavior:url(pie.htc);
+}
+.Hsearch-type{
+	position: absolute;
+	top: 10px;
+	right: 85px;
+}
+.Hsearch-type li{
+	display: inline-block;
+}
+.Hsearch-type a{
+	padding: 0 7px;
+	background: #f1ebeb;
+	font-size: 12px;
+	line-height: 20px;
+	color: #716666;
 }
 .head-btm-nav{
 	margin-left: 10px;

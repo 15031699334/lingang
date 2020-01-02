@@ -6,15 +6,20 @@
 		<link rel="stylesheet" type="text/css" href="font/css/font-awesome.min.css"/>
 		<link rel="stylesheet" type="text/css" href="css/idangerous.swiper.css"/>
 		<link rel="stylesheet" type="text/css" href="css/APlayer.min.css"/>
-		<link rel="stylesheet" type="text/css" href="css/reset.css?vid=1225"/>
-		<link rel="stylesheet" type="text/css" href="css/head.css?vid=1225"/>
-		<link rel="stylesheet" type="text/css" href="css/footer.css?vid=1225"/>
-		<link rel="stylesheet" type="text/css" href="css/index.css?vid=1225"/>
+		<link rel="stylesheet" type="text/css" href="css/reset.css?vid=0102"/>
+		<link rel="stylesheet" type="text/css" href="css/head.css?vid=0102"/>
+		<link rel="stylesheet" type="text/css" href="css/footer.css?vid=0102"/>
+		<link rel="stylesheet" type="text/css" href="css/index.css?vid=0102"/>
 		<script type="text/javascript">
 			if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
 				window.location.href = "phone/phone.html";
 			}
 		</script>
+		<style type="text/css">
+			.dialog-box{
+				display: block;
+			}
+		</style>
 	</head>
 	<body style="background: #f5f5f5;">
 		<!-- 头部 -->
@@ -53,7 +58,7 @@
 							<a class="user-login fl hidden" href="login.html">会员登录</a>
 							<a class="user-regist fr hidden" href="login.html">免费注册</a>
 							<a class="user-login fl " href="check-in.html">签到</a>
-							<a class="user-regist fr " href="user-score.html">积分商城</a>
+							<a class="user-regist fr " href="user-person.html">个人中心</a>
 						</div>
 					</div>
 					<div class="user-type">
@@ -93,12 +98,19 @@
 		<!-- 页面主体内容 -->
 		<div class="main">
 			<!-- 今日卷价、卷价趋势 -->
-			<div class="gtType">
-				<a class="gtType-list1" href="">冷轧</a>
-				<a class="gtType-list1" href="">酸洗</a>
-				<a class="gtType-list1" href="">热轧</a>
-				<a class="gtType-list1" href="">镀锌</a>
+			<!-- <div class="gtType">
+				<a class="gtType-list" href="">冷轧</a>
+				<a class="gtType-list" href="">酸洗</a>
+				<a class="gtType-list" href="">热轧</a>
+				<a class="gtType-list" href="">镀锌</a>
+			</div> -->
+			<div class="btnType">
+				<a class="btnType-list" href="#">冷轧</a>
+				<a class="btnType-list" href="#">酸洗</a>
+				<a class="btnType-list" href="#">热轧</a>
+				<a class="btnType-list" href="#">镀锌</a>
 			</div>
+			
 			<div class="main-price clearfix">
 				<div class="index-price fl" style="width: 822px;margin-left: 0;">
 					<div class="index-tit">
@@ -436,7 +448,7 @@
 							</a>
 						</div>
 						<div class="dynamicLeft">
-							<a href="">
+							<a href="list-details.html">
 								<img src="img/dynamic.jpg" >
 								<span class="dynamicLeft-tit">方大九钢成功炼出DBX300钢种</span>
 								<span class="dynamicLeft-txt">中冶南方自主研发的首套全自动的首套全自动出钢系统在武钢热试成功铁矿石期权助力服务钢铁行业</span>
@@ -444,7 +456,7 @@
 							</a>
 						</div>
 						<div class="dynamicLeft">
-							<a href="">
+							<a href="list-details.html">
 								<img src="img/dynamic.jpg" >
 								<span class="dynamicLeft-tit">方大九钢成功炼出DBX300钢种</span>
 								<span class="dynamicLeft-txt">中冶南方自主研发的首套全自动的首套全自动出钢系统在武钢热试成功铁矿石期权助力服务钢铁行业</span>
@@ -461,19 +473,19 @@
 							</div>
 							<ul>
 								<li>
-									<a href="">
+									<a href="#">
 										5日昨唐山、昌黎普方坯出厂结3460稳，贸易商含税部分报3570，迁安3460。
 									</a>
 									<span class="live-btm-time">2019-11-11</span>
 								</li>
 								<li>
-									<a href="">
+									<a href="#">
 										5日昨唐山、昌黎普方坯出厂结3460稳，贸易商含税部分报3570，迁安3460。
 									</a>
 									<span class="live-btm-time">2019-11-11</span>
 								</li>
 								<li>
-									<a href="">
+									<a href="#">
 										5日昨唐山、昌黎普方坯出厂结3460稳，贸易商含税部分报3570，迁安3460。
 									</a>
 									<span class="live-btm-time">2019-11-11</span>
@@ -502,10 +514,10 @@
 						临钢视频
 						<a href="video.html">更多 &gt;&gt;</a>
 					</div>
-					<!-- <video width="480" controls="controls">
-						<source src="video/01.mp4" type="video/mp4">
-					</video> -->
-					<iframe height=286 width=480 src='http://player.youku.com/embed/XNDQ2ODUwNDY0NA==' frameborder=0 'allowfullscreen'></iframe>
+					<video width="480" height="286" controls="controls">
+						<source src="video/index/摆剪一体线.mp4" type="video/mp4">
+					</video>
+					<!-- <iframe height=286 width=480 src='http://player.youku.com/embed/XNDQ2ODUwNDY0NA==' frameborder=0 'allowfullscreen'></iframe> -->
 				</div>
 				<div class="mainLive-right fr">
 					<div class="liveRight-top clearfix">
@@ -530,7 +542,7 @@
 							</a>
 						</div>
 						<div class="liveBtm-tit fr">
-							<a href="team/team-dynamic.html">
+							<a href="team-dynamic.html">
 								查看更多
 								<br>
 								<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
@@ -546,7 +558,7 @@
 		<!-- 底部 -->
 		<div class="footerpage"></div>
 		<!-- 红包 -->
-		<div class="jump-hb"></div>
+		<div class="hb-mb"></div>
 		<div class="hb">
 			<img class="apart" src="img/index/hb.png">
 			<img class="hb-close" src="img/user/close.png" >
@@ -572,6 +584,7 @@
 				});
 				$('.hb-close').click(function(){
 					$('.hb').hide();
+					$('.hb-mb').hide();
 				});
 			});
 		</script>

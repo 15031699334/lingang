@@ -41,4 +41,11 @@ function sendText(tableText){
 			}
 	    },1000);
 	});
-}
+};
+// 在线客服
+$('.head-contact img').click(function(){
+	$('.dialog-box').hide();
+})
+$('.right-man').click(function(){
+	$('.dialog-box').show();
+})

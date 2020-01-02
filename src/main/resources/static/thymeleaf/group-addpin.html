@@ -38,12 +38,28 @@
 				<form action="" method="">
 					<div class="group-list group-good">
 						<h2>拼钢商品</h2>
-						<div class="group-time">
-							<input class="start-two" type="text" value="" placeholder="请选择结束时间" />
-						</div>
+						
 						<ul class="group-type">
 							<li>
+								<div class="group-time">
+									<input class="start-two" type="text" value="" placeholder="请选择结束时间" />
+								</div>
+							</li>
+							<li>
+								<select class="group-ipt">
+									<option value ="">请选择钢厂</option>
+									<option value="1">邯钢</option>
+									<option value="2">沙钢</option>
+									<option value="3">日照</option>
+									<option value="4">泰钢</option>
+									<option value="5">马钢</option>
+									<option value="6">莱钢</option>
+									<option value="7">包钢</option>
+								</select>
+							</li>
+							<li>
 								<select class="select-name" name="">
+									<option value ="">品名</option>
 									<option value="冷轧">冷轧</option>
 									<option value="冷成型">冷成型</option>
 									<option value="酸洗">酸洗</option>
@@ -55,13 +71,17 @@
 								</select>
 							</li>
 							<li>
-								<input class="group-ipt" type="text" name="" id="" value="" placeholder="材质" />
+								<select class="group-ipt" name="">
+									<option value="">请选择材质</option>
+									<option value ="">SGCC</option>
+									<option value ="">Q235</option>
+									<option value ="">SGH400</option>
+									<option value ="">DX51D</option>
+									<option value ="">SGHCQ</option>
+								</select>
 							</li>
 							<li>
 								<input style="width: 260px;" class="group-ipt" type="text" name="" id="" value="" placeholder="净料规格（厚度*宽度*长度）" />
-							</li>
-							<li>
-								<input class="group-ipt" type="text" name="" id="" value="" placeholder="钢厂" />
 							</li>
 							<li>
 								<input style="width: 110px;" class="group-ipt" type="text" name="" id="" value="" placeholder="数量" />
@@ -87,64 +107,6 @@
 				</form>
 			</div>
 		</div>
-		<!-- 主体结束 -->
-		<ul class="shop-step clearfix">
-			<li class="stepList">
-				<span>
-					<img src="img/footer/login.png" >
-				</span>
-				<p>注册登录</p>
-			</li>
-			<img class="stepImg" src="img/footer/right.png" >
-			<li class="stepList">
-				<span>
-					<img src="img/footer/down.png" >
-				</span>
-				<p>锁货下单</p>
-			</li>
-			<img class="stepImg" src="img/footer/right.png" >
-			<li class="stepList">
-				<span>
-					<img src="img/footer/sure.png" >
-				</span>
-				<p>确认合同</p>
-			</li>
-			<img class="stepImg" src="img/footer/right.png" >
-			<li class="stepList">
-				<span>
-					<img src="img/footer/payfor.png" >
-				</span>
-				<p>网银支付</p>
-			</li>
-			<img class="stepImg" src="img/footer/right.png" >
-			<li class="stepList">
-				<span>
-					<img src="img/footer/set.png" >
-				</span>
-				<p>定制剪切</p>
-			</li>
-			<img class="stepImg" src="img/footer/right.png" >
-			<li class="stepList">
-				<span>
-					<img src="img/footer/send.png" >
-				</span>
-				<p>物流配送</p>
-			</li>
-			<img class="stepImg" src="img/footer/right.png" >
-			<li class="stepList">
-				<span>
-					<img src="img/footer/sign.png" >
-				</span>
-				<p>确认签收</p>
-			</li>
-			<img class="stepImg" src="img/footer/right.png" >
-			<li class="stepList">
-				<span>
-					<img src="img/footer/over.png" >
-				</span>
-				<p>一票结算</p>
-			</li>
-		</ul>
 		<!-- 主体结束 -->
 		<div class="footerpage"></div>
 		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>

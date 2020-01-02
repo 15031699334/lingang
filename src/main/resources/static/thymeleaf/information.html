@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head>
-
 		<meta charset="utf-8">
 		<title>钢板资讯</title>
 		<link rel="stylesheet" type="text/css" href="font/css/font-awesome.min.css"/>
@@ -11,24 +10,12 @@
 		<link rel="stylesheet" type="text/css" href="css/head.css"/>
 		<link rel="stylesheet" type="text/css" href="css/footer.css"/>
 		<link rel="stylesheet" type="text/css" href="css/ulList.css"/>
-		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/right.js" type="text/javascript" charset="utf-8"></script>
-		<script>
-            $(function(){
-                /*公共部分
-                 * 导航栏
-                 * footer CopyRight
-                 */
-                $(".headerpage").load("header.html");
-                $(".footerpage").load("footer.html");
-            });
-		</script>
 	</head>
 	<body style="background: #eee;">
 		<!-- 顶部导航 -->
 		<div class="headerpage"></div>
 		<!-- 页面主体 -->
-		<div class="infor-banner"></div>
+		<div class="main-banner news-banner"></div>
 		<div class="infor">
 			<div class="infor-main clearfix">
 				<ul class="infor-tab clearfix">
@@ -110,9 +97,9 @@
 							</p>
 						</a>
 					</li>
-					<!--<li class="inforNews-list">
+				<!--	<li class="inforNews-list">
 						<a href="list-details.html">
-							<img src="/img/dynamic.jpg" >
+							<img src="img/dynamic.jpg" >
 							<p class="inforNews-tit">【行业动态】煤矿安全集中整治来了！黑色系还能“高奏凯歌”吗？</p>
 							<p class="inforNews-txt">国家煤矿安监局网站上周四发布《国家煤矿安全监察局关于开展煤矿安全集中整治的通知》（以下简称《通知》），决定自即日起，开展为期3个月的煤矿安全集中整治。</p>
 							<p class="inforNews-name">
@@ -124,7 +111,7 @@
 					</li>
 					<li class="inforNews-list">
 						<a href="list-details.html">
-							<img src="/img/dynamic.jpg" >
+							<img src="img/dynamic.jpg" >
 							<p class="inforNews-tit">【行业动态】煤矿安全集中整治来了！黑色系还能“高奏凯歌”吗？</p>
 							<p class="inforNews-txt">国家煤矿安监局网站上周四发布《国家煤矿安全监察局关于开展煤矿安全集中整治的通知》（以下简称《通知》），决定自即日起，开展为期3个月的煤矿安全集中整治。</p>
 							<p class="inforNews-name">
@@ -136,7 +123,7 @@
 					</li>
 					<li class="inforNews-list">
 						<a href="list-details.html">
-							<img src="/img/dynamic.jpg" >
+							<img src="img/dynamic.jpg" >
 							<p class="inforNews-tit">【行业动态】煤矿安全集中整治来了！黑色系还能“高奏凯歌”吗？</p>
 							<p class="inforNews-txt">国家煤矿安监局网站上周四发布《国家煤矿安全监察局关于开展煤矿安全集中整治的通知》（以下简称《通知》），决定自即日起，开展为期3个月的煤矿安全集中整治。</p>
 							<p class="inforNews-name">
@@ -152,7 +139,8 @@
 		<!-- 主体结束 -->
 		<!-- 底部 -->
 		<div class="footerpage"></div>
-
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/right.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			$('.infor-tab li').click(function(){
 				$(this).addClass('on').siblings().removeClass('on');
@@ -167,6 +155,15 @@
 				}
 			});
 		</script>
-
+		<script>
+		    $(function(){
+		        /*公共部分
+		         * 导航栏
+		         * footer CopyRight
+		         */
+		        $(".headerpage").load("header.html");
+		        $(".footerpage").load("footer.html");
+		    });
+		</script>
 	</body>
 </html>

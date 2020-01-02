@@ -10,6 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="css/head.css"/>
 		<link rel="stylesheet" type="text/css" href="css/footer.css"/>
+		<link rel="stylesheet" type="text/css" href="css/user.css"/>
 		<link rel="stylesheet" type="text/css" href="css/shop.css"/>
 	</head>
 	<body>
@@ -65,7 +66,7 @@
 												<br>
 												<textarea></textarea>
 											</td>
-											<td><a class="toPin" href="">去拼购</a></td>
+											<td><a class="toPin" href="group-pin.html">去拼购</a></td>
 											<td>
 												<span class="cartFull-del">删除</span>
 											</td>
@@ -93,7 +94,7 @@
 												<br>
 												<textarea></textarea>
 											</td>
-											<td><a class="toPin" href="">去拼购</a></td>
+											<td><a class="toPin" href="group-pin.html">去拼购</a></td>
 											<td>
 												<span class="cartFull-del">删除</span>
 											</td>
@@ -111,9 +112,13 @@
 										<label for="saleHb">红包：500元</label>
 									</div>
 									<div class="sale-list">
+										<input type="radio" name="sale" id="saleHb" value="" />
+										<label for="saleHb">红包：50元</label>
+									</div>
+									<!-- <div class="sale-list">
 										<input type="radio" name="sale" id="saleSj" value="" />
 										<label for="saleSj">商家优惠：500元</label>
-									</div>
+									</div> -->
 									
 								</div>
 								<div class="iousBox">
@@ -129,6 +134,32 @@
 										<br>
 										<span class="iousUse"><input type="text" id="" value="10000.00" /><i>￥</i></span>
 									</div>
+								</div>
+								<div class="addressBox">
+									<h3>请选择收货地址</h3>
+									<span class="addAddresss"><i class="fa fa-plus" aria-hidden="true"></i>添加收货地址</span>
+									<ul class="addressList">
+										<li class="address-bg">
+											<p>李先生</p>
+											<span>北京市昌平区</span>
+											<span>12345678901</span>
+										</li>
+										<li>
+											<p>李先生</p>
+											<span>北京市昌平区</span>
+											<span>12345678901</span>
+										</li>
+										<li>
+											<p>李先生</p>
+											<span>北京市昌平区</span>
+											<span>12345678901</span>
+										</li>
+										<li>
+											<p>李先生</p>
+											<span>北京市昌平区</span>
+											<span>12345678901</span>
+										</li>
+									</ul>
 								</div>
 								<div class="cartFull-out clearfix">
 									<div class="cartFull-outbox fr">
@@ -174,7 +205,39 @@
 				</div>
 			</div>
 		</div>
-
+		<!-- 新增收货地址 -->
+		<div class="userAdd-box">
+			<div class="userAdd-point">
+				<p class="approve-tit clearfix">添加收货地址 <a class="userAdd-close"></a></p>
+				<ul class="approve-box clearfix">
+					<li class="approve-list">
+						<span>联系人<i>*</i></span>
+						<input type="text" name="" id="" value="" placeholder="姓名" />
+					</li>
+					<li class="approve-list">
+						<span>联系方式<i>*</i></span>
+						<input type="text" name="" id="" value="" placeholder="手机号" />
+					</li>
+					<li class="approve-list">
+						<span>收货地址<i>*</i></span>
+						<select id="province_id" name="">
+							<option value="">省</option>
+						</select>
+						<select id="city_id" name="">
+							<option value="">市</option>
+						</select>
+						<select id="area_id" name="">
+							<option value="">区</option>
+						</select>
+						<br>
+						<input class="morePoint" type="text" name="" id="" value="" placeholder="详细地址" />
+					</li>
+					<li class="approve-list">
+						<input type="button" name="" id="" value="保存" />
+					</li>
+				</ul>
+			</div>
+		</div>
 		<!-- 主体结束 -->
 		<!-- 底部 -->
 		<div class="footerpage"></div>
@@ -187,6 +250,15 @@
 					console.log(date);
 				}
 			});
+		</script>
+		<!-- 添加收货地址 -->
+		<script type="text/javascript">
+			$('.addAddresss').click(function(){
+				$('.userAdd-box').show();
+			});
+			$('.userAdd-close').click(function(){
+				$('.userAdd-box').hide();
+			})
 		</script>
 		<script type="text/javascript">
 			$('.cart-del').click(function(){

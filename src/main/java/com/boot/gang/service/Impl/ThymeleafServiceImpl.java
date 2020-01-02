@@ -31,24 +31,25 @@ public class ThymeleafServiceImpl implements ThymeleafService {
 
 
     /**
-     * 创建html页面
+     * 创建html页面     静态访问页面访问
      *
-     * @param pageName
+     * @param pageName      页面名
      * @throws Exception
      */
     @Override
     public void createHtml(String pageName, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
         // 页面所需参数
         Map<String, Object> map = new HashMap<>();
+        Boolean isStatic = true;    // 是否是生成静态页的 参数
         switch (pageName){
-//            case "id":
-//                map.put("name","姓名");
-//                map.put("age","10岁");
-//                map.put("email","邮箱");
-//                // 首次请求时 返回页面的参数
-////                request.setAttribute("obj", map);
-//                model.addAttribute(map);
-//                break; //可选
+            case "id":
+                map.put("name","姓名");
+                map.put("age","10岁");
+                map.put("email","邮箱");
+                // 首次请求时 返回页面的参数
+//                request.setAttribute("obj", map);
+                model.addAllAttributes(map);
+                break; //可选
             /*       *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-      PC端页面           *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-   */
             case "header":      // 头
                 break;
@@ -59,14 +60,17 @@ public class ThymeleafServiceImpl implements ThymeleafService {
                 break;
             case "shop":    // 商城(临钢优选)
                 logger.info("走到了 shop");
+                isStatic = false;
                 break;
-            case "enjoy":    // 临钢智享
-                logger.info("走到了 enjoy");
+            case "video":    // 临钢智享
+                logger.info("走到了 video");
                 break;
             case "information":     // 钢板资讯
                 logger.info("走到了 information");
-                List<Article> list = articleMapper.getAllNews();
-                request.setAttribute("news", list);
+
+                List<Article> list = articleMapper.getAllNews();// 行业资讯
+//                request.setAttribute("news", list);
+                model.addAttribute("news", list);       // 行业资讯
                 map.put("news", list);
                 break;
             case "help":    // 会员中心
@@ -87,14 +91,49 @@ public class ThymeleafServiceImpl implements ThymeleafService {
             case "team-find":       // 联系我们
                 logger.info("走到了 team-find");
                 break;
+            case "map":       // 联系我们
+                logger.info("走到了 map");
+                break;
+            //     ++++++++++++++        个人中心         所有页面均为动态页面   +++++++++++++++++++++++
             case "user-person":       // 账户信息
                 logger.info("走到了 user-person");
+                isStatic = false;
+                break;
+            case "user-approve":       // 会员认证
+                logger.info("走到了 user-approve");
+                isStatic = false;
+                break;
+            case "user-set":       // 安全设置
+                logger.info("走到了 user-set");
+                isStatic = false;
+                break;
+            case "user-infor":       // 企业信息
+                logger.info("走到了 user-infor");
+                isStatic = false;
+                break;
+            case "user-address":       // 收货地址
+                logger.info("走到了 user-address");
+                isStatic = false;
                 break;
             case "user-order":       // 我的订单
                 logger.info("走到了 user-order");
+                isStatic = false;
                 break;
             case "user-payfor":       // 付款记录
                 logger.info("走到了 user-order");
+                isStatic = false;
+                break;
+            case "user-integral":       // 积分(钢豆)中心
+                logger.info("走到了 积分(钢豆)中心 user-integral");
+                isStatic = false;
+                break;
+            case "user-integralOrder":       // 积分(钢豆)订单
+                logger.info("走到了 积分(钢豆)订单 user-integralOrder");
+                isStatic = false;
+                break;
+            case "check-in":       // 积分(钢豆)商城
+                logger.info("走到了  积分(钢豆)商城  check-in");
+                isStatic = false;
                 break;
             /*   *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*        手机端 页面         -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-    */
             case "phone/phone":
@@ -104,6 +143,7 @@ public class ThymeleafServiceImpl implements ThymeleafService {
                 logger.info("service 参数获取错误");
                 throw new PathException("页面不存在");
         }
+        if (isStatic)   // 如果是静态页 才进行页面生成
         thymeleafUtil.createHtml(pageName, request, map);
     }
 

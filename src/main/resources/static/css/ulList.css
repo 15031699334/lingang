@@ -205,7 +205,7 @@
 	color: #a1a4b8;
 }
 .inforDay-list li:hover{
-	background: url("img/circle_hover.png") no-repeat 235px 15px;
+	background: url("../img/circle_hover.png") no-repeat 235px 15px;
 }
 .inforDay-list li:hover .inforDay-txt{
 	text-decoration: underline;
@@ -411,6 +411,10 @@
 	padding-bottom: 30px;
 	min-height: 400px;
 	overflow: hidden;
+	display: none;
+}
+.right-item{
+	display: none;
 }
 .right-cont .right-cont-tit{
 	font-size: 26px;
@@ -431,34 +435,34 @@
 	max-width: 100%;
 	padding: 5px 0;
 }
+.right-cont .right-item p{
+	line-height: 24px;
+}
 /* 临钢视频 */
 .video-box{
-	width: 885px;
 	overflow: hidden;
 }
 .video-box li{
 	float: left;
-	width: 270px;
-	margin-right: 25px;
-	margin-bottom: 20px;
+	margin: 30px 25px 0 0;
+	border: 1px solid #CCCCCC;
 }
-.video-img{
-	display: block;
+.video-box video{
 	width: 270px;
-	height: 180px;
-}
-.video-img img{
-	width: 100%;
+	height: 280px;
 }
 .video-tit{
 	display: block;
 	font-size: 16px;
 	line-height: 32px;
-	margin-top: 5px;
 	height: 32px;
+	text-align: center;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	background: #000000;
+	color: #FFFFFF;
+	border: 1px solid #000000;
 }
 /* 详情页 */
 /* 详情页主体小导航 */
@@ -587,7 +591,7 @@
 .select-name{
 	height: 40px;
 	line-height: 40px;
-	width: 200px;
+	width: 160px;
 }
 .group-ipt{
 	height: 40px;
@@ -858,8 +862,8 @@
 	background: url(../img/banner/school-banner.png) center center no-repeat;
 }
 	/* 钢板资讯 */
-.infor-banner{
-	background: url(../img/banner/infor-banner.jpg) center center no-repeat;
+.news-banner{
+	background: url(../img/banner/news-banner.jpg) center center no-repeat;
 }
 	/* 帮助中心 */
 .help-banner{
@@ -867,9 +871,13 @@
 }
 	/* 临钢视频 */
 .video-banner{
-	background: url(../img/banner/video-banner.png) center center no-repeat;
+	background: url(../img/banner/video-banner.jpg) center center no-repeat;
 }
 	/* 临钢动态 */
 .dynamc-banner{
 	background: url(../img/banner/dynamc-banner.jpg) center center no-repeat;
+}
+/* 联系我们 */
+.find-banner{
+	background: url(../img/banner/find-banner.jpg) center center no-repeat;
 }

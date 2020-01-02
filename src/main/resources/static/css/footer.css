@@ -283,7 +283,7 @@
 }
 .rightBox li span{
 	display: block;
-	width: 90px;
+	width: 110px;
 	line-height: 48px;
 	font-size: 13px;
 	background: #6aaff7;
@@ -369,3 +369,107 @@
 .aplayer-play{
 	z-index: 99;
 }
+
+/* 客服 */
+.dialog-box {
+	background-color: #ffd833;
+	width: 300px;
+	height: 500px;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+	position: fixed;
+	right: 75px;
+	bottom: 200px;
+	z-index: 999;
+	border-radius: 5px;
+	box-shadow: 0 0 5px #ccc;
+	display: none;
+}
+.head-contact{
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+	background: #FFFFFF;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	position: relative;
+}
+.head-contact img{
+	position: absolute;
+	right: 10px;
+	top: 5px;
+	cursor: pointer;
+}
+.news-box{
+	margin-top: 20px;
+	padding: 0 20px;
+	box-sizing: border-box;
+}
+.news-box span{
+	display: block;
+}
+
+/* 通知消息 */
+.notice-left{
+	padding-left: 50px;
+	margin-bottom: 20px;
+	position: relative;
+}
+.notice-right{
+	padding-right: 50px;
+	margin-bottom: 20px;
+	position: relative;
+}
+.notic-head{
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	border: rgba(255,255,255,.5) 2px solid;
+	overflow: hidden;
+	box-sizing: border-box;
+	position: absolute;
+	top: 0;
+}
+.notice-left .notic-head{
+	left: 0;
+}
+.notice-right .notic-head{
+	right: 0;
+}
+.notic-head img{
+	height: 100%;
+}
+.notic-content{
+	padding: 5px;
+	background: #FFFFFF;
+	border-radius: 5px;
+	font-size: 12px;
+}
+
+/* 底部输入栏 */
+#message_foot{ 	
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	height:auto; width:100%; background:#fff; position:absolute; bottom:0; left:0; z-index:999; border-top:#efefef 1px solid;
+}
+.message_foot .message_foot_default{ height:50px; padding:0 50px 0 10px; position:relative; overflow:hidden; }
+.message_foot .message_foot_default a{ display:block;}
+.message_foot .message_foot_default .message_foot_right{ position:absolute; top:0; padding:5px 0;}
+.message_foot .message_foot_default .message_foot_right{ right:5px;}
+.message_foot .message_foot_default .message_foot_right .icon-more{ display:block; width:40px; height:40px; background:url(../img/more.png) center center no-repeat; background-size:40px;}
+.message_foot .message_foot_default .message_foot_right .message_foot_send{ display:block; width:40px; height:38px; line-height:40px; text-align:center; background:#f60; color:#fff; border-radius:3px;}
+.message_foot .message_foot_default .textarea{ width:100%; height:40px; margin-top:5px;}
+.message_foot .message_foot_default .textarea span{ display:block; border:#999 1px solid; height:38px; border-radius:3px; line-height:38px; text-align:center; font-size:16px; color:#999;}
+.message_foot .message_foot_default .textarea .content{border: 0; width:98%; height:36px; display:block; line-height:36px; margin:0 auto;padding:0;}
+.message_foot .message_foot_default .textarea textarea:focus{ border:#fff 1px solid;}
+
+.message_foot .message_foot_more{ border-top:#efefef 1px solid;}
+.message_foot .message_foot_moret ul{ overflow:hidden;}
+.message_foot .message_foot_more ul li{ float:left; width:25%; padding:15px 0; position:relative;}
+.message_foot .message_foot_more ul li a{ display:block;}
+.message_foot .message_foot_more ul li span{ display:block; border:#999 1px solid; border-radius:3px; width:20px; height:20px; padding:5px; margin:0 auto;}
+.message_foot .message_foot_more ul li p{ text-align:center; color:#999; font-size:12px; padding-top:5px;}
+.message_foot .message_foot_more ul li span img {border:none;vertical-align: top;width: 100%;height: 100%;}

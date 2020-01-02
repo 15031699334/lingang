@@ -60,8 +60,8 @@ var turnplate = {
 
 $(document).ready(function () {
   //动态添加大转盘的奖品与奖品区域背景颜色
-  turnplate.restaraunts = ['50M免费流量包', '10钢币', '谢谢参与', '5钢币', '10M免费流量包', '20M免费流量包', '20钢币 ', '30M免费流量包', '100M免费流量包',
-    '2钢币'];
+  turnplate.restaraunts = ['50M免费流量包', '10钢豆', '谢谢参与', '5钢豆', '10M免费流量包', '20M免费流量包', '20钢豆 ', '30M免费流量包', '100M免费流量包',
+    '2钢豆'];
   turnplate.colors = ['#FFF4D6', '#FFFFFF', '#FFF4D6', '#FFFFFF', '#FFF4D6', '#FFFFFF', '#FFF4D6', '#FFFFFF', '#FFF4D6', '#FFFFFF'];
 
 
@@ -209,7 +209,7 @@ function drawRouletteWheel () {
       }
 
       //添加对应图标
-      if (text.indexOf('钢币') > 0) {
+      if (text.indexOf('钢豆') > 0) {
         var img = document.getElementById('shan-img');
         img.onload = function () {
           ctx.drawImage(img, -15, 10);

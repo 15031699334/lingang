@@ -1,21 +1,5 @@
 //按钮事件
 var form_open_flat = 0;
-
-// function send_voice_btn () {
-//   $('#send_voice_btn').hide();
-//   $('#send_voice_btn_2').hide();
-//   $('#send_text_btn').show();
-//   $('#send_text_btn_2').show();
-// }
-//
-// function send_text_btn () {
-//   form_open_flat = 0;
-//   $('#send_voice_btn').show();
-//   $('#send_voice_btn_2').show();
-//   $('#send_text_btn').hide();
-//   $('#send_text_btn_2').hide();
-// }
-
 function send_text_check (t) {
   var c = $(t).val();
   if (c) {
@@ -29,12 +13,10 @@ function send_text_check (t) {
 
 function send_form () {
   if (form_open_flat == 0) {
-    $('#send_voice').show();
     $('#send_text').hide();
     $('#send_form').show();
     form_open_flat = 1;
   } else {
-    $('#send_voice').show();
     $('#send_text').hide();
     $('#send_form').hide();
     form_open_flat = 0;
@@ -42,14 +24,12 @@ function send_form () {
 }
 
 function cancel_text () {
-  $('#send_voice').show();
   $('#send_text').hide();
   $('#send_form').hide();
   form_open_flat = 0;
 }
 
 function send_text () {
-  $('#send_voice').hide();
   $('#send_text').show();
   $('#send_form').hide();
 }
@@ -106,7 +86,7 @@ function changeImg (e, filePath, index) {
 
       $.ajax({
         type: 'POST',
-        url: host + '/api/message/sendimg?access_token=' + access_token + '&access_token_type=' + access_token_type + '&to_mid=' + to_mid,
+        // url: host + '/api/message/sendimg?access_token=' + access_token + '&access_token_type=' + access_token_type + '&to_mid=' + to_mid,
         data: data,
         dataType: 'json',
         success: function (res) {
