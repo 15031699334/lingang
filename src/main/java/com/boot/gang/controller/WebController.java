@@ -19,31 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 public class WebController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    @Autowired
-    StringRedisTemplate stringRedisTemplate;
 
-    @Autowired
-    RedisUtil redisUtil;
     @Autowired
     ThymeleafService thymeleafService;
-
-
-    /**
-     * redis 测试
-     */
-    @GetMapping("/test1")
-    @ResponseBody
-    public void test1(){
-        // 保存字符串
-        // 普通
-        stringRedisTemplate.opsForValue().set("aaa", "111");
-        System.out.println(stringRedisTemplate.opsForValue().get("aaa"));
-        // 封装好之后的
-        redisUtil.set("bbb", "value");
-        System.out.println(redisUtil.hasKey("bbb"));
-        System.out.println(redisUtil.get("aaa"));
-
-    }
 
     /**
      *  thymeleaf 以html结尾的请求 结合nginx实现静态化

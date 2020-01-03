@@ -2,76 +2,1146 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.boot.gang.mapper.UserMapper" >
   <resultMap id="BaseResultMap" type="com.boot.gang.entity.User" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
+    <constructor >
+      <idArg column="c_id"  jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_last_update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_birthday" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_email" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_handpic" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_id_card_no" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_if_have_shop" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_level" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_money" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="c_my_recommend_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_my_recommend_user_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_nickname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_password" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_realname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_score" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_sex" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_summary" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_username" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_address_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_gold" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="c_member_no" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_shop_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_work_no" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_member_state" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_province" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_city" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_country" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_language" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_openid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_subscribe_time" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_user_no" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_need_message" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_create_user" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_last_update_user" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_city_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_district_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_province_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_ads_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_district" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_temp_gold" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_vip_cardNo" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_vip_password" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_if_vip" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_pay_password" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_if_agent" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_if_fact" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_if_shop" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_block_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_block" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_init_shop_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_agent_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_gongzhang_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_zhongjianren_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_qrcode_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_agent_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_gongzhang_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_shop_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_zhongjianren_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_xy" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_total_pay" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="c_ub" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="c_total_sale" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="c_hide" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_now_city_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_now_city_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_total_average" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="c_total_order" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_fact_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_fact_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_if_open" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_geo_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_fold" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_chl_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_device_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_gold_gz" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_pdf" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_roll_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_star" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_roll_pay" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="c_gold_roll" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_haoyou_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_if_app" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_ver" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_my_recommend_user_no" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_fuwucishu" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_jingyan" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_pf_1" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_pf_2" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_pf_3" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_xingji" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_zhicheng" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_logo" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, username, password
+    c_id, c_create_time, c_last_update_time, c_birthday, c_email, c_handpic, c_id_card_no, 
+    c_if_have_shop, c_level, c_money, c_my_recommend_code, c_my_recommend_user_id, c_nickname, 
+    c_password, c_phone, c_realname, c_score, c_sex, c_summary, c_username, c_address_id,
+    c_gold, c_member_no, c_shop_id, c_work_no, c_member_state, c_province, c_city, c_country, 
+    c_language, c_openid, c_subscribe_time, c_user_no, c_need_message, c_create_user, 
+    c_last_update_user, c_city_id, c_district_id, c_province_id, c_ads_num, c_district, 
+    c_temp_gold, c_vip_cardNo, c_vip_password, c_if_vip, c_pay_password, c_if_agent, 
+    c_if_fact, c_if_shop, c_block_id, c_block, c_init_shop_id, c_agent_id, c_gongzhang_id, 
+    c_zhongjianren_id, c_qrcode_url, c_agent_name, c_gongzhang_name, c_shop_name, c_zhongjianren_name, 
+    c_xy, c_total_pay, c_ub, c_total_sale, c_hide, c_now_city_id, c_now_city_name, c_total_average, 
+    c_total_order, c_fact_id, c_fact_name, c_if_open, c_geo_code, c_fold, c_chl_type, 
+    c_device_id, c_gold_gz, c_pdf, c_roll_num, c_star, c_roll_pay, c_gold_roll, c_haoyou_num, 
+    c_if_app, c_ver, c_my_recommend_user_no, c_fuwucishu, c_jingyan, c_pf_1, c_pf_2, 
+    c_pf_3, c_xingji, c_zhicheng, c_logo
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
     <include refid="Base_Column_List" />
-    from user
-    where id = #{id,jdbcType=INTEGER}
+    from t_user
+    where c_id = #{cId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from user
-    where id = #{id,jdbcType=INTEGER}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_user
+    where c_id = #{cId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.boot.gang.entity.User" >
-    insert into user (id, username, password
-      )
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
-      )
+    insert into t_user (c_id, c_create_time, c_last_update_time, 
+      c_birthday, c_email, c_handpic, 
+      c_id_card_no, c_if_have_shop, c_level, 
+      c_money, c_my_recommend_code, c_my_recommend_user_id, 
+      c_nickname, c_password, c_phone, 
+      c_realname, c_score, c_sex, 
+      c_summary, c_username, c_address_id, 
+      c_gold, c_member_no, c_shop_id, 
+      c_work_no, c_member_state, c_province, 
+      c_city, c_country, c_language, 
+      c_openid, c_subscribe_time, c_user_no, 
+      c_need_message, c_create_user, c_last_update_user, 
+      c_city_id, c_district_id, c_province_id, 
+      c_ads_num, c_district, c_temp_gold, 
+      c_vip_cardNo, c_vip_password, c_if_vip, 
+      c_pay_password, c_if_agent, c_if_fact, 
+      c_if_shop, c_block_id, c_block, 
+      c_init_shop_id, c_agent_id, c_gongzhang_id, 
+      c_zhongjianren_id, c_qrcode_url, c_agent_name, 
+      c_gongzhang_name, c_shop_name, c_zhongjianren_name, 
+      c_xy, c_total_pay, c_ub, 
+      c_total_sale, c_hide, c_now_city_id, 
+      c_now_city_name, c_total_average, c_total_order, 
+      c_fact_id, c_fact_name, c_if_open, 
+      c_geo_code, c_fold, c_chl_type, 
+      c_device_id, c_gold_gz, c_pdf, 
+      c_roll_num, c_star, c_roll_pay, 
+      c_gold_roll, c_haoyou_num, c_if_app, 
+      c_ver, c_my_recommend_user_no, c_fuwucishu, 
+      c_jingyan, c_pf_1, c_pf_2, 
+      c_pf_3, c_xingji, c_zhicheng, 
+      c_logo)
+    values (#{cId,jdbcType=VARCHAR}, #{cCreateTime,jdbcType=TIMESTAMP}, #{cLastUpdateTime,jdbcType=TIMESTAMP}, 
+      #{cBirthday,jdbcType=VARCHAR}, #{cEmail,jdbcType=VARCHAR}, #{cHandpic,jdbcType=VARCHAR}, 
+      #{cIdCardNo,jdbcType=VARCHAR}, #{cIfHaveShop,jdbcType=INTEGER}, #{cLevel,jdbcType=INTEGER}, 
+      #{cMoney,jdbcType=DOUBLE}, #{cMyRecommendCode,jdbcType=VARCHAR}, #{cMyRecommendUserId,jdbcType=VARCHAR}, 
+      #{cNickname,jdbcType=VARCHAR}, #{cPassword,jdbcType=VARCHAR}, #{cPhone,jdbcType=VARCHAR}, 
+      #{cRealname,jdbcType=VARCHAR}, #{cScore,jdbcType=INTEGER}, #{cSex,jdbcType=VARCHAR}, 
+      #{cSummary,jdbcType=VARCHAR}, #{cUsername,jdbcType=VARCHAR}, #{cAddressId,jdbcType=VARCHAR}, 
+      #{cGold,jdbcType=DOUBLE}, #{cMemberNo,jdbcType=VARCHAR}, #{cShopId,jdbcType=VARCHAR}, 
+      #{cWorkNo,jdbcType=VARCHAR}, #{cMemberState,jdbcType=INTEGER}, #{cProvince,jdbcType=VARCHAR}, 
+      #{cCity,jdbcType=VARCHAR}, #{cCountry,jdbcType=VARCHAR}, #{cLanguage,jdbcType=VARCHAR}, 
+      #{cOpenid,jdbcType=VARCHAR}, #{cSubscribeTime,jdbcType=VARCHAR}, #{cUserNo,jdbcType=INTEGER}, 
+      #{cNeedMessage,jdbcType=INTEGER}, #{cCreateUser,jdbcType=VARCHAR}, #{cLastUpdateUser,jdbcType=VARCHAR}, 
+      #{cCityId,jdbcType=VARCHAR}, #{cDistrictId,jdbcType=VARCHAR}, #{cProvinceId,jdbcType=VARCHAR}, 
+      #{cAdsNum,jdbcType=INTEGER}, #{cDistrict,jdbcType=VARCHAR}, #{cTempGold,jdbcType=INTEGER}, 
+      #{cVipCardno,jdbcType=VARCHAR}, #{cVipPassword,jdbcType=VARCHAR}, #{cIfVip,jdbcType=INTEGER}, 
+      #{cPayPassword,jdbcType=VARCHAR}, #{cIfAgent,jdbcType=INTEGER}, #{cIfFact,jdbcType=INTEGER}, 
+      #{cIfShop,jdbcType=INTEGER}, #{cBlockId,jdbcType=VARCHAR}, #{cBlock,jdbcType=VARCHAR}, 
+      #{cInitShopId,jdbcType=VARCHAR}, #{cAgentId,jdbcType=VARCHAR}, #{cGongzhangId,jdbcType=VARCHAR}, 
+      #{cZhongjianrenId,jdbcType=VARCHAR}, #{cQrcodeUrl,jdbcType=VARCHAR}, #{cAgentName,jdbcType=VARCHAR}, 
+      #{cGongzhangName,jdbcType=VARCHAR}, #{cShopName,jdbcType=VARCHAR}, #{cZhongjianrenName,jdbcType=VARCHAR}, 
+      #{cXy,jdbcType=VARCHAR}, #{cTotalPay,jdbcType=DOUBLE}, #{cUb,jdbcType=DOUBLE}, 
+      #{cTotalSale,jdbcType=DOUBLE}, #{cHide,jdbcType=VARCHAR}, #{cNowCityId,jdbcType=VARCHAR}, 
+      #{cNowCityName,jdbcType=VARCHAR}, #{cTotalAverage,jdbcType=DOUBLE}, #{cTotalOrder,jdbcType=INTEGER}, 
+      #{cFactId,jdbcType=VARCHAR}, #{cFactName,jdbcType=VARCHAR}, #{cIfOpen,jdbcType=INTEGER}, 
+      #{cGeoCode,jdbcType=VARCHAR}, #{cFold,jdbcType=INTEGER}, #{cChlType,jdbcType=VARCHAR}, 
+      #{cDeviceId,jdbcType=VARCHAR}, #{cGoldGz,jdbcType=INTEGER}, #{cPdf,jdbcType=VARCHAR}, 
+      #{cRollNum,jdbcType=INTEGER}, #{cStar,jdbcType=INTEGER}, #{cRollPay,jdbcType=DOUBLE}, 
+      #{cGoldRoll,jdbcType=INTEGER}, #{cHaoyouNum,jdbcType=INTEGER}, #{cIfApp,jdbcType=VARCHAR}, 
+      #{cVer,jdbcType=VARCHAR}, #{cMyRecommendUserNo,jdbcType=VARCHAR}, #{cFuwucishu,jdbcType=INTEGER}, 
+      #{cJingyan,jdbcType=VARCHAR}, #{cPf1,jdbcType=INTEGER}, #{cPf2,jdbcType=INTEGER}, 
+      #{cPf3,jdbcType=INTEGER}, #{cXingji,jdbcType=INTEGER}, #{cZhicheng,jdbcType=VARCHAR}, 
+      #{cLogo,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.boot.gang.entity.User" >
-    insert into user
+    insert into t_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
+      <if test="cId != null" >
+        c_id,
       </if>
-      <if test="username != null" >
-        username,
+      <if test="cCreateTime != null" >
+        c_create_time,
       </if>
-      <if test="password != null" >
-        password,
+      <if test="cLastUpdateTime != null" >
+        c_last_update_time,
+      </if>
+      <if test="cBirthday != null" >
+        c_birthday,
+      </if>
+      <if test="cEmail != null" >
+        c_email,
+      </if>
+      <if test="cHandpic != null" >
+        c_handpic,
+      </if>
+      <if test="cIdCardNo != null" >
+        c_id_card_no,
+      </if>
+      <if test="cIfHaveShop != null" >
+        c_if_have_shop,
+      </if>
+      <if test="cLevel != null" >
+        c_level,
+      </if>
+      <if test="cMoney != null" >
+        c_money,
+      </if>
+      <if test="cMyRecommendCode != null" >
+        c_my_recommend_code,
+      </if>
+      <if test="cMyRecommendUserId != null" >
+        c_my_recommend_user_id,
+      </if>
+      <if test="cNickname != null" >
+        c_nickname,
+      </if>
+      <if test="cPassword != null" >
+        c_password,
+      </if>
+      <if test="cPhone != null" >
+        c_phone,
+      </if>
+      <if test="cRealname != null" >
+        c_realname,
+      </if>
+      <if test="cScore != null" >
+        c_score,
+      </if>
+      <if test="cSex != null" >
+        c_sex,
+      </if>
+      <if test="cSummary != null" >
+        c_summary,
+      </if>
+      <if test="cUsername != null" >
+        c_username,
+      </if>
+      <if test="cAddressId != null" >
+        c_address_id,
+      </if>
+      <if test="cGold != null" >
+        c_gold,
+      </if>
+      <if test="cMemberNo != null" >
+        c_member_no,
+      </if>
+      <if test="cShopId != null" >
+        c_shop_id,
+      </if>
+      <if test="cWorkNo != null" >
+        c_work_no,
+      </if>
+      <if test="cMemberState != null" >
+        c_member_state,
+      </if>
+      <if test="cProvince != null" >
+        c_province,
+      </if>
+      <if test="cCity != null" >
+        c_city,
+      </if>
+      <if test="cCountry != null" >
+        c_country,
+      </if>
+      <if test="cLanguage != null" >
+        c_language,
+      </if>
+      <if test="cOpenid != null" >
+        c_openid,
+      </if>
+      <if test="cSubscribeTime != null" >
+        c_subscribe_time,
+      </if>
+      <if test="cUserNo != null" >
+        c_user_no,
+      </if>
+      <if test="cNeedMessage != null" >
+        c_need_message,
+      </if>
+      <if test="cCreateUser != null" >
+        c_create_user,
+      </if>
+      <if test="cLastUpdateUser != null" >
+        c_last_update_user,
+      </if>
+      <if test="cCityId != null" >
+        c_city_id,
+      </if>
+      <if test="cDistrictId != null" >
+        c_district_id,
+      </if>
+      <if test="cProvinceId != null" >
+        c_province_id,
+      </if>
+      <if test="cAdsNum != null" >
+        c_ads_num,
+      </if>
+      <if test="cDistrict != null" >
+        c_district,
+      </if>
+      <if test="cTempGold != null" >
+        c_temp_gold,
+      </if>
+      <if test="cVipCardno != null" >
+        c_vip_cardNo,
+      </if>
+      <if test="cVipPassword != null" >
+        c_vip_password,
+      </if>
+      <if test="cIfVip != null" >
+        c_if_vip,
+      </if>
+      <if test="cPayPassword != null" >
+        c_pay_password,
+      </if>
+      <if test="cIfAgent != null" >
+        c_if_agent,
+      </if>
+      <if test="cIfFact != null" >
+        c_if_fact,
+      </if>
+      <if test="cIfShop != null" >
+        c_if_shop,
+      </if>
+      <if test="cBlockId != null" >
+        c_block_id,
+      </if>
+      <if test="cBlock != null" >
+        c_block,
+      </if>
+      <if test="cInitShopId != null" >
+        c_init_shop_id,
+      </if>
+      <if test="cAgentId != null" >
+        c_agent_id,
+      </if>
+      <if test="cGongzhangId != null" >
+        c_gongzhang_id,
+      </if>
+      <if test="cZhongjianrenId != null" >
+        c_zhongjianren_id,
+      </if>
+      <if test="cQrcodeUrl != null" >
+        c_qrcode_url,
+      </if>
+      <if test="cAgentName != null" >
+        c_agent_name,
+      </if>
+      <if test="cGongzhangName != null" >
+        c_gongzhang_name,
+      </if>
+      <if test="cShopName != null" >
+        c_shop_name,
+      </if>
+      <if test="cZhongjianrenName != null" >
+        c_zhongjianren_name,
+      </if>
+      <if test="cXy != null" >
+        c_xy,
+      </if>
+      <if test="cTotalPay != null" >
+        c_total_pay,
+      </if>
+      <if test="cUb != null" >
+        c_ub,
+      </if>
+      <if test="cTotalSale != null" >
+        c_total_sale,
+      </if>
+      <if test="cHide != null" >
+        c_hide,
+      </if>
+      <if test="cNowCityId != null" >
+        c_now_city_id,
+      </if>
+      <if test="cNowCityName != null" >
+        c_now_city_name,
+      </if>
+      <if test="cTotalAverage != null" >
+        c_total_average,
+      </if>
+      <if test="cTotalOrder != null" >
+        c_total_order,
+      </if>
+      <if test="cFactId != null" >
+        c_fact_id,
+      </if>
+      <if test="cFactName != null" >
+        c_fact_name,
+      </if>
+      <if test="cIfOpen != null" >
+        c_if_open,
+      </if>
+      <if test="cGeoCode != null" >
+        c_geo_code,
+      </if>
+      <if test="cFold != null" >
+        c_fold,
+      </if>
+      <if test="cChlType != null" >
+        c_chl_type,
+      </if>
+      <if test="cDeviceId != null" >
+        c_device_id,
+      </if>
+      <if test="cGoldGz != null" >
+        c_gold_gz,
+      </if>
+      <if test="cPdf != null" >
+        c_pdf,
+      </if>
+      <if test="cRollNum != null" >
+        c_roll_num,
+      </if>
+      <if test="cStar != null" >
+        c_star,
+      </if>
+      <if test="cRollPay != null" >
+        c_roll_pay,
+      </if>
+      <if test="cGoldRoll != null" >
+        c_gold_roll,
+      </if>
+      <if test="cHaoyouNum != null" >
+        c_haoyou_num,
+      </if>
+      <if test="cIfApp != null" >
+        c_if_app,
+      </if>
+      <if test="cVer != null" >
+        c_ver,
+      </if>
+      <if test="cMyRecommendUserNo != null" >
+        c_my_recommend_user_no,
+      </if>
+      <if test="cFuwucishu != null" >
+        c_fuwucishu,
+      </if>
+      <if test="cJingyan != null" >
+        c_jingyan,
+      </if>
+      <if test="cPf1 != null" >
+        c_pf_1,
+      </if>
+      <if test="cPf2 != null" >
+        c_pf_2,
+      </if>
+      <if test="cPf3 != null" >
+        c_pf_3,
+      </if>
+      <if test="cXingji != null" >
+        c_xingji,
+      </if>
+      <if test="cZhicheng != null" >
+        c_zhicheng,
+      </if>
+      <if test="cLogo != null" >
+        c_logo,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
+      <if test="cId != null" >
+        #{cId,jdbcType=VARCHAR},
       </if>
-      <if test="username != null" >
-        #{username,jdbcType=VARCHAR},
+      <if test="cCreateTime != null" >
+        #{cCreateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="password != null" >
-        #{password,jdbcType=VARCHAR},
+      <if test="cLastUpdateTime != null" >
+        #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cBirthday != null" >
+        #{cBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="cEmail != null" >
+        #{cEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="cHandpic != null" >
+        #{cHandpic,jdbcType=VARCHAR},
+      </if>
+      <if test="cIdCardNo != null" >
+        #{cIdCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cIfHaveShop != null" >
+        #{cIfHaveShop,jdbcType=INTEGER},
+      </if>
+      <if test="cLevel != null" >
+        #{cLevel,jdbcType=INTEGER},
+      </if>
+      <if test="cMoney != null" >
+        #{cMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="cMyRecommendCode != null" >
+        #{cMyRecommendCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cMyRecommendUserId != null" >
+        #{cMyRecommendUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="cNickname != null" >
+        #{cNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="cPassword != null" >
+        #{cPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="cPhone != null" >
+        #{cPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cRealname != null" >
+        #{cRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="cScore != null" >
+        #{cScore,jdbcType=INTEGER},
+      </if>
+      <if test="cSex != null" >
+        #{cSex,jdbcType=VARCHAR},
+      </if>
+      <if test="cSummary != null" >
+        #{cSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="cUsername != null" >
+        #{cUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="cAddressId != null" >
+        #{cAddressId,jdbcType=VARCHAR},
+      </if>
+      <if test="cGold != null" >
+        #{cGold,jdbcType=DOUBLE},
+      </if>
+      <if test="cMemberNo != null" >
+        #{cMemberNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cShopId != null" >
+        #{cShopId,jdbcType=VARCHAR},
+      </if>
+      <if test="cWorkNo != null" >
+        #{cWorkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cMemberState != null" >
+        #{cMemberState,jdbcType=INTEGER},
+      </if>
+      <if test="cProvince != null" >
+        #{cProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="cCity != null" >
+        #{cCity,jdbcType=VARCHAR},
+      </if>
+      <if test="cCountry != null" >
+        #{cCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="cLanguage != null" >
+        #{cLanguage,jdbcType=VARCHAR},
+      </if>
+      <if test="cOpenid != null" >
+        #{cOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="cSubscribeTime != null" >
+        #{cSubscribeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="cUserNo != null" >
+        #{cUserNo,jdbcType=INTEGER},
+      </if>
+      <if test="cNeedMessage != null" >
+        #{cNeedMessage,jdbcType=INTEGER},
+      </if>
+      <if test="cCreateUser != null" >
+        #{cCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cLastUpdateUser != null" >
+        #{cLastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cCityId != null" >
+        #{cCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="cDistrictId != null" >
+        #{cDistrictId,jdbcType=VARCHAR},
+      </if>
+      <if test="cProvinceId != null" >
+        #{cProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cAdsNum != null" >
+        #{cAdsNum,jdbcType=INTEGER},
+      </if>
+      <if test="cDistrict != null" >
+        #{cDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="cTempGold != null" >
+        #{cTempGold,jdbcType=INTEGER},
+      </if>
+      <if test="cVipCardno != null" >
+        #{cVipCardno,jdbcType=VARCHAR},
+      </if>
+      <if test="cVipPassword != null" >
+        #{cVipPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="cIfVip != null" >
+        #{cIfVip,jdbcType=INTEGER},
+      </if>
+      <if test="cPayPassword != null" >
+        #{cPayPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="cIfAgent != null" >
+        #{cIfAgent,jdbcType=INTEGER},
+      </if>
+      <if test="cIfFact != null" >
+        #{cIfFact,jdbcType=INTEGER},
+      </if>
+      <if test="cIfShop != null" >
+        #{cIfShop,jdbcType=INTEGER},
+      </if>
+      <if test="cBlockId != null" >
+        #{cBlockId,jdbcType=VARCHAR},
+      </if>
+      <if test="cBlock != null" >
+        #{cBlock,jdbcType=VARCHAR},
+      </if>
+      <if test="cInitShopId != null" >
+        #{cInitShopId,jdbcType=VARCHAR},
+      </if>
+      <if test="cAgentId != null" >
+        #{cAgentId,jdbcType=VARCHAR},
+      </if>
+      <if test="cGongzhangId != null" >
+        #{cGongzhangId,jdbcType=VARCHAR},
+      </if>
+      <if test="cZhongjianrenId != null" >
+        #{cZhongjianrenId,jdbcType=VARCHAR},
+      </if>
+      <if test="cQrcodeUrl != null" >
+        #{cQrcodeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="cAgentName != null" >
+        #{cAgentName,jdbcType=VARCHAR},
+      </if>
+      <if test="cGongzhangName != null" >
+        #{cGongzhangName,jdbcType=VARCHAR},
+      </if>
+      <if test="cShopName != null" >
+        #{cShopName,jdbcType=VARCHAR},
+      </if>
+      <if test="cZhongjianrenName != null" >
+        #{cZhongjianrenName,jdbcType=VARCHAR},
+      </if>
+      <if test="cXy != null" >
+        #{cXy,jdbcType=VARCHAR},
+      </if>
+      <if test="cTotalPay != null" >
+        #{cTotalPay,jdbcType=DOUBLE},
+      </if>
+      <if test="cUb != null" >
+        #{cUb,jdbcType=DOUBLE},
+      </if>
+      <if test="cTotalSale != null" >
+        #{cTotalSale,jdbcType=DOUBLE},
+      </if>
+      <if test="cHide != null" >
+        #{cHide,jdbcType=VARCHAR},
+      </if>
+      <if test="cNowCityId != null" >
+        #{cNowCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="cNowCityName != null" >
+        #{cNowCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="cTotalAverage != null" >
+        #{cTotalAverage,jdbcType=DOUBLE},
+      </if>
+      <if test="cTotalOrder != null" >
+        #{cTotalOrder,jdbcType=INTEGER},
+      </if>
+      <if test="cFactId != null" >
+        #{cFactId,jdbcType=VARCHAR},
+      </if>
+      <if test="cFactName != null" >
+        #{cFactName,jdbcType=VARCHAR},
+      </if>
+      <if test="cIfOpen != null" >
+        #{cIfOpen,jdbcType=INTEGER},
+      </if>
+      <if test="cGeoCode != null" >
+        #{cGeoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cFold != null" >
+        #{cFold,jdbcType=INTEGER},
+      </if>
+      <if test="cChlType != null" >
+        #{cChlType,jdbcType=VARCHAR},
+      </if>
+      <if test="cDeviceId != null" >
+        #{cDeviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cGoldGz != null" >
+        #{cGoldGz,jdbcType=INTEGER},
+      </if>
+      <if test="cPdf != null" >
+        #{cPdf,jdbcType=VARCHAR},
+      </if>
+      <if test="cRollNum != null" >
+        #{cRollNum,jdbcType=INTEGER},
+      </if>
+      <if test="cStar != null" >
+        #{cStar,jdbcType=INTEGER},
+      </if>
+      <if test="cRollPay != null" >
+        #{cRollPay,jdbcType=DOUBLE},
+      </if>
+      <if test="cGoldRoll != null" >
+        #{cGoldRoll,jdbcType=INTEGER},
+      </if>
+      <if test="cHaoyouNum != null" >
+        #{cHaoyouNum,jdbcType=INTEGER},
+      </if>
+      <if test="cIfApp != null" >
+        #{cIfApp,jdbcType=VARCHAR},
+      </if>
+      <if test="cVer != null" >
+        #{cVer,jdbcType=VARCHAR},
+      </if>
+      <if test="cMyRecommendUserNo != null" >
+        #{cMyRecommendUserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cFuwucishu != null" >
+        #{cFuwucishu,jdbcType=INTEGER},
+      </if>
+      <if test="cJingyan != null" >
+        #{cJingyan,jdbcType=VARCHAR},
+      </if>
+      <if test="cPf1 != null" >
+        #{cPf1,jdbcType=INTEGER},
+      </if>
+      <if test="cPf2 != null" >
+        #{cPf2,jdbcType=INTEGER},
+      </if>
+      <if test="cPf3 != null" >
+        #{cPf3,jdbcType=INTEGER},
+      </if>
+      <if test="cXingji != null" >
+        #{cXingji,jdbcType=INTEGER},
+      </if>
+      <if test="cZhicheng != null" >
+        #{cZhicheng,jdbcType=VARCHAR},
+      </if>
+      <if test="cLogo != null" >
+        #{cLogo,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.boot.gang.entity.User" >
-    update user
+    update t_user
     <set >
-      <if test="username != null" >
-        username = #{username,jdbcType=VARCHAR},
+      <if test="cCreateTime != null" >
+        c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="password != null" >
-        password = #{password,jdbcType=VARCHAR},
+      <if test="cLastUpdateTime != null" >
+        c_last_update_time = #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cBirthday != null" >
+        c_birthday = #{cBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="cEmail != null" >
+        c_email = #{cEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="cHandpic != null" >
+        c_handpic = #{cHandpic,jdbcType=VARCHAR},
+      </if>
+      <if test="cIdCardNo != null" >
+        c_id_card_no = #{cIdCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cIfHaveShop != null" >
+        c_if_have_shop = #{cIfHaveShop,jdbcType=INTEGER},
+      </if>
+      <if test="cLevel != null" >
+        c_level = #{cLevel,jdbcType=INTEGER},
+      </if>
+      <if test="cMoney != null" >
+        c_money = #{cMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="cMyRecommendCode != null" >
+        c_my_recommend_code = #{cMyRecommendCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cMyRecommendUserId != null" >
+        c_my_recommend_user_id = #{cMyRecommendUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="cNickname != null" >
+        c_nickname = #{cNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="cPassword != null" >
+        c_password = #{cPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="cPhone != null" >
+        c_phone = #{cPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cRealname != null" >
+        c_realname = #{cRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="cScore != null" >
+        c_score = #{cScore,jdbcType=INTEGER},
+      </if>
+      <if test="cSex != null" >
+        c_sex = #{cSex,jdbcType=VARCHAR},
+      </if>
+      <if test="cSummary != null" >
+        c_summary = #{cSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="cUsername != null" >
+        c_username = #{cUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="cAddressId != null" >
+        c_address_id = #{cAddressId,jdbcType=VARCHAR},
+      </if>
+      <if test="cGold != null" >
+        c_gold = #{cGold,jdbcType=DOUBLE},
+      </if>
+      <if test="cMemberNo != null" >
+        c_member_no = #{cMemberNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cShopId != null" >
+        c_shop_id = #{cShopId,jdbcType=VARCHAR},
+      </if>
+      <if test="cWorkNo != null" >
+        c_work_no = #{cWorkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cMemberState != null" >
+        c_member_state = #{cMemberState,jdbcType=INTEGER},
+      </if>
+      <if test="cProvince != null" >
+        c_province = #{cProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="cCity != null" >
+        c_city = #{cCity,jdbcType=VARCHAR},
+      </if>
+      <if test="cCountry != null" >
+        c_country = #{cCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="cLanguage != null" >
+        c_language = #{cLanguage,jdbcType=VARCHAR},
+      </if>
+      <if test="cOpenid != null" >
+        c_openid = #{cOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="cSubscribeTime != null" >
+        c_subscribe_time = #{cSubscribeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="cUserNo != null" >
+        c_user_no = #{cUserNo,jdbcType=INTEGER},
+      </if>
+      <if test="cNeedMessage != null" >
+        c_need_message = #{cNeedMessage,jdbcType=INTEGER},
+      </if>
+      <if test="cCreateUser != null" >
+        c_create_user = #{cCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cLastUpdateUser != null" >
+        c_last_update_user = #{cLastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cCityId != null" >
+        c_city_id = #{cCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="cDistrictId != null" >
+        c_district_id = #{cDistrictId,jdbcType=VARCHAR},
+      </if>
+      <if test="cProvinceId != null" >
+        c_province_id = #{cProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cAdsNum != null" >
+        c_ads_num = #{cAdsNum,jdbcType=INTEGER},
+      </if>
+      <if test="cDistrict != null" >
+        c_district = #{cDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="cTempGold != null" >
+        c_temp_gold = #{cTempGold,jdbcType=INTEGER},
+      </if>
+      <if test="cVipCardno != null" >
+        c_vip_cardNo = #{cVipCardno,jdbcType=VARCHAR},
+      </if>
+      <if test="cVipPassword != null" >
+        c_vip_password = #{cVipPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="cIfVip != null" >
+        c_if_vip = #{cIfVip,jdbcType=INTEGER},
+      </if>
+      <if test="cPayPassword != null" >
+        c_pay_password = #{cPayPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="cIfAgent != null" >
+        c_if_agent = #{cIfAgent,jdbcType=INTEGER},
+      </if>
+      <if test="cIfFact != null" >
+        c_if_fact = #{cIfFact,jdbcType=INTEGER},
+      </if>
+      <if test="cIfShop != null" >
+        c_if_shop = #{cIfShop,jdbcType=INTEGER},
+      </if>
+      <if test="cBlockId != null" >
+        c_block_id = #{cBlockId,jdbcType=VARCHAR},
+      </if>
+      <if test="cBlock != null" >
+        c_block = #{cBlock,jdbcType=VARCHAR},
+      </if>
+      <if test="cInitShopId != null" >
+        c_init_shop_id = #{cInitShopId,jdbcType=VARCHAR},
+      </if>
+      <if test="cAgentId != null" >
+        c_agent_id = #{cAgentId,jdbcType=VARCHAR},
+      </if>
+      <if test="cGongzhangId != null" >
+        c_gongzhang_id = #{cGongzhangId,jdbcType=VARCHAR},
+      </if>
+      <if test="cZhongjianrenId != null" >
+        c_zhongjianren_id = #{cZhongjianrenId,jdbcType=VARCHAR},
+      </if>
+      <if test="cQrcodeUrl != null" >
+        c_qrcode_url = #{cQrcodeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="cAgentName != null" >
+        c_agent_name = #{cAgentName,jdbcType=VARCHAR},
+      </if>
+      <if test="cGongzhangName != null" >
+        c_gongzhang_name = #{cGongzhangName,jdbcType=VARCHAR},
+      </if>
+      <if test="cShopName != null" >
+        c_shop_name = #{cShopName,jdbcType=VARCHAR},
+      </if>
+      <if test="cZhongjianrenName != null" >
+        c_zhongjianren_name = #{cZhongjianrenName,jdbcType=VARCHAR},
+      </if>
+      <if test="cXy != null" >
+        c_xy = #{cXy,jdbcType=VARCHAR},
+      </if>
+      <if test="cTotalPay != null" >
+        c_total_pay = #{cTotalPay,jdbcType=DOUBLE},
+      </if>
+      <if test="cUb != null" >
+        c_ub = #{cUb,jdbcType=DOUBLE},
+      </if>
+      <if test="cTotalSale != null" >
+        c_total_sale = #{cTotalSale,jdbcType=DOUBLE},
+      </if>
+      <if test="cHide != null" >
+        c_hide = #{cHide,jdbcType=VARCHAR},
+      </if>
+      <if test="cNowCityId != null" >
+        c_now_city_id = #{cNowCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="cNowCityName != null" >
+        c_now_city_name = #{cNowCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="cTotalAverage != null" >
+        c_total_average = #{cTotalAverage,jdbcType=DOUBLE},
+      </if>
+      <if test="cTotalOrder != null" >
+        c_total_order = #{cTotalOrder,jdbcType=INTEGER},
+      </if>
+      <if test="cFactId != null" >
+        c_fact_id = #{cFactId,jdbcType=VARCHAR},
+      </if>
+      <if test="cFactName != null" >
+        c_fact_name = #{cFactName,jdbcType=VARCHAR},
+      </if>
+      <if test="cIfOpen != null" >
+        c_if_open = #{cIfOpen,jdbcType=INTEGER},
+      </if>
+      <if test="cGeoCode != null" >
+        c_geo_code = #{cGeoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cFold != null" >
+        c_fold = #{cFold,jdbcType=INTEGER},
+      </if>
+      <if test="cChlType != null" >
+        c_chl_type = #{cChlType,jdbcType=VARCHAR},
+      </if>
+      <if test="cDeviceId != null" >
+        c_device_id = #{cDeviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cGoldGz != null" >
+        c_gold_gz = #{cGoldGz,jdbcType=INTEGER},
+      </if>
+      <if test="cPdf != null" >
+        c_pdf = #{cPdf,jdbcType=VARCHAR},
+      </if>
+      <if test="cRollNum != null" >
+        c_roll_num = #{cRollNum,jdbcType=INTEGER},
+      </if>
+      <if test="cStar != null" >
+        c_star = #{cStar,jdbcType=INTEGER},
+      </if>
+      <if test="cRollPay != null" >
+        c_roll_pay = #{cRollPay,jdbcType=DOUBLE},
+      </if>
+      <if test="cGoldRoll != null" >
+        c_gold_roll = #{cGoldRoll,jdbcType=INTEGER},
+      </if>
+      <if test="cHaoyouNum != null" >
+        c_haoyou_num = #{cHaoyouNum,jdbcType=INTEGER},
+      </if>
+      <if test="cIfApp != null" >
+        c_if_app = #{cIfApp,jdbcType=VARCHAR},
+      </if>
+      <if test="cVer != null" >
+        c_ver = #{cVer,jdbcType=VARCHAR},
+      </if>
+      <if test="cMyRecommendUserNo != null" >
+        c_my_recommend_user_no = #{cMyRecommendUserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cFuwucishu != null" >
+        c_fuwucishu = #{cFuwucishu,jdbcType=INTEGER},
+      </if>
+      <if test="cJingyan != null" >
+        c_jingyan = #{cJingyan,jdbcType=VARCHAR},
+      </if>
+      <if test="cPf1 != null" >
+        c_pf_1 = #{cPf1,jdbcType=INTEGER},
+      </if>
+      <if test="cPf2 != null" >
+        c_pf_2 = #{cPf2,jdbcType=INTEGER},
+      </if>
+      <if test="cPf3 != null" >
+        c_pf_3 = #{cPf3,jdbcType=INTEGER},
+      </if>
+      <if test="cXingji != null" >
+        c_xingji = #{cXingji,jdbcType=INTEGER},
+      </if>
+      <if test="cZhicheng != null" >
+        c_zhicheng = #{cZhicheng,jdbcType=VARCHAR},
+      </if>
+      <if test="cLogo != null" >
+        c_logo = #{cLogo,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where c_id = #{cId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.boot.gang.entity.User" >
-    update user
-    set username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    update t_user
+    set c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
+      c_last_update_time = #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      c_birthday = #{cBirthday,jdbcType=VARCHAR},
+      c_email = #{cEmail,jdbcType=VARCHAR},
+      c_handpic = #{cHandpic,jdbcType=VARCHAR},
+      c_id_card_no = #{cIdCardNo,jdbcType=VARCHAR},
+      c_if_have_shop = #{cIfHaveShop,jdbcType=INTEGER},
+      c_level = #{cLevel,jdbcType=INTEGER},
+      c_money = #{cMoney,jdbcType=DOUBLE},
+      c_my_recommend_code = #{cMyRecommendCode,jdbcType=VARCHAR},
+      c_my_recommend_user_id = #{cMyRecommendUserId,jdbcType=VARCHAR},
+      c_nickname = #{cNickname,jdbcType=VARCHAR},
+      c_password = #{cPassword,jdbcType=VARCHAR},
+      c_phone = #{cPhone,jdbcType=VARCHAR},
+      c_realname = #{cRealname,jdbcType=VARCHAR},
+      c_score = #{cScore,jdbcType=INTEGER},
+      c_sex = #{cSex,jdbcType=VARCHAR},
+      c_summary = #{cSummary,jdbcType=VARCHAR},
+      c_username = #{cUsername,jdbcType=VARCHAR},
+      c_address_id = #{cAddressId,jdbcType=VARCHAR},
+      c_gold = #{cGold,jdbcType=DOUBLE},
+      c_member_no = #{cMemberNo,jdbcType=VARCHAR},
+      c_shop_id = #{cShopId,jdbcType=VARCHAR},
+      c_work_no = #{cWorkNo,jdbcType=VARCHAR},
+      c_member_state = #{cMemberState,jdbcType=INTEGER},
+      c_province = #{cProvince,jdbcType=VARCHAR},
+      c_city = #{cCity,jdbcType=VARCHAR},
+      c_country = #{cCountry,jdbcType=VARCHAR},
+      c_language = #{cLanguage,jdbcType=VARCHAR},
+      c_openid = #{cOpenid,jdbcType=VARCHAR},
+      c_subscribe_time = #{cSubscribeTime,jdbcType=VARCHAR},
+      c_user_no = #{cUserNo,jdbcType=INTEGER},
+      c_need_message = #{cNeedMessage,jdbcType=INTEGER},
+      c_create_user = #{cCreateUser,jdbcType=VARCHAR},
+      c_last_update_user = #{cLastUpdateUser,jdbcType=VARCHAR},
+      c_city_id = #{cCityId,jdbcType=VARCHAR},
+      c_district_id = #{cDistrictId,jdbcType=VARCHAR},
+      c_province_id = #{cProvinceId,jdbcType=VARCHAR},
+      c_ads_num = #{cAdsNum,jdbcType=INTEGER},
+      c_district = #{cDistrict,jdbcType=VARCHAR},
+      c_temp_gold = #{cTempGold,jdbcType=INTEGER},
+      c_vip_cardNo = #{cVipCardno,jdbcType=VARCHAR},
+      c_vip_password = #{cVipPassword,jdbcType=VARCHAR},
+      c_if_vip = #{cIfVip,jdbcType=INTEGER},
+      c_pay_password = #{cPayPassword,jdbcType=VARCHAR},
+      c_if_agent = #{cIfAgent,jdbcType=INTEGER},
+      c_if_fact = #{cIfFact,jdbcType=INTEGER},
+      c_if_shop = #{cIfShop,jdbcType=INTEGER},
+      c_block_id = #{cBlockId,jdbcType=VARCHAR},
+      c_block = #{cBlock,jdbcType=VARCHAR},
+      c_init_shop_id = #{cInitShopId,jdbcType=VARCHAR},
+      c_agent_id = #{cAgentId,jdbcType=VARCHAR},
+      c_gongzhang_id = #{cGongzhangId,jdbcType=VARCHAR},
+      c_zhongjianren_id = #{cZhongjianrenId,jdbcType=VARCHAR},
+      c_qrcode_url = #{cQrcodeUrl,jdbcType=VARCHAR},
+      c_agent_name = #{cAgentName,jdbcType=VARCHAR},
+      c_gongzhang_name = #{cGongzhangName,jdbcType=VARCHAR},
+      c_shop_name = #{cShopName,jdbcType=VARCHAR},
+      c_zhongjianren_name = #{cZhongjianrenName,jdbcType=VARCHAR},
+      c_xy = #{cXy,jdbcType=VARCHAR},
+      c_total_pay = #{cTotalPay,jdbcType=DOUBLE},
+      c_ub = #{cUb,jdbcType=DOUBLE},
+      c_total_sale = #{cTotalSale,jdbcType=DOUBLE},
+      c_hide = #{cHide,jdbcType=VARCHAR},
+      c_now_city_id = #{cNowCityId,jdbcType=VARCHAR},
+      c_now_city_name = #{cNowCityName,jdbcType=VARCHAR},
+      c_total_average = #{cTotalAverage,jdbcType=DOUBLE},
+      c_total_order = #{cTotalOrder,jdbcType=INTEGER},
+      c_fact_id = #{cFactId,jdbcType=VARCHAR},
+      c_fact_name = #{cFactName,jdbcType=VARCHAR},
+      c_if_open = #{cIfOpen,jdbcType=INTEGER},
+      c_geo_code = #{cGeoCode,jdbcType=VARCHAR},
+      c_fold = #{cFold,jdbcType=INTEGER},
+      c_chl_type = #{cChlType,jdbcType=VARCHAR},
+      c_device_id = #{cDeviceId,jdbcType=VARCHAR},
+      c_gold_gz = #{cGoldGz,jdbcType=INTEGER},
+      c_pdf = #{cPdf,jdbcType=VARCHAR},
+      c_roll_num = #{cRollNum,jdbcType=INTEGER},
+      c_star = #{cStar,jdbcType=INTEGER},
+      c_roll_pay = #{cRollPay,jdbcType=DOUBLE},
+      c_gold_roll = #{cGoldRoll,jdbcType=INTEGER},
+      c_haoyou_num = #{cHaoyouNum,jdbcType=INTEGER},
+      c_if_app = #{cIfApp,jdbcType=VARCHAR},
+      c_ver = #{cVer,jdbcType=VARCHAR},
+      c_my_recommend_user_no = #{cMyRecommendUserNo,jdbcType=VARCHAR},
+      c_fuwucishu = #{cFuwucishu,jdbcType=INTEGER},
+      c_jingyan = #{cJingyan,jdbcType=VARCHAR},
+      c_pf_1 = #{cPf1,jdbcType=INTEGER},
+      c_pf_2 = #{cPf2,jdbcType=INTEGER},
+      c_pf_3 = #{cPf3,jdbcType=INTEGER},
+      c_xingji = #{cXingji,jdbcType=INTEGER},
+      c_zhicheng = #{cZhicheng,jdbcType=VARCHAR},
+      c_logo = #{cLogo,jdbcType=VARCHAR}
+    where c_id = #{cId,jdbcType=VARCHAR}
   </update>
-  <select id="findByUsername" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select
-    <include refid="Base_Column_List" />
-    from user
-    where username = #{username,jdbcType=VARCHAR}
-  </select>
 </mapper>

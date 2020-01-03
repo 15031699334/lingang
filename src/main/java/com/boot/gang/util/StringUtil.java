@@ -11,6 +11,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class StringUtil {
 
+    // 手机号验证正则
+    public static final String REGEX_MOBILE = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[013678])|(18[0,5-9]))\\d{8}$";
+    public static final String  REGEX_PASSWORD = "(^[a-zA-Z0-9_-]{6,16}$)";
+
     /**
      * @Description //TODO 传入的字符串 通过/进行截取
      * @Param [str]

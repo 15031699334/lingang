@@ -7,7 +7,7 @@ import com.boot.gang.entity.User;
  */
 public interface LoginService {
 
-    User findByUsername(String username);
+    User findByPhone(String phone);
 
-    Object findObjectById(String id, String entity);
+
 }

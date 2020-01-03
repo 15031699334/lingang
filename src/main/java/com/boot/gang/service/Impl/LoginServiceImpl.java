@@ -14,15 +14,7 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public User findByUsername(String username) {
-        return userMapper.findByUsername(username);
-    }
-
-    @Override
-    public Object findObjectById(String id, String entity) {
-        if (entity.equals("user")){
-            return userMapper.selectByPrimaryKey(Integer.parseInt(id));
-        }
-        return "null";
+    public User findByPhone(String phone) {
+        return userMapper.findByPhone(phone);
     }
 }

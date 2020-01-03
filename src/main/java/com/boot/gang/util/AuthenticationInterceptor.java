@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.boot.gang.entity.User;
+import com.boot.gang.service.CommonService;
 import com.boot.gang.service.LoginService;
 import com.boot.gang.util.token.PassToken;
 import com.boot.gang.util.token.UserLoginToken;
@@ -20,7 +21,7 @@ import java.lang.reflect.Method;
 
 public class AuthenticationInterceptor implements HandlerInterceptor {
     @Autowired
-    LoginService loginService;
+    CommonService commonService;
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
@@ -53,12 +54,12 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 } catch (JWTDecodeException j) {
                     throw new RuntimeException("401");
                 }
-                User user = (User) loginService.findObjectById(userId, "user");
+                User user = (User) commonService.findObjectById(userId, "user");
                 if (user == null) {
                     throw new RuntimeException("用户不存在，请重新登录");
                 }
                 // 验证 token
-                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getPassword())).build();
+                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getcPassword())).build();
                 try {
                     jwtVerifier.verify(token);
                 } catch (JWTVerificationException e) {
