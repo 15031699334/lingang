@@ -139,11 +139,6 @@ public class LoginController {
     @GetMapping("/getMessage")
     @ResponseBody
     public String getMessage(){
-        try {
-
-        }catch ( RuntimeException e){
-            return e.getMessage();
-        }
         return "你已通过验证";
     }
 

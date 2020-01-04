@@ -45,7 +45,8 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             if (userLoginToken.required()) {
                 // 执行认证
                 if (token == null) {
-                    throw new RuntimeException("无token，请重新登录");
+//                    throw new RuntimeException("无token，请重新登录");
+                    return false;
                 }
                 // 获取 token 中的 user id
                 String userId;
@@ -54,16 +55,18 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 } catch (JWTDecodeException j) {
                     throw new RuntimeException("401");
                 }
-                User user = (User) commonService.findObjectById(userId, "user");
+                User user = (User) commonService.findObjectById(userId, "User");
                 if (user == null) {
-                    throw new RuntimeException("用户不存在，请重新登录");
+//                    throw new RuntimeException("用户不存在，请重新登录");
+                    return false;
                 }
                 // 验证 token
                 JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getcPassword())).build();
                 try {
                     jwtVerifier.verify(token);
                 } catch (JWTVerificationException e) {
-                    throw new RuntimeException("401");
+//                    throw new RuntimeException("401");
+                    return false;
                 }
                 return true;
             }

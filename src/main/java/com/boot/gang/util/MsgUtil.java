@@ -28,11 +28,11 @@ public class MsgUtil {
         jsonObject.put("msg", msg);
         return jsonObject;
     }
-    public JSONObject jsonSuccessMsg(String msg, String key, String value){
+    public JSONObject jsonSuccessMsg(String msg, String key, Object object){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", SUCCESS);
         jsonObject.put("msg", msg);
-        jsonObject.put(key, value);
+        jsonObject.put(key, object);
         return jsonObject;
     }
     public JSONObject jsonErrorMsg(String msg){
