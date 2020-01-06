@@ -6,6 +6,7 @@ import com.boot.gang.entity.User;
 import com.boot.gang.service.CommonService;
 import com.boot.gang.util.MsgUtil;
 import com.boot.gang.util.token.UserLoginToken;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,9 @@ import java.util.Map;
  * @author: dongxiangwei
  * @create: 2020-01-02 17:42
  **/
-@Controller
+//@Controller
+@Api(value = "AjaxController", tags = {"ajax请求"})
+@RestController
 @RequestMapping("/linA")
 public class AjaxController {
 
@@ -41,12 +44,16 @@ public class AjaxController {
      * @Date 11:43 2020/1/4
      **/
 //    @UserLoginToken
-    @ResponseBody
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "entity", value = "相应对象 yh=用户", required = true, dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "id", value = "用户id", required = true, dataType = "string", paramType = "query"),
+    })
+    @ApiOperation(value = "通过id获取一条记录", notes = "entity=yh,用户")
     @RequestMapping(value = "/get{entity}", method = RequestMethod.GET)
-    public Object getOneById(@PathVariable String entity, String id){
+    public JSONObject getOneById(@PathVariable String entity,String id){
 
-        if (entity.equals("User")){
-            User user = (User) commonService.findObjectById(id, entity);
+        if (entity.equals("yh")){   // 用户
+            User user = (User) commonService.findObjectById(id, "User");
             user.setcPassword("");
             return msgUtil.jsonSuccessMsg("获取成功", "user", user);
         }
@@ -61,27 +68,30 @@ public class AjaxController {
      * @Author dongxiangwei
      * @Date 16:48 2020/1/4
      **/
-    @ResponseBody
     @GetMapping("/list{entity}")
-    public Object getList(@PathVariable String entity, HttpServletRequest request){
+    public JSONObject getList(@PathVariable String entity, HttpServletRequest request){
         Map<String, List> map = new HashMap<>();
-        if (entity.equals("Address"))
-            map.put("address", commonService.getList(entity, request));
-
+        if (entity.equals("dz"))        // 收货地址
+            map.put("address", commonService.getList("Address", request));
+        if (entity.equals("dd"))        // 订单
+            map.put("order", commonService.getList("Order", request));
         if (map.isEmpty()){
             return msgUtil.jsonErrorMsg("路径错误");
         }
         return msgUtil.jsonSuccessMsg("获取成功", map);
     }
-
-
-
-
-    @ResponseBody
+    /**
+     * @Description  添加
+     * @param entity    实体类名称
+     * @param jsonObject    对象的属性
+     * @return java.lang.Object
+     * @Author dongxiangwei
+     * @Date 10:48 2020/1/6
+     **/
     @RequestMapping(value = "/add{entity}", method = RequestMethod.POST)
-    public Object addByEntity(@PathVariable String entity,@RequestBody JSONObject jsonObject){
+    public JSONObject addByEntity(@PathVariable String entity,@RequestBody JSONObject jsonObject){
         try {
-            if (entity.equals("Address")){
+            if (entity.equals("dz")){       // 收货地址
                 Address address = JSONObject.toJavaObject(jsonObject, Address.class);
                 address.setcId(System.nanoTime()+"");
                 address.setcCreateTime(new Date());
@@ -95,12 +105,6 @@ public class AjaxController {
         return msgUtil.jsonSuccessMsg("添加成功");
     }
 
-
-
-
-
-
-
     /**
      * @Description  修改对象信息 通过对象的
      * @param entity    实体类名
@@ -109,11 +113,10 @@ public class AjaxController {
      * @Author dongxiangwei
      * @Date 11:49 2020/1/4
      **/
-    @ResponseBody
     @RequestMapping(value = "/up{entity}", method = RequestMethod.POST)
-    public Object updateByEntity(@PathVariable String entity, @RequestBody JSONObject jsonObject){
+    public JSONObject updateByEntity(@PathVariable String entity, @RequestBody JSONObject jsonObject){
             try {
-                if (entity.equals("User")) {
+                if (entity.equals("yh")) {      // 用户
                     if (jsonObject.containsKey("cPassword")){   // 修改密码
                         if (!jsonObject.getString("cPassword").equals(jsonObject.getString("passwordAgain")))
                             return msgUtil.jsonErrorMsg("两次输入的密码不一致");
@@ -125,6 +128,14 @@ public class AjaxController {
                     user.setcLastUpdateTime(new Date());
                     commonService.update(user, "User");
                 }
+                if (entity.equals("dz")){           // 收货地址
+                    Address address = JSONObject.toJavaObject(jsonObject, Address.class);
+                    address.setcLastUpdateTime(new Date());
+                    commonService.update(address, "Address");
+                }
+
+
+
             } catch (Exception e) {
                 e.printStackTrace();
                 return msgUtil.jsonErrorMsg("修改失败");
