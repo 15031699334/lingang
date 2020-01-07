@@ -11,6 +11,7 @@ import com.boot.gang.service.LoginService;
 import com.boot.gang.util.token.PassToken;
 import com.boot.gang.util.token.UserLoginToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,12 +20,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 
+@Component
 public class AuthenticationInterceptor implements HandlerInterceptor {
     @Autowired
     CommonService commonService;
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
+//        System.out.println(httpServletRequest.getRequestURI().toString());
+//        System.out.println("===============");
         String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出 token
         // 如果不是映射到方法直接通过
         if (!(object instanceof HandlerMethod)) {

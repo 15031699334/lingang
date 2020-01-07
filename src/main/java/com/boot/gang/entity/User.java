@@ -1,5 +1,9 @@
 package com.boot.gang.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
 /**
@@ -7,32 +11,25 @@ import java.util.Date;
  * @Author dongxiangwei
  * @Date 12:14 2020/12.21
  **/
+
+@ApiModel(value = "用户", description = "")
 public class User {
+    @ApiModelProperty("用户ID")
     private String cId;     // 用户id
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date cCreateTime;   // 创建时间
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date cLastUpdateTime;   // 上次修改时间
 
     private String cBirthday;   // 生日
 
     private String cEmail;      // email
 
-    private String cHandpic;
-
     private String cIdCardNo;   // 身份证号
 
-    private Integer cIfHaveShop;    // 是否企业认证
-
     private Integer cLevel;     // 用户级别
-
-    private Double cMoney;
-
-    private String cMyRecommendCode;
-
-    private String cMyRecommendUserId;
-
-    private String cNickname;
 
     private String cPassword;   // 用户密码
 
@@ -50,6 +47,54 @@ public class User {
 
     private String cAddressId;  // 详细地址
 
+    private String cProvince;   // 省份
+
+    private String cCity;       // 城市
+
+    private String cCountry;    // 国家
+
+    private String cCityId;     // 城市编号
+
+    private String cDistrictId;     // 县区编号
+
+    private String cProvinceId;     // 省份编号
+
+    private String cDistrict;       // 县区名称
+
+    private Integer cIfShop;    // 是否审核成为企业 0= 未审核 1=审核中 2=审核成功 3=审核失败
+
+    private String cAgentName;      // 企业法人姓名
+
+    private String cShopName;       // 企业名称
+
+    private Double cUb;             // ml 数
+
+    private String cNowCityId;      // 税号
+
+    private String cNowCityName;    //  开户行
+
+    private String cFactId;         // 执照号
+
+    private String cFactName;        // 营业执照(照片)
+
+    private Integer cGoldGz;    // 钢豆数量
+
+    private String cVer;        // 企业电话
+
+    private String cLogo;       // 头像
+
+    private Double cMoney;
+
+    private String cMyRecommendCode;
+
+    private String cMyRecommendUserId;
+
+    private String cNickname;
+
+    private Integer cIfHaveShop;
+
+    private String cHandpic;
+
     private Double cGold;
 
     private String cMemberNo;
@@ -59,12 +104,6 @@ public class User {
     private String cWorkNo;
 
     private Integer cMemberState;
-
-    private String cProvince;   // 省份
-
-    private String cCity;       // 城市
-
-    private String cCountry;    // 国家
 
     private String cLanguage;
 
@@ -80,15 +119,7 @@ public class User {
 
     private String cLastUpdateUser;
 
-    private String cCityId;     // 城市编号
-
-    private String cDistrictId;     // 县区编号
-
-    private String cProvinceId;     // 省份编号
-
     private Integer cAdsNum;
-
-    private String cDistrict;       // 县区名称
 
     private Integer cTempGold;
 
@@ -104,8 +135,6 @@ public class User {
 
     private Integer cIfFact;
 
-    private Integer cIfShop;    // 是否审核成为企业 0= 未审核 1=审核中 2=审核成功 3=审核失败
-
     private String cBlockId;
 
     private String cBlock;
@@ -120,11 +149,7 @@ public class User {
 
     private String cQrcodeUrl;
 
-    private String cAgentName;      // 企业法人姓名
-
     private String cGongzhangName;
-
-    private String cShopName;       // 企业名称
 
     private String cZhongjianrenName;
 
@@ -132,35 +157,23 @@ public class User {
 
     private Double cTotalPay;
 
-    private Double cUb;             // ml 数
-
     private Double cTotalSale;
 
     private String cHide;
-
-    private String cNowCityId;      // 税号
-
-    private String cNowCityName;    //  开户行
 
     private Double cTotalAverage;
 
     private Integer cTotalOrder;
 
-    private String cFactId;         // 执照号
-
-    private String cFactName;        // 营业执照(照片)
-
     private Integer cIfOpen;
 
     private String cGeoCode;
 
-    private Integer cFold;      //
+    private Integer cFold;
 
     private String cChlType;
 
     private String cDeviceId;
-
-    private Integer cGoldGz;    // 钢豆数量
 
     private String cPdf;
 
@@ -175,8 +188,6 @@ public class User {
     private Integer cHaoyouNum;
 
     private String cIfApp;
-
-    private String cVer;
 
     private String cMyRecommendUserNo;
 
@@ -194,7 +205,7 @@ public class User {
 
     private String cZhicheng;
 
-    private String cLogo;       // 头像
+
 
     public User(String cId, Date cCreateTime, Date cLastUpdateTime, String cBirthday, String cEmail, String cHandpic, String cIdCardNo, Integer cIfHaveShop, Integer cLevel, Double cMoney, String cMyRecommendCode, String cMyRecommendUserId, String cNickname, String cPassword, String cPhone, String cRealname, Integer cScore, String cSex, String cSummary, String cUsername, String cAddressId, Double cGold, String cMemberNo, String cShopId, String cWorkNo, Integer cMemberState, String cProvince, String cCity, String cCountry, String cLanguage, String cOpenid, String cSubscribeTime, Integer cUserNo, Integer cNeedMessage, String cCreateUser, String cLastUpdateUser, String cCityId, String cDistrictId, String cProvinceId, Integer cAdsNum, String cDistrict, Integer cTempGold, String cVipCardno, String cVipPassword, Integer cIfVip, String cPayPassword, Integer cIfAgent, Integer cIfFact, Integer cIfShop, String cBlockId, String cBlock, String cInitShopId, String cAgentId, String cGongzhangId, String cZhongjianrenId, String cQrcodeUrl, String cAgentName, String cGongzhangName, String cShopName, String cZhongjianrenName, String cXy, Double cTotalPay, Double cUb, Double cTotalSale, String cHide, String cNowCityId, String cNowCityName, Double cTotalAverage, Integer cTotalOrder, String cFactId, String cFactName, Integer cIfOpen, String cGeoCode, Integer cFold, String cChlType, String cDeviceId, Integer cGoldGz, String cPdf, Integer cRollNum, Integer cStar, Double cRollPay, Integer cGoldRoll, Integer cHaoyouNum, String cIfApp, String cVer, String cMyRecommendUserNo, Integer cFuwucishu, String cJingyan, Integer cPf1, Integer cPf2, Integer cPf3, Integer cXingji, String cZhicheng, String cLogo) {
         this.cId = cId;

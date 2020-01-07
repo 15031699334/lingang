@@ -12,4 +12,6 @@ public interface CommonService {
     void update(Object object, String entity) throws Exception;
 
     List getList(String entity, HttpServletRequest request);
+
+    void delete(String id, String entity) throws Exception;
 }

@@ -1,5 +1,7 @@
 package com.boot.gang.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Article {
@@ -9,12 +11,14 @@ public class Article {
 
     private String cCityId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date cCreateTime;
 
     private String cCreateUser;
 
     private String cDistrictId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date cLastUpdateTime;
 
     private String cLastUpdateUser;
@@ -63,6 +67,7 @@ public class Article {
 
     private String cShopName;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date cBeginDate;
 
     private Integer cClicks;

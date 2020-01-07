@@ -53,6 +53,9 @@ public class ThymeleafServiceImpl implements ThymeleafService {
             /*       *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-      PC端页面           *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-   */
             case "header":      // 头
                 break;
+            case "swagger-ui":      //
+                isStatic = false;
+                break;
             case "footer":      // 底
                 break;
             case "index":   // 首页

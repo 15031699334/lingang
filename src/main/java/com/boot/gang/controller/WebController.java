@@ -11,10 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+@ApiIgnore
 @Controller
 public class WebController {
 
@@ -23,13 +25,15 @@ public class WebController {
     @Autowired
     ThymeleafService thymeleafService;
 
+
+
     /**
      *  thymeleaf 以html结尾的请求 结合nginx实现静态化
      * @param pageName     xxx
      * @param request
      * @param response
      */
-//    @ResponseBody
+    @ResponseBody
     @GetMapping(value = "{pageName}.html")
     public String pageCreate(@PathVariable String pageName, HttpServletRequest request, HttpServletResponse response, Model model){
 
@@ -53,7 +57,7 @@ public class WebController {
     * @Author dongxiangwei
     * @Date 15:12 2019/12/31
     **/
-//    @ResponseBody
+    @ResponseBody
     @GetMapping(value = "phone/{pageName}.html")
     public String phonePageCreate(@PathVariable String pageName, HttpServletRequest request, HttpServletResponse response, Model model){
 

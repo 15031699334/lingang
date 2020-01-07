@@ -1,5 +1,7 @@
 package com.boot.gang.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Address {
@@ -9,12 +11,14 @@ public class Address {
 
     private String cCityId;     // 城市编号
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date cCreateTime;   // 创建时间
 
     private String cCreateUser;     // 创建人
 
     private String cDistrictId;     // 地区编号
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date cLastUpdateTime;   // 上次修改时间
 
     private String cLastUpdateUser;

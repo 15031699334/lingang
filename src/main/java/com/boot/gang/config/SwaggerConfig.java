@@ -1,5 +1,6 @@
 package com.boot.gang.config;
 
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -7,10 +8,13 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import javax.servlet.DispatcherType;
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @EnableSwagger2
@@ -18,20 +22,21 @@ public class SwaggerConfig {
 
     @Bean
     public Docket buildDocket(){
-        return new Docket(DocumentationType.SWAGGER_2)
+        Docket build = new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(buildApiInf())
-                .select()       .apis(RequestHandlerSelectors.basePackage("com.xingguo.logistics.controller"))//controller路径
+                .select().apis(RequestHandlerSelectors.basePackage("com.boot.gang.controller"))//controller路径
                 .paths(PathSelectors.any())
                 .build();
+        return build;
     }
 
     private ApiInfo buildApiInf(){
-        return new ApiInfoBuilder()
-                .title("xingguo大标题")
-                .termsOfServiceUrl("http://blog.csdn.net/u014231523网址链接")
+        ApiInfo build = new ApiInfoBuilder()
+                .title("临钢开放API")
                 .description("springmvc swagger2")
-                .contact(new Contact("diaoxingguo", "http://blog.csdn.net/u014231523", "diaoxingguo@163.com"))
                 .build();
+        return build;
 
     }
+
 }

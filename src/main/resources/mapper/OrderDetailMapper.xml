@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boot.gang.mapper.OrderDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.boot.gang.entity.OrderDetail" >
+    <constructor >
+      <idArg column="d_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="d_createTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="d_orderNo" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="d_processPrice" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="d_processRequirement" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="d_productId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="d_productNum" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="d_productSpec" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="d_productTexture" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="d_shopColumnType" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="d_shopColumnTypeId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="d_shopId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="d_shopName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="d_tonNum" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    d_id, d_createTime, d_orderNo, d_processPrice, d_processRequirement, d_productId, 
+    d_productNum, d_productSpec, d_productTexture, d_shopColumnType, d_shopColumnTypeId, 
+    d_shopId, d_shopName, d_tonNum
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_detail
+    where d_id = #{dId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_order_detail
+    where d_id = #{dId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boot.gang.entity.OrderDetail" >
+    insert into t_order_detail (d_id, d_createTime, d_orderNo, 
+      d_processPrice, d_processRequirement, d_productId, 
+      d_productNum, d_productSpec, d_productTexture, 
+      d_shopColumnType, d_shopColumnTypeId, d_shopId, 
+      d_shopName, d_tonNum)
+    values (#{dId,jdbcType=VARCHAR}, #{dCreatetime,jdbcType=TIMESTAMP}, #{dOrderno,jdbcType=VARCHAR}, 
+      #{dProcessprice,jdbcType=DOUBLE}, #{dProcessrequirement,jdbcType=VARCHAR}, #{dProductid,jdbcType=VARCHAR}, 
+      #{dProductnum,jdbcType=VARCHAR}, #{dProductspec,jdbcType=VARCHAR}, #{dProducttexture,jdbcType=VARCHAR}, 
+      #{dShopcolumntype,jdbcType=VARCHAR}, #{dShopcolumntypeid,jdbcType=VARCHAR}, #{dShopid,jdbcType=VARCHAR}, 
+      #{dShopname,jdbcType=VARCHAR}, #{dTonnum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boot.gang.entity.OrderDetail" >
+    insert into t_order_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dId != null" >
+        d_id,
+      </if>
+      <if test="dCreatetime != null" >
+        d_createTime,
+      </if>
+      <if test="dOrderno != null" >
+        d_orderNo,
+      </if>
+      <if test="dProcessprice != null" >
+        d_processPrice,
+      </if>
+      <if test="dProcessrequirement != null" >
+        d_processRequirement,
+      </if>
+      <if test="dProductid != null" >
+        d_productId,
+      </if>
+      <if test="dProductnum != null" >
+        d_productNum,
+      </if>
+      <if test="dProductspec != null" >
+        d_productSpec,
+      </if>
+      <if test="dProducttexture != null" >
+        d_productTexture,
+      </if>
+      <if test="dShopcolumntype != null" >
+        d_shopColumnType,
+      </if>
+      <if test="dShopcolumntypeid != null" >
+        d_shopColumnTypeId,
+      </if>
+      <if test="dShopid != null" >
+        d_shopId,
+      </if>
+      <if test="dShopname != null" >
+        d_shopName,
+      </if>
+      <if test="dTonnum != null" >
+        d_tonNum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dId != null" >
+        #{dId,jdbcType=VARCHAR},
+      </if>
+      <if test="dCreatetime != null" >
+        #{dCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dOrderno != null" >
+        #{dOrderno,jdbcType=VARCHAR},
+      </if>
+      <if test="dProcessprice != null" >
+        #{dProcessprice,jdbcType=DOUBLE},
+      </if>
+      <if test="dProcessrequirement != null" >
+        #{dProcessrequirement,jdbcType=VARCHAR},
+      </if>
+      <if test="dProductid != null" >
+        #{dProductid,jdbcType=VARCHAR},
+      </if>
+      <if test="dProductnum != null" >
+        #{dProductnum,jdbcType=VARCHAR},
+      </if>
+      <if test="dProductspec != null" >
+        #{dProductspec,jdbcType=VARCHAR},
+      </if>
+      <if test="dProducttexture != null" >
+        #{dProducttexture,jdbcType=VARCHAR},
+      </if>
+      <if test="dShopcolumntype != null" >
+        #{dShopcolumntype,jdbcType=VARCHAR},
+      </if>
+      <if test="dShopcolumntypeid != null" >
+        #{dShopcolumntypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="dShopid != null" >
+        #{dShopid,jdbcType=VARCHAR},
+      </if>
+      <if test="dShopname != null" >
+        #{dShopname,jdbcType=VARCHAR},
+      </if>
+      <if test="dTonnum != null" >
+        #{dTonnum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boot.gang.entity.OrderDetail" >
+    update t_order_detail
+    <set >
+      <if test="dCreatetime != null" >
+        d_createTime = #{dCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dOrderno != null" >
+        d_orderNo = #{dOrderno,jdbcType=VARCHAR},
+      </if>
+      <if test="dProcessprice != null" >
+        d_processPrice = #{dProcessprice,jdbcType=DOUBLE},
+      </if>
+      <if test="dProcessrequirement != null" >
+        d_processRequirement = #{dProcessrequirement,jdbcType=VARCHAR},
+      </if>
+      <if test="dProductid != null" >
+        d_productId = #{dProductid,jdbcType=VARCHAR},
+      </if>
+      <if test="dProductnum != null" >
+        d_productNum = #{dProductnum,jdbcType=VARCHAR},
+      </if>
+      <if test="dProductspec != null" >
+        d_productSpec = #{dProductspec,jdbcType=VARCHAR},
+      </if>
+      <if test="dProducttexture != null" >
+        d_productTexture = #{dProducttexture,jdbcType=VARCHAR},
+      </if>
+      <if test="dShopcolumntype != null" >
+        d_shopColumnType = #{dShopcolumntype,jdbcType=VARCHAR},
+      </if>
+      <if test="dShopcolumntypeid != null" >
+        d_shopColumnTypeId = #{dShopcolumntypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="dShopid != null" >
+        d_shopId = #{dShopid,jdbcType=VARCHAR},
+      </if>
+      <if test="dShopname != null" >
+        d_shopName = #{dShopname,jdbcType=VARCHAR},
+      </if>
+      <if test="dTonnum != null" >
+        d_tonNum = #{dTonnum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where d_id = #{dId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boot.gang.entity.OrderDetail" >
+    update t_order_detail
+    set d_createTime = #{dCreatetime,jdbcType=TIMESTAMP},
+      d_orderNo = #{dOrderno,jdbcType=VARCHAR},
+      d_processPrice = #{dProcessprice,jdbcType=DOUBLE},
+      d_processRequirement = #{dProcessrequirement,jdbcType=VARCHAR},
+      d_productId = #{dProductid,jdbcType=VARCHAR},
+      d_productNum = #{dProductnum,jdbcType=VARCHAR},
+      d_productSpec = #{dProductspec,jdbcType=VARCHAR},
+      d_productTexture = #{dProducttexture,jdbcType=VARCHAR},
+      d_shopColumnType = #{dShopcolumntype,jdbcType=VARCHAR},
+      d_shopColumnTypeId = #{dShopcolumntypeid,jdbcType=VARCHAR},
+      d_shopId = #{dShopid,jdbcType=VARCHAR},
+      d_shopName = #{dShopname,jdbcType=VARCHAR},
+      d_tonNum = #{dTonnum,jdbcType=VARCHAR}
+    where d_id = #{dId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -12,7 +12,8 @@ import org.springframework.stereotype.Component;
 public class StringUtil {
 
     // 手机号验证正则
-    public static final String REGEX_MOBILE = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[013678])|(18[0,5-9]))\\d{8}$";
+    public static final String REGEX_MOBILE = "(^[1][3,4,5,7,8][0-9]{9}$)";
+//    public static final String REGEX_IDCARD = "(^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$|^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9]|X)$)";
     public static final String  REGEX_PASSWORD = "(^[a-zA-Z0-9_-]{6,16}$)";
 
     /**
