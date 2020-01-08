@@ -37,7 +37,7 @@ public class Address {
 
     private Integer cType;
 
-    private String cZipcode;
+    private String cZipcode;        // 发票地址
 
     private String cHide;
 

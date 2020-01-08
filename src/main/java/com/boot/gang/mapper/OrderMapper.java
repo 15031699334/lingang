@@ -29,4 +29,9 @@ public interface OrderMapper {
      **/
     @Select("select * from t_order where 1 = 1 ${swhere}")
     List<Order> getList(@Param("swhere") String swhere);
+
+    @Select("select " +
+            " c_order_no,c_create_time, c_pay_time, c_money_pay, c_price " +
+            " from t_order where 1 = 1 ${swhere}")
+    List<Order> getRecord(@Param("swhere") String swhere);
 }

@@ -62,6 +62,8 @@ public class Order {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date cLastUpdateTime;               // 最后修改时间
 
+    private String cParamList;                  // 付款记录是用到的 展示所有商品
+
     private String cBlockId;
 
     private String cCityId;
@@ -105,8 +107,6 @@ public class Order {
     private Integer cOrderSsid;
 
     private String cOutTradeNo;
-
-    private String cParamList;
 
     private String cPayType;
 

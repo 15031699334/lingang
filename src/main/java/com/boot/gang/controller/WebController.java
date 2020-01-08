@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +17,9 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileNotFoundException;
+
 @ApiIgnore
 @Controller
 public class WebController {
@@ -33,10 +37,15 @@ public class WebController {
      * @param request
      * @param response
      */
-    @ResponseBody
     @GetMapping(value = "{pageName}.html")
     public String pageCreate(@PathVariable String pageName, HttpServletRequest request, HttpServletResponse response, Model model){
 
+//        try {
+//            final File basePath = new File(ResourceUtils.getURL("classpath:").getPath());
+//            System.out.println(basePath);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
         System.out.println("html 生成 走了controller: " + pageName);
         try {
             thymeleafService.createHtml(pageName, request, response, model);
@@ -57,7 +66,6 @@ public class WebController {
     * @Author dongxiangwei
     * @Date 15:12 2019/12/31
     **/
-    @ResponseBody
     @GetMapping(value = "phone/{pageName}.html")
     public String phonePageCreate(@PathVariable String pageName, HttpServletRequest request, HttpServletResponse response, Model model){
 

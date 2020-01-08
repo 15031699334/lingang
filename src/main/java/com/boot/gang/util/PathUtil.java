@@ -14,6 +14,9 @@ public class PathUtil {
     public static String PATH_PC = "D:/Program Files/Nginx 1.16/nginx-1.16.1/html";
     public static String PATH_PHONE = "D:/Program Files/Nginx 1.16/nginx-1.16.1/html/phone";
 
+    // 静态资源文件上传路径
+    public  static String PATH_UPLOAD_LICENSE = "upload/license";
+    public  static String PATH_UPLOAD_HEAD_LOGO = "upload/head";
 
 
 }

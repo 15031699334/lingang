@@ -2,6 +2,7 @@ package com.boot.gang.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.boot.gang.entity.Address;
+import com.boot.gang.entity.IntegralDetail;
 import com.boot.gang.entity.User;
 import com.boot.gang.service.CommonService;
 import com.boot.gang.service.TokenService;
@@ -55,19 +56,24 @@ public class AjaxController {
     @RequestMapping(value = "/get{entity}", method = RequestMethod.GET)
     public JSONObject getOneById(@PathVariable String entity,@RequestParam(required = false) String id, HttpServletRequest request){
 
-        if (entity.equals("yh")){   // 用户
-            String userId;
-            try {
-                userId = tokenService.getIdByToken(request);
-                User user = (User) commonService.findObjectById(userId, "User");
-                user.setcPassword("");
-                return msgUtil.jsonSuccessMsg("获取成功", "user", user);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return msgUtil.jsonErrorMsg("token错误");
-            }
-
+        String userId;
+        try {
+            userId = tokenService.getIdByToken(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return msgUtil.jsonErrorMsg("token错误");
         }
+        if (entity.equals("yh")){   // 用户
+            User user = (User) commonService.findObjectById(userId, "User");
+            user.setcPassword("");
+            return msgUtil.jsonSuccessMsg("获取成功", "user", user);
+        }
+        if (entity.equals("dz")){
+            return msgUtil.jsonSuccessMsg("获取成功", "address", commonService.findObjectById(id, "Address"));
+        }
+        if (entity.equals("gd"))        // 钢豆中心
+            return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(userId, "gd"));
+
         return msgUtil.jsonErrorMsg("路径错误");
     }
 
@@ -86,6 +92,8 @@ public class AjaxController {
             map.put("address", commonService.getList("Address", request));
         if (entity.equals("dd"))        // 订单
             map.put("order", commonService.getList("Order", request));
+        if (entity.equals("fk"))        // 付款记录
+            map.put("record", commonService.getList(entity, request));
         if (map.isEmpty()){
             return msgUtil.jsonErrorMsg("路径错误");
         }
@@ -116,6 +124,20 @@ public class AjaxController {
                 return msgUtil.jsonErrorMsg("添加失败");
             }
         }
+       /* if (entity.equals("gd")){
+            String userId;
+            try {
+                userId = tokenService.getIdByToken(request);
+                IntegralDetail integralDetail = JSONObject.toJavaObject(json, IntegralDetail.class);
+                address.setcCreateUser(userId);
+                address.setcId(System.nanoTime()+"");
+                address.setcCreateTime(new Date());
+                commonService.save(address, "Address");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return msgUtil.jsonErrorMsg("添加失败");
+            }
+        }*/
 
         return msgUtil.jsonSuccessMsg("添加成功");
     }
@@ -173,11 +195,11 @@ public class AjaxController {
      * @Author dongxiangwei
      * @Date 11:11 2020/1/7
      **/
-    @RequestMapping(value = "/del{entity}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/del{entity}", method = RequestMethod.POST)
     public JSONObject deleteById(@PathVariable String entity, String id,HttpServletRequest request){
         try {
             if (entity.equals("dz")){           // 收货地址
-                System.out.println(id);
+//                System.out.println(id);
                 commonService.delete(id, "Address");
             }
         } catch (Exception e) {

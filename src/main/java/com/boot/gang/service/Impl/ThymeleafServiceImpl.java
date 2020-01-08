@@ -59,7 +59,7 @@ public class ThymeleafServiceImpl implements ThymeleafService {
             case "footer":      // 底
                 break;
             case "index":   // 首页
-                logger.info("走到了 shop");
+                logger.info("走到了 index");
                 break;
             case "shop":    // 商城(临钢优选)     动态页面
                 logger.info("走到了 shop");

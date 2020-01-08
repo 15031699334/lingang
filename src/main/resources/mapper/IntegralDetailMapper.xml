@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boot.gang.mapper.IntegralDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.boot.gang.entity.IntegralDetail" >
+    <constructor >
+      <idArg column="i_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="i_changeIntegral" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="i_changeType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="i_createTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="i_nowIntegral" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="i_orderNo" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="i_realName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="i_userId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="i_reason" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="i_IntegralType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    i_id, i_changeIntegral, i_changeType, i_createTime, i_nowIntegral, i_orderNo, i_realName, 
+    i_userId, i_reason, i_IntegralType
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_integral_detail
+    where i_id = #{iId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_integral_detail
+    where i_id = #{iId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boot.gang.entity.IntegralDetail" >
+    insert into t_integral_detail (i_id, i_changeIntegral, i_changeType, 
+      i_createTime, i_nowIntegral, i_orderNo, 
+      i_realName, i_userId, i_reason, 
+      i_IntegralType)
+    values (#{iId,jdbcType=VARCHAR}, #{iChangeintegral,jdbcType=DOUBLE}, #{iChangetype,jdbcType=INTEGER}, 
+      #{iCreatetime,jdbcType=TIMESTAMP}, #{iNowintegral,jdbcType=DOUBLE}, #{iOrderno,jdbcType=VARCHAR}, 
+      #{iRealname,jdbcType=VARCHAR}, #{iUserid,jdbcType=VARCHAR}, #{iReason,jdbcType=VARCHAR}, 
+      #{iIntegraltype,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boot.gang.entity.IntegralDetail" >
+    insert into t_integral_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="iId != null" >
+        i_id,
+      </if>
+      <if test="iChangeintegral != null" >
+        i_changeIntegral,
+      </if>
+      <if test="iChangetype != null" >
+        i_changeType,
+      </if>
+      <if test="iCreatetime != null" >
+        i_createTime,
+      </if>
+      <if test="iNowintegral != null" >
+        i_nowIntegral,
+      </if>
+      <if test="iOrderno != null" >
+        i_orderNo,
+      </if>
+      <if test="iRealname != null" >
+        i_realName,
+      </if>
+      <if test="iUserid != null" >
+        i_userId,
+      </if>
+      <if test="iReason != null" >
+        i_reason,
+      </if>
+      <if test="iIntegraltype != null" >
+        i_IntegralType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="iId != null" >
+        #{iId,jdbcType=VARCHAR},
+      </if>
+      <if test="iChangeintegral != null" >
+        #{iChangeintegral,jdbcType=DOUBLE},
+      </if>
+      <if test="iChangetype != null" >
+        #{iChangetype,jdbcType=INTEGER},
+      </if>
+      <if test="iCreatetime != null" >
+        #{iCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iNowintegral != null" >
+        #{iNowintegral,jdbcType=DOUBLE},
+      </if>
+      <if test="iOrderno != null" >
+        #{iOrderno,jdbcType=VARCHAR},
+      </if>
+      <if test="iRealname != null" >
+        #{iRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="iUserid != null" >
+        #{iUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="iReason != null" >
+        #{iReason,jdbcType=VARCHAR},
+      </if>
+      <if test="iIntegraltype != null" >
+        #{iIntegraltype,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boot.gang.entity.IntegralDetail" >
+    update t_integral_detail
+    <set >
+      <if test="iChangeintegral != null" >
+        i_changeIntegral = #{iChangeintegral,jdbcType=DOUBLE},
+      </if>
+      <if test="iChangetype != null" >
+        i_changeType = #{iChangetype,jdbcType=INTEGER},
+      </if>
+      <if test="iCreatetime != null" >
+        i_createTime = #{iCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iNowintegral != null" >
+        i_nowIntegral = #{iNowintegral,jdbcType=DOUBLE},
+      </if>
+      <if test="iOrderno != null" >
+        i_orderNo = #{iOrderno,jdbcType=VARCHAR},
+      </if>
+      <if test="iRealname != null" >
+        i_realName = #{iRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="iUserid != null" >
+        i_userId = #{iUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="iReason != null" >
+        i_reason = #{iReason,jdbcType=VARCHAR},
+      </if>
+      <if test="iIntegraltype != null" >
+        i_IntegralType = #{iIntegraltype,jdbcType=INTEGER},
+      </if>
+    </set>
+    where i_id = #{iId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boot.gang.entity.IntegralDetail" >
+    update t_integral_detail
+    set i_changeIntegral = #{iChangeintegral,jdbcType=DOUBLE},
+      i_changeType = #{iChangetype,jdbcType=INTEGER},
+      i_createTime = #{iCreatetime,jdbcType=TIMESTAMP},
+      i_nowIntegral = #{iNowintegral,jdbcType=DOUBLE},
+      i_orderNo = #{iOrderno,jdbcType=VARCHAR},
+      i_realName = #{iRealname,jdbcType=VARCHAR},
+      i_userId = #{iUserid,jdbcType=VARCHAR},
+      i_reason = #{iReason,jdbcType=VARCHAR},
+      i_IntegralType = #{iIntegraltype,jdbcType=INTEGER}
+    where i_id = #{iId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -5,18 +5,14 @@ import com.boot.gang.entity.User;
 import com.boot.gang.service.CommonService;
 import com.boot.gang.service.LoginService;
 import com.boot.gang.service.TokenService;
-import com.boot.gang.util.MsgUtil;
-import com.boot.gang.util.RedisUtil;
-import com.boot.gang.util.StringUtil;
-import com.boot.gang.util.token.UserLoginToken;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import com.boot.gang.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -40,6 +36,8 @@ public class LoginController {
     RedisUtil redisUtil;
     @Autowired
     MsgUtil msgUtil;
+    @Autowired
+    UploadFileUtil uploadFileUtil;
     //登录
     @ResponseBody
     @PostMapping("/login")
@@ -164,6 +162,37 @@ public class LoginController {
         return msgUtil.jsonSuccessMsg("注册成功", new HashMap());
     }
 
+    /**
+     * @Description     ajax 上传图片
+     * @param pic        license=执照  head=头像
+     * @param file      文件流
+     * @param session
+     * @param request
+     * @return com.alibaba.fastjson.JSONObject
+     * @Author dongxiangwei
+     * @Date 11:03 2020/1/8
+     **/
+    @ResponseBody
+    @RequestMapping("upload{pic}")
+    public JSONObject image(@PathVariable String pic,@RequestParam(value = "file", required = false) MultipartFile file, HttpSession session, HttpServletRequest request){
+        try {
+            String path_joint = "";
+            if (pic.equals("license"))
+                path_joint.concat(PathUtil.PATH_UPLOAD_LICENSE);
+            if (pic.equals("head"))
+                path_joint.concat(PathUtil.PATH_UPLOAD_HEAD_LOGO);
+             uploadFileUtil.uploadImage(file, path_joint,session, request);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return msgUtil.jsonErrorMsg(e.getMessage());
+        }
+        return msgUtil.jsonSuccessMsg("上传成功");
+    }
+
+
+
+
+
 
     /**
      * @param
@@ -172,11 +201,11 @@ public class LoginController {
      * @Author dongxiangwei
      * @Date 15:26 2020/1/3
      **/
-    @UserLoginToken
-    @GetMapping("/getMessage")
-    @ResponseBody
-    public String getMessage() {
-        return "你已通过验证";
-    }
+//    @UserLoginToken
+//    @GetMapping("/getMessage")
+//    @ResponseBody
+//    public String getMessage() {
+//        return "你已通过验证";
+//    }
 
 }
