@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boot.gang.mapper.ShopColumnTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.boot.gang.entity.ShopColumnType" >
+    <constructor >
+      <idArg column="c_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_block_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_city_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_create_user" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_district_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_last_update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_last_update_user" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_province_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_column_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_if_open" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_logo" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_sort" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_summary" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_hide" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_id, c_block_id, c_city_id, c_create_time, c_create_user, c_district_id, c_last_update_time, 
+    c_last_update_user, c_province_id, c_column_id, c_if_open, c_logo, c_name, c_sort, 
+    c_summary, c_hide
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_shop_column_type
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_shop_column_type
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boot.gang.entity.ShopColumnType" >
+    insert into t_shop_column_type (c_id, c_block_id, c_city_id, 
+      c_create_time, c_create_user, c_district_id, 
+      c_last_update_time, c_last_update_user, c_province_id, 
+      c_column_id, c_if_open, c_logo, 
+      c_name, c_sort, c_summary, 
+      c_hide)
+    values (#{cId,jdbcType=VARCHAR}, #{cBlockId,jdbcType=VARCHAR}, #{cCityId,jdbcType=VARCHAR}, 
+      #{cCreateTime,jdbcType=TIMESTAMP}, #{cCreateUser,jdbcType=VARCHAR}, #{cDistrictId,jdbcType=VARCHAR}, 
+      #{cLastUpdateTime,jdbcType=TIMESTAMP}, #{cLastUpdateUser,jdbcType=VARCHAR}, #{cProvinceId,jdbcType=VARCHAR}, 
+      #{cColumnId,jdbcType=VARCHAR}, #{cIfOpen,jdbcType=INTEGER}, #{cLogo,jdbcType=VARCHAR}, 
+      #{cName,jdbcType=VARCHAR}, #{cSort,jdbcType=INTEGER}, #{cSummary,jdbcType=VARCHAR}, 
+      #{cHide,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boot.gang.entity.ShopColumnType" >
+    insert into t_shop_column_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        c_id,
+      </if>
+      <if test="cBlockId != null" >
+        c_block_id,
+      </if>
+      <if test="cCityId != null" >
+        c_city_id,
+      </if>
+      <if test="cCreateTime != null" >
+        c_create_time,
+      </if>
+      <if test="cCreateUser != null" >
+        c_create_user,
+      </if>
+      <if test="cDistrictId != null" >
+        c_district_id,
+      </if>
+      <if test="cLastUpdateTime != null" >
+        c_last_update_time,
+      </if>
+      <if test="cLastUpdateUser != null" >
+        c_last_update_user,
+      </if>
+      <if test="cProvinceId != null" >
+        c_province_id,
+      </if>
+      <if test="cColumnId != null" >
+        c_column_id,
+      </if>
+      <if test="cIfOpen != null" >
+        c_if_open,
+      </if>
+      <if test="cLogo != null" >
+        c_logo,
+      </if>
+      <if test="cName != null" >
+        c_name,
+      </if>
+      <if test="cSort != null" >
+        c_sort,
+      </if>
+      <if test="cSummary != null" >
+        c_summary,
+      </if>
+      <if test="cHide != null" >
+        c_hide,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        #{cId,jdbcType=VARCHAR},
+      </if>
+      <if test="cBlockId != null" >
+        #{cBlockId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCityId != null" >
+        #{cCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreateTime != null" >
+        #{cCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCreateUser != null" >
+        #{cCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cDistrictId != null" >
+        #{cDistrictId,jdbcType=VARCHAR},
+      </if>
+      <if test="cLastUpdateTime != null" >
+        #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cLastUpdateUser != null" >
+        #{cLastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cProvinceId != null" >
+        #{cProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cColumnId != null" >
+        #{cColumnId,jdbcType=VARCHAR},
+      </if>
+      <if test="cIfOpen != null" >
+        #{cIfOpen,jdbcType=INTEGER},
+      </if>
+      <if test="cLogo != null" >
+        #{cLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="cName != null" >
+        #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cSort != null" >
+        #{cSort,jdbcType=INTEGER},
+      </if>
+      <if test="cSummary != null" >
+        #{cSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="cHide != null" >
+        #{cHide,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boot.gang.entity.ShopColumnType" >
+    update t_shop_column_type
+    <set >
+      <if test="cBlockId != null" >
+        c_block_id = #{cBlockId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCityId != null" >
+        c_city_id = #{cCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreateTime != null" >
+        c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCreateUser != null" >
+        c_create_user = #{cCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cDistrictId != null" >
+        c_district_id = #{cDistrictId,jdbcType=VARCHAR},
+      </if>
+      <if test="cLastUpdateTime != null" >
+        c_last_update_time = #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cLastUpdateUser != null" >
+        c_last_update_user = #{cLastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cProvinceId != null" >
+        c_province_id = #{cProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cColumnId != null" >
+        c_column_id = #{cColumnId,jdbcType=VARCHAR},
+      </if>
+      <if test="cIfOpen != null" >
+        c_if_open = #{cIfOpen,jdbcType=INTEGER},
+      </if>
+      <if test="cLogo != null" >
+        c_logo = #{cLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="cName != null" >
+        c_name = #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cSort != null" >
+        c_sort = #{cSort,jdbcType=INTEGER},
+      </if>
+      <if test="cSummary != null" >
+        c_summary = #{cSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="cHide != null" >
+        c_hide = #{cHide,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boot.gang.entity.ShopColumnType" >
+    update t_shop_column_type
+    set c_block_id = #{cBlockId,jdbcType=VARCHAR},
+      c_city_id = #{cCityId,jdbcType=VARCHAR},
+      c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
+      c_create_user = #{cCreateUser,jdbcType=VARCHAR},
+      c_district_id = #{cDistrictId,jdbcType=VARCHAR},
+      c_last_update_time = #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      c_last_update_user = #{cLastUpdateUser,jdbcType=VARCHAR},
+      c_province_id = #{cProvinceId,jdbcType=VARCHAR},
+      c_column_id = #{cColumnId,jdbcType=VARCHAR},
+      c_if_open = #{cIfOpen,jdbcType=INTEGER},
+      c_logo = #{cLogo,jdbcType=VARCHAR},
+      c_name = #{cName,jdbcType=VARCHAR},
+      c_sort = #{cSort,jdbcType=INTEGER},
+      c_summary = #{cSummary,jdbcType=VARCHAR},
+      c_hide = #{cHide,jdbcType=VARCHAR}
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </update>
+</mapper>

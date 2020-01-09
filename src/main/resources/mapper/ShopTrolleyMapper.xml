@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boot.gang.mapper.ShopTrolleyMapper" >
+  <resultMap id="BaseResultMap" type="com.boot.gang.entity.ShopTrolley" >
+    <constructor >
+      <idArg column="st_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="st_createtTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="st_now_price_description" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="st_product_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="st_product_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="st_productSpec" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="st_productTexture" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="st_realname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="st_shop_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="st_shop_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="st_state" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="st_storeAddress" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="st_tonNum" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="st_userId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="st_now_price" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="st_original_price" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="st_price" jdbcType="DOUBLE" javaType="java.lang.Double" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    st_id, st_createtTime, st_now_price_description, st_product_id, st_product_name, 
+    st_productSpec, st_productTexture, st_realname, st_shop_id, st_state, st_storeAddress, 
+    st_tonNum, st_userId, st_now_price, st_original_price, st_price, st_shop_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_shop_trolley
+    where st_id = #{stId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_shop_trolley
+    where st_id = #{stId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boot.gang.entity.ShopTrolley" >
+    insert into t_shop_trolley (st_id, st_createtTime, st_now_price_description, 
+      st_product_id, st_product_name, st_productSpec, 
+      st_productTexture, st_realname, st_shop_id, 
+      st_state, st_storeAddress, st_tonNum, 
+      st_userId, st_now_price, st_original_price, 
+      st_price), st_shop_name
+    values (#{stId,jdbcType=VARCHAR}, #{stCreatettime,jdbcType=TIMESTAMP}, #{stNowPriceDescription,jdbcType=VARCHAR}, 
+      #{stProductId,jdbcType=VARCHAR}, #{stProductName,jdbcType=VARCHAR}, #{stProductspec,jdbcType=VARCHAR}, 
+      #{stProducttexture,jdbcType=VARCHAR}, #{stRealname,jdbcType=VARCHAR}, #{stShopId,jdbcType=VARCHAR}, 
+      #{stState,jdbcType=INTEGER}, #{stStoreaddress,jdbcType=VARCHAR}, #{stTonnum,jdbcType=VARCHAR}, 
+      #{stUserid,jdbcType=VARCHAR}, #{stNowPrice,jdbcType=DOUBLE}, #{stOriginalPrice,jdbcType=DOUBLE}, 
+      #{stPrice,jdbcType=DOUBLE}, #{stShopName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boot.gang.entity.ShopTrolley" >
+    insert into t_shop_trolley
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stId != null" >
+        st_id,
+      </if>
+      <if test="stCreatettime != null" >
+        st_createtTime,
+      </if>
+      <if test="stNowPriceDescription != null" >
+        st_now_price_description,
+      </if>
+      <if test="stProductId != null" >
+        st_product_id,
+      </if>
+      <if test="stProductName != null" >
+        st_product_name,
+      </if>
+      <if test="stProductspec != null" >
+        st_productSpec,
+      </if>
+      <if test="stProducttexture != null" >
+        st_productTexture,
+      </if>
+      <if test="stRealname != null" >
+        st_realname,
+      </if>
+      <if test="stShopId != null" >
+        st_shop_id,
+      </if>
+      <if test="stState != null" >
+        st_state,
+      </if>
+      <if test="stStoreaddress != null" >
+        st_storeAddress,
+      </if>
+      <if test="stTonnum != null" >
+        st_tonNum,
+      </if>
+      <if test="stUserid != null" >
+        st_userId,
+      </if>
+      <if test="stNowPrice != null" >
+        st_now_price,
+      </if>
+      <if test="stOriginalPrice != null" >
+        st_original_price,
+      </if>
+      <if test="stPrice != null" >
+        st_price,
+      </if>
+      <if test="stShopName != null" >
+        st_shop_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stId != null" >
+        #{stId,jdbcType=VARCHAR},
+      </if>
+      <if test="stCreatettime != null" >
+        #{stCreatettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stNowPriceDescription != null" >
+        #{stNowPriceDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="stProductId != null" >
+        #{stProductId,jdbcType=VARCHAR},
+      </if>
+      <if test="stProductName != null" >
+        #{stProductName,jdbcType=VARCHAR},
+      </if>
+      <if test="stProductspec != null" >
+        #{stProductspec,jdbcType=VARCHAR},
+      </if>
+      <if test="stProducttexture != null" >
+        #{stProducttexture,jdbcType=VARCHAR},
+      </if>
+      <if test="stRealname != null" >
+        #{stRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="stShopId != null" >
+        #{stShopId,jdbcType=VARCHAR},
+      </if>
+      <if test="stState != null" >
+        #{stState,jdbcType=INTEGER},
+      </if>
+      <if test="stStoreaddress != null" >
+        #{stStoreaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="stTonnum != null" >
+        #{stTonnum,jdbcType=VARCHAR},
+      </if>
+      <if test="stUserid != null" >
+        #{stUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="stNowPrice != null" >
+        #{stNowPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="stOriginalPrice != null" >
+        #{stOriginalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="stPrice != null" >
+        #{stPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="stShopName != null" >
+        #{stShopName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boot.gang.entity.ShopTrolley" >
+    update t_shop_trolley
+    <set >
+      <if test="stCreatettime != null" >
+        st_createtTime = #{stCreatettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stNowPriceDescription != null" >
+        st_now_price_description = #{stNowPriceDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="stProductId != null" >
+        st_product_id = #{stProductId,jdbcType=VARCHAR},
+      </if>
+      <if test="stProductName != null" >
+        st_product_name = #{stProductName,jdbcType=VARCHAR},
+      </if>
+      <if test="stProductspec != null" >
+        st_productSpec = #{stProductspec,jdbcType=VARCHAR},
+      </if>
+      <if test="stProducttexture != null" >
+        st_productTexture = #{stProducttexture,jdbcType=VARCHAR},
+      </if>
+      <if test="stRealname != null" >
+        st_realname = #{stRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="stShopId != null" >
+        st_shop_id = #{stShopId,jdbcType=VARCHAR},
+      </if>
+      <if test="stState != null" >
+        st_state = #{stState,jdbcType=INTEGER},
+      </if>
+      <if test="stStoreaddress != null" >
+        st_storeAddress = #{stStoreaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="stTonnum != null" >
+        st_tonNum = #{stTonnum,jdbcType=VARCHAR},
+      </if>
+      <if test="stUserid != null" >
+        st_userId = #{stUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="stNowPrice != null" >
+        st_now_price = #{stNowPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="stOriginalPrice != null" >
+        st_original_price = #{stOriginalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="stPrice != null" >
+        st_price = #{stPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="stShopName != null" >
+        st_shop_name = #{stShopName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where st_id = #{stId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boot.gang.entity.ShopTrolley" >
+    update t_shop_trolley
+    set st_createtTime = #{stCreatettime,jdbcType=TIMESTAMP},
+      st_now_price_description = #{stNowPriceDescription,jdbcType=VARCHAR},
+      st_product_id = #{stProductId,jdbcType=VARCHAR},
+      st_product_name = #{stProductName,jdbcType=VARCHAR},
+      st_productSpec = #{stProductspec,jdbcType=VARCHAR},
+      st_productTexture = #{stProducttexture,jdbcType=VARCHAR},
+      st_realname = #{stRealname,jdbcType=VARCHAR},
+      st_shop_id = #{stShopId,jdbcType=VARCHAR},
+      st_state = #{stState,jdbcType=INTEGER},
+      st_storeAddress = #{stStoreaddress,jdbcType=VARCHAR},
+      st_tonNum = #{stTonnum,jdbcType=VARCHAR},
+      st_userId = #{stUserid,jdbcType=VARCHAR},
+      st_now_price = #{stNowPrice,jdbcType=DOUBLE},
+      st_original_price = #{stOriginalPrice,jdbcType=DOUBLE},
+      st_price = #{stPrice,jdbcType=DOUBLE},
+      st_shop_name = #{stShopName,jdbcType=VARCHAR}
+    where st_id = #{stId,jdbcType=VARCHAR}
+  </update>
+</mapper>

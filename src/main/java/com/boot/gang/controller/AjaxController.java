@@ -3,11 +3,17 @@ package com.boot.gang.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.boot.gang.entity.Address;
 import com.boot.gang.entity.IntegralDetail;
+import com.boot.gang.entity.ShopTrolley;
 import com.boot.gang.entity.User;
 import com.boot.gang.service.CommonService;
+import com.boot.gang.service.ProductService;
+import com.boot.gang.service.ShopTrolleyService;
 import com.boot.gang.service.TokenService;
 import com.boot.gang.util.MsgUtil;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +41,10 @@ public class AjaxController {
     MsgUtil msgUtil;
     @Autowired
     TokenService tokenService;
-
+    @Autowired
+    ProductService productService;
+    @Autowired
+    ShopTrolleyService shopTrolleyService;
     /**
      * @Description  通过id 获取相应对象信息
      * @param entity    实体类名称
@@ -83,7 +92,7 @@ public class AjaxController {
      * @Date 16:48 2020/1/4
      **/
     @GetMapping("/list{entity}")
-    public JSONObject getList(@PathVariable String entity, @RequestParam(required = false) Integer pageIndex,@RequestParam(required = false) Integer pageSize, HttpServletRequest request){
+    public JSONObject getList(@PathVariable String entity, @RequestParam(required = false) String pageIndex,@RequestParam(required = false) String pageSize, HttpServletRequest request){
         Map<String, List> map = new HashMap<>();
         if (entity.equals("dz"))        // 收货地址
             map.put("address", commonService.getList("Address", request, pageIndex, pageSize));
@@ -95,12 +104,26 @@ public class AjaxController {
             map.put("data", commonService.getList("ShopColumn", request, pageIndex, pageSize));
         if(entity.equals("dh2"))         // 二级导航
             map.put("data", commonService.getList("ShopColumnType", request, pageIndex, pageSize));
+        if (entity.equals("pm"))           // 商品筛选  品名
+            map.put("data", commonService.getList("pm", request, pageIndex, pageSize));
         // 卷价
+        if(entity.equals("jj"))         // 卷价
+            map.put("data", commonService.getList("VolumePrice", request, pageIndex, pageSize));
+        if(entity.equals("sf"))         // 省份
+            map.put("data", commonService.getList("Province", request, pageIndex, pageSize));
+        if(entity.equals("jjsf"))         // 卷价省份
+            map.put("data", commonService.getList("jjsf", request, pageIndex, pageSize));
+        if(entity.equals("cjdt"))         // 成交动态
+            map.put("data", commonService.getList("cjdt", request, pageIndex, pageSize));
+        if(entity.equals("zxcj"))         // 最新成交
+            map.put("data", commonService.getList("zxcj", request, pageIndex, pageSize));
+        if (entity.equals("gwc"))           // 购物车
+            map.put("data", commonService.getList("gwc", request, pageIndex, pageSize));
+        if (entity.equals("gc"))            // 钢厂
+            map.put("data", commonService.getList("gc", request, pageIndex, pageSize));
 
-        if(entity.equals("cs"))         // 二级导航
-            map.put("data", commonService.getList("City", request, pageIndex, pageSize));
         if (entity.equals("sp"))       // 商品
-            map.put("data", commonService.getList("Product", request, pageIndex, pageSize));
+            map.put("data", productService.getList(request, pageIndex, pageSize));
         if (map.isEmpty()){
             return msgUtil.jsonErrorMsg("路径错误");
         }
@@ -117,10 +140,15 @@ public class AjaxController {
     @RequestMapping(value = "/add{entity}", method = RequestMethod.POST)
     public JSONObject addByEntity(@PathVariable String entity,@RequestBody JSONObject json, HttpServletRequest request){
 
+        String userId;
+        try {
+            userId = tokenService.getIdByToken(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return msgUtil.jsonErrorMsg("token错误");
+        }
         if (entity.equals("dz")){       // 收货地址
-            String userId;
             try {
-                userId = tokenService.getIdByToken(request);
                 Address address = JSONObject.toJavaObject(json, Address.class);
                 address.setcCreateUser(userId);
                 address.setcId(System.nanoTime()+"");
@@ -132,18 +160,16 @@ public class AjaxController {
             }
         }
         if (entity.equals("jf")){
-            String userId;
             try {
-                userId = tokenService.getIdByToken(request);
                 IntegralDetail integralDetail = JSONObject.toJavaObject(json, IntegralDetail.class);
-                System.out.println(integralDetail.toString());
+//                System.out.println(integralDetail.toString());
                 // 赋值
                 integralDetail.setiUserid(userId);
                 User user = (User) commonService.findObjectById(userId, "User");
                 integralDetail.setiRealname(user.getcRealname());
                 integralDetail.setiId(System.nanoTime()+"");
                 integralDetail.setiCreatetime(new Date());
-//                commonService.save(integralDetail, "IntegralDetail");     // 保存
+                commonService.save(integralDetail, "IntegralDetail");     // 保存
                 if (json.containsKey("mlNum")){     // 含有此参数是 一定是抽奖操作
                     IntegralDetail detail = new IntegralDetail();
                     detail.setiId("cj" + System.nanoTime()+ "");
@@ -155,15 +181,27 @@ public class AjaxController {
                     detail.setiCreatetime(new Date());
                     detail.setiIntegraltype(2);
                     detail.setiReason("50积分抽奖获得");
-                    System.out.println(detail);
-//                    commonService.save(detail, "IntegralDetail");         //保存
+//                    System.out.println(detail);
+                    commonService.save(detail, "IntegralDetail");         //保存
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 return msgUtil.jsonErrorMsg("添加失败");
             }
         }
-
+        if (entity.equals("gwc")){  // 添加购物车
+            String pId = json.getString("pId");
+            if (shopTrolleyService.getCountByProductId(pId) > 0){
+                return msgUtil.jsonErrorMsg("当前商品购物车已存在");
+            }
+            try {
+                ShopTrolley shopTrolley = new ShopTrolley(pId, userId);
+                commonService.save(shopTrolley, "ShopTrolley");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return msgUtil.jsonErrorMsg("添加失败");
+            }
+        }
         return msgUtil.jsonSuccessMsg("添加成功");
     }
 
@@ -226,6 +264,9 @@ public class AjaxController {
             if (entity.equals("dz")){           // 收货地址
 //                System.out.println(id);
                 commonService.delete(id, "Address");
+            }
+            if (entity.equals("gwc")){           // 收货地址
+                commonService.delete(id, "ShopTrolley");
             }
         } catch (Exception e) {
             e.printStackTrace();

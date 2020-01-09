@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boot.gang.mapper.VolumePriceMapper" >
+  <resultMap id="BaseResultMap" type="com.boot.gang.entity.VolumePrice" >
+    <constructor >
+      <idArg column="c_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_block_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_city_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_create_user" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_district_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_hide" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_last_update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_last_update_user" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_province_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_province" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_shop_column_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_shop_column_type_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_stateChange" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_todayPrice" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_yesterdayPrice" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_id, c_block_id, c_city_id, c_create_time, c_create_user, c_district_id, c_hide, 
+    c_last_update_time, c_last_update_user, c_province_id, c_province, c_shop_column_type, 
+    c_shop_column_type_id, c_stateChange, c_todayPrice, c_yesterdayPrice
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_volume_price
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_volume_price
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boot.gang.entity.VolumePrice" >
+    insert into t_volume_price (c_id, c_block_id, c_city_id, 
+      c_create_time, c_create_user, c_district_id, 
+      c_hide, c_last_update_time, c_last_update_user, 
+      c_province_id, c_province, c_shop_column_type, 
+      c_shop_column_type_id, c_stateChange, c_todayPrice, 
+      c_yesterdayPrice)
+    values (#{cId,jdbcType=VARCHAR}, #{cBlockId,jdbcType=VARCHAR}, #{cCityId,jdbcType=VARCHAR}, 
+      #{cCreateTime,jdbcType=TIMESTAMP}, #{cCreateUser,jdbcType=VARCHAR}, #{cDistrictId,jdbcType=VARCHAR}, 
+      #{cHide,jdbcType=VARCHAR}, #{cLastUpdateTime,jdbcType=TIMESTAMP}, #{cLastUpdateUser,jdbcType=VARCHAR}, 
+      #{cProvinceId,jdbcType=VARCHAR}, #{cProvince,jdbcType=VARCHAR}, #{cShopColumnType,jdbcType=VARCHAR}, 
+      #{cShopColumnTypeId,jdbcType=VARCHAR}, #{cStatechange,jdbcType=VARCHAR}, #{cTodayprice,jdbcType=VARCHAR}, 
+      #{cYesterdayprice,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boot.gang.entity.VolumePrice" >
+    insert into t_volume_price
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        c_id,
+      </if>
+      <if test="cBlockId != null" >
+        c_block_id,
+      </if>
+      <if test="cCityId != null" >
+        c_city_id,
+      </if>
+      <if test="cCreateTime != null" >
+        c_create_time,
+      </if>
+      <if test="cCreateUser != null" >
+        c_create_user,
+      </if>
+      <if test="cDistrictId != null" >
+        c_district_id,
+      </if>
+      <if test="cHide != null" >
+        c_hide,
+      </if>
+      <if test="cLastUpdateTime != null" >
+        c_last_update_time,
+      </if>
+      <if test="cLastUpdateUser != null" >
+        c_last_update_user,
+      </if>
+      <if test="cProvinceId != null" >
+        c_province_id,
+      </if>
+      <if test="cProvince != null" >
+        c_province,
+      </if>
+      <if test="cShopColumnType != null" >
+        c_shop_column_type,
+      </if>
+      <if test="cShopColumnTypeId != null" >
+        c_shop_column_type_id,
+      </if>
+      <if test="cStatechange != null" >
+        c_stateChange,
+      </if>
+      <if test="cTodayprice != null" >
+        c_todayPrice,
+      </if>
+      <if test="cYesterdayprice != null" >
+        c_yesterdayPrice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        #{cId,jdbcType=VARCHAR},
+      </if>
+      <if test="cBlockId != null" >
+        #{cBlockId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCityId != null" >
+        #{cCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreateTime != null" >
+        #{cCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCreateUser != null" >
+        #{cCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cDistrictId != null" >
+        #{cDistrictId,jdbcType=VARCHAR},
+      </if>
+      <if test="cHide != null" >
+        #{cHide,jdbcType=VARCHAR},
+      </if>
+      <if test="cLastUpdateTime != null" >
+        #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cLastUpdateUser != null" >
+        #{cLastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cProvinceId != null" >
+        #{cProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cProvince != null" >
+        #{cProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="cShopColumnType != null" >
+        #{cShopColumnType,jdbcType=VARCHAR},
+      </if>
+      <if test="cShopColumnTypeId != null" >
+        #{cShopColumnTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="cStatechange != null" >
+        #{cStatechange,jdbcType=VARCHAR},
+      </if>
+      <if test="cTodayprice != null" >
+        #{cTodayprice,jdbcType=VARCHAR},
+      </if>
+      <if test="cYesterdayprice != null" >
+        #{cYesterdayprice,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boot.gang.entity.VolumePrice" >
+    update t_volume_price
+    <set >
+      <if test="cBlockId != null" >
+        c_block_id = #{cBlockId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCityId != null" >
+        c_city_id = #{cCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreateTime != null" >
+        c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCreateUser != null" >
+        c_create_user = #{cCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cDistrictId != null" >
+        c_district_id = #{cDistrictId,jdbcType=VARCHAR},
+      </if>
+      <if test="cHide != null" >
+        c_hide = #{cHide,jdbcType=VARCHAR},
+      </if>
+      <if test="cLastUpdateTime != null" >
+        c_last_update_time = #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cLastUpdateUser != null" >
+        c_last_update_user = #{cLastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cProvinceId != null" >
+        c_province_id = #{cProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cProvince != null" >
+        c_province = #{cProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="cShopColumnType != null" >
+        c_shop_column_type = #{cShopColumnType,jdbcType=VARCHAR},
+      </if>
+      <if test="cShopColumnTypeId != null" >
+        c_shop_column_type_id = #{cShopColumnTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="cStatechange != null" >
+        c_stateChange = #{cStatechange,jdbcType=VARCHAR},
+      </if>
+      <if test="cTodayprice != null" >
+        c_todayPrice = #{cTodayprice,jdbcType=VARCHAR},
+      </if>
+      <if test="cYesterdayprice != null" >
+        c_yesterdayPrice = #{cYesterdayprice,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boot.gang.entity.VolumePrice" >
+    update t_volume_price
+    set c_block_id = #{cBlockId,jdbcType=VARCHAR},
+      c_city_id = #{cCityId,jdbcType=VARCHAR},
+      c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
+      c_create_user = #{cCreateUser,jdbcType=VARCHAR},
+      c_district_id = #{cDistrictId,jdbcType=VARCHAR},
+      c_hide = #{cHide,jdbcType=VARCHAR},
+      c_last_update_time = #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      c_last_update_user = #{cLastUpdateUser,jdbcType=VARCHAR},
+      c_province_id = #{cProvinceId,jdbcType=VARCHAR},
+      c_province = #{cProvince,jdbcType=VARCHAR},
+      c_shop_column_type = #{cShopColumnType,jdbcType=VARCHAR},
+      c_shop_column_type_id = #{cShopColumnTypeId,jdbcType=VARCHAR},
+      c_stateChange = #{cStatechange,jdbcType=VARCHAR},
+      c_todayPrice = #{cTodayprice,jdbcType=VARCHAR},
+      c_yesterdayPrice = #{cYesterdayprice,jdbcType=VARCHAR}
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </update>
+</mapper>

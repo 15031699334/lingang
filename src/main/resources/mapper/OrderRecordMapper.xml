@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boot.gang.mapper.OrderRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.boot.gang.entity.OrderRecord" >
+    <constructor >
+      <idArg column="c_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="or_createtTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="or_phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="or_realname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="or_state" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="or_unit" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="or_username" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="or_volume" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="or_userId" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_id, or_createtTime, or_phone, or_realname, or_state, or_unit, or_username, or_volume, 
+    or_userId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_record
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_order_record
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boot.gang.entity.OrderRecord" >
+    insert into t_order_record (c_id, or_createtTime, or_phone, 
+      or_realname, or_state, or_unit, 
+      or_username, or_volume, or_userId
+      )
+    values (#{cId,jdbcType=VARCHAR}, #{orCreatettime,jdbcType=TIMESTAMP}, #{orPhone,jdbcType=VARCHAR}, 
+      #{orRealname,jdbcType=VARCHAR}, #{orState,jdbcType=INTEGER}, #{orUnit,jdbcType=VARCHAR}, 
+      #{orUsername,jdbcType=VARCHAR}, #{orVolume,jdbcType=VARCHAR}, #{orUserid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boot.gang.entity.OrderRecord" >
+    insert into t_order_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        c_id,
+      </if>
+      <if test="orCreatettime != null" >
+        or_createtTime,
+      </if>
+      <if test="orPhone != null" >
+        or_phone,
+      </if>
+      <if test="orRealname != null" >
+        or_realname,
+      </if>
+      <if test="orState != null" >
+        or_state,
+      </if>
+      <if test="orUnit != null" >
+        or_unit,
+      </if>
+      <if test="orUsername != null" >
+        or_username,
+      </if>
+      <if test="orVolume != null" >
+        or_volume,
+      </if>
+      <if test="orUserid != null" >
+        or_userId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        #{cId,jdbcType=VARCHAR},
+      </if>
+      <if test="orCreatettime != null" >
+        #{orCreatettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orPhone != null" >
+        #{orPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orRealname != null" >
+        #{orRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="orState != null" >
+        #{orState,jdbcType=INTEGER},
+      </if>
+      <if test="orUnit != null" >
+        #{orUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="orUsername != null" >
+        #{orUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="orVolume != null" >
+        #{orVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="orUserid != null" >
+        #{orUserid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boot.gang.entity.OrderRecord" >
+    update t_order_record
+    <set >
+      <if test="orCreatettime != null" >
+        or_createtTime = #{orCreatettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orPhone != null" >
+        or_phone = #{orPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orRealname != null" >
+        or_realname = #{orRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="orState != null" >
+        or_state = #{orState,jdbcType=INTEGER},
+      </if>
+      <if test="orUnit != null" >
+        or_unit = #{orUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="orUsername != null" >
+        or_username = #{orUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="orVolume != null" >
+        or_volume = #{orVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="orUserid != null" >
+        or_userId = #{orUserid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boot.gang.entity.OrderRecord" >
+    update t_order_record
+    set or_createtTime = #{orCreatettime,jdbcType=TIMESTAMP},
+      or_phone = #{orPhone,jdbcType=VARCHAR},
+      or_realname = #{orRealname,jdbcType=VARCHAR},
+      or_state = #{orState,jdbcType=INTEGER},
+      or_unit = #{orUnit,jdbcType=VARCHAR},
+      or_username = #{orUsername,jdbcType=VARCHAR},
+      or_volume = #{orVolume,jdbcType=VARCHAR},
+      or_userId = #{orUserid,jdbcType=VARCHAR}
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -17,12 +17,13 @@
       <arg column="d_shopId" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="d_shopName" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="d_tonNum" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="d_price" jdbcType="DOUBLE" javaType="java.lang.Double" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
     d_id, d_createTime, d_orderNo, d_processPrice, d_processRequirement, d_productId, 
     d_productNum, d_productSpec, d_productTexture, d_shopColumnType, d_shopColumnTypeId, 
-    d_shopId, d_shopName, d_tonNum
+    d_shopId, d_shopName, d_tonNum, d_price
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -39,12 +40,12 @@
       d_processPrice, d_processRequirement, d_productId, 
       d_productNum, d_productSpec, d_productTexture, 
       d_shopColumnType, d_shopColumnTypeId, d_shopId, 
-      d_shopName, d_tonNum)
+      d_shopName, d_tonNum, d_price)
     values (#{dId,jdbcType=VARCHAR}, #{dCreatetime,jdbcType=TIMESTAMP}, #{dOrderno,jdbcType=VARCHAR}, 
       #{dProcessprice,jdbcType=DOUBLE}, #{dProcessrequirement,jdbcType=VARCHAR}, #{dProductid,jdbcType=VARCHAR}, 
       #{dProductnum,jdbcType=VARCHAR}, #{dProductspec,jdbcType=VARCHAR}, #{dProducttexture,jdbcType=VARCHAR}, 
       #{dShopcolumntype,jdbcType=VARCHAR}, #{dShopcolumntypeid,jdbcType=VARCHAR}, #{dShopid,jdbcType=VARCHAR}, 
-      #{dShopname,jdbcType=VARCHAR}, #{dTonnum,jdbcType=VARCHAR})
+      #{dShopname,jdbcType=VARCHAR}, #{dTonnum,jdbcType=VARCHAR}), #{dPrice,jdbcType=DOUBLE}
   </insert>
   <insert id="insertSelective" parameterType="com.boot.gang.entity.OrderDetail" >
     insert into t_order_detail
@@ -91,6 +92,9 @@
       <if test="dTonnum != null" >
         d_tonNum,
       </if>
+      <if test="dPrice != null" >
+        d_price,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="dId != null" >
@@ -134,6 +138,9 @@
       </if>
       <if test="dTonnum != null" >
         #{dTonnum,jdbcType=VARCHAR},
+      </if>
+      <if test="dPrice != null" >
+        #{dPrice,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -179,6 +186,9 @@
       <if test="dTonnum != null" >
         d_tonNum = #{dTonnum,jdbcType=VARCHAR},
       </if>
+      <if test="drice != null" >
+        d_price = #{dPrice,jdbcType=DOUBLE},
+      </if>
     </set>
     where d_id = #{dId,jdbcType=VARCHAR}
   </update>
@@ -196,7 +206,8 @@
       d_shopColumnTypeId = #{dShopcolumntypeid,jdbcType=VARCHAR},
       d_shopId = #{dShopid,jdbcType=VARCHAR},
       d_shopName = #{dShopname,jdbcType=VARCHAR},
-      d_tonNum = #{dTonnum,jdbcType=VARCHAR}
+      d_tonNum = #{dTonnum,jdbcType=VARCHAR},
+      d_price = #{dPrice,jdbcType=DOUBLE}
     where d_id = #{dId,jdbcType=VARCHAR}
   </update>
 </mapper>

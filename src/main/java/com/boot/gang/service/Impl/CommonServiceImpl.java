@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @ClassName: lingang
@@ -35,6 +32,24 @@ public class CommonServiceImpl implements CommonService {
     OrderDetailMapper orderDetailMapper;
     @Autowired
     IntegralDetailMapper integralDetailMapper;
+    @Autowired
+    ShopMapper shopMapper;
+    @Autowired
+    ShopColumnMapper shopColumnMapper;
+    @Autowired
+    ShopColumnTypeMapper shopColumnTypeMapper;
+    @Autowired
+    ProductMapper productMapper;
+    @Autowired
+    VolumePriceMapper volumePriceMapper;
+    @Autowired
+    CityMapper cityMapper;
+    @Autowired
+    ProvinceMapper provinceMapper;
+    @Autowired
+    OrderRecordMapper orderRecordMapper;
+    @Autowired
+    ShopTrolleyMapper shopTrolleyMapper;
     @Override
     public Object findObjectById(String id, String entity) {
         if (entity.equals("User")){
@@ -42,6 +57,8 @@ public class CommonServiceImpl implements CommonService {
         }
         if (entity.equals("Address"))
             return addressMapper.selectByPrimaryKey(id);
+        if (entity.equals("Product"))
+            return provinceMapper.selectByPrimaryKey(id);
         if (entity.equals("gd")){
             Map<String, Object> map = new HashMap();
             User user = userMapper.selectByPrimaryKey(id);
@@ -71,15 +88,31 @@ public class CommonServiceImpl implements CommonService {
         if (entity.equals("IntegralDetail")){
             IntegralDetail integralDetail = (IntegralDetail) object;
             if (integralDetail.getiIntegraltype() == 1){        //  钢豆修改
-                User user = new User(integralDetail.getiUserid(), Integer.valueOf(integralDetail.getiNowintegral().toString()));
+                User user = new User(integralDetail.getiUserid(), integralDetail.getiNowintegral().intValue());
+
                 // 修改
-//              userMapper.updateByPrimaryKeySelective(user);
+              userMapper.updateByPrimaryKeySelective(user);
             }else {     // ml数修改
                 User user = new User(integralDetail.getiUserid(), integralDetail.getiNowintegral());
                 // 修改
-//              userMapper.updateByPrimaryKeySelective(user);
+              userMapper.updateByPrimaryKeySelective(user);
             }
             integralDetailMapper.insertSelective(integralDetail);   // 添加
+        }
+        if (entity.equals("ShopTrolley")){  // 添加购物车
+            ShopTrolley shopTrolley = (ShopTrolley) object;
+            Product product = productMapper.selectByPrimaryKey(shopTrolley.getStProductId());  // 获取到商品信息
+            shopTrolley.setStId("st" +System.nanoTime());
+            shopTrolley.setStProductId(product.getcId());
+            shopTrolley.setStPrice(product.getcNowPrice());
+            shopTrolley.setStNowPrice(product.getcNowPrice());
+            shopTrolley.setStProductName(product.getcName());
+            shopTrolley.setStShopId(product.getcShopId());
+            shopTrolley.setStShopName(product.getcShopName());
+            // 规格 材质 吨数
+
+            shopTrolley.setStCreatettime(new Date());
+            shopTrolleyMapper.insertSelective(shopTrolley);
         }
     }
 
@@ -100,7 +133,7 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public List getList(String entity, HttpServletRequest request, Integer pageIndex, Integer pageSize) {
+    public List getList(String entity, HttpServletRequest request, String pageIndex, String pageSize) {
         if (entity.equals("Address")){      // 收货地址
             String userId;
             try {
@@ -151,46 +184,63 @@ public class CommonServiceImpl implements CommonService {
                 return new ArrayList();
             }
         }
-//        if (entity.equals("ShopColumn")){   // 导航栏
-//            return shopColumnMapper.getList(" order by c_sort asc");
-//        }
-//        if (entity.equals("ShopColumnType")){   // 二级导航栏 冷轧...
-//            String shopColumnId = request.getParameter("id");
-//            return shopColumnTypeMapper.getList(" and c_column_id = " + shopColumnId + " order by c_sort asc");
-//        }
-//        if (entity.equals("City")){   // 首页城市
-//            return CityMapper.getList(" and c_if_open = 1 ");
-//        }
-
-
-
-
-//        if (entity.equals("Product")){   // 商品
-                String cityId = request.getParameter("cityId");     //首页城市id
-                String provinceId = request.getParameter("provinceId");     // 地区id
-                String shopName = request.getParameter("shopName");         // 商户
-                String shopColumnTypeId = request.getParameter("shopColumnTypeId"); //品名
-                String cangku = request.getParameter("cangku");             // 仓库
-                String guige = request.getParameter("guige");             // 规格
-                String caizhi = request.getParameter("caizhi");             // 材质
-
-
-
-
-
-//            return ProductMapper.getList(" and c_if_open = 1 ");
-//        }
+        if (entity.equals("gc"))
+            return shopMapper.getList(" and c_if_open = 1 ");
+        if (entity.equals("ShopColumn")){   // 导航栏
+            return shopColumnMapper.getList(" order by c_sort asc");
+        }
+        if (entity.equals("ShopColumnType")){   // 二级导航栏 冷轧...
+            String shopColumnId = request.getParameter("id");
+            return shopColumnTypeMapper.getList(" and c_if_open = 1 and c_column_id = " + shopColumnId + " order by c_sort asc");
+        }
+        if (entity.equals("pm")) {
+            String shopColumnId = request.getParameter("id");
+            return shopColumnTypeMapper.getList(" and c_name != '全部' and c_column_id = " + shopColumnId + " order by c_sort asc");
+        }
+        if (entity.equals("Province")){   // 省份列表(商品筛选)
+            return provinceMapper.getList(" and c_hide = 1 order by c_sort asc");
+        }
+        if (entity.equals("jjsf")){   // 首页卷价地区
+            return provinceMapper.getList(" and is_volume_price = 1 order by c_sort asc");
+        }
+        if (entity.equals("VolumePrice")){      // 今日卷价
+            String provence = request.getParameter("pName");
+            return volumePriceMapper.getList(" and c_province = '" + provence + "' and to_days(c_create_time) = to_days(now()) order by c_create_time desc");
+        }
+        if (entity.equals("cjdt")){   // 首页成交动态(滚动)
+            return orderRecordMapper.getList(" and or_state = 1 order by or_createtTime desc");
+        }
+        if (entity.equals("zxcj")){   // 首页最新成交
+            return orderDetailMapper.getNowList(" and o.c_state != 0 order by d_createTime desc");
+        }
+        if (entity.equals("gwc")){      // 购物车
+            String userId;
+            try {
+                userId = tokenService.getIdByToken(request);
+                return shopTrolleyMapper.getList(" and st_userId = " + userId + " order by st_createtTime desc");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new ArrayList();
+            }
+        }
         return null;
     }
 
     @Override
     @Transactional
     public void delete(String id, String entity) throws Exception{
+        int count = 0;
         if (entity.equals("Address")){
-            int count = addressMapper.deleteByPrimaryKey(id);
-            if (count != 1){
-                throw new Exception("delete count need 1 but get " + count);
+            count = addressMapper.deleteByPrimaryKey(id);
+        }
+        if (entity.equals("ShopTrolley")){
+            count = shopTrolleyMapper.deleteByPrimaryKey(id);
+        }
+        if (count != 1){
+            if (count == 0){
+                throw new Exception("当前对象已删除");
             }
+            throw new Exception("delete count need 1 but get " + count);
         }
     }
 

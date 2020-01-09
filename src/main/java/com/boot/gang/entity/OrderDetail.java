@@ -34,7 +34,9 @@ public class OrderDetail {
 
     private String dTonnum;             // 吨数
 
-    public OrderDetail(String dId, Date dCreatetime, String dOrderno, Double dProcessprice, String dProcessrequirement, String dProductid, String dProductnum, String dProductspec, String dProducttexture, String dShopcolumntype, String dShopcolumntypeid, String dShopid, String dShopname, String dTonnum) {
+    private Double dPrice;
+
+    public OrderDetail(String dId, Date dCreatetime, String dOrderno, Double dProcessprice, String dProcessrequirement, String dProductid, String dProductnum, String dProductspec, String dProducttexture, String dShopcolumntype, String dShopcolumntypeid, String dShopid, String dShopname, String dTonnum, Double dPrice) {
         this.dId = dId;
         this.dCreatetime = dCreatetime;
         this.dOrderno = dOrderno;
@@ -49,6 +51,7 @@ public class OrderDetail {
         this.dShopid = dShopid;
         this.dShopname = dShopname;
         this.dTonnum = dTonnum;
+        this.dPrice = dPrice;
     }
 
     public OrderDetail() {
@@ -165,5 +168,13 @@ public class OrderDetail {
 
     public void setdTonnum(String dTonnum) {
         this.dTonnum = dTonnum == null ? null : dTonnum.trim();
+    }
+
+    public Double getdPrice() {
+        return dPrice;
+    }
+
+    public void setdPrice(Double dPrice) {
+        this.dPrice = dPrice;
     }
 }

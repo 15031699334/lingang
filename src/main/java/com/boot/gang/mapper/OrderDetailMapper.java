@@ -28,4 +28,10 @@ public interface OrderDetailMapper {
      **/
     @Select("select * from t_order_detail where 1 = 1 ${swhere}")
     List<OrderDetail> getList(@Param("swhere") String swhere);
+
+    @Select("select d_shopColumnType, d_productTexture, d_productSpec, d_price, d_shopName, d_createTime, o.c_state d_shopId" +
+            " from t_order_detail d " +
+            " left join t_order o on d.d_orderNo = o.c_order_no" +
+            " where 1 = 1 ${swhere}")
+    List<OrderDetail> getNowList(@Param("swhere") String swhere);
 }

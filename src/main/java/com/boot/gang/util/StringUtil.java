@@ -29,4 +29,37 @@ public class StringUtil {
     }
 
 
+    /**
+     * 判断字符串对象是否是null或者空
+     * @param obj
+     * @return
+     */
+    public static boolean isNullOrEmpty(String obj) {
+        return obj == null || "".equals(obj.toString().trim());
+    }
+
+    /**
+     * 如果是null返回空
+     * @param obj
+     * @return
+     */
+    public static String toString(Object obj) {
+        if (obj == null)
+            return "";
+        return obj.toString();
+    }
+
+    /**
+     * 首字母转换为大写
+     * @param str
+     * @return
+     */
+    public static String firstCharUpper(String str)
+    {
+        if (isNullOrEmpty(str)) {
+            return "";
+        }
+        return str.substring(0, 1).toUpperCase()+str.substring(1);
+    }
+
 }
