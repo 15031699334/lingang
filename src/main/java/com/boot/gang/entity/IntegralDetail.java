@@ -5,24 +5,24 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 public class IntegralDetail {
-    private String iId;
+    private String iId;     // id
 
-    private Double iChangeintegral;
+    private Double iChangeintegral;     // 改变的数量
 
-    private Integer iChangetype;
+    private Integer iChangetype;        // 变化状态 0=减少 1=增加
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date iCreatetime;
+    private Date iCreatetime;       // 添加时间
 
-    private Double iNowintegral;
+    private Double iNowintegral;      // 变化后的数量
 
-    private String iOrderno;
+    private String iOrderno;            // 订单号  默认:'否'
 
-    private String iRealname;
+    private String iRealname;           // 用户真实姓名
 
-    private String iUserid;
+    private String iUserid;             // 用户id
 
-    private String iReason;
+    private String iReason;             // 原因(备注)
 
     private Integer iIntegraltype;   // 1= 钢豆 2= ml
 
@@ -121,5 +121,10 @@ public class IntegralDetail {
 
     public void setiIntegraltype(Integer iIntegraltype) {
         this.iIntegraltype = iIntegraltype;
+    }
+
+    @Override
+    public String toString() {
+        return "IntegralDetail{" + "iId='" + iId + '\'' + ", iChangeintegral=" + iChangeintegral + ", iChangetype=" + iChangetype + ", iCreatetime=" + iCreatetime + ", iNowintegral=" + iNowintegral + ", iOrderno='" + iOrderno + '\'' + ", iRealname='" + iRealname + '\'' + ", iUserid='" + iUserid + '\'' + ", iReason='" + iReason + '\'' + ", iIntegraltype=" + iIntegraltype + '}';
     }
 }

@@ -68,6 +68,19 @@ public class CommonServiceImpl implements CommonService {
             }
             addressMapper.insertSelective((Address) object);
         }
+        if (entity.equals("IntegralDetail")){
+            IntegralDetail integralDetail = (IntegralDetail) object;
+            if (integralDetail.getiIntegraltype() == 1){        //  钢豆修改
+                User user = new User(integralDetail.getiUserid(), Integer.valueOf(integralDetail.getiNowintegral().toString()));
+                // 修改
+//              userMapper.updateByPrimaryKeySelective(user);
+            }else {     // ml数修改
+                User user = new User(integralDetail.getiUserid(), integralDetail.getiNowintegral());
+                // 修改
+//              userMapper.updateByPrimaryKeySelective(user);
+            }
+            integralDetailMapper.insertSelective(integralDetail);   // 添加
+        }
     }
 
     @Override
@@ -87,7 +100,7 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public List getList(String entity, HttpServletRequest request) {
+    public List getList(String entity, HttpServletRequest request, Integer pageIndex, Integer pageSize) {
         if (entity.equals("Address")){      // 收货地址
             String userId;
             try {
@@ -138,6 +151,35 @@ public class CommonServiceImpl implements CommonService {
                 return new ArrayList();
             }
         }
+//        if (entity.equals("ShopColumn")){   // 导航栏
+//            return shopColumnMapper.getList(" order by c_sort asc");
+//        }
+//        if (entity.equals("ShopColumnType")){   // 二级导航栏 冷轧...
+//            String shopColumnId = request.getParameter("id");
+//            return shopColumnTypeMapper.getList(" and c_column_id = " + shopColumnId + " order by c_sort asc");
+//        }
+//        if (entity.equals("City")){   // 首页城市
+//            return CityMapper.getList(" and c_if_open = 1 ");
+//        }
+
+
+
+
+//        if (entity.equals("Product")){   // 商品
+                String cityId = request.getParameter("cityId");     //首页城市id
+                String provinceId = request.getParameter("provinceId");     // 地区id
+                String shopName = request.getParameter("shopName");         // 商户
+                String shopColumnTypeId = request.getParameter("shopColumnTypeId"); //品名
+                String cangku = request.getParameter("cangku");             // 仓库
+                String guige = request.getParameter("guige");             // 规格
+                String caizhi = request.getParameter("caizhi");             // 材质
+
+
+
+
+
+//            return ProductMapper.getList(" and c_if_open = 1 ");
+//        }
         return null;
     }
 

@@ -7,12 +7,9 @@ import com.boot.gang.entity.User;
 import com.boot.gang.service.CommonService;
 import com.boot.gang.service.TokenService;
 import com.boot.gang.util.MsgUtil;
-import com.boot.gang.util.token.UserLoginToken;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -86,14 +83,24 @@ public class AjaxController {
      * @Date 16:48 2020/1/4
      **/
     @GetMapping("/list{entity}")
-    public JSONObject getList(@PathVariable String entity, HttpServletRequest request){
+    public JSONObject getList(@PathVariable String entity, @RequestParam(required = false) Integer pageIndex,@RequestParam(required = false) Integer pageSize, HttpServletRequest request){
         Map<String, List> map = new HashMap<>();
         if (entity.equals("dz"))        // 收货地址
-            map.put("address", commonService.getList("Address", request));
+            map.put("address", commonService.getList("Address", request, pageIndex, pageSize));
         if (entity.equals("dd"))        // 订单
-            map.put("order", commonService.getList("Order", request));
+            map.put("order", commonService.getList("Order", request, pageIndex, pageSize));
         if (entity.equals("fk"))        // 付款记录
-            map.put("record", commonService.getList(entity, request));
+            map.put("record", commonService.getList(entity, request, pageIndex, pageSize));
+        if(entity.equals("dh"))         // 导航
+            map.put("data", commonService.getList("ShopColumn", request, pageIndex, pageSize));
+        if(entity.equals("dh2"))         // 二级导航
+            map.put("data", commonService.getList("ShopColumnType", request, pageIndex, pageSize));
+        // 卷价
+
+        if(entity.equals("cs"))         // 二级导航
+            map.put("data", commonService.getList("City", request, pageIndex, pageSize));
+        if (entity.equals("sp"))       // 商品
+            map.put("data", commonService.getList("Product", request, pageIndex, pageSize));
         if (map.isEmpty()){
             return msgUtil.jsonErrorMsg("路径错误");
         }
@@ -124,20 +131,38 @@ public class AjaxController {
                 return msgUtil.jsonErrorMsg("添加失败");
             }
         }
-       /* if (entity.equals("gd")){
+        if (entity.equals("jf")){
             String userId;
             try {
                 userId = tokenService.getIdByToken(request);
                 IntegralDetail integralDetail = JSONObject.toJavaObject(json, IntegralDetail.class);
-                address.setcCreateUser(userId);
-                address.setcId(System.nanoTime()+"");
-                address.setcCreateTime(new Date());
-                commonService.save(address, "Address");
+                System.out.println(integralDetail.toString());
+                // 赋值
+                integralDetail.setiUserid(userId);
+                User user = (User) commonService.findObjectById(userId, "User");
+                integralDetail.setiRealname(user.getcRealname());
+                integralDetail.setiId(System.nanoTime()+"");
+                integralDetail.setiCreatetime(new Date());
+//                commonService.save(integralDetail, "IntegralDetail");     // 保存
+                if (json.containsKey("mlNum")){     // 含有此参数是 一定是抽奖操作
+                    IntegralDetail detail = new IntegralDetail();
+                    detail.setiId("cj" + System.nanoTime()+ "");
+                    detail.setiUserid(userId);
+                    detail.setiRealname(user.getcRealname());
+                    detail.setiChangeintegral(json.getDouble("mlNum"));
+                    detail.setiChangetype(1);
+                    detail.setiNowintegral(json.getDouble("nowMlNum"));
+                    detail.setiCreatetime(new Date());
+                    detail.setiIntegraltype(2);
+                    detail.setiReason("50积分抽奖获得");
+                    System.out.println(detail);
+//                    commonService.save(detail, "IntegralDetail");         //保存
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 return msgUtil.jsonErrorMsg("添加失败");
             }
-        }*/
+        }
 
         return msgUtil.jsonSuccessMsg("添加成功");
     }

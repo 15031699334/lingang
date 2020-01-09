@@ -307,6 +307,16 @@ public class User {
     public User() {
     }
 
+    public User(String cId, Double cUb) {
+        this.cId = cId;
+        this.cUb = cUb;
+    }
+
+    public User(String cId, Integer cGoldGz) {
+        this.cId = cId;
+        this.cGoldGz = cGoldGz;
+    }
+
     public User(String cId, String cPhone, String cPassword, Date cCreateTime) {
         this.cId = cId;
         this.cPhone = cPhone;  
