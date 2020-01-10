@@ -20,4 +20,9 @@ public class ShopTrolleyServiceImpl implements ShopTrolleyService {
     public int getCountByProductId(String pId) {
         return shopTrolleyMapper.getCountByProductId(pId);
     }
+
+    @Override
+    public int delAllByUserId(String uId) {
+        return shopTrolleyMapper.delAllByUserId(uId);
+    }
 }

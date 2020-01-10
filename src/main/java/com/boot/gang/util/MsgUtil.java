@@ -15,6 +15,7 @@ import java.util.Map;
 public class MsgUtil {
     private String SUCCESS = "1";
     private String ERROR = "0";
+    private String TO_LOGIN = "2";
     public JSONObject jsonSuccessMsg(String msg, Map map){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", SUCCESS);
@@ -42,5 +43,11 @@ public class MsgUtil {
         return jsonObject;
     }
 
+    public JSONObject jsonToLoginMsg(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code", TO_LOGIN);
+        jsonObject.put("msg", "登录后可进行此操作");
+        return jsonObject;
+    }
 
 }

@@ -50,6 +50,10 @@ public class CommonServiceImpl implements CommonService {
     OrderRecordMapper orderRecordMapper;
     @Autowired
     ShopTrolleyMapper shopTrolleyMapper;
+    @Autowired
+    CouponsMapper couponsMapper;
+    @Autowired
+    CouponsTypeMapper couponsTypeMapper;
     @Override
     public Object findObjectById(String id, String entity) {
         if (entity.equals("User")){
@@ -69,6 +73,8 @@ public class CommonServiceImpl implements CommonService {
             map.put("details", integralDetails);
             return map;
         }
+        if (entity.equals("hb"))        // 获取红包
+            return couponsTypeMapper.selectByPrimaryKey(id);
 
         return "null";
     }
@@ -114,6 +120,24 @@ public class CommonServiceImpl implements CommonService {
             shopTrolley.setStCreatettime(new Date());
             shopTrolleyMapper.insertSelective(shopTrolley);
         }
+        if (entity.equals("Coupons")){  // 用户领取优惠券
+            Coupons coupons = (Coupons) object;
+            CouponsType couponsType = couponsTypeMapper.selectByPrimaryKey(coupons.getcCouponsTypeId());
+            coupons.setcBeginTime(couponsType.getcBeginTime());
+            coupons.setcEndTime(couponsType.getcEndTime());
+            coupons.setcName(couponsType.getcName());
+            coupons.setcPrice(couponsType.getcPrice());
+            coupons.setcLimitPrice(couponsType.getcLimitPrice());
+            coupons.setcId("UC" +System.nanoTime());
+            coupons.setcCreateTime(new Date());
+            couponsMapper.insertSelective(coupons);
+        }
+
+        if (entity.equals("Order")){    // 添加订单
+            Order order = (Order) object;
+            System.out.println(order);
+//            orderMapper.insertSelective(order);
+        }
     }
 
     @Override
@@ -141,7 +165,7 @@ public class CommonServiceImpl implements CommonService {
                 return addressMapper.getList(" and c_create_user = " + userId + " order by c_if_default desc");
             } catch (Exception e) {
                 e.printStackTrace();
-                return new ArrayList();
+                return null;
             }
         }
         if(entity.equals("Order")){     // 订单列表
@@ -156,7 +180,7 @@ public class CommonServiceImpl implements CommonService {
                 return orders;
             } catch (Exception e) {
                 e.printStackTrace();
-                return new ArrayList();
+                return null;
             }
         }
         if (entity.equals("fk")){       // 付款记录
@@ -181,7 +205,7 @@ public class CommonServiceImpl implements CommonService {
                 return orders;
             } catch (Exception e) {
                 e.printStackTrace();
-                return new ArrayList();
+                return null;
             }
         }
         if (entity.equals("gc"))
@@ -217,12 +241,23 @@ public class CommonServiceImpl implements CommonService {
             String userId;
             try {
                 userId = tokenService.getIdByToken(request);
-                return shopTrolleyMapper.getList(" and st_userId = " + userId + " order by st_createtTime desc");
+                return shopTrolleyMapper.getList(" and st_userId = " + userId + " order by st_createtTime desc ");
             } catch (Exception e) {
                 e.printStackTrace();
-                return new ArrayList();
+                return null;
             }
         }
+        if (entity.equals("yhq")) {  // 优惠券
+            String userId;
+            try {
+                userId = tokenService.getIdByToken(request);
+                return couponsMapper.getList(" and c_if_use = 0 and now() >= c_begin_time and now()< c_end_time and c_user_id = " + userId + " order by c_create_time desc");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
         return null;
     }
 
@@ -238,7 +273,7 @@ public class CommonServiceImpl implements CommonService {
         }
         if (count != 1){
             if (count == 0){
-                throw new Exception("当前对象已删除");
+                throw new Exception("当前数据不存在或已删除");
             }
             throw new Exception("delete count need 1 but get " + count);
         }

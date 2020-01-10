@@ -9,4 +9,5 @@ public interface ShopTrolleyService {
 
     int getCountByProductId(String pId);
 
+    int delAllByUserId(String uId);
 }

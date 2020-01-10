@@ -2,6 +2,7 @@ package com.boot.gang.mapper;
 
 import com.boot.gang.entity.OrderDetail;
 import com.boot.gang.entity.ShopTrolley;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -38,4 +39,7 @@ public interface ShopTrolleyMapper {
      **/
     @Select("select count(*) from t_shop_trolley where st_product_id = #{pId}")
     int getCountByProductId(@Param("pId") String pId);
+
+    @Delete(" delete from t_shop_trolley where st_userId = #{uId}")
+    int delAllByUserId(@Param("uId") String uId);
 }
