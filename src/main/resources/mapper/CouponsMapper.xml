@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boot.gang.mapper.CouponsMapper" >
+  <resultMap id="BaseResultMap" type="com.boot.gang.entity.Coupons" >
+    <constructor >
+      <idArg column="c_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_block_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_city_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_create_user" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_district_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_last_update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_last_update_user" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_province_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_begin_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_coupons_type_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_end_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_from_arg" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_if_overdue" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_if_receive" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_if_use" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_logo" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_price" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="c_user_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_receive_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_type" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_use_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_hide" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_realname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_create_user_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_limit_price" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="c_out_trade_no" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_transaction_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_user_no" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_pr_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_pr_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_shop_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_shop_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_id, c_block_id, c_city_id, c_create_time, c_create_user, c_district_id, c_last_update_time, 
+    c_last_update_user, c_province_id, c_begin_time, c_code, c_coupons_type_id, c_end_time, 
+    c_from_arg, c_if_overdue, c_if_receive, c_if_use, c_logo, c_name, c_price, c_user_id, 
+    c_num, c_receive_num, c_type, c_use_num, c_hide, c_realname, c_create_user_id, c_limit_price, 
+    c_out_trade_no, c_transaction_id, c_user_no, c_pr_id, c_pr_name, c_shop_id, c_shop_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_coupons
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_coupons
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boot.gang.entity.Coupons" >
+    insert into t_coupons (c_id, c_block_id, c_city_id, 
+      c_create_time, c_create_user, c_district_id, 
+      c_last_update_time, c_last_update_user, c_province_id, 
+      c_begin_time, c_code, c_coupons_type_id, 
+      c_end_time, c_from_arg, c_if_overdue, 
+      c_if_receive, c_if_use, c_logo, 
+      c_name, c_price, c_user_id, 
+      c_num, c_receive_num, c_type, 
+      c_use_num, c_hide, c_realname, 
+      c_create_user_id, c_limit_price, c_out_trade_no, 
+      c_transaction_id, c_user_no, c_pr_id, 
+      c_pr_name, c_shop_id, c_shop_name
+      )
+    values (#{cId,jdbcType=VARCHAR}, #{cBlockId,jdbcType=VARCHAR}, #{cCityId,jdbcType=VARCHAR}, 
+      #{cCreateTime,jdbcType=TIMESTAMP}, #{cCreateUser,jdbcType=VARCHAR}, #{cDistrictId,jdbcType=VARCHAR}, 
+      #{cLastUpdateTime,jdbcType=TIMESTAMP}, #{cLastUpdateUser,jdbcType=VARCHAR}, #{cProvinceId,jdbcType=VARCHAR}, 
+      #{cBeginTime,jdbcType=TIMESTAMP}, #{cCode,jdbcType=VARCHAR}, #{cCouponsTypeId,jdbcType=VARCHAR}, 
+      #{cEndTime,jdbcType=TIMESTAMP}, #{cFromArg,jdbcType=VARCHAR}, #{cIfOverdue,jdbcType=INTEGER}, 
+      #{cIfReceive,jdbcType=INTEGER}, #{cIfUse,jdbcType=INTEGER}, #{cLogo,jdbcType=VARCHAR}, 
+      #{cName,jdbcType=VARCHAR}, #{cPrice,jdbcType=DOUBLE}, #{cUserId,jdbcType=VARCHAR}, 
+      #{cNum,jdbcType=INTEGER}, #{cReceiveNum,jdbcType=INTEGER}, #{cType,jdbcType=INTEGER}, 
+      #{cUseNum,jdbcType=INTEGER}, #{cHide,jdbcType=VARCHAR}, #{cRealname,jdbcType=VARCHAR}, 
+      #{cCreateUserId,jdbcType=VARCHAR}, #{cLimitPrice,jdbcType=DOUBLE}, #{cOutTradeNo,jdbcType=VARCHAR}, 
+      #{cTransactionId,jdbcType=VARCHAR}, #{cUserNo,jdbcType=INTEGER}, #{cPrId,jdbcType=VARCHAR}, 
+      #{cPrName,jdbcType=VARCHAR}, #{cShopId,jdbcType=VARCHAR}, #{cShopName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boot.gang.entity.Coupons" >
+    insert into t_coupons
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        c_id,
+      </if>
+      <if test="cBlockId != null" >
+        c_block_id,
+      </if>
+      <if test="cCityId != null" >
+        c_city_id,
+      </if>
+      <if test="cCreateTime != null" >
+        c_create_time,
+      </if>
+      <if test="cCreateUser != null" >
+        c_create_user,
+      </if>
+      <if test="cDistrictId != null" >
+        c_district_id,
+      </if>
+      <if test="cLastUpdateTime != null" >
+        c_last_update_time,
+      </if>
+      <if test="cLastUpdateUser != null" >
+        c_last_update_user,
+      </if>
+      <if test="cProvinceId != null" >
+        c_province_id,
+      </if>
+      <if test="cBeginTime != null" >
+        c_begin_time,
+      </if>
+      <if test="cCode != null" >
+        c_code,
+      </if>
+      <if test="cCouponsTypeId != null" >
+        c_coupons_type_id,
+      </if>
+      <if test="cEndTime != null" >
+        c_end_time,
+      </if>
+      <if test="cFromArg != null" >
+        c_from_arg,
+      </if>
+      <if test="cIfOverdue != null" >
+        c_if_overdue,
+      </if>
+      <if test="cIfReceive != null" >
+        c_if_receive,
+      </if>
+      <if test="cIfUse != null" >
+        c_if_use,
+      </if>
+      <if test="cLogo != null" >
+        c_logo,
+      </if>
+      <if test="cName != null" >
+        c_name,
+      </if>
+      <if test="cPrice != null" >
+        c_price,
+      </if>
+      <if test="cUserId != null" >
+        c_user_id,
+      </if>
+      <if test="cNum != null" >
+        c_num,
+      </if>
+      <if test="cReceiveNum != null" >
+        c_receive_num,
+      </if>
+      <if test="cType != null" >
+        c_type,
+      </if>
+      <if test="cUseNum != null" >
+        c_use_num,
+      </if>
+      <if test="cHide != null" >
+        c_hide,
+      </if>
+      <if test="cRealname != null" >
+        c_realname,
+      </if>
+      <if test="cCreateUserId != null" >
+        c_create_user_id,
+      </if>
+      <if test="cLimitPrice != null" >
+        c_limit_price,
+      </if>
+      <if test="cOutTradeNo != null" >
+        c_out_trade_no,
+      </if>
+      <if test="cTransactionId != null" >
+        c_transaction_id,
+      </if>
+      <if test="cUserNo != null" >
+        c_user_no,
+      </if>
+      <if test="cPrId != null" >
+        c_pr_id,
+      </if>
+      <if test="cPrName != null" >
+        c_pr_name,
+      </if>
+      <if test="cShopId != null" >
+        c_shop_id,
+      </if>
+      <if test="cShopName != null" >
+        c_shop_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        #{cId,jdbcType=VARCHAR},
+      </if>
+      <if test="cBlockId != null" >
+        #{cBlockId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCityId != null" >
+        #{cCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreateTime != null" >
+        #{cCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCreateUser != null" >
+        #{cCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cDistrictId != null" >
+        #{cDistrictId,jdbcType=VARCHAR},
+      </if>
+      <if test="cLastUpdateTime != null" >
+        #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cLastUpdateUser != null" >
+        #{cLastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cProvinceId != null" >
+        #{cProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cBeginTime != null" >
+        #{cBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCode != null" >
+        #{cCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cCouponsTypeId != null" >
+        #{cCouponsTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="cEndTime != null" >
+        #{cEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cFromArg != null" >
+        #{cFromArg,jdbcType=VARCHAR},
+      </if>
+      <if test="cIfOverdue != null" >
+        #{cIfOverdue,jdbcType=INTEGER},
+      </if>
+      <if test="cIfReceive != null" >
+        #{cIfReceive,jdbcType=INTEGER},
+      </if>
+      <if test="cIfUse != null" >
+        #{cIfUse,jdbcType=INTEGER},
+      </if>
+      <if test="cLogo != null" >
+        #{cLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="cName != null" >
+        #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cPrice != null" >
+        #{cPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="cUserId != null" >
+        #{cUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="cNum != null" >
+        #{cNum,jdbcType=INTEGER},
+      </if>
+      <if test="cReceiveNum != null" >
+        #{cReceiveNum,jdbcType=INTEGER},
+      </if>
+      <if test="cType != null" >
+        #{cType,jdbcType=INTEGER},
+      </if>
+      <if test="cUseNum != null" >
+        #{cUseNum,jdbcType=INTEGER},
+      </if>
+      <if test="cHide != null" >
+        #{cHide,jdbcType=VARCHAR},
+      </if>
+      <if test="cRealname != null" >
+        #{cRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreateUserId != null" >
+        #{cCreateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="cLimitPrice != null" >
+        #{cLimitPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="cOutTradeNo != null" >
+        #{cOutTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cTransactionId != null" >
+        #{cTransactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="cUserNo != null" >
+        #{cUserNo,jdbcType=INTEGER},
+      </if>
+      <if test="cPrId != null" >
+        #{cPrId,jdbcType=VARCHAR},
+      </if>
+      <if test="cPrName != null" >
+        #{cPrName,jdbcType=VARCHAR},
+      </if>
+      <if test="cShopId != null" >
+        #{cShopId,jdbcType=VARCHAR},
+      </if>
+      <if test="cShopName != null" >
+        #{cShopName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boot.gang.entity.Coupons" >
+    update t_coupons
+    <set >
+      <if test="cBlockId != null" >
+        c_block_id = #{cBlockId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCityId != null" >
+        c_city_id = #{cCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreateTime != null" >
+        c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCreateUser != null" >
+        c_create_user = #{cCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cDistrictId != null" >
+        c_district_id = #{cDistrictId,jdbcType=VARCHAR},
+      </if>
+      <if test="cLastUpdateTime != null" >
+        c_last_update_time = #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cLastUpdateUser != null" >
+        c_last_update_user = #{cLastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cProvinceId != null" >
+        c_province_id = #{cProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cBeginTime != null" >
+        c_begin_time = #{cBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCode != null" >
+        c_code = #{cCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cCouponsTypeId != null" >
+        c_coupons_type_id = #{cCouponsTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="cEndTime != null" >
+        c_end_time = #{cEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cFromArg != null" >
+        c_from_arg = #{cFromArg,jdbcType=VARCHAR},
+      </if>
+      <if test="cIfOverdue != null" >
+        c_if_overdue = #{cIfOverdue,jdbcType=INTEGER},
+      </if>
+      <if test="cIfReceive != null" >
+        c_if_receive = #{cIfReceive,jdbcType=INTEGER},
+      </if>
+      <if test="cIfUse != null" >
+        c_if_use = #{cIfUse,jdbcType=INTEGER},
+      </if>
+      <if test="cLogo != null" >
+        c_logo = #{cLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="cName != null" >
+        c_name = #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cPrice != null" >
+        c_price = #{cPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="cUserId != null" >
+        c_user_id = #{cUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="cNum != null" >
+        c_num = #{cNum,jdbcType=INTEGER},
+      </if>
+      <if test="cReceiveNum != null" >
+        c_receive_num = #{cReceiveNum,jdbcType=INTEGER},
+      </if>
+      <if test="cType != null" >
+        c_type = #{cType,jdbcType=INTEGER},
+      </if>
+      <if test="cUseNum != null" >
+        c_use_num = #{cUseNum,jdbcType=INTEGER},
+      </if>
+      <if test="cHide != null" >
+        c_hide = #{cHide,jdbcType=VARCHAR},
+      </if>
+      <if test="cRealname != null" >
+        c_realname = #{cRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreateUserId != null" >
+        c_create_user_id = #{cCreateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="cLimitPrice != null" >
+        c_limit_price = #{cLimitPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="cOutTradeNo != null" >
+        c_out_trade_no = #{cOutTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cTransactionId != null" >
+        c_transaction_id = #{cTransactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="cUserNo != null" >
+        c_user_no = #{cUserNo,jdbcType=INTEGER},
+      </if>
+      <if test="cPrId != null" >
+        c_pr_id = #{cPrId,jdbcType=VARCHAR},
+      </if>
+      <if test="cPrName != null" >
+        c_pr_name = #{cPrName,jdbcType=VARCHAR},
+      </if>
+      <if test="cShopId != null" >
+        c_shop_id = #{cShopId,jdbcType=VARCHAR},
+      </if>
+      <if test="cShopName != null" >
+        c_shop_name = #{cShopName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boot.gang.entity.Coupons" >
+    update t_coupons
+    set c_block_id = #{cBlockId,jdbcType=VARCHAR},
+      c_city_id = #{cCityId,jdbcType=VARCHAR},
+      c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
+      c_create_user = #{cCreateUser,jdbcType=VARCHAR},
+      c_district_id = #{cDistrictId,jdbcType=VARCHAR},
+      c_last_update_time = #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      c_last_update_user = #{cLastUpdateUser,jdbcType=VARCHAR},
+      c_province_id = #{cProvinceId,jdbcType=VARCHAR},
+      c_begin_time = #{cBeginTime,jdbcType=TIMESTAMP},
+      c_code = #{cCode,jdbcType=VARCHAR},
+      c_coupons_type_id = #{cCouponsTypeId,jdbcType=VARCHAR},
+      c_end_time = #{cEndTime,jdbcType=TIMESTAMP},
+      c_from_arg = #{cFromArg,jdbcType=VARCHAR},
+      c_if_overdue = #{cIfOverdue,jdbcType=INTEGER},
+      c_if_receive = #{cIfReceive,jdbcType=INTEGER},
+      c_if_use = #{cIfUse,jdbcType=INTEGER},
+      c_logo = #{cLogo,jdbcType=VARCHAR},
+      c_name = #{cName,jdbcType=VARCHAR},
+      c_price = #{cPrice,jdbcType=DOUBLE},
+      c_user_id = #{cUserId,jdbcType=VARCHAR},
+      c_num = #{cNum,jdbcType=INTEGER},
+      c_receive_num = #{cReceiveNum,jdbcType=INTEGER},
+      c_type = #{cType,jdbcType=INTEGER},
+      c_use_num = #{cUseNum,jdbcType=INTEGER},
+      c_hide = #{cHide,jdbcType=VARCHAR},
+      c_realname = #{cRealname,jdbcType=VARCHAR},
+      c_create_user_id = #{cCreateUserId,jdbcType=VARCHAR},
+      c_limit_price = #{cLimitPrice,jdbcType=DOUBLE},
+      c_out_trade_no = #{cOutTradeNo,jdbcType=VARCHAR},
+      c_transaction_id = #{cTransactionId,jdbcType=VARCHAR},
+      c_user_no = #{cUserNo,jdbcType=INTEGER},
+      c_pr_id = #{cPrId,jdbcType=VARCHAR},
+      c_pr_name = #{cPrName,jdbcType=VARCHAR},
+      c_shop_id = #{cShopId,jdbcType=VARCHAR},
+      c_shop_name = #{cShopName,jdbcType=VARCHAR}
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </update>
+</mapper>
