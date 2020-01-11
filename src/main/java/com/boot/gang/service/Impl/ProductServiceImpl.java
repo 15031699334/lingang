@@ -1,5 +1,6 @@
 package com.boot.gang.service.Impl;
 
+import com.boot.gang.entity.Product;
 import com.boot.gang.mapper.ProductMapper;
 import com.boot.gang.service.ProductService;
 import com.boot.gang.util.StringUtil;
@@ -51,6 +52,14 @@ public class ProductServiceImpl implements ProductService {
             sb.append(" and limit " + pageIndex + ", " + pageSize);
         }
 //        System.out.println(sb.toString());
-        return productMapper.getList(sb.toString());
+        List<Product> list = productMapper.getList(sb.toString());
+        for (Product product:list){
+            String [] c_price_list = product.getcPriceList().split("=");
+            String [] p_data = c_price_list[0].split("\\+");
+//            System.out.println(p_data[0] + ", 材料: " + p_data[1]);
+                product.setcP0(p_data[0]);  // 规格
+                product.setcP1(p_data[1]);  // 材料
+        }
+        return list;
     }
 }

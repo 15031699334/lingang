@@ -7,7 +7,7 @@ package com.boot.gang.service;
  **/
 public interface ShopTrolleyService {
 
-    int getCountByProductId(String pId);
+    int getCountByProductId(String pId, String userId);
 
     int delAllByUserId(String uId);
 }

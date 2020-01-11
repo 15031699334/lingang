@@ -79,7 +79,7 @@ public class Product {
 
     private Integer cSoldNum;
 
-    private Integer cStockNum;
+    private Integer cStockNum;      // 库存 吨数
 
     private String cSummary;
 
@@ -141,7 +141,7 @@ public class Product {
 
     private String cYunfeeTitle;
 
-    private String cP1;
+    private String cP1;         // 材料
 
     private String cP2;
 
@@ -157,7 +157,7 @@ public class Product {
 
     private String cPrtype;
 
-    private String cP0;
+    private String cP0;             // 规格
 
     private Double cNewYunfei;
 

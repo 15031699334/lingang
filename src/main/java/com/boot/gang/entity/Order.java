@@ -8,7 +8,7 @@ import java.util.List;
 public class Order {
     private String cId;             //
 
-    private List<OrderDetail> detailList;
+    private List<OrderDetail> detailList;       // 用于查询时输出
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date cCreateTime;       // 订单创建时间
@@ -21,11 +21,19 @@ public class Order {
 
     private String cUserId;         // 下单人id
 
-    private String cPhone;          // 客户手机
+    private String cPhone;          // 收货地址中的手机号
 
-    private String cRealname;       // 客户姓名
+    private String cRealname;       // 收货地址中的人名
 
-    private String cCouponId;       // 优惠券id
+    private String cProvinceId;     // 收货地址: 省份
+
+    private String cCityId;         // 收货地址: 城市
+
+    private String cDistrictId;     // 收货地址: 县区
+
+    private String cAddressid;      // 收货详细地址
+
+    private String cCouponId;       // 优惠券id    // 已领取的优惠券id t_coupons表的id
 
     private Double cCouponPrice;    // 优惠卷优惠金额
 
@@ -41,7 +49,7 @@ public class Order {
     private Date cPayTime;          // 实际支付时间
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date cPlanPayTime;      // 计划支付时间
+    private Date cPlanPayTime;         // 计划采购时间        才参数为"" 则不是计划采购订单
 
     private String cPlatformComment;        //平台优惠备注
 
@@ -64,17 +72,11 @@ public class Order {
 
     private String cParamList;                  // 付款记录是用到的 展示所有商品
 
+    private String cTransactionId;    // 此参数为购物车下单时传入的购物车id组成的数组格式为   "1,2"
+
     private String cBlockId;
 
-    private String cCityId;
-
-    private String cDistrictId;
-
     private String cLastUpdateUser;
-
-    private String cProvinceId;
-
-    private String cAddressid;
 
     private String cCreateUser;
 
@@ -137,8 +139,6 @@ public class Order {
     private String cTrackingComp;
 
     private String cTrackingNo;
-
-    private String cTransactionId;
 
     private Integer cType;
 

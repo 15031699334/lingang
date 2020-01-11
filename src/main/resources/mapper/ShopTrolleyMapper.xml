@@ -7,6 +7,7 @@
       <arg column="st_createtTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="st_now_price_description" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="st_product_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="st_shop_column_type_id" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="st_product_name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="st_productSpec" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="st_productTexture" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -23,7 +24,7 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    st_id, st_createtTime, st_now_price_description, st_product_id, st_product_name, 
+    st_id, st_createtTime, st_now_price_description, st_product_id, st_product_name, st_shop_column_type_id
     st_productSpec, st_productTexture, st_realname, st_shop_id, st_state, st_storeAddress, 
     st_tonNum, st_userId, st_now_price, st_original_price, st_price, st_shop_name
   </sql>
@@ -39,13 +40,13 @@
   </delete>
   <insert id="insert" parameterType="com.boot.gang.entity.ShopTrolley" >
     insert into t_shop_trolley (st_id, st_createtTime, st_now_price_description, 
-      st_product_id, st_product_name, st_productSpec, 
+      st_product_id, st_product_name, st_shop_column_type_id, st_productSpec,
       st_productTexture, st_realname, st_shop_id, 
       st_state, st_storeAddress, st_tonNum, 
       st_userId, st_now_price, st_original_price, 
       st_price), st_shop_name
     values (#{stId,jdbcType=VARCHAR}, #{stCreatettime,jdbcType=TIMESTAMP}, #{stNowPriceDescription,jdbcType=VARCHAR}, 
-      #{stProductId,jdbcType=VARCHAR}, #{stProductName,jdbcType=VARCHAR}, #{stProductspec,jdbcType=VARCHAR}, 
+      #{stProductId,jdbcType=VARCHAR}, #{stProductName,jdbcType=VARCHAR}, #{stShopColumnTypeId,jdbcType=VARCHAR}, #{stProductspec,jdbcType=VARCHAR},
       #{stProducttexture,jdbcType=VARCHAR}, #{stRealname,jdbcType=VARCHAR}, #{stShopId,jdbcType=VARCHAR}, 
       #{stState,jdbcType=INTEGER}, #{stStoreaddress,jdbcType=VARCHAR}, #{stTonnum,jdbcType=VARCHAR}, 
       #{stUserid,jdbcType=VARCHAR}, #{stNowPrice,jdbcType=DOUBLE}, #{stOriginalPrice,jdbcType=DOUBLE}, 
@@ -68,6 +69,9 @@
       </if>
       <if test="stProductName != null" >
         st_product_name,
+      </if>
+      <if test="stShopColumnTypeId != null" >
+        st_shop_column_type_id,
       </if>
       <if test="stProductspec != null" >
         st_productSpec,
@@ -122,6 +126,9 @@
       <if test="stProductName != null" >
         #{stProductName,jdbcType=VARCHAR},
       </if>
+      <if test="stShopColumnTypeId != null" >
+        #{stShopColumnTypeId,jdbcType=VARCHAR},
+      </if>
       <if test="stProductspec != null" >
         #{stProductspec,jdbcType=VARCHAR},
       </if>
@@ -175,6 +182,9 @@
       <if test="stProductName != null" >
         st_product_name = #{stProductName,jdbcType=VARCHAR},
       </if>
+      <if test="stShopColumnTypeId != null" >
+        st_shop_column_type_id = #{stShopColumnTypeId,jdbcType=VARCHAR},
+      </if>
       <if test="stProductspec != null" >
         st_productSpec = #{stProductspec,jdbcType=VARCHAR},
       </if>
@@ -220,6 +230,7 @@
       st_now_price_description = #{stNowPriceDescription,jdbcType=VARCHAR},
       st_product_id = #{stProductId,jdbcType=VARCHAR},
       st_product_name = #{stProductName,jdbcType=VARCHAR},
+      st_shop_column_type_id = #{stShopColumnTypeId,jdbcType=VARCHAR},
       st_productSpec = #{stProductspec,jdbcType=VARCHAR},
       st_productTexture = #{stProducttexture,jdbcType=VARCHAR},
       st_realname = #{stRealname,jdbcType=VARCHAR},

@@ -54,6 +54,8 @@ public class CommonServiceImpl implements CommonService {
     CouponsMapper couponsMapper;
     @Autowired
     CouponsTypeMapper couponsTypeMapper;
+    @Autowired
+    ConfigMapper configMapper;
     @Override
     public Object findObjectById(String id, String entity) {
         if (entity.equals("User")){
@@ -75,7 +77,10 @@ public class CommonServiceImpl implements CommonService {
         }
         if (entity.equals("hb"))        // 获取红包
             return couponsTypeMapper.selectByPrimaryKey(id);
-
+        if (entity.equals("cz"))
+            return configMapper.selectByPrimaryKey("953541322995600");
+        if (entity.equals("gg"))
+            return  configMapper.selectByPrimaryKey("953530967273200");
         return "null";
     }
 
@@ -112,11 +117,17 @@ public class CommonServiceImpl implements CommonService {
             shopTrolley.setStProductId(product.getcId());
             shopTrolley.setStPrice(product.getcNowPrice());
             shopTrolley.setStNowPrice(product.getcNowPrice());
+            shopTrolley.setStShopColumnTypeId(product.getcShopColumnTypeId());
             shopTrolley.setStProductName(product.getcName());
             shopTrolley.setStShopId(product.getcShopId());
             shopTrolley.setStShopName(product.getcShopName());
             // 规格 材质 吨数
-
+            String [] c_price_list = product.getcPriceList().split("=");
+            String [] p_data = c_price_list[0].split("\\+");
+//            System.out.println("规格: " + p_data[0] + ", 材料: " + p_data[1]);
+            shopTrolley.setStProductspec(p_data[0]);
+            shopTrolley.setStProducttexture(p_data[1]);
+            shopTrolley.setStTonnum(product.getcStockNum() + "");
             shopTrolley.setStCreatettime(new Date());
             shopTrolleyMapper.insertSelective(shopTrolley);
         }
@@ -135,8 +146,40 @@ public class CommonServiceImpl implements CommonService {
 
         if (entity.equals("Order")){    // 添加订单
             Order order = (Order) object;
-            System.out.println(order);
-//            orderMapper.insertSelective(order);
+            if (order.getcCategory().equals("1")){     // 普通订单
+                String [] shopTrolleyIds = order.getcTransactionId().split(",");  // 购物车id
+                String sTId = "";
+                for (String id : shopTrolleyIds){   // 拼接购物车id   = 'st111111, st22222'
+                    sTId = sTId + "'"+id +"', ";
+                }
+//            System.out.println(", 参数: " + sTId.substring(0,sTId.length()-2));
+                List<ShopTrolley> list = shopTrolleyMapper.getList(" and st_userId = '"+order.getcUserId()+"' and st_id in (" + sTId.substring(0,sTId.length()-2) + ")");
+                if (list.size() != shopTrolleyIds.length){      // 如果查询到的购物车数量和传入的购物车id数量不一致 则抛异常
+                    throw new  Exception("购物车不存在当前商品");
+                }
+                for (ShopTrolley shopTrolley : list){           // 通过购物车数据
+                    OrderDetail orderDetail = new OrderDetail("OD" +System.nanoTime(), new Date(), order.getcOrderNo(), 0.0, "", shopTrolley.getStProductId(), "1", shopTrolley.getStProductspec(), shopTrolley.getStProducttexture(), shopTrolley.getStProductName(), shopTrolley.getStShopColumnTypeId(), shopTrolley.getStShopId(), shopTrolley.getStShopName(), shopTrolley.getStTonnum().toString(), shopTrolley.getStPrice());
+                    orderDetailMapper.insertSelective(orderDetail);     // 添加订单详情商品信息
+                }
+                // 添加订单信息
+                orderMapper.insertSelective(order);
+                // 删除购物车信息
+                for (String id : shopTrolleyIds){
+                    shopTrolleyMapper.deleteByPrimaryKey(id);
+                }
+            }else {     // cCategory == 2  添加拼购订单
+                String c_group_num = order.getcGroupNum();
+                if (c_group_num.equals("")) {   // 拼团 母订单
+
+
+                }else {     // 子订单
+
+
+                }
+
+
+
+            }
         }
     }
 

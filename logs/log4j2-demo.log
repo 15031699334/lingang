@@ -1,212 +1,475 @@
-2020-01-10 10:15:14.569  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 5212 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
-2020-01-10 10:15:14.593  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
-2020-01-10 10:15:16.348  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2020-01-10 10:15:16.360  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2020-01-10 10:15:16.412  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 26ms. Found 0 repository interfaces.
-2020-01-10 10:15:17.000  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2020-01-10 10:15:17.416  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
-2020-01-10 10:15:17.432  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
-2020-01-10 10:15:17.432  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
-2020-01-10 10:15:17.432  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
-2020-01-10 10:15:17.716  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
-2020-01-10 10:15:17.716  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 3003 ms
-2020-01-10 10:15:19.359  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
-2020-01-10 10:15:20.018  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
-2020-01-10 10:15:20.154  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
-2020-01-10 10:15:20.750  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
-2020-01-10 10:15:20.778  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
-2020-01-10 10:15:20.794  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
-2020-01-10 10:15:21.142  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
-2020-01-10 10:15:21.182  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
-2020-01-10 10:15:21.186  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 7.156 seconds (JVM running for 10.583)
-2020-01-10 10:37:41.795  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-01-10 10:37:41.796  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
-2020-01-10 10:37:41.806  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 10 ms
-2020-01-10 10:37:41.868  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
-2020-01-10 10:37:42.203  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
-2020-01-10 10:47:07.743  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 15580 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
-2020-01-10 10:47:07.757  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
-2020-01-10 10:47:09.314  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2020-01-10 10:47:09.320  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2020-01-10 10:47:09.367  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22ms. Found 0 repository interfaces.
-2020-01-10 10:47:09.817  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2020-01-10 10:47:10.203  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
-2020-01-10 10:47:10.217  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
-2020-01-10 10:47:10.218  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
-2020-01-10 10:47:10.219  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
-2020-01-10 10:47:10.483  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
-2020-01-10 10:47:10.483  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2602 ms
-2020-01-10 10:47:11.949  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
-2020-01-10 10:47:12.630  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
-2020-01-10 10:47:12.712  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
-2020-01-10 10:47:13.044  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
-2020-01-10 10:47:13.067  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
-2020-01-10 10:47:13.082  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
-2020-01-10 10:47:13.391  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
-2020-01-10 10:47:13.436  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
-2020-01-10 10:47:13.440  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 6.224 seconds (JVM running for 8.763)
-2020-01-10 10:47:37.839  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-01-10 10:47:37.839  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
-2020-01-10 10:47:37.848  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 9 ms
-2020-01-10 10:47:37.958  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
-2020-01-10 10:47:38.246  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
-2020-01-10 10:49:18.755  WARN DESKTOP-D81905L --- [nio-8081-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
-2020-01-10 12:04:23.955  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 408 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
-2020-01-10 12:04:23.970  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
-2020-01-10 12:04:25.598  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2020-01-10 12:04:25.606  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2020-01-10 12:04:25.671  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 40ms. Found 0 repository interfaces.
-2020-01-10 12:04:26.176  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2020-01-10 12:04:26.603  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
-2020-01-10 12:04:26.619  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
-2020-01-10 12:04:26.620  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
-2020-01-10 12:04:26.621  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
-2020-01-10 12:04:26.946  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
-2020-01-10 12:04:26.946  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2838 ms
-2020-01-10 12:04:28.532  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
-2020-01-10 12:04:29.351  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
-2020-01-10 12:04:29.451  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
-2020-01-10 12:04:29.765  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
-2020-01-10 12:04:29.791  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
-2020-01-10 12:04:29.806  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
-2020-01-10 12:04:30.105  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
-2020-01-10 12:04:30.138  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
-2020-01-10 12:04:30.142  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 6.807 seconds (JVM running for 9.552)
-2020-01-10 12:05:37.971  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-01-10 12:05:37.972  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
-2020-01-10 12:05:37.982  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 10 ms
-2020-01-10 12:05:38.176  INFO DESKTOP-D81905L --- [nio-8081-exec-2] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
-2020-01-10 12:05:38.486  INFO DESKTOP-D81905L --- [nio-8081-exec-2] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
-2020-01-10 12:11:01.850  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 10476 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
-2020-01-10 12:11:01.863  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
-2020-01-10 12:11:03.293  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2020-01-10 12:11:03.299  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2020-01-10 12:11:03.346  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27ms. Found 0 repository interfaces.
-2020-01-10 12:11:03.819  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2020-01-10 12:11:04.305  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
-2020-01-10 12:11:04.319  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
-2020-01-10 12:11:04.321  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
-2020-01-10 12:11:04.322  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
-2020-01-10 12:11:04.659  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
-2020-01-10 12:11:04.659  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2691 ms
-2020-01-10 12:11:06.079  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
-2020-01-10 12:11:06.703  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
-2020-01-10 12:11:06.780  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
-2020-01-10 12:11:07.140  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
-2020-01-10 12:11:07.163  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
-2020-01-10 12:11:07.178  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
-2020-01-10 12:11:07.483  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
-2020-01-10 12:11:07.520  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
-2020-01-10 12:11:07.525  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 6.123 seconds (JVM running for 8.518)
-2020-01-10 12:11:07.803  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-01-10 12:11:07.803  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
-2020-01-10 12:11:07.813  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 10 ms
-2020-01-10 12:11:07.993  INFO DESKTOP-D81905L --- [nio-8081-exec-2] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
-2020-01-10 12:11:08.340  INFO DESKTOP-D81905L --- [nio-8081-exec-2] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
-2020-01-10 14:53:38.309  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 11212 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
-2020-01-10 14:53:38.323  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
-2020-01-10 14:53:39.784  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2020-01-10 14:53:39.790  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2020-01-10 14:53:39.832  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21ms. Found 0 repository interfaces.
-2020-01-10 14:53:40.311  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2020-01-10 14:53:41.089  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
-2020-01-10 14:53:41.104  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
-2020-01-10 14:53:41.105  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
-2020-01-10 14:53:41.106  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
-2020-01-10 14:53:41.388  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
-2020-01-10 14:53:41.388  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2958 ms
-2020-01-10 14:53:42.872  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
-2020-01-10 14:53:43.611  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
-2020-01-10 14:53:43.690  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
-2020-01-10 14:53:44.023  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
-2020-01-10 14:53:44.049  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
-2020-01-10 14:53:44.064  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
-2020-01-10 14:53:44.356  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
-2020-01-10 14:53:44.398  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
-2020-01-10 14:53:44.403  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 6.602 seconds (JVM running for 9.276)
-2020-01-10 14:53:57.952  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-01-10 14:53:57.953  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
-2020-01-10 14:53:57.962  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 9 ms
-2020-01-10 14:53:58.111  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
-2020-01-10 14:53:58.417  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
-2020-01-10 15:10:58.986  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 13532 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
-2020-01-10 15:10:59.057  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
-2020-01-10 15:11:00.711  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2020-01-10 15:11:00.717  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2020-01-10 15:11:00.758  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21ms. Found 0 repository interfaces.
-2020-01-10 15:11:01.207  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2020-01-10 15:11:01.570  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
-2020-01-10 15:11:01.583  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
-2020-01-10 15:11:01.584  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
-2020-01-10 15:11:01.585  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
-2020-01-10 15:11:01.893  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
-2020-01-10 15:11:01.893  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2734 ms
-2020-01-10 15:11:03.459  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
-2020-01-10 15:11:04.151  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
-2020-01-10 15:11:04.227  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
-2020-01-10 15:11:04.541  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
-2020-01-10 15:11:04.571  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
-2020-01-10 15:11:04.594  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
-2020-01-10 15:11:04.891  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
-2020-01-10 15:11:04.930  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
-2020-01-10 15:11:04.935  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 6.445 seconds (JVM running for 8.925)
-2020-01-10 15:11:13.019  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-01-10 15:11:13.020  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
-2020-01-10 15:11:13.029  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 9 ms
-2020-01-10 15:11:13.104  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
-2020-01-10 15:11:13.389  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
-2020-01-10 15:11:59.215  WARN DESKTOP-D81905L --- [l-1 housekeeper] c.z.h.p.HikariPool                       : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=45s724ms448µs900ns).
-2020-01-10 15:12:37.949  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 11312 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
-2020-01-10 15:12:37.962  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
-2020-01-10 15:12:39.479  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2020-01-10 15:12:39.484  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2020-01-10 15:12:39.525  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22ms. Found 0 repository interfaces.
-2020-01-10 15:12:39.965  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2020-01-10 15:12:40.346  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
-2020-01-10 15:12:40.360  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
-2020-01-10 15:12:40.361  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
-2020-01-10 15:12:40.362  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
-2020-01-10 15:12:40.679  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
-2020-01-10 15:12:40.679  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2592 ms
-2020-01-10 15:12:42.094  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
-2020-01-10 15:12:42.715  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
-2020-01-10 15:12:42.790  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
-2020-01-10 15:12:43.119  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
-2020-01-10 15:12:43.142  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
-2020-01-10 15:12:43.158  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
-2020-01-10 15:12:43.460  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
-2020-01-10 15:12:43.498  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
-2020-01-10 15:12:43.502  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 5.975 seconds (JVM running for 8.421)
-2020-01-10 15:13:02.647  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-01-10 15:13:02.647  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
-2020-01-10 15:13:02.657  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 9 ms
-2020-01-10 15:13:02.734  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
-2020-01-10 15:13:03.020  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
-2020-01-10 15:31:14.470  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 11088 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
-2020-01-10 15:31:14.484  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
-2020-01-10 15:31:16.061  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2020-01-10 15:31:16.067  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2020-01-10 15:31:16.113  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23ms. Found 0 repository interfaces.
-2020-01-10 15:31:16.584  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2020-01-10 15:31:16.955  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
-2020-01-10 15:31:16.969  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
-2020-01-10 15:31:16.970  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
-2020-01-10 15:31:16.971  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
-2020-01-10 15:31:17.239  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
-2020-01-10 15:31:17.239  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2646 ms
-2020-01-10 15:31:18.654  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
-2020-01-10 15:31:19.286  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
-2020-01-10 15:31:19.364  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
-2020-01-10 15:31:19.676  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
-2020-01-10 15:31:19.698  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
-2020-01-10 15:31:19.713  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
-2020-01-10 15:31:20.001  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
-2020-01-10 15:31:20.039  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
-2020-01-10 15:31:20.043  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 5.998 seconds (JVM running for 8.367)
-2020-01-10 15:31:40.142  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-01-10 15:31:40.143  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
-2020-01-10 15:31:40.155  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 12 ms
-2020-01-10 15:31:40.183  WARN DESKTOP-D81905L --- [nio-8081-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
-2020-01-10 15:33:14.787  INFO DESKTOP-D81905L --- [nio-8081-exec-4] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
-2020-01-10 15:33:15.063  INFO DESKTOP-D81905L --- [nio-8081-exec-4] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
-2020-01-10 15:35:04.278  WARN DESKTOP-D81905L --- [nio-8081-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.alibaba.fastjson.JSONObject com.boot.gang.controller.AjaxController.addByEntity(java.lang.String,com.alibaba.fastjson.JSONObject,javax.servlet.http.HttpServletRequest)]
+2020-01-11 10:36:39.596  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 16300 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
+2020-01-11 10:36:39.611  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
+2020-01-11 10:36:41.002  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-01-11 10:36:41.002  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-01-11 10:36:41.049  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 20ms. Found 0 repository interfaces.
+2020-01-11 10:36:41.471  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-11 10:36:41.861  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
+2020-01-11 10:36:41.877  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
+2020-01-11 10:36:41.877  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2020-01-11 10:36:41.877  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-01-11 10:36:42.205  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2020-01-11 10:36:42.205  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2484 ms
+2020-01-11 10:36:43.689  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2020-01-11 10:36:44.252  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-11 10:36:44.330  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-01-11 10:36:44.705  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-01-11 10:36:44.752  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-01-11 10:36:44.768  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-01-11 10:36:45.158  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
+2020-01-11 10:36:45.189  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
+2020-01-11 10:36:45.189  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 6.046 seconds (JVM running for 8.643)
+2020-01-11 10:38:40.842  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-01-11 10:38:40.842  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2020-01-11 10:38:40.842  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 0 ms
+2020-01-11 10:38:40.983  INFO DESKTOP-D81905L --- [nio-8081-exec-5] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2020-01-11 10:38:41.280  INFO DESKTOP-D81905L --- [nio-8081-exec-5] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2020-01-11 14:16:59.394  WARN DESKTOP-D81905L --- [l-1 housekeeper] c.z.h.p.HikariPool                       : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=39m47s125ms983µs900ns).
+2020-01-11 16:48:14.773  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 12012 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
+2020-01-11 16:48:14.833  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
+2020-01-11 16:48:16.392  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-01-11 16:48:16.397  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-01-11 16:48:16.437  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 20ms. Found 0 repository interfaces.
+2020-01-11 16:48:16.872  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-11 16:48:17.341  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
+2020-01-11 16:48:17.370  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
+2020-01-11 16:48:17.373  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2020-01-11 16:48:17.375  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-01-11 16:48:17.688  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2020-01-11 16:48:17.689  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2784 ms
+2020-01-11 16:48:19.244  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2020-01-11 16:48:19.985  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-11 16:48:20.061  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-01-11 16:48:20.390  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-01-11 16:48:20.415  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-01-11 16:48:20.443  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-01-11 16:48:20.738  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
+2020-01-11 16:48:20.775  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
+2020-01-11 16:48:20.780  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 6.51 seconds (JVM running for 9.462)
+2020-01-11 16:48:27.621  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-01-11 16:48:27.621  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2020-01-11 16:48:27.631  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 9 ms
+2020-01-11 16:48:27.724  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2020-01-11 16:48:28.032  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2020-01-11 16:48:28.107 ERROR DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[.[dispatcherServlet]      : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.ArrayIndexOutOfBoundsException: 1] with root cause
+java.lang.ArrayIndexOutOfBoundsException: 1
+	at com.boot.gang.service.Impl.ProductServiceImpl.getList(ProductServiceImpl.java:61)
+	at com.boot.gang.controller.AjaxController.getList(AjaxController.java:160)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:888)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:861)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1579)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+2020-01-11 17:12:34.413  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 20108 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
+2020-01-11 17:12:34.427  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
+2020-01-11 17:12:35.932  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-01-11 17:12:35.937  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-01-11 17:12:35.977  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 20ms. Found 0 repository interfaces.
+2020-01-11 17:12:36.417  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-11 17:12:36.813  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
+2020-01-11 17:12:36.828  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
+2020-01-11 17:12:36.829  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2020-01-11 17:12:36.830  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-01-11 17:12:37.135  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2020-01-11 17:12:37.135  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2579 ms
+2020-01-11 17:12:38.661  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2020-01-11 17:12:39.267  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-11 17:12:39.362  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-01-11 17:12:39.648  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-01-11 17:12:39.682  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-01-11 17:12:39.695  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-01-11 17:12:40.013  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
+2020-01-11 17:12:40.054  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
+2020-01-11 17:12:40.058  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 6.146 seconds (JVM running for 8.716)
+2020-01-11 17:12:40.183  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-01-11 17:12:40.183  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2020-01-11 17:12:40.193  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 10 ms
+2020-01-11 17:12:40.531  INFO DESKTOP-D81905L --- [nio-8081-exec-8] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2020-01-11 17:12:40.960  INFO DESKTOP-D81905L --- [nio-8081-exec-8] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2020-01-11 17:54:09.958  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 7936 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
+2020-01-11 17:54:09.972  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
+2020-01-11 17:54:11.470  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-01-11 17:54:11.475  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-01-11 17:54:11.516  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21ms. Found 0 repository interfaces.
+2020-01-11 17:54:12.029  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-11 17:54:12.409  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
+2020-01-11 17:54:12.423  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
+2020-01-11 17:54:12.424  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2020-01-11 17:54:12.425  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-01-11 17:54:12.686  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2020-01-11 17:54:12.686  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2602 ms
+2020-01-11 17:54:14.225  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2020-01-11 17:54:14.866  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-11 17:54:14.940  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-01-11 17:54:15.303  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-01-11 17:54:15.328  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-01-11 17:54:15.344  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-01-11 17:54:15.654  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
+2020-01-11 17:54:15.692  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
+2020-01-11 17:54:15.697  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 6.184 seconds (JVM running for 9.188)
+2020-01-11 17:54:18.524  INFO DESKTOP-D81905L --- [nio-8081-exec-5] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-01-11 17:54:18.524  INFO DESKTOP-D81905L --- [nio-8081-exec-5] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2020-01-11 17:54:18.539  INFO DESKTOP-D81905L --- [nio-8081-exec-5] o.s.w.s.DispatcherServlet                : Completed initialization in 14 ms
+2020-01-11 17:54:18.721  INFO DESKTOP-D81905L --- [nio-8081-exec-9] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2020-01-11 17:54:19.012  INFO DESKTOP-D81905L --- [nio-8081-exec-9] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2020-01-11 18:05:53.478  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 7980 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
+2020-01-11 18:05:53.494  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
+2020-01-11 18:05:55.311  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-01-11 18:05:55.317  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-01-11 18:05:55.386  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37ms. Found 0 repository interfaces.
+2020-01-11 18:05:55.944  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-11 18:05:56.319  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
+2020-01-11 18:05:56.332  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
+2020-01-11 18:05:56.334  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2020-01-11 18:05:56.334  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-01-11 18:05:56.609  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2020-01-11 18:05:56.609  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 3004 ms
+2020-01-11 18:05:58.383  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2020-01-11 18:05:58.929  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-11 18:05:58.995  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-01-11 18:05:59.298  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-01-11 18:05:59.319  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-01-11 18:05:59.332  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-01-11 18:05:59.659  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
+2020-01-11 18:05:59.697  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
+2020-01-11 18:05:59.701  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 6.672 seconds (JVM running for 9.405)
+2020-01-11 18:06:17.531  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-01-11 18:06:17.532  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2020-01-11 18:06:17.543  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 11 ms
+2020-01-11 18:06:17.725  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2020-01-11 18:06:18.028  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2020-01-11 18:36:30.811  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 18944 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
+2020-01-11 18:36:30.837  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
+2020-01-11 18:36:32.574  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-01-11 18:36:32.581  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-01-11 18:36:32.627  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21ms. Found 0 repository interfaces.
+2020-01-11 18:36:33.069  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-11 18:36:33.487  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
+2020-01-11 18:36:33.505  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
+2020-01-11 18:36:33.506  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2020-01-11 18:36:33.507  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-01-11 18:36:33.780  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2020-01-11 18:36:33.780  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2772 ms
+2020-01-11 18:36:35.214  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2020-01-11 18:36:35.846  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-11 18:36:35.929  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-01-11 18:36:36.277  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-01-11 18:36:36.302  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-01-11 18:36:36.318  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-01-11 18:36:36.625  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
+2020-01-11 18:36:36.663  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
+2020-01-11 18:36:36.667  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 6.32 seconds (JVM running for 8.951)
+2020-01-11 18:37:37.542  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-01-11 18:37:37.542  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2020-01-11 18:37:37.552  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 10 ms
+2020-01-11 18:37:37.734  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2020-01-11 18:37:38.068  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2020-01-11 18:42:41.790  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 16180 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
+2020-01-11 18:42:41.805  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
+2020-01-11 18:42:43.352  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-01-11 18:42:43.358  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-01-11 18:42:43.409  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 29ms. Found 0 repository interfaces.
+2020-01-11 18:42:43.941  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-11 18:42:44.328  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
+2020-01-11 18:42:44.342  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
+2020-01-11 18:42:44.343  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2020-01-11 18:42:44.344  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-01-11 18:42:44.607  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2020-01-11 18:42:44.607  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2691 ms
+2020-01-11 18:42:46.015  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2020-01-11 18:42:46.638  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-11 18:42:46.731  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-01-11 18:42:47.072  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-01-11 18:42:47.095  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-01-11 18:42:47.112  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-01-11 18:42:47.373  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
+2020-01-11 18:42:47.407  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
+2020-01-11 18:42:47.411  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 6.038 seconds (JVM running for 8.632)
+2020-01-11 18:42:47.702  INFO DESKTOP-D81905L --- [nio-8081-exec-3] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-01-11 18:42:47.702  INFO DESKTOP-D81905L --- [nio-8081-exec-3] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2020-01-11 18:42:47.712  INFO DESKTOP-D81905L --- [nio-8081-exec-3] o.s.w.s.DispatcherServlet                : Completed initialization in 9 ms
+2020-01-11 18:42:47.906  INFO DESKTOP-D81905L --- [nio-8081-exec-4] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2020-01-11 18:42:48.270  INFO DESKTOP-D81905L --- [nio-8081-exec-4] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2020-01-11 19:01:01.006  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 2520 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
+2020-01-11 19:01:01.019  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
+2020-01-11 19:01:02.577  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-01-11 19:01:02.583  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-01-11 19:01:02.622  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21ms. Found 0 repository interfaces.
+2020-01-11 19:01:03.055  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-11 19:01:03.488  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
+2020-01-11 19:01:03.504  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
+2020-01-11 19:01:03.505  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2020-01-11 19:01:03.506  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-01-11 19:01:03.822  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2020-01-11 19:01:03.823  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2695 ms
+2020-01-11 19:01:05.341  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2020-01-11 19:01:06.000  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-11 19:01:06.091  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-01-11 19:01:06.418  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-01-11 19:01:06.444  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-01-11 19:01:06.460  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-01-11 19:01:06.765  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
+2020-01-11 19:01:06.802  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
+2020-01-11 19:01:06.806  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 6.296 seconds (JVM running for 8.944)
+2020-01-11 19:01:11.430  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-01-11 19:01:11.431  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2020-01-11 19:01:11.440  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 9 ms
+2020-01-11 19:01:11.712  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2020-01-11 19:01:12.019  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2020-01-11 19:02:14.489  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 15068 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
+2020-01-11 19:02:14.504  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
+2020-01-11 19:02:15.988  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-01-11 19:02:15.993  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-01-11 19:02:16.034  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22ms. Found 0 repository interfaces.
+2020-01-11 19:02:16.481  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-11 19:02:16.843  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
+2020-01-11 19:02:16.856  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
+2020-01-11 19:02:16.858  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2020-01-11 19:02:16.859  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-01-11 19:02:17.129  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2020-01-11 19:02:17.130  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2510 ms
+2020-01-11 19:02:18.623  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2020-01-11 19:02:19.236  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-11 19:02:19.310  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-01-11 19:02:19.619  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-01-11 19:02:19.642  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-01-11 19:02:19.657  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-01-11 19:02:19.944  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
+2020-01-11 19:02:19.994  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
+2020-01-11 19:02:19.998  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 5.981 seconds (JVM running for 8.399)
+2020-01-11 19:02:23.020  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-01-11 19:02:23.020  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2020-01-11 19:02:23.030  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 10 ms
+2020-01-11 19:02:23.305  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2020-01-11 19:02:23.618  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2020-01-11 19:06:08.256  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 18984 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
+2020-01-11 19:06:08.310  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
+2020-01-11 19:06:09.778  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-01-11 19:06:09.783  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-01-11 19:06:09.831  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22ms. Found 0 repository interfaces.
+2020-01-11 19:06:10.270  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-11 19:06:10.639  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
+2020-01-11 19:06:10.662  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
+2020-01-11 19:06:10.663  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2020-01-11 19:06:10.664  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-01-11 19:06:10.969  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2020-01-11 19:06:10.969  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2597 ms
+2020-01-11 19:06:12.402  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2020-01-11 19:06:13.026  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-11 19:06:13.103  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-01-11 19:06:13.424  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-01-11 19:06:13.449  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-01-11 19:06:13.465  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-01-11 19:06:13.771  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
+2020-01-11 19:06:13.816  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
+2020-01-11 19:06:13.820  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 6.015 seconds (JVM running for 8.449)
+2020-01-11 19:06:18.447  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-01-11 19:06:18.447  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2020-01-11 19:06:18.456  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 9 ms
+2020-01-11 19:06:18.712  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2020-01-11 19:06:18.997  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2020-01-11 19:29:10.205  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 14200 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
+2020-01-11 19:29:10.219  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
+2020-01-11 19:29:11.748  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-01-11 19:29:11.754  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-01-11 19:29:11.802  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25ms. Found 0 repository interfaces.
+2020-01-11 19:29:12.293  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-11 19:29:12.687  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
+2020-01-11 19:29:12.702  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
+2020-01-11 19:29:12.703  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2020-01-11 19:29:12.704  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-01-11 19:29:12.981  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2020-01-11 19:29:12.982  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2645 ms
+2020-01-11 19:29:14.442  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2020-01-11 19:29:15.060  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-11 19:29:15.137  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-01-11 19:29:15.468  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-01-11 19:29:15.507  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-01-11 19:29:15.528  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-01-11 19:29:15.857  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
+2020-01-11 19:29:15.893  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
+2020-01-11 19:29:15.897  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 6.159 seconds (JVM running for 8.601)
+2020-01-11 19:29:26.563  INFO DESKTOP-D81905L --- [nio-8081-exec-2] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-01-11 19:29:26.564  INFO DESKTOP-D81905L --- [nio-8081-exec-2] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2020-01-11 19:29:26.574  INFO DESKTOP-D81905L --- [nio-8081-exec-2] o.s.w.s.DispatcherServlet                : Completed initialization in 10 ms
+2020-01-11 19:29:26.716  INFO DESKTOP-D81905L --- [nio-8081-exec-6] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2020-01-11 19:29:27.012  INFO DESKTOP-D81905L --- [nio-8081-exec-6] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2020-01-11 19:37:13.170  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 9672 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
+2020-01-11 19:37:13.183  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
+2020-01-11 19:37:14.665  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-01-11 19:37:14.671  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-01-11 19:37:14.709  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 20ms. Found 0 repository interfaces.
+2020-01-11 19:37:15.136  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-11 19:37:15.504  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
+2020-01-11 19:37:15.516  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
+2020-01-11 19:37:15.518  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2020-01-11 19:37:15.519  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-01-11 19:37:15.831  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2020-01-11 19:37:15.831  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2545 ms
+2020-01-11 19:37:17.296  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2020-01-11 19:37:17.913  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-11 19:37:17.987  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-01-11 19:37:18.304  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-01-11 19:37:18.333  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-01-11 19:37:18.352  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-01-11 19:37:18.642  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
+2020-01-11 19:37:18.681  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
+2020-01-11 19:37:18.686  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 5.953 seconds (JVM running for 8.395)
+2020-01-11 19:38:10.257  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-01-11 19:38:10.258  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2020-01-11 19:38:10.267  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 9 ms
+2020-01-11 19:38:10.532  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2020-01-11 19:38:10.830  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2020-01-11 19:39:29.266  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 19568 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
+2020-01-11 19:39:29.279  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
+2020-01-11 19:39:30.834  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-01-11 19:39:30.844  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-01-11 19:39:30.890  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21ms. Found 0 repository interfaces.
+2020-01-11 19:39:31.333  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-11 19:39:31.714  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
+2020-01-11 19:39:31.730  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
+2020-01-11 19:39:31.731  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2020-01-11 19:39:31.732  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-01-11 19:39:32.035  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2020-01-11 19:39:32.036  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2652 ms
+2020-01-11 19:39:33.613  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2020-01-11 19:39:34.262  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-11 19:39:34.355  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-01-11 19:39:34.676  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-01-11 19:39:34.697  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-01-11 19:39:34.711  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-01-11 19:39:34.979  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
+2020-01-11 19:39:35.012  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
+2020-01-11 19:39:35.015  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 6.183 seconds (JVM running for 8.594)
+2020-01-11 19:39:37.239  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-01-11 19:39:37.239  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2020-01-11 19:39:37.249  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 10 ms
+2020-01-11 19:39:37.514  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2020-01-11 19:39:37.807  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2020-01-11 19:40:13.113  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 14448 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
+2020-01-11 19:40:13.126  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
+2020-01-11 19:40:14.640  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-01-11 19:40:14.645  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-01-11 19:40:14.685  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21ms. Found 0 repository interfaces.
+2020-01-11 19:40:15.128  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-11 19:40:15.501  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
+2020-01-11 19:40:15.515  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
+2020-01-11 19:40:15.516  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2020-01-11 19:40:15.517  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-01-11 19:40:15.791  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2020-01-11 19:40:15.792  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2561 ms
+2020-01-11 19:40:17.298  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2020-01-11 19:40:17.918  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-11 19:40:17.991  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-01-11 19:40:18.322  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-01-11 19:40:18.345  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-01-11 19:40:18.362  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-01-11 19:40:18.675  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
+2020-01-11 19:40:18.712  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
+2020-01-11 19:40:18.716  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 6.034 seconds (JVM running for 8.608)
+2020-01-11 19:40:18.890  INFO DESKTOP-D81905L --- [nio-8081-exec-3] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-01-11 19:40:18.891  INFO DESKTOP-D81905L --- [nio-8081-exec-3] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2020-01-11 19:40:18.901  INFO DESKTOP-D81905L --- [nio-8081-exec-3] o.s.w.s.DispatcherServlet                : Completed initialization in 10 ms
+2020-01-11 19:40:19.077  INFO DESKTOP-D81905L --- [nio-8081-exec-8] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2020-01-11 19:40:19.479  INFO DESKTOP-D81905L --- [nio-8081-exec-8] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2020-01-11 19:40:46.459  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 5672 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
+2020-01-11 19:40:46.472  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
+2020-01-11 19:40:47.986  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-01-11 19:40:47.992  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-01-11 19:40:48.035  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22ms. Found 0 repository interfaces.
+2020-01-11 19:40:48.474  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-11 19:40:48.877  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
+2020-01-11 19:40:48.894  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
+2020-01-11 19:40:48.895  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2020-01-11 19:40:48.896  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-01-11 19:40:49.199  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2020-01-11 19:40:49.199  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2620 ms
+2020-01-11 19:40:50.630  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2020-01-11 19:40:51.261  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-11 19:40:51.337  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-01-11 19:40:51.671  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-01-11 19:40:51.694  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-01-11 19:40:51.715  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-01-11 19:40:52.032  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
+2020-01-11 19:40:52.075  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
+2020-01-11 19:40:52.080  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 6.038 seconds (JVM running for 8.53)
+2020-01-11 19:40:57.215  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-01-11 19:40:57.216  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2020-01-11 19:40:57.227  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 11 ms
+2020-01-11 19:40:57.434  INFO DESKTOP-D81905L --- [nio-8081-exec-4] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2020-01-11 19:40:57.721  INFO DESKTOP-D81905L --- [nio-8081-exec-4] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2020-01-11 20:17:16.436  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Starting LinGangApplication on DESKTOP-D81905L with PID 7448 (started by seven in D:\Oblivion\Documents\Idea Workspace\lingang)
+2020-01-11 20:17:16.450  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : No active profile set, falling back to default profiles: default
+2020-01-11 20:17:18.028  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-01-11 20:17:18.033  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-01-11 20:17:18.075  INFO DESKTOP-D81905L --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22ms. Found 0 repository interfaces.
+2020-01-11 20:17:18.520  INFO DESKTOP-D81905L --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-11 20:17:18.937  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8081 (http)
+2020-01-11 20:17:18.952  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8081"]
+2020-01-11 20:17:18.953  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2020-01-11 20:17:18.954  INFO DESKTOP-D81905L --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-01-11 20:17:19.249  INFO DESKTOP-D81905L --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2020-01-11 20:17:19.250  INFO DESKTOP-D81905L --- [           main] o.s.w.c.ContextLoader                    : Root WebApplicationContext: initialization completed in 2693 ms
+2020-01-11 20:17:20.803  WARN DESKTOP-D81905L --- [           main] o.t.t.TemplateMode                       : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2020-01-11 20:17:21.409  INFO DESKTOP-D81905L --- [           main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-11 20:17:21.524  INFO DESKTOP-D81905L --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-01-11 20:17:21.845  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-01-11 20:17:21.868  INFO DESKTOP-D81905L --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-01-11 20:17:21.884  INFO DESKTOP-D81905L --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-01-11 20:17:22.172  INFO DESKTOP-D81905L --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8081"]
+2020-01-11 20:17:22.205  INFO DESKTOP-D81905L --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8081 (http) with context path ''
+2020-01-11 20:17:22.209  INFO DESKTOP-D81905L --- [           main] c.b.g.LinGangApplication                 : Started LinGangApplication in 6.205 seconds (JVM running for 8.674)
+2020-01-11 20:17:27.401  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-01-11 20:17:27.402  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2020-01-11 20:17:27.411  INFO DESKTOP-D81905L --- [nio-8081-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 9 ms
+2020-01-11 20:17:27.486  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2020-01-11 20:17:27.777  INFO DESKTOP-D81905L --- [nio-8081-exec-1] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.

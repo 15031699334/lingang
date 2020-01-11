@@ -88,7 +88,10 @@ public class AjaxController {
         }
         if (entity.equals("hb"))
             return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "hb"));
-
+        if (entity.equals("cz"))
+            return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "cz"));
+        if (entity.equals("gg"))
+            return  msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "gg"));
         return msgUtil.jsonErrorMsg("路径错误");
     }
 
@@ -223,8 +226,8 @@ public class AjaxController {
             }
         }
         if (entity.equals("gwc")){  // 添加购物车
-            String pId = json.getString("pId");
-            if (shopTrolleyService.getCountByProductId(pId) > 0){
+            String pId = json.getString("pId");     // 商品id
+            if (shopTrolleyService.getCountByProductId(pId, userId) > 0){
                 return msgUtil.jsonErrorMsg("当前商品购物车已存在");
             }
             try {
@@ -250,8 +253,10 @@ public class AjaxController {
         if (entity.equals("dd")){   // 生成订单
             try {
                 Order order = JSONObject.toJavaObject(json, Order.class);
-                order.setcCreateUser(userId);
-                order.setcId("OD"+System.nanoTime());
+                order.setcUserId(userId);
+                order.setcState(1);
+                order.setcId("O"+System.nanoTime());
+                order.setcOrderNo("NO" + System.nanoTime());
                 order.setcCreateTime(new Date());
                 commonService.save(order, "Order");
             } catch (Exception e) {
