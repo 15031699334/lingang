@@ -83,6 +83,14 @@ public class User {
 
     private String cLogo;       // 头像
 
+    private Double cTotalPay;       // 白条已使用额度
+
+    private Double cTotalSale;      // 白条未使用额度
+
+    private String cHide;
+
+    private Double cTotalAverage;   // 白条总额度
+
     private Double cMoney;
 
     private String cMyRecommendCode;
@@ -154,14 +162,6 @@ public class User {
     private String cZhongjianrenName;
 
     private String cXy;
-
-    private Double cTotalPay;
-
-    private Double cTotalSale;
-
-    private String cHide;
-
-    private Double cTotalAverage;
 
     private Integer cTotalOrder;
 

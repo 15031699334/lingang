@@ -4,6 +4,8 @@ import com.boot.gang.entity.*;
 import com.boot.gang.mapper.*;
 import com.boot.gang.service.CommonService;
 import com.boot.gang.service.TokenService;
+import com.boot.gang.util.DoubleUtil;
+import com.boot.gang.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -127,7 +129,7 @@ public class CommonServiceImpl implements CommonService {
 //            System.out.println("规格: " + p_data[0] + ", 材料: " + p_data[1]);
             shopTrolley.setStProductspec(p_data[0]);
             shopTrolley.setStProducttexture(p_data[1]);
-            shopTrolley.setStTonnum(product.getcStockNum() + "");
+            shopTrolley.setStTonnum(product.getcScore() + "");
             shopTrolley.setStCreatettime(new Date());
             shopTrolleyMapper.insertSelective(shopTrolley);
         }
@@ -146,39 +148,92 @@ public class CommonServiceImpl implements CommonService {
 
         if (entity.equals("Order")){    // 添加订单
             Order order = (Order) object;
-            if (order.getcCategory().equals("1")){     // 普通订单
+//            System.out.println(order);
+            if (order.getcCategory() == 1){     // 普通订单
                 String [] shopTrolleyIds = order.getcTransactionId().split(",");  // 购物车id
                 String sTId = "";
                 for (String id : shopTrolleyIds){   // 拼接购物车id   = 'st111111, st22222'
                     sTId = sTId + "'"+id +"', ";
                 }
-//            System.out.println(", 参数: " + sTId.substring(0,sTId.length()-2));
+                System.out.println(", 参数: " + sTId.substring(0,sTId.length()-2));
                 List<ShopTrolley> list = shopTrolleyMapper.getList(" and st_userId = '"+order.getcUserId()+"' and st_id in (" + sTId.substring(0,sTId.length()-2) + ")");
                 if (list.size() != shopTrolleyIds.length){      // 如果查询到的购物车数量和传入的购物车id数量不一致 则抛异常
                     throw new  Exception("购物车不存在当前商品");
                 }
                 for (ShopTrolley shopTrolley : list){           // 通过购物车数据
-                    OrderDetail orderDetail = new OrderDetail("OD" +System.nanoTime(), new Date(), order.getcOrderNo(), 0.0, "", shopTrolley.getStProductId(), "1", shopTrolley.getStProductspec(), shopTrolley.getStProducttexture(), shopTrolley.getStProductName(), shopTrolley.getStShopColumnTypeId(), shopTrolley.getStShopId(), shopTrolley.getStShopName(), shopTrolley.getStTonnum().toString(), shopTrolley.getStPrice());
+                    OrderDetail orderDetail = new OrderDetail("OD" +System.nanoTime(), new Date(), order.getcOrderNo(), 0.0, "", shopTrolley.getStProductId(), "1", shopTrolley.getStProductspec(), shopTrolley.getStProducttexture(), shopTrolley.getStProductName(), shopTrolley.getStShopColumnTypeId(), shopTrolley.getStShopId(), shopTrolley.getStShopName(), shopTrolley.getStTonnum(), shopTrolley.getStPrice(), shopTrolley.getStStoreaddress());
                     orderDetailMapper.insertSelective(orderDetail);     // 添加订单详情商品信息
                 }
                 // 添加订单信息
-                orderMapper.insertSelective(order);
+                orderMapper.insertSelective(order); // 添加完成
+                // 修改优惠券状态
+                Coupons coupons = new Coupons();
+                coupons.setcId(order.getcCouponId());
+                coupons.setcIfUse(1);
+                couponsMapper.updateByPrimaryKeySelective(coupons);
                 // 删除购物车信息
                 for (String id : shopTrolleyIds){
                     shopTrolleyMapper.deleteByPrimaryKey(id);
                 }
             }else {     // cCategory == 2  添加拼购订单
+                User user = userMapper.selectByPrimaryKey(order.getcUserId());  // 获取当前用户的信息
+
                 String c_group_num = order.getcGroupNum();
-                if (c_group_num.equals("")) {   // 拼团 母订单
+                if (c_group_num.equals("")) {   // 拼团 母订单(主订单)
+                    order.setcGroupNum(order.getcOrderNo());    //添加拼团订单号
+                    Product product = productMapper.selectByPrimaryKey(order.getcTransactionId());  // 获取到商品信息
+                    if (product == null){
+                        throw new  Exception("商品参数错误");
+                    }
+                    // 规格 材质 吨数
+                    String [] c_price_list = product.getcPriceList().split("=");
+                    String [] p_data = c_price_list[0].split("\\+");
+                      // 这里是从购物车获取参数
+//                    ShopTrolley shopTrolley= shopTrolleyMapper.selectBySwhere(" and st_userId = '"+order.getcUserId()+"' and st_id = '" + order.getcTransactionId() + "'");
+//                    Double sy = DoubleUtil.sub(Double.parseDouble(shopTrolley.getStTonnum()), order.getcGzFl());
+//                    order.setcZjrFl(sy);
+                    Double sy = DoubleUtil.sub(product.getcScore(), order.getcGzFl());
+                    if (sy < 0){
+                        throw new Exception("吨数大于库存吨量");
+                    }
+                    order.setcZjrFl(sy);
 
+                    OrderDetail orderDetail = new OrderDetail("OD" +System.nanoTime(), new Date(), order.getcOrderNo(), 0.0, "", product.getcId(), "1", p_data[0], p_data[1], product.getcName(), product.getcShopColumnTypeId(), product.getcShopId(), product.getcShopName(), product.getcScore().toString(), product.getcNowPrice(), product.getcZkbl());
+                    orderDetailMapper.insertSelective(orderDetail);     // 添加订单详情商品信息
+                    // 添加订单信息
+                    order.setcRealname(user.getcRealname());
+                    order.setcPhone(user.getcPhone());
+                    orderMapper.insertSelective(order);
+                    System.out.println("添加完成");
+                }else {     // 子订单(附属订单)     // 不能加入自己发起的拼购
+//                    System.out.println(order.getcGroupNum());
+                    Order order_group_init = orderMapper.selectByOrderNo(order.getcGroupNum());   // 拼单发起人的用户id
 
-                }else {     // 子订单
-
-
+                    if (order.getcUserId().equals(order_group_init.getcUserId())){
+                        throw new Exception("不能参与自己发起的拼购");
+                    }
+                    Product product = productMapper.selectByPrimaryKey(order.getcTransactionId());  // 获取到商品信息
+                    if (product == null){
+                        throw new  Exception("商品参数错误");
+                    }
+                    // 规格 材质 吨数
+                    String [] c_price_list = product.getcPriceList().split("=");
+                    String [] p_data = c_price_list[0].split("\\+");
+                    Double sy = DoubleUtil.sub(order_group_init.getcZjrFl(), order.getcGzFl());  // 查询到的剩余量 - 传入的
+                    if (sy < 0){
+                        throw new Exception("吨数大于库存吨量");
+                    }
+                    order_group_init.setcZjrFl(sy); // 将主订单的剩余量修改
+                    OrderDetail orderDetail = new OrderDetail("OD" +System.nanoTime(), new Date(), order.getcOrderNo(), 0.0, "", product.getcId(), "1", p_data[0], p_data[1], product.getcName(), product.getcShopColumnTypeId(), product.getcShopId(), product.getcShopName(), product.getcScore().toString(), product.getcNowPrice(), product.getcZkbl());
+                    orderDetailMapper.insertSelective(orderDetail);     // 添加订单详情商品信息
+                    // 添加订单信息
+                    order.setcGroupEndTime(order_group_init.getcGroupEndTime());
+                    order.setcRealname(user.getcRealname());
+                    order.setcPhone(user.getcPhone());
+                    orderMapper.insertSelective(order);
+                    System.out.println("添加完成");
+                    orderMapper.updateByPrimaryKeySelective(order_group_init);      // 修改主单的剩余吨数
                 }
-
-
-
             }
         }
     }
@@ -215,10 +270,10 @@ public class CommonServiceImpl implements CommonService {
             String userId;
             try {
                 userId = tokenService.getIdByToken(request);
-                List<Order> orders =  orderMapper.getList(" and c_user_id = " + userId + " order by c_create_time desc");
+                List<Order> orders =  orderMapper.getList(" and c_user_id = " + userId + " and c_category = 1 " + " order by c_create_time desc");
                 for (Order order : orders){
                     String order_no = order.getcOrderNo();
-                    order.setDetailList(orderDetailMapper.getList(" and d_orderNo = " + order_no));
+                    order.setDetailList(orderDetailMapper.getList(" and d_orderNo = '" + order_no + "'"));
                 }
                 return orders;
             } catch (Exception e) {
@@ -295,6 +350,55 @@ public class CommonServiceImpl implements CommonService {
             try {
                 userId = tokenService.getIdByToken(request);
                 return couponsMapper.getList(" and c_if_use = 0 and now() >= c_begin_time and now()< c_end_time and c_user_id = " + userId + " order by c_create_time desc");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        if (entity.equals("pt")){
+            String product_id = request.getParameter("pId");
+//            if (!StringUtil.isNullOrEmpty(product_id)){
+//                List<Order> orders =  orderMapper.getList(" and c_category = 2 and now()< c_group_end_time and c_product_id = " + product_id + " order by c_group_num desc, c_create_time asc");
+//                for (Order order : orders){
+//                    String order_no = order.getcOrderNo();
+//                    order.setDetailList(orderDetailMapper.getList(" and d_orderNo = '" + order_no + "'"));
+//                }
+//                return orders;
+//            }else {
+//                List<Order> orders =  orderMapper.getList(" and c_category = 2 and now()< c_group_end_time order by c_group_num desc, c_create_time asc");
+//                for (Order order : orders){
+//                    String order_no = order.getcOrderNo();
+//                    order.setDetailList(orderDetailMapper.getList(" and d_orderNo = '" + order_no + "'"));
+//                }
+//                return orders;
+//            }
+            // 查询所有的主订单信息
+            List<Order> orders =  orderMapper.getList(" and c_category = 2 and now()< c_group_end_time and c_order_no = c_group_num order by c_group_num desc, c_create_time asc");
+            for (Order order : orders){     // 遍历主订单
+                String order_no = order.getcOrderNo();
+                order.setDetailList(orderDetailMapper.getList(" and d_orderNo = '" + order_no + "'"));  // 查询订单商品信息
+                order.setOrderList(orderMapper.getList(" and c_group_num = '" + order_no + "' order by c_group_num desc, c_create_time asc"));       // 将所有用户的信息传入
+            }
+            return orders;
+        }
+        if (entity.equals("mypt")){
+            String userId;
+            try {
+                userId = tokenService.getIdByToken(request);
+//                List<Order> orders =  orderMapper.getList(" and c_category = 2 and now()< c_group_end_time and c_user_id = " + userId + " order by c_group_num desc, c_create_time asc");
+//                for (Order order : orders){
+//                    String order_no = order.getcOrderNo();
+//                    order.setDetailList(orderDetailMapper.getList(" and d_orderNo = '" + order_no + "'"));
+//                }
+//                return orders;
+                List<Order> orders =  orderMapper.getList(" and c_category = 2 and now()< c_group_end_time  and c_order_no = c_group_num and c_user_id = " + userId + " order by c_group_num desc, c_create_time asc");
+                for (Order order : orders){
+                    String order_no = order.getcOrderNo();
+                    order.setDetailList(orderDetailMapper.getList(" and d_orderNo = '" + order_no + "'"));
+                    order.setOrderList(orderMapper.getList(" and c_group_num = '" + order_no + "' order by c_group_num desc, c_create_time asc"));       // 将所有用户的信息传入
+
+                }
+                return orders;
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;

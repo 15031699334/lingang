@@ -25,6 +25,7 @@
       <arg column="c_hide" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_create_user_id" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_limit_price" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="c_price_suffix" jdbcType="DOUBLE" javaType="java.lang.Double" />
       <arg column="c_pr_id" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_pr_name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_qr_code_url" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -36,7 +37,7 @@
     c_id, c_block_id, c_city_id, c_create_time, c_create_user, c_district_id, c_last_update_time, 
     c_last_update_user, c_province_id, c_begin_time, c_end_time, c_if_overdue, c_logo, 
     c_name, c_num, c_price, c_receive_num, c_use_num, c_type, c_hide, c_create_user_id, 
-    c_limit_price, c_pr_id, c_pr_name, c_qr_code_url, c_shop_id, c_shop_name
+    c_limit_price, c_price_suffix, c_pr_id, c_pr_name, c_qr_code_url, c_shop_id, c_shop_name
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -56,7 +57,7 @@
       c_logo, c_name, c_num, 
       c_price, c_receive_num, c_use_num, 
       c_type, c_hide, c_create_user_id, 
-      c_limit_price, c_pr_id, c_pr_name, 
+      c_limit_price, c_price_suffix, c_pr_id, c_pr_name,
       c_qr_code_url, c_shop_id, c_shop_name
       )
     values (#{cId,jdbcType=VARCHAR}, #{cBlockId,jdbcType=VARCHAR}, #{cCityId,jdbcType=VARCHAR}, 
@@ -66,7 +67,7 @@
       #{cLogo,jdbcType=VARCHAR}, #{cName,jdbcType=VARCHAR}, #{cNum,jdbcType=INTEGER}, 
       #{cPrice,jdbcType=DOUBLE}, #{cReceiveNum,jdbcType=INTEGER}, #{cUseNum,jdbcType=INTEGER}, 
       #{cType,jdbcType=INTEGER}, #{cHide,jdbcType=VARCHAR}, #{cCreateUserId,jdbcType=VARCHAR}, 
-      #{cLimitPrice,jdbcType=DOUBLE}, #{cPrId,jdbcType=VARCHAR}, #{cPrName,jdbcType=VARCHAR}, 
+      #{cLimitPrice,jdbcType=DOUBLE}, #{cPriceSuffix,jdbcType=DOUBLE}, #{cPrId,jdbcType=VARCHAR}, #{cPrName,jdbcType=VARCHAR},
       #{cQrCodeUrl,jdbcType=VARCHAR}, #{cShopId,jdbcType=VARCHAR}, #{cShopName,jdbcType=VARCHAR}
       )
   </insert>
@@ -138,6 +139,9 @@
       </if>
       <if test="cLimitPrice != null" >
         c_limit_price,
+      </if>
+      <if test="cPriceSuffix != null" >
+        c_price_suffix,
       </if>
       <if test="cPrId != null" >
         c_pr_id,
@@ -222,6 +226,9 @@
       <if test="cLimitPrice != null" >
         #{cLimitPrice,jdbcType=DOUBLE},
       </if>
+      <if test="cPriceSuffix != null" >
+        #{c_price_suffix,jdbcType=DOUBLE},
+      </if>
       <if test="cPrId != null" >
         #{cPrId,jdbcType=VARCHAR},
       </if>
@@ -305,6 +312,9 @@
       <if test="cLimitPrice != null" >
         c_limit_price = #{cLimitPrice,jdbcType=DOUBLE},
       </if>
+      <if test="cPriceSuffix != null" >
+        c_price_suffix = #{cPriceSuffix,jdbcType=DOUBLE},
+      </if>
       <if test="cPrId != null" >
         c_pr_id = #{cPrId,jdbcType=VARCHAR},
       </if>
@@ -346,6 +356,7 @@
       c_hide = #{cHide,jdbcType=VARCHAR},
       c_create_user_id = #{cCreateUserId,jdbcType=VARCHAR},
       c_limit_price = #{cLimitPrice,jdbcType=DOUBLE},
+      c_price_suffix = #{cPriceSuffix,jdbcType=DOUBLE},
       c_pr_id = #{cPrId,jdbcType=VARCHAR},
       c_pr_name = #{cPrName,jdbcType=VARCHAR},
       c_qr_code_url = #{cQrCodeUrl,jdbcType=VARCHAR},

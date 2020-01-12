@@ -7,6 +7,7 @@
       <arg column="c_block_id" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_city_id" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_group_end_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="c_create_user" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_district_id" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_last_update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
@@ -109,7 +110,7 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    c_id, c_block_id, c_city_id, c_create_time, c_create_user, c_district_id, c_last_update_time, 
+    c_id, c_block_id, c_city_id, c_create_time, c_group_end_time, c_create_user, c_district_id, c_last_update_time,
     c_last_update_user, c_province_id, c_addressId, c_coupon_id, c_coupon_price, c_fahuo_time, 
     c_gold, c_goods_interval, c_goods_sex, c_goods_total, c_guige, c_gz_fl, c_if_can_invoice, 
     c_if_reply, c_if_take, c_ifxianshang, c_invoice_title, c_leixing, c_logistics_id, 
@@ -139,7 +140,7 @@
   </delete>
   <insert id="insert" parameterType="com.boot.gang.entity.Order" >
     insert into t_order (c_id, c_block_id, c_city_id, 
-      c_create_time, c_create_user, c_district_id, 
+      c_create_time, c_group_end_time, c_create_user, c_district_id,
       c_last_update_time, c_last_update_user, c_province_id, 
       c_addressId, c_coupon_id, c_coupon_price, 
       c_fahuo_time, c_gold, c_goods_interval, 
@@ -174,7 +175,7 @@
       c_transport_price, c_transportation_requirement, 
       c_white_note_comment, c_white_note_price)
     values (#{cId,jdbcType=VARCHAR}, #{cBlockId,jdbcType=VARCHAR}, #{cCityId,jdbcType=VARCHAR}, 
-      #{cCreateTime,jdbcType=TIMESTAMP}, #{cCreateUser,jdbcType=VARCHAR}, #{cDistrictId,jdbcType=VARCHAR}, 
+      #{cCreateTime,jdbcType=TIMESTAMP},#{cGroupEndTime,jdbcType=TIMESTAMP}, #{cCreateUser,jdbcType=VARCHAR}, #{cDistrictId,jdbcType=VARCHAR},
       #{cLastUpdateTime,jdbcType=TIMESTAMP}, #{cLastUpdateUser,jdbcType=VARCHAR}, #{cProvinceId,jdbcType=VARCHAR}, 
       #{cAddressid,jdbcType=VARCHAR}, #{cCouponId,jdbcType=VARCHAR}, #{cCouponPrice,jdbcType=DOUBLE}, 
       #{cFahuoTime,jdbcType=TIMESTAMP}, #{cGold,jdbcType=DOUBLE}, #{cGoodsInterval,jdbcType=VARCHAR}, 
@@ -223,6 +224,9 @@
       </if>
       <if test="cCreateTime != null" >
         c_create_time,
+      </if>
+      <if test="cGroupEndTime != null" >
+        c_group_end_time,
       </if>
       <if test="cCreateUser != null" >
         c_create_user,
@@ -535,6 +539,9 @@
       <if test="cCreateTime != null" >
         #{cCreateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="cGroupEndTime != null" >
+        #{cGroupEndTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="cCreateUser != null" >
         #{cCreateUser,jdbcType=VARCHAR},
       </if>
@@ -846,6 +853,9 @@
       <if test="cCreateTime != null" >
         c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="cGroupEndTime != null" >
+        c_group_end_time = #{cGroupEndTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="cCreateUser != null" >
         c_create_user = #{cCreateUser,jdbcType=VARCHAR},
       </if>
@@ -1150,7 +1160,7 @@
     update t_order
     set c_block_id = #{cBlockId,jdbcType=VARCHAR},
       c_city_id = #{cCityId,jdbcType=VARCHAR},
-      c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
+      c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},c_group_end_time = #{cGroupEndTime,jdbcType=TIMESTAMP},
       c_create_user = #{cCreateUser,jdbcType=VARCHAR},
       c_district_id = #{cDistrictId,jdbcType=VARCHAR},
       c_last_update_time = #{cLastUpdateTime,jdbcType=TIMESTAMP},

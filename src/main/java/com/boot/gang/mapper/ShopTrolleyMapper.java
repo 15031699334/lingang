@@ -21,6 +21,9 @@ public interface ShopTrolleyMapper {
 
     int updateByPrimaryKey(ShopTrolley record);
 
+    @Select("select * from t_shop_trolley where 1 = 1 ${swhere}")
+    ShopTrolley selectBySwhere(@Param("swhere") String swhere);
+
     /**
      * @Description 条件筛选获取所有的订单
      * @param swhere    条件 " and ...." 注意前面的空格

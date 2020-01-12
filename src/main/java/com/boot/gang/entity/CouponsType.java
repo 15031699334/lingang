@@ -39,7 +39,9 @@ public class CouponsType {
 
     private Integer cNum;
 
-    private Double cPrice;
+    private Double cPrice;  //优惠金额/ 优惠金额最小值
+
+    private Double cPriceSuffix;    //优惠金额最大值
 
     private Integer cReceiveNum;
 
@@ -51,7 +53,7 @@ public class CouponsType {
 
     private String cCreateUserId;
 
-    private Double cLimitPrice;
+    private Double cLimitPrice;     // 优惠限额条件
 
     private String cPrId;
 
@@ -63,7 +65,7 @@ public class CouponsType {
 
     private String cShopName;
 
-    public CouponsType(String cId, String cBlockId, String cCityId, Date cCreateTime, String cCreateUser, String cDistrictId, Date cLastUpdateTime, String cLastUpdateUser, String cProvinceId, Date cBeginTime, Date cEndTime, Integer cIfOverdue, String cLogo, String cName, Integer cNum, Double cPrice, Integer cReceiveNum, Integer cUseNum, Integer cType, String cHide, String cCreateUserId, Double cLimitPrice, String cPrId, String cPrName, String cQrCodeUrl, String cShopId, String cShopName) {
+    public CouponsType(String cId, String cBlockId, String cCityId, Date cCreateTime, String cCreateUser, String cDistrictId, Date cLastUpdateTime, String cLastUpdateUser, String cProvinceId, Date cBeginTime, Date cEndTime, Integer cIfOverdue, String cLogo, String cName, Integer cNum, Double cPrice,  Double cPriceSuffix, Integer cReceiveNum, Integer cUseNum, Integer cType, String cHide, String cCreateUserId, Double cLimitPrice, String cPrId, String cPrName, String cQrCodeUrl, String cShopId, String cShopName) {
         this.cId = cId;
         this.cBlockId = cBlockId;
         this.cCityId = cCityId;
@@ -80,6 +82,7 @@ public class CouponsType {
         this.cName = cName;
         this.cNum = cNum;
         this.cPrice = cPrice;
+        this.cPriceSuffix = cPriceSuffix;
         this.cReceiveNum = cReceiveNum;
         this.cUseNum = cUseNum;
         this.cType = cType;
@@ -311,5 +314,13 @@ public class CouponsType {
 
     public void setcShopName(String cShopName) {
         this.cShopName = cShopName == null ? null : cShopName.trim();
+    }
+
+    public Double getcPriceSuffix() {
+        return cPriceSuffix;
+    }
+
+    public void setcPriceSuffix(Double cPriceSuffix) {
+        this.cPriceSuffix = cPriceSuffix;
     }
 }

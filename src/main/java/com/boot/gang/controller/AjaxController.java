@@ -2,6 +2,7 @@ package com.boot.gang.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.boot.gang.entity.*;
+import com.boot.gang.mapper.OrderMapper;
 import com.boot.gang.service.CommonService;
 import com.boot.gang.service.ProductService;
 import com.boot.gang.service.ShopTrolleyService;
@@ -86,11 +87,11 @@ public class AjaxController {
             }
             return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(userId, "gd"));
         }
-        if (entity.equals("hb"))
+        if (entity.equals("hb"))    // 红包
             return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "hb"));
-        if (entity.equals("cz"))
+        if (entity.equals("cz"))    //  材质
             return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "cz"));
-        if (entity.equals("gg"))
+        if (entity.equals("gg"))    // 规格
             return  msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "gg"));
         return msgUtil.jsonErrorMsg("路径错误");
     }
@@ -161,6 +162,14 @@ public class AjaxController {
             map.put("data", commonService.getList("gc", request, pageIndex, pageSize));
         if (entity.equals("sp"))       // 商品
             map.put("data", productService.getList(request, pageIndex, pageSize));
+        if (entity.equals("pt")){       // 参与拼团页面
+            map.put("data", commonService.getList("pt",request, pageIndex, pageSize));
+        }
+        if (entity.equals("mypt")){     // 我的拼团
+            map.put("data", commonService.getList("mypt",request, pageIndex, pageSize));
+        }
+
+
         if (map.isEmpty()){
             return msgUtil.jsonErrorMsg("路径错误");
         }
@@ -261,7 +270,7 @@ public class AjaxController {
                 commonService.save(order, "Order");
             } catch (Exception e) {
                 e.printStackTrace();
-                return msgUtil.jsonErrorMsg("添加失败");
+                return msgUtil.jsonErrorMsg(e.getMessage());
             }
         }
         return msgUtil.jsonSuccessMsg("添加成功");

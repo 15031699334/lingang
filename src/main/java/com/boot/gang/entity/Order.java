@@ -10,6 +10,7 @@ public class Order {
 
     private List<OrderDetail> detailList;       // 用于查询时输出
 
+    private List<Order> orderList;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date cCreateTime;       // 订单创建时间
 
@@ -39,7 +40,7 @@ public class Order {
 
     private Integer cCategory;      // 订单类别 1=普通订单 2=拼团订单
 
-    private String cCouponComment;      // 优惠券备注
+    private String cCouponComment;      // 优惠券备注(名称)
 
     private String cGroupNum;       // 拼团号(拼团发起单单号)
 
@@ -74,6 +75,17 @@ public class Order {
 
     private String cTransactionId;    // 此参数为购物车下单时传入的购物车id组成的数组格式为   "1,2"
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date cGroupEndTime;       // 拼团结束时间
+
+    private Double cZjrFl;              // 拼团订单的剩余吨数
+
+    private Double cGzFl;               // 拼团时 用户拼团订单拼的吨数
+
+    private String cTrackingComp;        // 发票地址
+
+    private String cInvoiceTitle;
+
     private String cBlockId;
 
     private String cLastUpdateUser;
@@ -90,8 +102,6 @@ public class Order {
 
     private String cGuige;
 
-    private Double cGzFl;
-
     private Integer cIfCanInvoice;
 
     private Integer cIfReply;
@@ -99,8 +109,6 @@ public class Order {
     private Integer cIfTake;
 
     private Integer cIfxianshang;
-
-    private String cInvoiceTitle;
 
     private String cLeixing;
 
@@ -136,8 +144,6 @@ public class Order {
 
     private String cTihuoShopId;
 
-    private String cTrackingComp;
-
     private String cTrackingNo;
 
     private Integer cType;
@@ -147,8 +153,6 @@ public class Order {
     private Double cYoufeiFee;
 
     private Double cZhPrice;
-
-    private Double cZjrFl;
 
     private String cFactId;
 
@@ -1158,6 +1162,22 @@ public class Order {
 
     public void setDetailList(List<OrderDetail> detailList) {
         this.detailList = detailList;
+    }
+
+    public Date getcGroupEndTime() {
+        return cGroupEndTime;
+    }
+
+    public void setcGroupEndTime(Date cGroupEndTime) {
+        this.cGroupEndTime = cGroupEndTime;
+    }
+
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
     }
 
     @Override
