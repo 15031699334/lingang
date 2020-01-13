@@ -47,7 +47,7 @@ public class ShopTrolley {
 
     private String stShopName;
 
-    public ShopTrolley(String stId, Date stCreatettime, String stNowPriceDescription, String stProductId, String stProductName, String stShopColumnTypeId, String stProductspec, String stProducttexture, String stRealname, String stShopId, Integer stState, String stStoreaddress, String stTonnum, String stUserid, Double stNowPrice, Double stOriginalPrice, Double stPrice, String stShopName) {
+    public ShopTrolley(String stId, Date stCreatettime, String stNowPriceDescription, String stProductId, String stProductName, String stShopColumnTypeId, String stProductspec, String stProducttexture, String stRealname, String stShopName, String stShopId, Integer stState, String stStoreaddress, String stTonnum, String stUserid, Double stNowPrice, Double stOriginalPrice, Double stPrice) {
         this.stId = stId;
         this.stCreatettime = stCreatettime;
         this.stNowPriceDescription = stNowPriceDescription;

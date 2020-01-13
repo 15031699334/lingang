@@ -19,13 +19,13 @@
       <arg column="c_name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="c_price" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="c_price_suffix" jdbcType="DOUBLE" javaType="java.lang.Double" />
       <arg column="c_receive_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="c_use_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="c_type" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="c_hide" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_create_user_id" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_limit_price" jdbcType="DOUBLE" javaType="java.lang.Double" />
-      <arg column="c_price_suffix" jdbcType="DOUBLE" javaType="java.lang.Double" />
       <arg column="c_pr_id" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_pr_name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_qr_code_url" jdbcType="VARCHAR" javaType="java.lang.String" />

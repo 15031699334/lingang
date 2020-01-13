@@ -77,12 +77,33 @@ public class CommonServiceImpl implements CommonService {
             map.put("details", integralDetails);
             return map;
         }
-        if (entity.equals("hb"))        // 获取红包
-            return couponsTypeMapper.selectByPrimaryKey(id);
+        if (entity.equals("hb")) {        // 获取红包
+            CouponsType couponsType = couponsTypeMapper.selectByPrimaryKey(id);
+            Double price = 0.0;
+            Double priceSuffix = 0.0;
+
+            price = couponsType.getcPrice();    // 优惠金额最小值
+            priceSuffix = couponsType.getcPriceSuffix();    // 优惠金额最大值
+            if (priceSuffix != 0)   // 若果没有设置最大值 返回的金额为本身
+                couponsType.setcPrice(DoubleUtil.round(price + Math.random() * (priceSuffix - price + 1), 0));   // 随机数 金额
+//            System.out.println(couponsType.getcPrice());
+            return couponsType;
+
+
+
+        }
         if (entity.equals("cz"))
             return configMapper.selectByPrimaryKey("953541322995600");
         if (entity.equals("gg"))
             return  configMapper.selectByPrimaryKey("953530967273200");
+        if (entity.equals("gwc")){
+            String [] ids = id.split(",");
+            List<ShopTrolley> list = new ArrayList<>();
+            for (String tsId:ids){
+                list.add(shopTrolleyMapper.selectByPrimaryKey(tsId));
+            }
+            return list;
+        }
         return "null";
     }
 
@@ -139,11 +160,16 @@ public class CommonServiceImpl implements CommonService {
             coupons.setcBeginTime(couponsType.getcBeginTime());
             coupons.setcEndTime(couponsType.getcEndTime());
             coupons.setcName(couponsType.getcName());
-            coupons.setcPrice(couponsType.getcPrice());
+//            coupons.setcPrice(couponsType.getcPrice());
             coupons.setcLimitPrice(couponsType.getcLimitPrice());
             coupons.setcId("UC" +System.nanoTime());
             coupons.setcCreateTime(new Date());
             couponsMapper.insertSelective(coupons);
+            // 添加完成后 修改用户 优惠券领取状态
+            User user = new User();
+            user.setcId(coupons.getcUserId());
+            user.setcScore(1);
+            userMapper.updateByPrimaryKeySelective(user);
         }
 
         if (entity.equals("Order")){    // 添加订单
@@ -196,7 +222,7 @@ public class CommonServiceImpl implements CommonService {
                     if (sy < 0){
                         throw new Exception("吨数大于库存吨量");
                     }
-                    order.setcZjrFl(sy);
+                    order.setcZjrFl(sy);    // 将主订单的剩余量修改
 
                     OrderDetail orderDetail = new OrderDetail("OD" +System.nanoTime(), new Date(), order.getcOrderNo(), 0.0, "", product.getcId(), "1", p_data[0], p_data[1], product.getcName(), product.getcShopColumnTypeId(), product.getcShopId(), product.getcShopName(), product.getcScore().toString(), product.getcNowPrice(), product.getcZkbl());
                     orderDetailMapper.insertSelective(orderDetail);     // 添加订单详情商品信息
@@ -355,7 +381,7 @@ public class CommonServiceImpl implements CommonService {
                 return null;
             }
         }
-        if (entity.equals("pt")){
+        if (entity.equals("pt")){   // 拼团列表
             String product_id = request.getParameter("pId");
 //            if (!StringUtil.isNullOrEmpty(product_id)){
 //                List<Order> orders =  orderMapper.getList(" and c_category = 2 and now()< c_group_end_time and c_product_id = " + product_id + " order by c_group_num desc, c_create_time asc");
@@ -381,7 +407,7 @@ public class CommonServiceImpl implements CommonService {
             }
             return orders;
         }
-        if (entity.equals("mypt")){
+        if (entity.equals("mypt")){     // 我的拼团
             String userId;
             try {
                 userId = tokenService.getIdByToken(request);
@@ -391,7 +417,7 @@ public class CommonServiceImpl implements CommonService {
 //                    order.setDetailList(orderDetailMapper.getList(" and d_orderNo = '" + order_no + "'"));
 //                }
 //                return orders;
-                List<Order> orders =  orderMapper.getList(" and c_category = 2 and now()< c_group_end_time  and c_order_no = c_group_num and c_user_id = " + userId + " order by c_group_num desc, c_create_time asc");
+                List<Order> orders =  orderMapper.getList(" and c_category = 2 and now()< c_group_end_time  and c_user_id = " + userId   + " order by c_group_num desc, c_create_time asc");
                 for (Order order : orders){
                     String order_no = order.getcOrderNo();
                     order.setDetailList(orderDetailMapper.getList(" and d_orderNo = '" + order_no + "'"));
@@ -405,6 +431,21 @@ public class CommonServiceImpl implements CommonService {
             }
         }
 
+        if (entity.equals("jhcg")){     // 计划采购
+            String userId;
+            try {
+                userId = tokenService.getIdByToken(request);
+                List<Order> orders =  orderMapper.getList(" and c_category = 1 and ISNULL(c_plan_pay_time) < 1  and c_user_id = " + userId   + " order by  c_create_time desc");
+                for (Order order : orders){
+                    String order_no = order.getcOrderNo();
+                    order.setDetailList(orderDetailMapper.getList(" and d_orderNo = '" + order_no + "'"));
+                }
+                return orders;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
         return null;
     }
 

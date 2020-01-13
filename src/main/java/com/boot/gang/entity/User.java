@@ -37,8 +37,6 @@ public class User {
 
     private String cRealname;   // 真实姓名 与身份证号绑定
 
-    private Integer cScore;     // 积分   // 此参数不可用 数据库类别与实体类别不对应 应该是有人做过修改
-
     private String cSex;        // 性别
 
     private String cSummary;    //  个人简介
@@ -90,6 +88,8 @@ public class User {
     private String cHide;
 
     private Double cTotalAverage;   // 白条总额度
+
+    private Integer cScore;     // 首页红包是否展示  0=展示 1=不展示   // 此参数不可做其他用处 数据库类别与后端实体类 参数类别不对应 应该是有人做过修改
 
     private Double cMoney;
 

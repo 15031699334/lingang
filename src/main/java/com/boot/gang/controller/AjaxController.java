@@ -93,6 +93,14 @@ public class AjaxController {
             return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "cz"));
         if (entity.equals("gg"))    // 规格
             return  msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "gg"));
+        if (entity.equals("gwc")) {
+            try {
+                userId = tokenService.getIdByToken(request);
+            } catch (Exception e) {
+                return msgUtil.jsonToLoginMsg();
+            }
+            return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "gwc"));
+        }
         return msgUtil.jsonErrorMsg("路径错误");
     }
 
@@ -168,8 +176,8 @@ public class AjaxController {
         if (entity.equals("mypt")){     // 我的拼团
             map.put("data", commonService.getList("mypt",request, pageIndex, pageSize));
         }
-
-
+        if (entity.equals("jhcg"))      // 计划采购订单列表
+            map.put("data", commonService.getList("jhcg",request, pageIndex, pageSize));
         if (map.isEmpty()){
             return msgUtil.jsonErrorMsg("路径错误");
         }
@@ -204,7 +212,7 @@ public class AjaxController {
                 return msgUtil.jsonErrorMsg("添加失败");
             }
         }
-        if (entity.equals("jf")){
+        if (entity.equals("jf")){   // 钢豆数量变更
             try {
                 IntegralDetail integralDetail = JSONObject.toJavaObject(json, IntegralDetail.class);
 //                System.out.println(integralDetail.toString());
@@ -249,12 +257,13 @@ public class AjaxController {
         }
         if (entity.equals("yhq")){      // 用户领取优惠券
             String couponId = json.getString("cId");
-            Coupons coupons = new Coupons(couponId, userId);
+            String cPrice = json.getString("cPrice");
+            Coupons coupons = new Coupons(couponId, userId, Double.parseDouble(cPrice));
             try {
                 commonService.save(coupons, "Coupons");
             } catch (Exception e) {
                 e.printStackTrace();
-                return msgUtil.jsonErrorMsg("添加失败");
+                return msgUtil.jsonErrorMsg(e.getMessage());
             }
         }
 
