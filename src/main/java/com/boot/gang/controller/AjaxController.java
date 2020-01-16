@@ -252,7 +252,7 @@ public class AjaxController {
                     detail.setiNowintegral(json.getDouble("nowMlNum"));
                     detail.setiCreatetime(new Date());
                     detail.setiIntegraltype(integralDetail.getiIntegraltype());
-                    detail.setiReason(integralDetail.getiReason());
+                    detail.setiReason(integralDetail.getiReason() + json.getDouble("mlNum") + "微升");
 //                    System.out.println(detail);
                     commonService.save(detail, "IntegralDetail");         //保存
                 }
@@ -430,6 +430,13 @@ public class AjaxController {
     }
 
 
+    /**
+     * @Description     签到
+     * @param request
+     * @return com.alibaba.fastjson.JSONObject
+     * @Author dongxiangwei
+     * @Date 12:20 2020/1/16
+     **/
     @RequestMapping("sign")
     public JSONObject sign(HttpServletRequest request){
         String userId;
@@ -454,6 +461,13 @@ public class AjaxController {
         return msgUtil.jsonSuccessMsg("签到成功", "data", sign);
     }
 
+    /**
+     * @Description     提交个人简历
+     * @param json
+     * @return com.alibaba.fastjson.JSONObject
+     * @Author dongxiangwei
+     * @Date 11:56 2020/1/16
+     **/
     @PostMapping("subgrjl")
     public JSONObject addResume(@RequestBody JSONObject json){
 

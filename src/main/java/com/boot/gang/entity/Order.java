@@ -84,7 +84,7 @@ public class Order {
 
     private String cTrackingComp;        // 发票地址
 
-    private String cHide;               // 是否隐藏  1=是 2=否
+    private String cHide;               // 是否隐藏  1=是 2=否    // web端订单列表页提交订单按钮点击触发修改
 
     private String cInvoiceTitle;
 

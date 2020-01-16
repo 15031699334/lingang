@@ -36,9 +36,11 @@ public class OrderDetail {
 
     private Double dPrice;              // 价格 单价
 
-    private String dStoreName;
+    private String dStorename;          // 仓库名称
 
-    public OrderDetail(String dId, Date dCreatetime, String dOrderno, Double dProcessprice, String dProcessrequirement, String dProductid, String dProductnum, String dProductspec, String dProducttexture, String dShopcolumntype, String dShopcolumntypeid, String dShopid, String dShopname, String dTonnum, Double dPrice, String dStoreName) {
+    private String dExtract;            // 提货信息
+
+    public OrderDetail(String dId, Date dCreatetime, String dOrderno, Double dProcessprice, String dProcessrequirement, String dProductid, String dProductnum, String dProductspec, String dProducttexture, String dShopcolumntype, String dShopcolumntypeid, String dShopid, String dShopname, String dTonnum, Double dPrice, String dStorename, String dExtract) {
         this.dId = dId;
         this.dCreatetime = dCreatetime;
         this.dOrderno = dOrderno;
@@ -54,7 +56,8 @@ public class OrderDetail {
         this.dShopname = dShopname;
         this.dTonnum = dTonnum;
         this.dPrice = dPrice;
-        this.dStoreName = dStoreName;
+        this.dStorename = dStorename;
+        this.dExtract = dExtract;
     }
 
     public OrderDetail() {
@@ -181,12 +184,20 @@ public class OrderDetail {
         this.dPrice = dPrice;
     }
 
-    public String getdStoreName() {
-        return dStoreName;
+    public String getdStorename() {
+        return dStorename;
     }
 
-    public void setdStoreName(String dStoreName) {
-        this.dStoreName = dStoreName;
+    public void setdStorename(String dStorename) {
+        this.dStorename = dStorename;
+    }
+
+    public String getdExtract() {
+        return dExtract;
+    }
+
+    public void setdExtract(String dExtract) {
+        this.dExtract = dExtract;
     }
 
     @Override
@@ -207,7 +218,7 @@ public class OrderDetail {
                 ", dShopname='" + dShopname + '\'' +
                 ", dTonnum='" + dTonnum + '\'' +
                 ", dPrice=" + dPrice +
-                ", dStoreName=" + dStoreName +
+                ", dStorename=" + dStorename +
                 '}';
     }
 }

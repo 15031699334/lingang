@@ -188,20 +188,31 @@ public class CommonServiceImpl implements CommonService {
             Order order = (Order) object;
 //            System.out.println(order);
             if (order.getcCategory() == 1){     // 普通订单
-                String [] shopTrolleyIds = order.getcTransactionId().split(",");  // 购物车id
-                String sTId = "";
-                for (String id : shopTrolleyIds){   // 拼接购物车id   = 'st111111, st22222'
-                    sTId = sTId + "'"+id +"', ";
+                List<OrderDetail>  details = order.getDetailList();
+                List<String> shopTrolleyIds = new ArrayList<>();
+                for (OrderDetail orderDetail: details){
+                    shopTrolleyIds.add(orderDetail.getdId());
+                    ShopTrolley  shopTrolley = shopTrolleyMapper.selectBySwhere(" and st_userId = '"+order.getcUserId()+"' and st_id = '" + orderDetail.getdId() + "'");
+                    if (shopTrolley == null){
+                        throw new  Exception("购物车不存在当前商品");
+                    }
+                    OrderDetail detail_new = new OrderDetail("OD" +System.nanoTime(), new Date(), order.getcOrderNo(), 0.0, orderDetail.getdProcessrequirement(), shopTrolley.getStProductId(), "1", shopTrolley.getStProductspec(), shopTrolley.getStProducttexture(), shopTrolley.getStProductName(), shopTrolley.getStShopColumnTypeId(), shopTrolley.getStShopId(), shopTrolley.getStShopName(), shopTrolley.getStTonnum(), shopTrolley.getStPrice(), shopTrolley.getStStoreaddress(),orderDetail.getdExtract());
+                    orderDetailMapper.insertSelective(detail_new);     // 添加订单详情商品信息
                 }
-                System.out.println(", 参数: " + sTId.substring(0,sTId.length()-2));
-                List<ShopTrolley> list = shopTrolleyMapper.getList(" and st_userId = '"+order.getcUserId()+"' and st_id in (" + sTId.substring(0,sTId.length()-2) + ")");
-                if (list.size() != shopTrolleyIds.length){      // 如果查询到的购物车数量和传入的购物车id数量不一致 则抛异常
-                    throw new  Exception("购物车不存在当前商品");
-                }
-                for (ShopTrolley shopTrolley : list){           // 通过购物车数据
-                    OrderDetail orderDetail = new OrderDetail("OD" +System.nanoTime(), new Date(), order.getcOrderNo(), 0.0, "", shopTrolley.getStProductId(), "1", shopTrolley.getStProductspec(), shopTrolley.getStProducttexture(), shopTrolley.getStProductName(), shopTrolley.getStShopColumnTypeId(), shopTrolley.getStShopId(), shopTrolley.getStShopName(), shopTrolley.getStTonnum(), shopTrolley.getStPrice(), shopTrolley.getStStoreaddress());
-                    orderDetailMapper.insertSelective(orderDetail);     // 添加订单详情商品信息
-                }
+//                String [] shopTrolleyIds = order.getcTransactionId().split(",");  // 购物车id
+//                String sTId = "";
+//                for (String id : shopTrolleyIds){   // 拼接购物车id   = 'st111111, st22222'
+//                    sTId = sTId + "'"+ id +"', ";
+//                }
+//                System.out.println(", 参数: " + sTId.substring(0,sTId.length()-2));
+//                List<ShopTrolley> list = shopTrolleyMapper.getList(" and st_userId = '"+order.getcUserId()+"' and st_id in (" + sTId.substring(0,sTId.length()-2) + ")");
+//                if (list.size() != shopTrolleyIds.length){      // 如果查询到的购物车数量和传入的购物车id数量不一致 则抛异常
+//                    throw new  Exception("购物车不存在当前商品");
+//                }
+//                for (ShopTrolley shopTrolley : list){           // 通过购物车数据
+//                    OrderDetail orderDetail = new OrderDetail("OD" +System.nanoTime(), new Date(), order.getcOrderNo(), 0.0, "", shopTrolley.getStProductId(), "1", shopTrolley.getStProductspec(), shopTrolley.getStProducttexture(), shopTrolley.getStProductName(), shopTrolley.getStShopColumnTypeId(), shopTrolley.getStShopId(), shopTrolley.getStShopName(), shopTrolley.getStTonnum(), shopTrolley.getStPrice(), shopTrolley.getStStoreaddress());
+//                      orderDetailMapper.insertSelective(orderDetail);     // 添加订单详情商品信息
+//                }
                 // 添加订单信息
                 orderMapper.insertSelective(order); // 添加完成
                 // 修改优惠券状态
@@ -209,6 +220,12 @@ public class CommonServiceImpl implements CommonService {
                 coupons.setcId(order.getcCouponId());
                 coupons.setcIfUse(1);
                 couponsMapper.updateByPrimaryKeySelective(coupons);
+                if (order.getcNum() != 0){   // 判断钢豆数量
+                    User user = userMapper.selectByPrimaryKey(order.getcUserId());
+                    Double goldGZ = Double.parseDouble(user.getcGoldGz()- order.getcNum() + "");    // 钢豆变化的数量
+                    IntegralDetail integralDetail = new IntegralDetail("GD" +System.nanoTime(), order.getcNum().doubleValue(), 0, new Date(), goldGZ, order.getcOrderNo(), user.getcRealname(), order.getcUserId(), "用户下单抵扣金额", 1);
+                    integralDetailMapper.insertSelective(integralDetail);
+                }
                 // 删除购物车信息
                 for (String id : shopTrolleyIds){
                     shopTrolleyMapper.deleteByPrimaryKey(id);
@@ -236,7 +253,7 @@ public class CommonServiceImpl implements CommonService {
                     }
                     order.setcZjrFl(sy);    // 将主订单的剩余量修改
 
-                    OrderDetail orderDetail = new OrderDetail("OD" +System.nanoTime(), new Date(), order.getcOrderNo(), 0.0, "", product.getcId(), "1", p_data[0], p_data[1], product.getcName(), product.getcShopColumnTypeId(), product.getcShopId(), product.getcShopName(), product.getcScore().toString(), product.getcNowPrice(), product.getcZkbl());
+                    OrderDetail orderDetail = new OrderDetail("OD" +System.nanoTime(), new Date(), order.getcOrderNo(), 0.0, "", product.getcId(), "1", p_data[0], p_data[1], product.getcName(), product.getcShopColumnTypeId(), product.getcShopId(), product.getcShopName(), product.getcScore().toString(), product.getcNowPrice(), product.getcZkbl(), "");
                     orderDetailMapper.insertSelective(orderDetail);     // 添加订单详情商品信息
                     // 添加订单信息
                     order.setcRealname(user.getcRealname());
@@ -262,7 +279,7 @@ public class CommonServiceImpl implements CommonService {
                         throw new Exception("吨数大于库存吨量");
                     }
                     order_group_init.setcZjrFl(sy); // 将主订单的剩余量修改
-                    OrderDetail orderDetail = new OrderDetail("OD" +System.nanoTime(), new Date(), order.getcOrderNo(), 0.0, "", product.getcId(), "1", p_data[0], p_data[1], product.getcName(), product.getcShopColumnTypeId(), product.getcShopId(), product.getcShopName(), product.getcScore().toString(), product.getcNowPrice(), product.getcZkbl());
+                    OrderDetail orderDetail = new OrderDetail("OD" +System.nanoTime(), new Date(), order.getcOrderNo(), 0.0, "", product.getcId(), "1", p_data[0], p_data[1], product.getcName(), product.getcShopColumnTypeId(), product.getcShopId(), product.getcShopName(), product.getcScore().toString(), product.getcNowPrice(), product.getcZkbl(), "");
                     orderDetailMapper.insertSelective(orderDetail);     // 添加订单详情商品信息
                     // 添加订单信息
                     order.setcGroupEndTime(order_group_init.getcGroupEndTime());

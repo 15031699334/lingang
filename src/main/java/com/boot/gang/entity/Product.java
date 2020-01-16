@@ -89,7 +89,7 @@ public class Product {
 
     private Double cTwoGold;
 
-    private Double cScore;          // 吨数
+    private Double cScore;
 
     private String cQrcodeUrl;
 
