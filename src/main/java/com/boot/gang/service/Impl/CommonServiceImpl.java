@@ -23,6 +23,10 @@ import java.util.*;
 public class CommonServiceImpl implements CommonService {
 
     @Autowired
+    PlanShoppingMapper planShoppingMapper;
+    @Autowired
+    ArticleMapper articleMapper;
+    @Autowired
     UserMapper userMapper;
     @Autowired
     AddressMapper addressMapper;
@@ -58,6 +62,10 @@ public class CommonServiceImpl implements CommonService {
     CouponsTypeMapper couponsTypeMapper;
     @Autowired
     ConfigMapper configMapper;
+    @Autowired
+    FeedbackMapper feedbackMapper;
+    @Autowired
+    ResumeMapper resumeMapper;
     @Override
     public Object findObjectById(String id, String entity) {
         if (entity.equals("User")){
@@ -88,14 +96,11 @@ public class CommonServiceImpl implements CommonService {
                 couponsType.setcPrice(DoubleUtil.round(price + Math.random() * (priceSuffix - price + 1), 0));   // 随机数 金额
 //            System.out.println(couponsType.getcPrice());
             return couponsType;
-
-
-
         }
         if (entity.equals("cz"))
-            return configMapper.selectByPrimaryKey("953541322995600");
+            return configMapper.selectTexttrueByChl(id);
         if (entity.equals("gg"))
-            return  configMapper.selectByPrimaryKey("953530967273200");
+            return  configMapper.selectSpecByChl(id);
         if (entity.equals("gwc")){
             String [] ids = id.split(",");
             List<ShopTrolley> list = new ArrayList<>();
@@ -103,6 +108,9 @@ public class CommonServiceImpl implements CommonService {
                 list.add(shopTrolleyMapper.selectByPrimaryKey(tsId));
             }
             return list;
+        }
+        if (entity.equals("news")){
+            return  articleMapper.selectByPrimaryKey(id);
         }
         return "null";
     }
@@ -126,10 +134,14 @@ public class CommonServiceImpl implements CommonService {
 
                 // 修改
               userMapper.updateByPrimaryKeySelective(user);
-            }else {     // ml数修改
+            }else if (integralDetail.getiIntegraltype() == 2){     // 茅台ml数修改
                 User user = new User(integralDetail.getiUserid(), integralDetail.getiNowintegral());
                 // 修改
               userMapper.updateByPrimaryKeySelective(user);
+            }else { // 五粮液
+                User user = new User(integralDetail.getiNowintegral(), integralDetail.getiUserid());
+                // 修改
+                userMapper.updateByPrimaryKeySelective(user);
             }
             integralDetailMapper.insertSelective(integralDetail);   // 添加
         }
@@ -150,7 +162,7 @@ public class CommonServiceImpl implements CommonService {
 //            System.out.println("规格: " + p_data[0] + ", 材料: " + p_data[1]);
             shopTrolley.setStProductspec(p_data[0]);
             shopTrolley.setStProducttexture(p_data[1]);
-            shopTrolley.setStTonnum(product.getcScore() + "");
+            shopTrolley.setStTonnum(product.getcStockNum().toString());
             shopTrolley.setStCreatettime(new Date());
             shopTrolleyMapper.insertSelective(shopTrolley);
         }
@@ -262,6 +274,21 @@ public class CommonServiceImpl implements CommonService {
                 }
             }
         }
+
+        if (entity.equals("FeedBack")){     //用户反馈
+            Feedback feedback = (Feedback) object;
+            feedbackMapper.insertSelective(feedback);
+        }
+         if (entity.equals("jhcg")){        // 计划采购
+             PlanShopping planShopping =(PlanShopping) object;
+             planShoppingMapper.insertSelective(planShopping);
+        }
+
+        if (entity.equals("grjl")){ // 个人简历
+            resumeMapper.insertSelective((Resume) object);
+        }
+
+
     }
 
     @Override
@@ -277,6 +304,11 @@ public class CommonServiceImpl implements CommonService {
             }
             // 修改地址
             addressMapper.updateByPrimaryKeySelective(address);
+        }
+        if (entity.equals("ddtj")){ // 订单列表 订单提交
+            // 加入此订单是否当前用户的验证
+            Order order = (Order) object;
+            orderMapper.updateByPrimaryKeySelective(order);
         }
     }
 
@@ -435,16 +467,21 @@ public class CommonServiceImpl implements CommonService {
             String userId;
             try {
                 userId = tokenService.getIdByToken(request);
-                List<Order> orders =  orderMapper.getList(" and c_category = 1 and ISNULL(c_plan_pay_time) < 1  and c_user_id = " + userId   + " order by  c_create_time desc");
-                for (Order order : orders){
-                    String order_no = order.getcOrderNo();
-                    order.setDetailList(orderDetailMapper.getList(" and d_orderNo = '" + order_no + "'"));
-                }
-                return orders;
+                List<PlanShopping> list= planShoppingMapper.getList(" and c_user_id = '" + userId + "'");
+//                List<Order> orders =  orderMapper.getList(" and c_category = 1 and ISNULL(c_plan_pay_time) < 1  and c_user_id = " + userId   + " order by  c_create_time desc");
+//                for (Order order : orders){
+//                    String order_no = order.getcOrderNo();
+//                    order.setDetailList(orderDetailMapper.getList(" and d_orderNo = '" + order_no + "'"));
+//                }
+                return list;
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
             }
+        }
+
+        if (entity.equals("news")){
+            return articleMapper.getAllNews();
         }
         return null;
     }

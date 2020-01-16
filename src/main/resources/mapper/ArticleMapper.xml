@@ -106,7 +106,6 @@
     ,
     <include refid="Blob_Column_List" />
     from t_article
-    limit 0,10
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_article

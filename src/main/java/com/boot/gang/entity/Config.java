@@ -21,7 +21,7 @@ public class Config {
 
     private String cCityId;
 
-    private String cPrvcId;
+    private String cChl;
 
     private String cProvinceId;
 
@@ -35,7 +35,7 @@ public class Config {
 
     private String cShopColumnName;
 
-    public Config(String cId, Date cCreateTime, Date cLastUpdateTime, String cKey, String cValue, String cComment, String cCreateUser, String cLastUpdateUser, String cCityId, String cPrvcId, String cProvinceId, String cDistrictId, String cBlockId, String cHide, String cShopColumnId, String cShopColumnName) {
+    public Config(String cId, Date cCreateTime, Date cLastUpdateTime, String cKey, String cValue, String cComment, String cCreateUser, String cLastUpdateUser, String cCityId, String cChl, String cProvinceId, String cDistrictId, String cBlockId, String cHide, String cShopColumnId, String cShopColumnName) {
         this.cId = cId;
         this.cCreateTime = cCreateTime;
         this.cLastUpdateTime = cLastUpdateTime;
@@ -45,7 +45,7 @@ public class Config {
         this.cCreateUser = cCreateUser;
         this.cLastUpdateUser = cLastUpdateUser;
         this.cCityId = cCityId;
-        this.cPrvcId = cPrvcId;
+        this.cChl = cChl;
         this.cProvinceId = cProvinceId;
         this.cDistrictId = cDistrictId;
         this.cBlockId = cBlockId;
@@ -130,12 +130,12 @@ public class Config {
         this.cCityId = cCityId == null ? null : cCityId.trim();
     }
 
-    public String getcPrvcId() {
-        return cPrvcId;
+    public String getcChl() {
+        return cChl;
     }
 
-    public void setcPrvcId(String cPrvcId) {
-        this.cPrvcId = cPrvcId == null ? null : cPrvcId.trim();
+    public void setcChl(String cChl) {
+        this.cChl = cChl;
     }
 
     public String getcProvinceId() {

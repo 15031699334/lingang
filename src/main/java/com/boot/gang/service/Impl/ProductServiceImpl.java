@@ -40,13 +40,47 @@ public class ProductServiceImpl implements ProductService {
             sb.append(" and c_shop_column_type_id = '" + shopColumnTypeId + "'");
         }
         if (!StringUtil.isNullOrEmpty(cangku)){
-//            sb.append(" and c_city_id = '" + cityId + "'");
+            sb.append(" and c_zkbl = '" + cangku + "'");
         }
-        if (!StringUtil.isNullOrEmpty(guige)){
-//            sb.append(" and c_city_id = '" + cityId + "'");
-        }
-        if (!StringUtil.isNullOrEmpty(caizhi)){
-//            sb.append(" and c_city_id = '" + cityId + "'");
+        if (!StringUtil.isNullOrEmpty(guige) && !StringUtil.isNullOrEmpty(caizhi)){     // 材质规格判断
+            String [] specs = guige.split(",");
+            String [] textTrues = caizhi.split(",");
+            sb.append(" and (");
+            for (int i = 0;i<specs.length; i++){
+                for (int j = 0;j<textTrues.length;j++){
+                    if (i == specs.length-1 && j ==  textTrues.length -1){  // 最后一个
+                        sb.append("c_price_list like '%" + specs[i] +  "+" + textTrues[j] +"%'");
+                    }else{
+                        sb.append("c_price_list like '%" + specs[i] +  "+" + textTrues[j] +"%' or ");
+                    }
+                }
+            }
+            sb.append(") ");
+        }else if(!StringUtil.isNullOrEmpty(guige)){
+            String [] specs = guige.split(",");
+            sb.append(" and (");
+
+            for (int i = 0;i<specs.length; i++){
+                if (i == specs.length-1){   // 是最后一个
+                    sb.append("c_price_list like '%" + specs[i] + "%'");
+                }else {
+                    sb.append("c_price_list like '%" + specs[i] + "%' or ");
+                }
+
+            }
+            sb.append(") ");
+        }else if (!StringUtil.isNullOrEmpty(caizhi)){
+            String [] textTrues = caizhi.split(",");
+            sb.append(" and (");
+
+            for (int j = 0;j<textTrues.length;j++){
+                if (j ==  textTrues.length -1){  // 最后一个
+                    sb.append("c_price_list like '%" + textTrues[j] +"%' ");
+                }else{
+                    sb.append("c_price_list like '%" + textTrues[j] +"%' or ");
+                }
+            }
+            sb.append(") ");
         }
         if (!StringUtil.isNullOrEmpty(pageIndex) && !StringUtil.isNullOrEmpty(pageSize)) {
             sb.append(" and limit " + pageIndex + ", " + pageSize);

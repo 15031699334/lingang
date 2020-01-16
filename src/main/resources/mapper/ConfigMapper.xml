@@ -12,7 +12,7 @@
       <arg column="c_create_user" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_last_update_user" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_city_id" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_prvc_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_chl" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_province_id" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_district_id" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_block_id" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -23,7 +23,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     c_id, c_create_time, c_last_update_time, c_key, c_value, c_comment, c_create_user, 
-    c_last_update_user, c_city_id, c_prvc_id, c_province_id, c_district_id, c_block_id, 
+    c_last_update_user, c_city_id, c_chl, c_province_id, c_district_id, c_block_id,
     c_hide, c_shop_column_id, c_shop_column_name
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -40,13 +40,13 @@
     insert into t_config (c_id, c_create_time, c_last_update_time, 
       c_key, c_value, c_comment, 
       c_create_user, c_last_update_user, c_city_id, 
-      c_prvc_id, c_province_id, c_district_id, 
+      c_chl, c_province_id, c_district_id,
       c_block_id, c_hide, c_shop_column_id, 
       c_shop_column_name)
     values (#{cId,jdbcType=VARCHAR}, #{cCreateTime,jdbcType=TIMESTAMP}, #{cLastUpdateTime,jdbcType=TIMESTAMP}, 
       #{cKey,jdbcType=VARCHAR}, #{cValue,jdbcType=VARCHAR}, #{cComment,jdbcType=VARCHAR}, 
       #{cCreateUser,jdbcType=VARCHAR}, #{cLastUpdateUser,jdbcType=VARCHAR}, #{cCityId,jdbcType=VARCHAR}, 
-      #{cPrvcId,jdbcType=VARCHAR}, #{cProvinceId,jdbcType=VARCHAR}, #{cDistrictId,jdbcType=VARCHAR}, 
+      #{cChl,jdbcType=VARCHAR}, #{cProvinceId,jdbcType=VARCHAR}, #{cDistrictId,jdbcType=VARCHAR},
       #{cBlockId,jdbcType=VARCHAR}, #{cHide,jdbcType=VARCHAR}, #{cShopColumnId,jdbcType=VARCHAR}, 
       #{cShopColumnName,jdbcType=VARCHAR})
   </insert>
@@ -80,8 +80,8 @@
       <if test="cCityId != null" >
         c_city_id,
       </if>
-      <if test="cPrvcId != null" >
-        c_prvc_id,
+      <if test="cChl != null" >
+        c_chl,
       </if>
       <if test="cProvinceId != null" >
         c_province_id,
@@ -130,8 +130,8 @@
       <if test="cCityId != null" >
         #{cCityId,jdbcType=VARCHAR},
       </if>
-      <if test="cPrvcId != null" >
-        #{cPrvcId,jdbcType=VARCHAR},
+      <if test="cChl != null" >
+        #{cChl,jdbcType=VARCHAR},
       </if>
       <if test="cProvinceId != null" >
         #{cProvinceId,jdbcType=VARCHAR},
@@ -180,8 +180,8 @@
       <if test="cCityId != null" >
         c_city_id = #{cCityId,jdbcType=VARCHAR},
       </if>
-      <if test="cPrvcId != null" >
-        c_prvc_id = #{cPrvcId,jdbcType=VARCHAR},
+      <if test="cChl != null" >
+        c_chl = #{cChl,jdbcType=VARCHAR},
       </if>
       <if test="cProvinceId != null" >
         c_province_id = #{cProvinceId,jdbcType=VARCHAR},
@@ -214,7 +214,7 @@
       c_create_user = #{cCreateUser,jdbcType=VARCHAR},
       c_last_update_user = #{cLastUpdateUser,jdbcType=VARCHAR},
       c_city_id = #{cCityId,jdbcType=VARCHAR},
-      c_prvc_id = #{cPrvcId,jdbcType=VARCHAR},
+      c_chl = #{cChl,jdbcType=VARCHAR},
       c_province_id = #{cProvinceId,jdbcType=VARCHAR},
       c_district_id = #{cDistrictId,jdbcType=VARCHAR},
       c_block_id = #{cBlockId,jdbcType=VARCHAR},

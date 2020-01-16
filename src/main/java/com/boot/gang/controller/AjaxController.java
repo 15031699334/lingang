@@ -3,19 +3,25 @@ package com.boot.gang.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.boot.gang.entity.*;
 import com.boot.gang.mapper.OrderMapper;
-import com.boot.gang.service.CommonService;
-import com.boot.gang.service.ProductService;
-import com.boot.gang.service.ShopTrolleyService;
-import com.boot.gang.service.TokenService;
+import com.boot.gang.service.*;
+import com.boot.gang.util.DateUtil;
 import com.boot.gang.util.MsgUtil;
+import com.boot.gang.util.PathUtil;
+import com.rabbitmq.tools.json.JSONUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +49,10 @@ public class AjaxController {
     ProductService productService;
     @Autowired
     ShopTrolleyService shopTrolleyService;
+    @Autowired
+    SignService signService;
+    @Value("${uploadPath}")
+    private String path;
     /**
      * @Description  通过id 获取相应对象信息
      * @param entity    实体类名称
@@ -71,7 +81,7 @@ public class AjaxController {
             user.setcPassword("");
             return msgUtil.jsonSuccessMsg("获取成功", "user", user);
         }
-        if (entity.equals("dz")){
+        if (entity.equals("dz")){   //地址
             try {
                 tokenService.getIdByToken(request);
             } catch (Exception e) {
@@ -89,10 +99,14 @@ public class AjaxController {
         }
         if (entity.equals("hb"))    // 红包
             return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "hb"));
-        if (entity.equals("cz"))    //  材质
-            return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "cz"));
-        if (entity.equals("gg"))    // 规格
-            return  msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "gg"));
+        if (entity.equals("cz")) {   //  材质
+            String chl = request.getParameter("chl");
+            return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(chl, "cz"));
+        }
+        if (entity.equals("gg")) {   // 规格
+            String chl = request.getParameter("chl");
+            return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(chl, "gg"));
+        }
         if (entity.equals("gwc")) {
             try {
                 userId = tokenService.getIdByToken(request);
@@ -100,6 +114,9 @@ public class AjaxController {
                 return msgUtil.jsonToLoginMsg();
             }
             return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "gwc"));
+        }
+        if (entity.equals("news")){
+            return msgUtil.jsonSuccessMsg("获取成功","data", commonService.findObjectById(id, "news"));
         }
         return msgUtil.jsonErrorMsg("路径错误");
     }
@@ -178,6 +195,8 @@ public class AjaxController {
         }
         if (entity.equals("jhcg"))      // 计划采购订单列表
             map.put("data", commonService.getList("jhcg",request, pageIndex, pageSize));
+        if (entity.equals("news"))      // 新闻
+            map.put("data", commonService.getList("news", request, pageIndex, pageSize));
         if (map.isEmpty()){
             return msgUtil.jsonErrorMsg("路径错误");
         }
@@ -214,6 +233,7 @@ public class AjaxController {
         }
         if (entity.equals("jf")){   // 钢豆数量变更
             try {
+                Integer type = 0;
                 IntegralDetail integralDetail = JSONObject.toJavaObject(json, IntegralDetail.class);
 //                System.out.println(integralDetail.toString());
                 // 赋值
@@ -222,7 +242,6 @@ public class AjaxController {
                 integralDetail.setiRealname(user.getcRealname());
                 integralDetail.setiId(System.nanoTime()+"");
                 integralDetail.setiCreatetime(new Date());
-                commonService.save(integralDetail, "IntegralDetail");     // 保存
                 if (json.containsKey("mlNum")){     // 含有此参数是 一定是抽奖操作
                     IntegralDetail detail = new IntegralDetail();
                     detail.setiId("cj" + System.nanoTime()+ "");
@@ -232,11 +251,15 @@ public class AjaxController {
                     detail.setiChangetype(1);
                     detail.setiNowintegral(json.getDouble("nowMlNum"));
                     detail.setiCreatetime(new Date());
-                    detail.setiIntegraltype(2);
-                    detail.setiReason("50积分抽奖获得");
+                    detail.setiIntegraltype(integralDetail.getiIntegraltype());
+                    detail.setiReason(integralDetail.getiReason());
 //                    System.out.println(detail);
                     commonService.save(detail, "IntegralDetail");         //保存
                 }
+                if (integralDetail.getiIntegraltype() == 3 || integralDetail.getiIntegraltype() == 2){
+                    integralDetail.setiIntegraltype(1);
+                }
+                commonService.save(integralDetail, "IntegralDetail");     // 保存
             } catch (Exception e) {
                 e.printStackTrace();
                 return msgUtil.jsonErrorMsg("添加失败");
@@ -282,6 +305,40 @@ public class AjaxController {
                 return msgUtil.jsonErrorMsg(e.getMessage());
             }
         }
+
+        if (entity.equals("fb")){   // 客户反馈
+            try {
+                Feedback feedBack = JSONObject.toJavaObject(json, Feedback.class);
+                feedBack.setcUserid(userId);
+                feedBack.setcId("FB" + System.nanoTime());
+                feedBack.setcCreatetime(new Date());
+                feedBack.setcLastupdatetime(new Date());
+
+                System.out.println(feedBack.getcMsg());
+                System.out.println(feedBack.getcContent());
+                System.out.println(feedBack.getcRealname());
+
+                commonService.save(feedBack, "FeedBack");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return msgUtil.jsonErrorMsg(e.getMessage());
+            }
+        }
+        if (entity.equals("jhcg")){     // 添加计划采购
+            try {
+                PlanShopping planShopping =  JSONObject.toJavaObject(json, PlanShopping.class);
+                planShopping.setcId("PS" + System.nanoTime());
+                planShopping.setcUserId(userId);
+                commonService.save(planShopping, "jhcg");
+            }catch (Exception e){
+                return msgUtil.jsonErrorMsg("添加错误");
+            }
+        }
+        if (entity.equals("bar")) {  // 添加酒
+
+
+
+        }
         return msgUtil.jsonSuccessMsg("添加成功");
     }
 
@@ -321,6 +378,13 @@ public class AjaxController {
                     address.setcCreateUser(userId);
                     address.setcLastUpdateTime(new Date());
                     commonService.update(address, "Address");
+                }
+                if (entity.equals("ddtj")){     // 订单提交  提交后 后台可展示
+                    Order order = new Order();
+                    order.setcId(json.getString("cId"));
+                    order.setcHide("2");
+                    commonService.update(order, "ddtj");
+                    return msgUtil.jsonSuccessMsg("提交成功");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -364,4 +428,89 @@ public class AjaxController {
         }
         return msgUtil.jsonSuccessMsg("删除成功");
     }
+
+
+    @RequestMapping("sign")
+    public JSONObject sign(HttpServletRequest request){
+        String userId;
+        try {
+            userId = tokenService.getIdByToken(request);
+        } catch (Exception e) {
+            return msgUtil.jsonToLoginMsg();
+        }
+        Sign sign = null;
+        try {
+            sign = signService.sign(userId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return msgUtil.jsonErrorMsg(e.getMessage());
+        }
+        Map map = new HashMap();
+        map.put("sign_state", "0");     // 不可继续签到
+        if (DateUtil.getFormateDay(new Date()).equals(DateUtil.getFormateDay(sign.getLastSignTime()))){
+            map.put("sign", sign);
+            return msgUtil.jsonSuccessMsg("签到成功", "data", map);   // 不能点击签到
+        }
+        return msgUtil.jsonSuccessMsg("签到成功", "data", sign);
+    }
+
+    @PostMapping("subgrjl")
+    public JSONObject addResume(@RequestBody JSONObject json){
+
+        try {
+            Resume resume =  JSONObject.toJavaObject(json, Resume.class);
+            resume.setcId("R" + System.nanoTime());
+            resume.setcCreateTime(new Date());
+            resume.setcLastUpdateTime(new Date());
+            commonService.save(resume, "grjl");
+        }catch (Exception e){
+            return msgUtil.jsonErrorMsg("添加错误");
+        }
+        return msgUtil.jsonSuccessMsg("添加成功");
+    }
+
+    @ResponseBody
+    @RequestMapping("upload{type}.html")
+    public String uploadFile(@PathVariable String type, @RequestParam(value = "file", required = false) MultipartFile file, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+        String domain = "lingang.zheok.com"; //设置domain，用于跨域
+        String setDomain = "<script>document.domain = '"+domain+"';</script>";
+        if (file != null) {
+            String fileName = file.getOriginalFilename();
+            String newfileName= "";
+            if (fileName != null && !"".equals(fileName)) {
+//                String path = session.getServletContext().getRealPath("/");
+//                String path = "D:\\myapp\\lingang\\upload\\";
+                String fpath="";
+                switch (type){
+                    case "head":
+                        newfileName = "H"+System.nanoTime()+".png";
+                        fpath += PathUtil.PATH_UPLOAD_HEAD_LOGO;
+                        break;
+                    case "jl":
+                        newfileName = "L"+System.nanoTime()+".png";
+                        fpath += PathUtil.PATH_UPLOAD_LICENSE;
+                        break;
+                    default:
+                        newfileName = "img"+System.nanoTime()+".png";
+                        fpath += "upload/images";
+                }
+                File targetFile = new File(path+fpath, newfileName);
+                if (!targetFile.exists()) {
+                    targetFile.mkdirs();
+                }
+                // 保存
+                try {
+                    file.transferTo(targetFile);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                String s = msgUtil.jsonSuccessMsg(fpath + "/" + newfileName).toString().replaceAll("\"", "\\\"");
+                return setDomain + s;
+            }
+        }
+        return setDomain + msgUtil.jsonErrorMsg("上传失败").toString();
+    }
+
+
 }

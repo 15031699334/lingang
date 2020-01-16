@@ -17,7 +17,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authenticationInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/linU/**", "/linA/**", "/*.html");
+                .excludePathPatterns("/linU/**", "/linA/**", "/*.html", "/AMQ/**");
     }
 
     /**

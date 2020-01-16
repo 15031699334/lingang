@@ -16,7 +16,7 @@ public class Order {
 
     private String cOrderNo;        // 订单号
 
-    private Integer cState;         //  订单状态  0:订单取消 1:待付款 2: 已付款、待发货  3:已发货  4:已收货   5:完结
+    private Integer cState;         //  订单状态  0:订单取消 1:待审核 2: 初审  3:审核通过   4:订单完结
 
     private Double cPrice;          // 订单总金额
 
@@ -83,6 +83,8 @@ public class Order {
     private Double cGzFl;               // 拼团时 用户拼团订单拼的吨数
 
     private String cTrackingComp;        // 发票地址
+
+    private String cHide;               // 是否隐藏  1=是 2=否
 
     private String cInvoiceTitle;
 
@@ -159,8 +161,6 @@ public class Order {
     private String cFactName;
 
     private String cShopName;
-
-    private String cHide;
 
     private Double cFactMoney;
 

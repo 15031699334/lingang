@@ -65,7 +65,9 @@ public class User {
 
     private String cShopName;       // 企业名称
 
-    private Double cUb;             // ml 数
+    private Double cUb;             // 茅台ml 数
+
+    private Double cGold;           // 五粮液 ml数
 
     private String cNowCityId;      // 税号
 
@@ -102,8 +104,6 @@ public class User {
     private Integer cIfHaveShop;
 
     private String cHandpic;
-
-    private Double cGold;
 
     private String cMemberNo;
 
@@ -310,6 +310,11 @@ public class User {
     public User(String cId, Double cUb) {
         this.cId = cId;
         this.cUb = cUb;
+    }
+
+    public User(Double cGold, String cId) {
+        this.cId = cId;
+        this.cGold = cGold;
     }
 
     public User(String cId, Integer cGoldGz) {
