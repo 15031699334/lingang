@@ -153,10 +153,10 @@ public class LoginController {
         if (!phone.matches(StringUtil.REGEX_MOBILE))    // 手机号正则判断
             return msgUtil.jsonErrorMsg("手机号格式错误");
         // 手机号是否已存在
-        User user = loginService.findByPhone(phone);
-        if (user != null) {
-            return msgUtil.jsonErrorMsg("此电话号已注册");
-        }
+//        User user = loginService.findByPhone(phone);
+//        if (user != null) {
+//            return msgUtil.jsonErrorMsg("此电话号已注册");
+//        }
         // 第三方发送短信
         String code = SendSms.randomCode();
         try {
@@ -170,24 +170,6 @@ public class LoginController {
         return msgUtil.jsonSuccessMsg("发送成功", new HashMap());
     }
 
-    @PostMapping("/sendCodeOnUser")
-    @ResponseBody
-    public JSONObject sendCodeOnUser(@RequestParam("phone") String phone) {
-        System.out.println(phone);
-        if (!phone.matches(StringUtil.REGEX_MOBILE))    // 手机号正则判断
-            return msgUtil.jsonErrorMsg("手机号格式错误");
-        // 第三方发送短信
-        String code = SendSms.randomCode();
-        try {
-            SendSms.sendYanZheng(phone, code);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        // redis保存验证码
-        redisUtil.set(phone, code);
-        System.out.println(redisUtil.get(phone));
-        return msgUtil.jsonSuccessMsg("发送成功", new HashMap());
-    }
 
     /**
      * @param json 手机号/验证码/密码

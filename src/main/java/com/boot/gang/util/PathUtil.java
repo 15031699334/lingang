@@ -17,6 +17,7 @@ public class PathUtil {
     // 静态资源文件上传路径
     public  static String PATH_UPLOAD_LICENSE = "upload/license";
     public  static String PATH_UPLOAD_HEAD_LOGO = "upload/head";
+    public  static String PATH_UPLOAD_CHAT = "upload/chat";
 
 
 }

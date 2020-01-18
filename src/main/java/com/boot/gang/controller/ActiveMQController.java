@@ -45,6 +45,7 @@ public class ActiveMQController {
                                   @ApiParam(value = "消息内容", required = true) @RequestParam("messageContent")String messageContent,
                                   @ApiParam(value = "招聘岗位主键，可为空") @RequestParam(value = "recruitInfoId", required = false) Integer recruitInfoId,
                                   @ApiParam(value = "消息接收者") @RequestParam(value = "adminNo", required = false)String adminNo,
+                                  @ApiParam(value = "消息类别") @RequestParam(value = "messageType", required = false)Integer messageType,
                                   @ApiParam(value = "消息接收者名称") @RequestParam(value = "adminName", required = false)String adminName) throws JMSException {
 
         String userId = "";
@@ -53,7 +54,7 @@ public class ActiveMQController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return AjaxResult.success(commonService.sendMessage(messageContent, userId, recruitInfoId, adminNo, adminName));
+        return AjaxResult.success(commonService.sendMessage(messageContent, userId, recruitInfoId, adminNo, adminName, messageType));
     }
 
 //    @GetMapping("listMessageOnDataBase.html")

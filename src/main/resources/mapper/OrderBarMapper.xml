@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boot.gang.mapper.OrderBarMapper" >
+  <resultMap id="BaseResultMap" type="com.boot.gang.entity.OrderBar" >
+    <constructor >
+      <idArg column="c_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_block_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_city_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_create_user" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_district_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_hide" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_last_update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_last_update_user" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_province_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_category" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_product_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_realname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_receive_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_send_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_shop_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_shop_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_state" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="c_summary" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_tracking_comp" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_tracking_no" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_user_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_address" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_id, c_block_id, c_city_id, c_create_time, c_create_user, c_district_id, c_hide, 
+    c_last_update_time, c_last_update_user, c_province_id, c_category, c_phone, c_product_name, 
+    c_realname, c_receive_time, c_send_time, c_shop_id, c_shop_name, c_state, c_summary, 
+    c_tracking_comp, c_tracking_no, c_user_id, c_address
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_bar
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_order_bar
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boot.gang.entity.OrderBar" >
+    insert into t_order_bar (c_id, c_block_id, c_city_id, 
+      c_create_time, c_create_user, c_district_id, 
+      c_hide, c_last_update_time, c_last_update_user, 
+      c_province_id, c_category, c_phone, 
+      c_product_name, c_realname, c_receive_time, 
+      c_send_time, c_shop_id, c_shop_name, 
+      c_state, c_summary, c_tracking_comp, 
+      c_tracking_no, c_user_id, c_address
+      )
+    values (#{cId,jdbcType=VARCHAR}, #{cBlockId,jdbcType=VARCHAR}, #{cCityId,jdbcType=VARCHAR}, 
+      #{cCreateTime,jdbcType=TIMESTAMP}, #{cCreateUser,jdbcType=VARCHAR}, #{cDistrictId,jdbcType=VARCHAR}, 
+      #{cHide,jdbcType=VARCHAR}, #{cLastUpdateTime,jdbcType=TIMESTAMP}, #{cLastUpdateUser,jdbcType=VARCHAR}, 
+      #{cProvinceId,jdbcType=VARCHAR}, #{cCategory,jdbcType=INTEGER}, #{cPhone,jdbcType=VARCHAR}, 
+      #{cProductName,jdbcType=VARCHAR}, #{cRealname,jdbcType=VARCHAR}, #{cReceiveTime,jdbcType=TIMESTAMP}, 
+      #{cSendTime,jdbcType=TIMESTAMP}, #{cShopId,jdbcType=VARCHAR}, #{cShopName,jdbcType=VARCHAR}, 
+      #{cState,jdbcType=INTEGER}, #{cSummary,jdbcType=VARCHAR}, #{cTrackingComp,jdbcType=VARCHAR}, 
+      #{cTrackingNo,jdbcType=VARCHAR}, #{cUserId,jdbcType=VARCHAR}, #{cAddress,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boot.gang.entity.OrderBar" >
+    insert into t_order_bar
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        c_id,
+      </if>
+      <if test="cBlockId != null" >
+        c_block_id,
+      </if>
+      <if test="cCityId != null" >
+        c_city_id,
+      </if>
+      <if test="cCreateTime != null" >
+        c_create_time,
+      </if>
+      <if test="cCreateUser != null" >
+        c_create_user,
+      </if>
+      <if test="cDistrictId != null" >
+        c_district_id,
+      </if>
+      <if test="cHide != null" >
+        c_hide,
+      </if>
+      <if test="cLastUpdateTime != null" >
+        c_last_update_time,
+      </if>
+      <if test="cLastUpdateUser != null" >
+        c_last_update_user,
+      </if>
+      <if test="cProvinceId != null" >
+        c_province_id,
+      </if>
+      <if test="cCategory != null" >
+        c_category,
+      </if>
+      <if test="cPhone != null" >
+        c_phone,
+      </if>
+      <if test="cProductName != null" >
+        c_product_name,
+      </if>
+      <if test="cRealname != null" >
+        c_realname,
+      </if>
+      <if test="cReceiveTime != null" >
+        c_receive_time,
+      </if>
+      <if test="cSendTime != null" >
+        c_send_time,
+      </if>
+      <if test="cShopId != null" >
+        c_shop_id,
+      </if>
+      <if test="cShopName != null" >
+        c_shop_name,
+      </if>
+      <if test="cState != null" >
+        c_state,
+      </if>
+      <if test="cSummary != null" >
+        c_summary,
+      </if>
+      <if test="cTrackingComp != null" >
+        c_tracking_comp,
+      </if>
+      <if test="cTrackingNo != null" >
+        c_tracking_no,
+      </if>
+      <if test="cUserId != null" >
+        c_user_id,
+      </if>
+      <if test="cAddress != null" >
+        c_address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        #{cId,jdbcType=VARCHAR},
+      </if>
+      <if test="cBlockId != null" >
+        #{cBlockId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCityId != null" >
+        #{cCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreateTime != null" >
+        #{cCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCreateUser != null" >
+        #{cCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cDistrictId != null" >
+        #{cDistrictId,jdbcType=VARCHAR},
+      </if>
+      <if test="cHide != null" >
+        #{cHide,jdbcType=VARCHAR},
+      </if>
+      <if test="cLastUpdateTime != null" >
+        #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cLastUpdateUser != null" >
+        #{cLastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cProvinceId != null" >
+        #{cProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCategory != null" >
+        #{cCategory,jdbcType=INTEGER},
+      </if>
+      <if test="cPhone != null" >
+        #{cPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cProductName != null" >
+        #{cProductName,jdbcType=VARCHAR},
+      </if>
+      <if test="cRealname != null" >
+        #{cRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="cReceiveTime != null" >
+        #{cReceiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cSendTime != null" >
+        #{cSendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cShopId != null" >
+        #{cShopId,jdbcType=VARCHAR},
+      </if>
+      <if test="cShopName != null" >
+        #{cShopName,jdbcType=VARCHAR},
+      </if>
+      <if test="cState != null" >
+        #{cState,jdbcType=INTEGER},
+      </if>
+      <if test="cSummary != null" >
+        #{cSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="cTrackingComp != null" >
+        #{cTrackingComp,jdbcType=VARCHAR},
+      </if>
+      <if test="cTrackingNo != null" >
+        #{cTrackingNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cUserId != null" >
+        #{cUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="cAddress != null" >
+        #{cAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boot.gang.entity.OrderBar" >
+    update t_order_bar
+    <set >
+      <if test="cBlockId != null" >
+        c_block_id = #{cBlockId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCityId != null" >
+        c_city_id = #{cCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreateTime != null" >
+        c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCreateUser != null" >
+        c_create_user = #{cCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cDistrictId != null" >
+        c_district_id = #{cDistrictId,jdbcType=VARCHAR},
+      </if>
+      <if test="cHide != null" >
+        c_hide = #{cHide,jdbcType=VARCHAR},
+      </if>
+      <if test="cLastUpdateTime != null" >
+        c_last_update_time = #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cLastUpdateUser != null" >
+        c_last_update_user = #{cLastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cProvinceId != null" >
+        c_province_id = #{cProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCategory != null" >
+        c_category = #{cCategory,jdbcType=INTEGER},
+      </if>
+      <if test="cPhone != null" >
+        c_phone = #{cPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cProductName != null" >
+        c_product_name = #{cProductName,jdbcType=VARCHAR},
+      </if>
+      <if test="cRealname != null" >
+        c_realname = #{cRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="cReceiveTime != null" >
+        c_receive_time = #{cReceiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cSendTime != null" >
+        c_send_time = #{cSendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cShopId != null" >
+        c_shop_id = #{cShopId,jdbcType=VARCHAR},
+      </if>
+      <if test="cShopName != null" >
+        c_shop_name = #{cShopName,jdbcType=VARCHAR},
+      </if>
+      <if test="cState != null" >
+        c_state = #{cState,jdbcType=INTEGER},
+      </if>
+      <if test="cSummary != null" >
+        c_summary = #{cSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="cTrackingComp != null" >
+        c_tracking_comp = #{cTrackingComp,jdbcType=VARCHAR},
+      </if>
+      <if test="cTrackingNo != null" >
+        c_tracking_no = #{cTrackingNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cUserId != null" >
+        c_user_id = #{cUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="cAddress != null" >
+        c_address = #{cAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boot.gang.entity.OrderBar" >
+    update t_order_bar
+    set c_block_id = #{cBlockId,jdbcType=VARCHAR},
+      c_city_id = #{cCityId,jdbcType=VARCHAR},
+      c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
+      c_create_user = #{cCreateUser,jdbcType=VARCHAR},
+      c_district_id = #{cDistrictId,jdbcType=VARCHAR},
+      c_hide = #{cHide,jdbcType=VARCHAR},
+      c_last_update_time = #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      c_last_update_user = #{cLastUpdateUser,jdbcType=VARCHAR},
+      c_province_id = #{cProvinceId,jdbcType=VARCHAR},
+      c_category = #{cCategory,jdbcType=INTEGER},
+      c_phone = #{cPhone,jdbcType=VARCHAR},
+      c_product_name = #{cProductName,jdbcType=VARCHAR},
+      c_realname = #{cRealname,jdbcType=VARCHAR},
+      c_receive_time = #{cReceiveTime,jdbcType=TIMESTAMP},
+      c_send_time = #{cSendTime,jdbcType=TIMESTAMP},
+      c_shop_id = #{cShopId,jdbcType=VARCHAR},
+      c_shop_name = #{cShopName,jdbcType=VARCHAR},
+      c_state = #{cState,jdbcType=INTEGER},
+      c_summary = #{cSummary,jdbcType=VARCHAR},
+      c_tracking_comp = #{cTrackingComp,jdbcType=VARCHAR},
+      c_tracking_no = #{cTrackingNo,jdbcType=VARCHAR},
+      c_user_id = #{cUserId,jdbcType=VARCHAR},
+      c_address = #{cAddress,jdbcType=VARCHAR}
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </update>
+</mapper>

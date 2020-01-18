@@ -2,6 +2,7 @@ package com.boot.gang.mapper;
 
 import com.boot.gang.entity.Order;
 import com.boot.gang.entity.OrderDetail;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -34,4 +35,7 @@ public interface OrderDetailMapper {
             " left join t_order o on d.d_orderNo = o.c_order_no" +
             " where 1 = 1 ${swhere}")
     List<OrderDetail> getNowList(@Param("swhere") String swhere);
+
+    @Delete("delete from t_order_detail where d_orderNo = #{orderNo}")
+    int deleteByOrderNo(@Param("orderNo") String orderNo);
 }

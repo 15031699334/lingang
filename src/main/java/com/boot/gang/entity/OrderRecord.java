@@ -4,6 +4,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
+/**
+ * @Description 成交记录表
+ * @Author dongxiangwei
+ * @Date 5:48 2020/1/18
+ **/
 public class OrderRecord {
     private String cId;
 

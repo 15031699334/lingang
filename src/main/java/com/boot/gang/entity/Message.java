@@ -30,7 +30,9 @@ public class Message implements Serializable {
 
     private String userpic;
 
-    public Message(Integer id, Date createtime, Date lastupdatetime, String adminname, String adminno, String adminpic, Integer recruitinfoid, Integer state, String summary, String userid, String username, String userpic) {
+    private int messageType;
+
+    public Message(Integer id, Date createtime, Date lastupdatetime, String adminname, String adminno, String adminpic, Integer recruitinfoid, Integer state, String summary, String userid, String username, String userpic, int messageType) {
         this.id = id;
         this.createtime = createtime;
         this.lastupdatetime = lastupdatetime;
@@ -43,6 +45,7 @@ public class Message implements Serializable {
         this.userid = userid;
         this.username = username;
         this.userpic = userpic;
+        this.messageType = messageType;
     }
 
     public Message() {
@@ -143,5 +146,13 @@ public class Message implements Serializable {
 
     public void setUserpic(String userpic) {
         this.userpic = userpic == null ? null : userpic.trim();
+    }
+
+    public int getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(int messageType) {
+        this.messageType = messageType;
     }
 }

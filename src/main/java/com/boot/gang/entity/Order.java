@@ -86,6 +86,8 @@ public class Order {
 
     private String cHide;               // 是否隐藏  1=是 2=否    // web端订单列表页提交订单按钮点击触发修改
 
+    private String cZkbl;               // 仓库名
+
     private String cInvoiceTitle;
 
     private String cBlockId;
@@ -218,15 +220,15 @@ public class Order {
 
     private String cXsnum;
 
-    private String cZkbl;
 
     private Double cMtlGold;
 
-    public Order(String cId, String cBlockId, String cCityId, Date cCreateTime, String cCreateUser, String cDistrictId, Date cLastUpdateTime, String cLastUpdateUser, String cProvinceId, String cAddressid, String cCouponId, Double cCouponPrice, Date cFahuoTime, Double cGold, String cGoodsInterval, Integer cGoodsSex, Integer cGoodsTotal, String cGuige, Double cGzFl, Integer cIfCanInvoice, Integer cIfReply, Integer cIfTake, Integer cIfxianshang, String cInvoiceTitle, String cLeixing, String cLogisticsId, Integer cNum, String cOrderNo, Integer cOrderSsid, String cOutTradeNo, String cParamList, String cPayType, String cPayUser, Double cPrice, String cProductCode, String cProductId, String cProductLogo, String cProductName, String cRequire, Double cSexPrice, String cShopbId, String cShopId, Date cShouhuoTime, Integer cState, String cSummary, String cTihuoShopId, String cTrackingComp, String cTrackingNo, String cTransactionId, Integer cType, Double cUnitPrice, String cUserId, Double cYoufeiFee, Double cZhPrice, Double cZjrFl, String cFactId, String cFactName, String cShopName, String cHide, Double cFactMoney, Double cPlatMoney, Double cShopMoney, Integer cRefundNum, Integer cDispute, String cPhone, String cRealname, Integer cStage, String cAgentId, Double cAgentMoney, String cAgentName, String cProduct2Id, Double cOneGold, Double cThreeGold, Double cTwoGold, String cTihuoShopCode, String cTihuoShopName, Double cFuwuFee, String cIfZiti, Integer cSctype, String cFuwuFeeType, String cUserNo, Integer cIfPingjia, String cMemberId, String cMemberName, Integer cMemberNo, String cMemberTime, String cPingjiaMemo, Integer cPingjiaStar, String cXsnum, String cZkbl, Double cMtlGold, Integer cCategory, String cCouponComment, String cGroupNum, Double cMoneyPay, Date cPayTime, Date cPlanPayTime, String cPlatformComment, Double cPlatformPrice, Double cTransportPrice, String cTransportationRequirement, String cWhiteNoteComment, Double cWhiteNotePrice) {
+    public Order(String cId, String cBlockId, String cCityId, Date cCreateTime,Date cGroupEndTime, String cCreateUser, String cDistrictId, Date cLastUpdateTime, String cLastUpdateUser, String cProvinceId, String cAddressid, String cCouponId, Double cCouponPrice, Date cFahuoTime, Double cGold, String cGoodsInterval, Integer cGoodsSex, Integer cGoodsTotal, String cGuige, Double cGzFl, Integer cIfCanInvoice, Integer cIfReply, Integer cIfTake, Integer cIfxianshang, String cInvoiceTitle, String cLeixing, String cLogisticsId, Integer cNum, String cOrderNo, Integer cOrderSsid, String cOutTradeNo, String cParamList, String cPayType, String cPayUser, Double cPrice, String cProductCode, String cProductId, String cProductLogo, String cProductName, String cRequire, Double cSexPrice, String cShopbId, String cShopId, Date cShouhuoTime, Integer cState, String cSummary, String cTihuoShopId, String cTrackingComp, String cTrackingNo, String cTransactionId, Integer cType, Double cUnitPrice, String cUserId, Double cYoufeiFee, Double cZhPrice, Double cZjrFl, String cFactId, String cFactName, String cShopName, String cHide, Double cFactMoney, Double cPlatMoney, Double cShopMoney, Integer cRefundNum, Integer cDispute, String cPhone, String cRealname, Integer cStage, String cAgentId, Double cAgentMoney, String cAgentName, String cProduct2Id, Double cOneGold, Double cThreeGold, Double cTwoGold, String cTihuoShopCode, String cTihuoShopName, Double cFuwuFee, String cIfZiti, Integer cSctype, String cFuwuFeeType, String cUserNo, Integer cIfPingjia, String cMemberId, String cMemberName, Integer cMemberNo, String cMemberTime, String cPingjiaMemo, Integer cPingjiaStar, String cXsnum, String cZkbl, Double cMtlGold, Integer cCategory, String cCouponComment, String cGroupNum, Double cMoneyPay, Date cPayTime, Date cPlanPayTime, String cPlatformComment, Double cPlatformPrice, Double cTransportPrice, String cTransportationRequirement, String cWhiteNoteComment, Double cWhiteNotePrice) {
         this.cId = cId;
         this.cBlockId = cBlockId;
         this.cCityId = cCityId;
         this.cCreateTime = cCreateTime;
+        this.cGroupEndTime = cGroupEndTime;
         this.cCreateUser = cCreateUser;
         this.cDistrictId = cDistrictId;
         this.cLastUpdateTime = cLastUpdateTime;

@@ -2,6 +2,11 @@ package com.boot.gang.entity;
 
 import java.util.Date;
 
+/**
+ * @Description     签到表
+ * @Author dongxiangwei
+ * @Date 16:20 2020/1/17
+ **/
 public class Sign {
     private Integer id;
 

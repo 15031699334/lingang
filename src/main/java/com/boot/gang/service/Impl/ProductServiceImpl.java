@@ -29,10 +29,12 @@ public class ProductServiceImpl implements ProductService {
     public List getList(HttpServletRequest request, String pageIndex, String pageSize) {
         String provinceId = request.getParameter("pId");     // 地区id
         String shopName = request.getParameter("shopName");         // 商户
-        String shopColumnTypeId = request.getParameter("sCTId"); //品名
+        String shopColumnTypeId = request.getParameter("sCTId"); //品名id
         String cangku = request.getParameter("ck");             // 仓库
         String guige = request.getParameter("gg");             // 规格
         String caizhi = request.getParameter("cz");             // 材质
+        String thickness = request.getParameter("thickness");          // 厚度
+        String width = request.getParameter("width");          // 宽度
         StringBuffer sb = new StringBuffer();
         if (!StringUtil.isNullOrEmpty(provinceId)){
             sb.append(" and c_province_id = '" + provinceId + "'");
@@ -85,6 +87,28 @@ public class ProductServiceImpl implements ProductService {
                 }
             }
             sb.append(") ");
+        }
+        if (!StringUtil.isNullOrEmpty(thickness)){  // 厚度
+            String [] tns = thickness.split(",");   //  0,0 / 0,1.200 / 0.800,0 / 0.800,1.200
+            String tn_prefix = tns[0];  // 起始值
+            String wn_suffix = tns[1];  // 最大值
+            if (tn_prefix.equals("0") && !wn_suffix.equals("0"))    // 没有限制最大值
+                sb.append(" and c_gold <= " + wn_suffix);
+            if (!tn_prefix.equals("0") && wn_suffix.equals("0"))      // 没有限制最小值
+                sb.append(" and c_gold >= " + tn_prefix);
+            if (!tn_prefix.equals("0") && !wn_suffix.equals("0"))     // 限制了最大值和最小值
+                sb.append(" and c_gold >= " + tn_prefix + " and c_gold <= " + wn_suffix);
+        }
+        if (!StringUtil.isNullOrEmpty(width)){  // 宽度
+            String [] widths = width.split(",");   //  0,0 / 0,1200 / 800,0 / 800,1200
+            String width_prefix = widths[0];  // 起始值
+            String width_suffix = widths[1];  // 最大值
+            if (width_prefix.equals("0") && !width_suffix.equals("0"))    // 没有限制最大值
+                sb.append(" and c_two_gold <= " + width_suffix);
+            if (!width_prefix.equals("0") && width_suffix.equals("0"))      // 没有限制最小值
+                sb.append(" and c_two_gold >= " + width_prefix);
+            if (!width_prefix.equals("0") && !width_suffix.equals("0"))     // 限制了最大值和最小值
+                sb.append(" and c_two_gold >= " + width_prefix + " and c_two_gold <= " + width_suffix);
         }
         if (!StringUtil.isNullOrEmpty(pageIndex) && !StringUtil.isNullOrEmpty(pageSize)) {
             sb.append(" and limit " + pageIndex + ", " + pageSize);

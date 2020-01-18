@@ -42,7 +42,7 @@ public class CommonService {
      * @return 发送后的消息
      * @throws JMSException 发送的异常
      */
-    public Message sendMessage(String messageContent, String userId, Integer recruitInfoId, String adminNo, String adminName) throws JMSException {
+    public Message sendMessage(String messageContent, String userId, Integer recruitInfoId, String adminNo, String adminName, Integer messageType) throws JMSException {
         Message message = new Message();
         // 招聘的冗余信息
 
@@ -58,6 +58,8 @@ public class CommonService {
         //消息内容
         message.setSummary(messageContent);
         message.setUserid(userId);
+
+        message.setMessageType(messageType == null? 0:messageType);
 //        message.setUserName(user.getRealName());
 //        message.setUserPic(user.getHeadPic());
         //调用activemq工具发送

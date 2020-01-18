@@ -87,7 +87,7 @@ public class Product {
 
     private Integer cTicketNum;
 
-    private Double cTwoGold;
+    private Double cTwoGold;        // 宽度    此参数 在后台配库存时存入    用于web 商城页面搜索功能
 
     private Double cScore;
 
@@ -103,7 +103,7 @@ public class Product {
 
     private String cProductRelationId;
 
-    private Double cGold;
+    private Double cGold;           // 厚度        此参数 在后台配库存时存入    用于web 商城页面搜索功能
 
     private String cJianmoney;
 
