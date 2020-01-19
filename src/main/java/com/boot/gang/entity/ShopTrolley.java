@@ -47,13 +47,14 @@ public class ShopTrolley {
 
     private String stShopName;
 
-    public ShopTrolley(String stId, Date stCreatettime, String stNowPriceDescription, String stProductId, String stProductName, String stShopColumnTypeId, String stProductspec, String stProducttexture, String stRealname, String stShopName, String stShopId, Integer stState, String stStoreaddress, String stTonnum, String stUserid, Double stNowPrice, Double stOriginalPrice, Double stPrice) {
+    private Integer stProductNum;
+
+    public ShopTrolley(String stId, Date stCreatettime, String stNowPriceDescription, String stProductId, String stProductName, String stProductspec, String stProducttexture, String stRealname, String stShopId, Integer stState, String stStoreaddress, String stTonnum, String stUserid, Double stNowPrice, Double stOriginalPrice, Double stPrice, String stShopName, String stShopColumnTypeId, Integer stProductNum) {
         this.stId = stId;
         this.stCreatettime = stCreatettime;
         this.stNowPriceDescription = stNowPriceDescription;
         this.stProductId = stProductId;
         this.stProductName = stProductName;
-        this.stShopColumnTypeId = stShopColumnTypeId;
         this.stProductspec = stProductspec;
         this.stProducttexture = stProducttexture;
         this.stRealname = stRealname;
@@ -66,6 +67,8 @@ public class ShopTrolley {
         this.stOriginalPrice = stOriginalPrice;
         this.stPrice = stPrice;
         this.stShopName = stShopName;
+        this.stShopColumnTypeId = stShopColumnTypeId;
+        this.stProductNum = stProductNum;
     }
 
     public ShopTrolley(String stProductId, String stUserid) {
@@ -219,5 +222,13 @@ public class ShopTrolley {
 
     public void setStShopName(String stShopName) {
         this.stShopName = stShopName;
+    }
+
+    public Integer getStProductNum() {
+        return stProductNum;
+    }
+
+    public void setStProductNum(Integer stProductNum) {
+        this.stProductNum = stProductNum;
     }
 }

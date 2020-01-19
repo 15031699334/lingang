@@ -125,7 +125,10 @@ public class AjaxController {
         if (entity.equals("jjqs")) {   // 获取卷价趋势
             return msgUtil.jsonSuccessMsg("获取成功","data", commonService.findObjectById("volume_price_list", "Config"));
         }
+        if (entity.equals("spkc")) {  // 根据购物车id查询商品库存
 
+            return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "spkc"));
+        }
         return msgUtil.jsonErrorMsg("路径错误");
     }
 
@@ -609,12 +612,12 @@ public class AjaxController {
         List<OrderDetail> details = commonService.getList("OrderDetail",request, null,null );
         User user = (User) commonService.findObjectById(order.getcUserId(), "User");
         Map<String, String> map1 = new HashMap<>();
-        map1.put("name", user.getcRealname());
-        map1.put("address", user.getcProvince()+ user.getcCity() + (user.getcDistrict() == null? "": user.getcDistrict()) + user.getcAddressId());
-        map1.put("phone", user.getcPhone());
+        map1.put("name", user.getcRealname() == null? " ": user.getcRealname());
+        map1.put("address", (user.getcProvince() == null? "": user.getcProvince()) + (user.getcCity() == null? "": user.getcCity()) + (user.getcDistrict() == null? "": user.getcDistrict()) + (user.getcAddressId() == null? "": user.getcAddressId()));
+        map1.put("phone", user.getcPhone() == null? " ": user.getcPhone());
         map1.put("fax", "");    // 传真
-        map1.put("openBank", user.getcNowCityName());   // 开户行
-        map1.put("bankCode", user.getcVipCardno());   //  账号
+        map1.put("openBank", user.getcNowCityName() == null? " ": user.getcNowCityName());   // 开户行
+        map1.put("bankCode", user.getcVipCardno() == null? " ": user.getcVipCardno());   //  账号
         map1.put("signature", "");  // 委托人签字
         System.out.println(" 需求方信息 " + map1);
         Map map = new HashMap();
@@ -653,20 +656,12 @@ public class AjaxController {
         }
         lists.add(new ArrayList(Arrays.asList(order.getcPrice().toString())));
         lists.add(new ArrayList<>(Arrays.asList(MoneyUtils.NumToRMBStr(order.getcPrice().doubleValue()))));
-        System.out.println(Arrays.toString(lists.toArray()));
+//        System.out.println(Arrays.toString(lists.toArray()));
         map.put("productDetail", lists);
         map.put("secondInfo", map1);
-        System.out.println("主页信息: " + map);
-        PdfUtil.exportPdf(map, gongzhangPath, outputStream);
+//        System.out.println("主页信息: " + map);
+        PdfUtil.exportPdf(map, "http://lingang.zheok.com:8081/img/gongzhang.png", outputStream);
         outputStream.flush();
         outputStream.close();
     }
-
-    @RequestMapping("")
-    public String getJson(){
-
-        return "";
-    }
-
-
 }

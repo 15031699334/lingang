@@ -73,6 +73,8 @@ public class User {
 
     private String cNowCityName;    //  开户行
 
+    private String cVipCardno;      // 账号
+
     private String cFactId;         // 执照号
 
     private String cFactName;        // 营业执照(照片)
@@ -131,7 +133,6 @@ public class User {
 
     private Integer cTempGold;
 
-    private String cVipCardno;
 
     private String cVipPassword;
 
