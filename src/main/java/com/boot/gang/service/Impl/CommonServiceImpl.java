@@ -89,16 +89,22 @@ public class CommonServiceImpl implements CommonService {
             Integer cGoldGz = user.getcGoldGz();
             List<IntegralDetail> integralDetails = integralDetailMapper.getList(" and i_IntegralType = 1 and i_userId = " + id + " order by i_createTime desc");
             List<Sign> signs = signMapper.selectByUserId(id);
-            map.put("sign_state", "1");     // 不可继续签到
+            map.put("sign_state", "1");     // 可以继续签到
             if (signs.size() == 0){
                 map.put("douDay", 0);
                 map.put("cntDays", 0);
             }else {
-                if (DateUtil.getFormateDay(new Date()).equals(DateUtil.getFormateDay(signs.get(0).getLastSignTime()))){
-                    map.put("sign_state", "0"); // 可以点击签到
+                if (DateUtil.getFormateDay(new Date()).equals(DateUtil.getFormateDay(signs.get(0).getLastSignTime()))){ // 今天已经签到
+                    map.put("sign_state", "0"); // 不可点击签到
+                    map.put("douDay", signs.get(0).getDouDay());
+                    map.put("cntDays", signs.get(0).getCntDays());
+                }else if (DateUtil.getYesterday().equals(DateUtil.getFormateDay(signs.get(0).getLastSignTime()))){    //如果上次签到是昨天
+                    map.put("douDay", signs.get(0).getDouDay());
+                    map.put("cntDays", signs.get(0).getCntDays());
+                }else {             // 既不是今天 也不是昨天
+                    map.put("douDay", 0);
+                    map.put("cntDays", 0);
                 }
-                map.put("douDay", signs.get(0).getDouDay());
-                map.put("cntDays", signs.get(0).getCntDays());
             }
             map.put("cGoldGz", cGoldGz);
             map.put("cUb", user.getcUb());
@@ -369,17 +375,40 @@ public class CommonServiceImpl implements CommonService {
             // 修改地址
             addressMapper.updateByPrimaryKeySelective(address);
         }
-        if (entity.equals("Order")){ // 订单列表 订单提交
+        if (entity.equals("Order")){
             Order order = (Order) object;
-            List<OrderDetail> list = orderDetailMapper.getList(" and d_orderNo = '" + order.getcOrderNo() + "'");
-            for (OrderDetail orderDetail: list){
-                ProductRelationNode prn = productRelationNodeMapper.selectByPrimaryKey(orderDetail.getdProductid());
-                if (prn.getcStockNum() < Integer.parseInt(orderDetail.getdProductnum()))
-                    throw new Exception("库存不足");
-                prn.setcStockNum(prn.getcStockNum() - Integer.parseInt(orderDetail.getdProductnum()));
-                productRelationNodeMapper.updateByPrimaryKeySelective(prn);
+            if (order.getcCategory() == 1){     // 普通订单   订单列表 订单提交
+                List<OrderDetail> list = orderDetailMapper.getList(" and d_orderNo = '" + order.getcOrderNo() + "'");
+                for (OrderDetail orderDetail: list){
+                    ProductRelationNode prn = productRelationNodeMapper.selectByPrimaryKey(orderDetail.getdProductid());
+                    if (prn.getcStockNum() < Integer.parseInt(orderDetail.getdProductnum()))
+                        throw new Exception("库存不足");
+                    prn.setcStockNum(prn.getcStockNum() - Integer.parseInt(orderDetail.getdProductnum()));
+                    productRelationNodeMapper.updateByPrimaryKeySelective(prn);
+                }
+                orderMapper.updateByPrimaryKeySelective(order);
+            }else {         // 拼团订单 修改内容      暂时不用
+                String orderId = order.getcId();
+                Order order_begin = orderMapper.selectByPrimaryKey(orderId);    // 修改前的订单数据
+                Double cGzFl_change = order_begin.getcGzFl() - order.getcGzFl();     // 原本的拼的吨数减去现在的
+                if (order_begin.getcGroupNum().equals(order_begin.getcOrderNo())){  // 满足条件 则为 主单
+                    Double cZjrFl_changed = order_begin.getcZjrFl() + cGzFl_change;     // 剩余量改变后的数值
+                    if (cZjrFl_changed < 0){
+                        throw new Exception("405");     // 剩余量不足
+                    }
+                    order_begin.setcGzFl(cZjrFl_changed);
+                    orderMapper.updateByPrimaryKeySelective(order_begin);   // 修改剩余吨数
+                }else {     // 副单
+                    Order order_primary = orderMapper.selectByOrderNo(order_begin.getcGroupNum());  // 查询主单
+                    Double cZjrFl_changed = order_primary.getcZjrFl() + cGzFl_change;     // 剩余量改变后的数值
+                    if (cZjrFl_changed < 0){
+                        throw new Exception("405");     // 剩余量不足
+                    }
+                    order_primary.setcGzFl(cZjrFl_changed);
+                    orderMapper.updateByPrimaryKeySelective(order_primary);     // 修改主单的剩余吨数
+                    orderMapper.updateByPrimaryKeySelective(order);             // 修改副单的拼购吨数
+                }
             }
-            orderMapper.updateByPrimaryKeySelective(order);
         }
         if (entity.equals("PlanShopping")){     // 修改计划采购内容
             planShoppingMapper.updateByPrimaryKeySelective((PlanShopping)object);
@@ -632,14 +661,32 @@ public class CommonServiceImpl implements CommonService {
         }
         if (entity.equals("Order")){
             Order order = orderMapper.selectByPrimaryKey(id);
-            List<OrderDetail> list = orderDetailMapper.getList(" and d_orderNo = '" + order.getcOrderNo() + "'");
-            for (OrderDetail orderDetail: list){
-                ProductRelationNode prn = productRelationNodeMapper.selectByPrimaryKey(orderDetail.getdProductid());
-                prn.setcStockNum(prn.getcStockNum() + Integer.parseInt(orderDetail.getdProductnum()));
-                productRelationNodeMapper.updateByPrimaryKeySelective(prn);
+            if (order.getcCategory() == 1){     // 普通订单
+                List<OrderDetail> list = orderDetailMapper.getList(" and d_orderNo = '" + order.getcOrderNo() + "'");
+                for (OrderDetail orderDetail: list){
+                    ProductRelationNode prn = productRelationNodeMapper.selectByPrimaryKey(orderDetail.getdProductid());
+                    prn.setcStockNum(prn.getcStockNum() + Integer.parseInt(orderDetail.getdProductnum()));
+                    productRelationNodeMapper.updateByPrimaryKeySelective(prn);
+                }
+                orderDetailMapper.deleteByOrderNo(order.getcOrderNo());
+                count = orderMapper.deleteByPrimaryKey(id);
+            }else{
+                if (order.getcGroupNum().equals(order.getcOrderNo())){  // 主单   主单删除 副单随之全部删除
+                    List<Order> orders = orderMapper.getList(" and c_group_num = '" + order.getcGroupNum() + "'");
+                    for (Order order1: orders){     // 当前团购的所有订单遍历删除
+                        orderDetailMapper.deleteByOrderNo(order1.getcOrderNo()); // 删除订单商品信息
+                        orderMapper.deleteByPrimaryKey(order1.getcId());    // 删除当前拼团订单
+                    }
+                }else {     // 副单 修改主单的剩余吨数   删除此副单
+                    Order order_primary = orderMapper.selectByOrderNo(order.getcGroupNum());
+                    Double cZjrFl_changed = order_primary.getcZjrFl()+order.getcGzFl();     // 主单的剩余吨数 + 副单的拼单量
+                    order_primary.setcZjrFl(cZjrFl_changed);
+                    orderMapper.updateByPrimaryKeySelective(order_primary); // 修改主单剩余量
+                    orderDetailMapper.deleteByOrderNo(order.getcOrderNo()); // 删除订单商品信息
+                    orderMapper.deleteByPrimaryKey(id);    // 删除当前拼团订单
+                }
+                count = 1;
             }
-            orderDetailMapper.deleteByOrderNo(order.getcOrderNo());
-            count = orderMapper.deleteByPrimaryKey(id);
         }
         if (count != 1){
             if (count == 0){

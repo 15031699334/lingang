@@ -116,7 +116,7 @@ public class AjaxController {
             }
             return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "gwc"));
         }
-        if (entity.equals("jhcg"))        // 拼购商品
+        if (entity.equals("jhcg"))        // 计划采购
             return msgUtil.jsonSuccessMsg("获取成功","data", commonService.findObjectById(id, "PlanShopping"));
 
         if (entity.equals("news")){     // 获取新闻 今日快讯 活动
@@ -352,6 +352,7 @@ public class AjaxController {
                 PlanShopping planShopping =  JSONObject.toJavaObject(json, PlanShopping.class);
                 planShopping.setcId("PS" + System.nanoTime());
                 planShopping.setcUserId(userId);
+                planShopping.setcCreateTime(new Date());
                 commonService.save(planShopping, "jhcg");
             }catch (Exception e){
                 return msgUtil.jsonErrorMsg("添加错误");
@@ -434,15 +435,14 @@ public class AjaxController {
                     } catch (Exception e) {
                         return msgUtil.jsonToLoginMsg();
                     }
-//                    Order order = new Order();
-//                    order.setcId(json.getString("cId"));
-//                    order.setcState(0);
-//                    commonService.update(order, "Order");
                     String order_id = json.getString("cId");
                     commonService.delete(order_id, "Order");    // 删除订单及其详情
                     return msgUtil.jsonSuccessMsg("取消成功");
                 }
-
+                if (entity.equals("pdxg")) {      // 拼单修改
+                    Order order = JSONObject.toJavaObject(json,Order.class);
+                    commonService.update(order, "Order");
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 return msgUtil.jsonErrorMsg("修改失败");
@@ -613,7 +613,7 @@ public class AjaxController {
         User user = (User) commonService.findObjectById(order.getcUserId(), "User");
         Map<String, String> map1 = new HashMap<>();
         map1.put("name", user.getcRealname() == null? " ": user.getcRealname());
-        map1.put("address", (user.getcProvince() == null? "": user.getcProvince()) + (user.getcCity() == null? "": user.getcCity()) + (user.getcDistrict() == null? "": user.getcDistrict()) + (user.getcAddressId() == null? "": user.getcAddressId()));
+        map1.put("address", order.getcProvinceId() + order.getcCityId() + (order.getcDistrictId() == null? "": order.getcDistrictId() ) + order.getcAddressid());
         map1.put("phone", user.getcPhone() == null? " ": user.getcPhone());
         map1.put("fax", "");    // 传真
         map1.put("openBank", user.getcNowCityName() == null? " ": user.getcNowCityName());   // 开户行
@@ -622,12 +622,13 @@ public class AjaxController {
         System.out.println(" 需求方信息 " + map1);
         Map map = new HashMap();
         map.put("name", order.getcRealname());
-        map.put("address", order.getcProvinceId() + order.getcCityId() + (order.getcDistrictId() == null? "": order.getcDistrictId() ) + order.getcAddressid());
+        map.put("orderNo", order.getcOrderNo());
+        map.put("address", "临沂市经济开发区沂蒙云谷B座6层");
         map.put("createTime", DateUtil.getFormate(order.getcCreateTime()));
         map.put("pickUpAddress", "临沂临钢库");
         map.put("pickUpType",   details.get(0).getdExtract());
         map.put("freightType","汽运");
-        map.put("freightFeePayType", "需方自付");
+        map.put("freightFeePayType", details.get(0).getdExtract().equals("代运") ? "代收代付":"需方自付");
         map.put("freightAddress", order.getcProvinceId() + order.getcCityId() + (order.getcDistrictId() == null? "": order.getcDistrictId() ) + order.getcAddressid());
         map.put("cutType", details.get(0).getdProcessrequirement());
         List<List<String>> lists = new ArrayList<>();
@@ -660,7 +661,8 @@ public class AjaxController {
         map.put("productDetail", lists);
         map.put("secondInfo", map1);
 //        System.out.println("主页信息: " + map);
-        PdfUtil.exportPdf(map, "http://lingang.zheok.com:8081/img/gongzhang.png", outputStream);
+//        PdfUtil.exportPdf(map, "http://lingang.zheok.com:8081/img/gongzhang.png", outputStream);
+        PdfUtil.exportPdf(map, "e:\\test\\gongzhang.png", outputStream);
         outputStream.flush();
         outputStream.close();
     }

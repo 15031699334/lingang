@@ -18,6 +18,7 @@ public class PdfUtil {
     public static void exportPdf(Map<String, Object> map, String gongzhangPath, ServletOutputStream outputStream) {
         //参数区
         String name = map.get("name") == null ? "供方甲方山东临钢电子商务股份有限公司" : map.get("name").toString();
+        String orderNo = map.get("orderNo") == null? "":map.get("orderNo").toString();
         String address = map.get("address") == null ? "测试地址" : map.get("address").toString();
         String createTime = map.get("createTime") == null ? "2020-01-17" : map.get("createTime").toString();
         //提货地点
@@ -59,7 +60,7 @@ public class PdfUtil {
             Paragraph paragraph = new Paragraph("供需合同", fontChinese);
             paragraph.setAlignment(1);
             document.add(paragraph);
-            document.add(addFirst(bodyChinese));
+            document.add(addFirst(bodyChinese,orderNo));
             document.add(addTwo(bodyChinese, name, address));
             document.add(addThree(bodyChinese, createTime));
             document.add(addString(bodyChinese, "为确保买卖双方双方的共同利益实现互利双赢的目的，根据《中华人民共和国合同法》之规定，经供需双方充分协商" +
@@ -280,11 +281,11 @@ public class PdfUtil {
 
     }
 
-    private static Element addFirst(Font bodyChinese) {
+    private static Element addFirst(Font bodyChinese,String orderNo) {
         Paragraph paragraph = new Paragraph(30);
         Chunk chunk = new Chunk("供方(甲方): 山东临钢电子商务股份有限公司", bodyChinese);
         Chunk temp = new Chunk("                      ");
-        Chunk chunk1 = new Chunk("台同编号: 临沂市经济开发区沂蒙云谷B座6层", bodyChinese);
+        Chunk chunk1 = new Chunk("台同编号: "+orderNo, bodyChinese);
         paragraph.add(chunk);
         paragraph.add(temp);
         paragraph.add(chunk1);
