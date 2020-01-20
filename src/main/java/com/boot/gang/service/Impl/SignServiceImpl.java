@@ -1,7 +1,9 @@
 package com.boot.gang.service.Impl;
 
+import com.boot.gang.entity.IntegralDetail;
 import com.boot.gang.entity.Sign;
 import com.boot.gang.entity.User;
+import com.boot.gang.mapper.IntegralDetailMapper;
 import com.boot.gang.mapper.SignMapper;
 import com.boot.gang.mapper.UserMapper;
 import com.boot.gang.service.SignService;
@@ -28,7 +30,8 @@ public class SignServiceImpl implements SignService {
     private SignMapper signMapper;
     @Autowired
     UserMapper userMapper;
-
+    @Autowired
+    IntegralDetailMapper integralDetailMapper;
     @Override
     @Transactional
     public Sign sign(String userId) throws Exception{
@@ -43,13 +46,18 @@ public class SignServiceImpl implements SignService {
             if (user.getcGoldGz() == null) {
                 user.setcGoldGz(0);
             }
-            user.setcGoldGz(user.getcGoldGz() + 2);
+            Integer goldGz_changed = user.getcGoldGz() + 2;
+            user.setcGoldGz(goldGz_changed);
             userMapper.updateByPrimaryKeySelective(user);
+            // 添加钢豆变化明细
+            IntegralDetail integralDetail =  new IntegralDetail("GD" +System.nanoTime(), 2.0, 1, new Date(), goldGz_changed.doubleValue(), "", user.getcRealname(), userId, "用户签到", 1);
+            integralDetailMapper.insertSelective(integralDetail);
+
         }else {
             sign = signs.get(0);
 
-            String today = DateUtil.getFormateDay(new Date());
-            String lastSignTime = DateUtil.getFormateDay(sign.getLastSignTime());
+            String today = DateUtil.getFormateDay(new Date());      //今天
+            String lastSignTime = DateUtil.getFormateDay(sign.getLastSignTime());   // 上次签到时间
             // 是否当天, 当天就是已签到,不可再签到
             if (!today.equals(lastSignTime)) {
                 int dou = 0;
@@ -70,11 +78,14 @@ public class SignServiceImpl implements SignService {
                     dou = 2;
                     sign.setLastSignTime(new Date());
                 }
-
                 signMapper.updateByPrimaryKey(sign);
                 User user = userMapper.selectByPrimaryKey(userId);
-                user.setcGoldGz(user.getcGoldGz() + dou);
+                Integer goldGz_changed = user.getcGoldGz() + dou;
+                user.setcGoldGz(goldGz_changed);
                 userMapper.updateByPrimaryKeySelective(user);
+                // 添加钢豆变化明细
+                IntegralDetail integralDetail =  new IntegralDetail("GD" +System.nanoTime(), Double.parseDouble(dou +""), 1, new Date(), goldGz_changed.doubleValue(), "", user.getcRealname(), userId, "用户签到", 1);
+                integralDetailMapper.insertSelective(integralDetail);
             }
         }
         return sign;

@@ -29,7 +29,7 @@
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{cntDays,jdbcType=INTEGER}, 
       #{lastSignTime,jdbcType=TIMESTAMP}, #{douDay,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.boot.gang.entity.Sign" >
+  <insert id="insertSelective" parameterType="com.boot.gang.entity.Sign" useGeneratedKeys="true" keyProperty="id">
     insert into t_sign
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

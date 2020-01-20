@@ -341,12 +341,12 @@ public class CommonServiceImpl implements CommonService {
             if (orderBar.getcCategory() == 1){  // 茅台
                 orderBar.setcProductName("茅台酒");
                 Double ub = Double.parseDouble(user.getcUb()- 500000 + "");    //茅台酒ml数变化的数量
-                integralDetail =  new IntegralDetail("GD" +System.nanoTime(), 500000.0, 0, new Date(), ub, orderBar.getcId(), user.getcRealname(), orderBar.getcUserId(), "用户兑换茅台酒", 2);
+                integralDetail =  new IntegralDetail("MT" +System.nanoTime(), 500000.0, 0, new Date(), ub, orderBar.getcId(), user.getcRealname(), orderBar.getcUserId(), "用户兑换茅台酒", 2);
                 user.setcUb(ub);
             }else if (orderBar.getcCategory() == 2){    // 五粮液
                 orderBar.setcProductName("五粮液");
                 Double gold = Double.parseDouble(user.getcGold()- 500000 + "");    // 五粮液ml数变化的数量
-                integralDetail =  new IntegralDetail("GD" +System.nanoTime(), 500000.0, 0, new Date(), gold, orderBar.getcId(), user.getcRealname(), orderBar.getcUserId(), "用户兑换五粮液", 3);
+                integralDetail =  new IntegralDetail("WLY" +System.nanoTime(), 500000.0, 0, new Date(), gold, orderBar.getcId(), user.getcRealname(), orderBar.getcUserId(), "用户兑换五粮液", 3);
                 user.setcGold(gold);
             }
             userMapper.updateByPrimaryKeySelective(user);   // 修改ml数变化
