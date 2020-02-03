@@ -61,6 +61,9 @@ public class ThymeleafServiceImpl implements ThymeleafService {
             case "index":   // 首页
                 logger.info("走到了 index");
                 break;
+            case "list-details":   // 临钢动态
+                logger.info("走到了 index");
+                break;
             case "shop":    // 商城(临钢优选)     动态页面
                 logger.info("走到了 shop");
                 isStatic = false;
