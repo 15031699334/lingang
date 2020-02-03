@@ -62,7 +62,7 @@ public class ThymeleafServiceImpl implements ThymeleafService {
                 logger.info("走到了 index");
                 break;
             case "list-details":   // 临钢动态
-                logger.info("走到了 index");
+                logger.info("走到了 list-details");
                 break;
             case "shop":    // 商城(临钢优选)     动态页面
                 logger.info("走到了 shop");
@@ -147,8 +147,6 @@ public class ThymeleafServiceImpl implements ThymeleafService {
             /*   *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*        手机端 页面         -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-    */
             case "phone/phone":
                 logger.info("走到了 phone/phone");
-                break;
-            case "list-details":
                 break;
             default:      // 所有的都没有走到 自动走进此项之中
                 logger.info("service 参数获取错误");
