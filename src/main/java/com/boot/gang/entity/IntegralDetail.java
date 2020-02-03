@@ -24,7 +24,7 @@ public class IntegralDetail {
 
     private String iReason;             // 原因(备注)
 
-    private Integer iIntegraltype;   // 1= 钢豆 2= ml
+    private Integer iIntegraltype;   // 1= 钢豆 2= 茅台ml数 3=五粮液
 
     public IntegralDetail(String iId, Double iChangeintegral, Integer iChangetype, Date iCreatetime, Double iNowintegral, String iOrderno, String iRealname, String iUserid, String iReason, Integer iIntegraltype) {
         this.iId = iId;

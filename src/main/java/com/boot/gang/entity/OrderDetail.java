@@ -34,9 +34,13 @@ public class OrderDetail {
 
     private String dTonnum;             // 吨数
 
-    private Double dPrice;
+    private Double dPrice;              // 价格 单价
 
-    public OrderDetail(String dId, Date dCreatetime, String dOrderno, Double dProcessprice, String dProcessrequirement, String dProductid, String dProductnum, String dProductspec, String dProducttexture, String dShopcolumntype, String dShopcolumntypeid, String dShopid, String dShopname, String dTonnum, Double dPrice) {
+    private String dStorename;          // 仓库名称
+
+    private String dExtract;            // 提货信息
+
+    public OrderDetail(String dId, Date dCreatetime, String dOrderno, Double dProcessprice, String dProcessrequirement, String dProductid, String dProductnum, String dProductspec, String dProducttexture, String dShopcolumntype, String dShopcolumntypeid, String dShopid, String dShopname, String dTonnum, Double dPrice, String dStorename, String dExtract) {
         this.dId = dId;
         this.dCreatetime = dCreatetime;
         this.dOrderno = dOrderno;
@@ -52,6 +56,8 @@ public class OrderDetail {
         this.dShopname = dShopname;
         this.dTonnum = dTonnum;
         this.dPrice = dPrice;
+        this.dStorename = dStorename;
+        this.dExtract = dExtract;
     }
 
     public OrderDetail() {
@@ -176,5 +182,43 @@ public class OrderDetail {
 
     public void setdPrice(Double dPrice) {
         this.dPrice = dPrice;
+    }
+
+    public String getdStorename() {
+        return dStorename;
+    }
+
+    public void setdStorename(String dStorename) {
+        this.dStorename = dStorename;
+    }
+
+    public String getdExtract() {
+        return dExtract;
+    }
+
+    public void setdExtract(String dExtract) {
+        this.dExtract = dExtract;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderDetail{" +
+                "dId='" + dId + '\'' +
+                ", dCreatetime=" + dCreatetime +
+                ", dOrderno='" + dOrderno + '\'' +
+                ", dProcessprice=" + dProcessprice +
+                ", dProcessrequirement='" + dProcessrequirement + '\'' +
+                ", dProductid='" + dProductid + '\'' +
+                ", dProductnum='" + dProductnum + '\'' +
+                ", dProductspec='" + dProductspec + '\'' +
+                ", dProducttexture='" + dProducttexture + '\'' +
+                ", dShopcolumntype='" + dShopcolumntype + '\'' +
+                ", dShopcolumntypeid='" + dShopcolumntypeid + '\'' +
+                ", dShopid='" + dShopid + '\'' +
+                ", dShopname='" + dShopname + '\'' +
+                ", dTonnum='" + dTonnum + '\'' +
+                ", dPrice=" + dPrice +
+                ", dStorename=" + dStorename +
+                '}';
     }
 }

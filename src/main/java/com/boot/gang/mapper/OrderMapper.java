@@ -34,4 +34,7 @@ public interface OrderMapper {
             " c_order_no,c_create_time, c_pay_time, c_money_pay, c_price " +
             " from t_order where 1 = 1 ${swhere}")
     List<Order> getRecord(@Param("swhere") String swhere);
+
+    @Select("select * from t_order where c_order_no = #{orderNo,jdbcType=VARCHAR}")
+    Order selectByOrderNo(@Param("orderNo") String orderNo);
 }

@@ -148,6 +148,8 @@ public class ThymeleafServiceImpl implements ThymeleafService {
             case "phone/phone":
                 logger.info("走到了 phone/phone");
                 break;
+            case "list-details":
+                break;
             default:      // 所有的都没有走到 自动走进此项之中
                 logger.info("service 参数获取错误");
                 throw new PathException("页面不存在");

@@ -37,8 +37,6 @@ public class User {
 
     private String cRealname;   // 真实姓名 与身份证号绑定
 
-    private Integer cScore;     // 积分   // 此参数不可用 数据库类别与实体类别不对应 应该是有人做过修改
-
     private String cSex;        // 性别
 
     private String cSummary;    //  个人简介
@@ -67,11 +65,15 @@ public class User {
 
     private String cShopName;       // 企业名称
 
-    private Double cUb;             // ml 数
+    private Double cUb;             // 茅台ml 数
+
+    private Double cGold;           // 五粮液 ml数
 
     private String cNowCityId;      // 税号
 
     private String cNowCityName;    //  开户行
+
+    private String cVipCardno;      // 账号
 
     private String cFactId;         // 执照号
 
@@ -82,6 +84,16 @@ public class User {
     private String cVer;        // 企业电话
 
     private String cLogo;       // 头像
+
+    private Double cTotalPay;       // 白条已使用额度
+
+    private Double cTotalSale;      // 白条未使用额度
+
+    private String cHide;
+
+    private Double cTotalAverage;   // 白条总额度
+
+    private Integer cScore;     // 首页红包是否展示  0=展示 1=不展示   // 此参数不可做其他用处 数据库类别与后端实体类 参数类别不对应 应该是有人做过修改
 
     private Double cMoney;
 
@@ -94,8 +106,6 @@ public class User {
     private Integer cIfHaveShop;
 
     private String cHandpic;
-
-    private Double cGold;
 
     private String cMemberNo;
 
@@ -123,7 +133,6 @@ public class User {
 
     private Integer cTempGold;
 
-    private String cVipCardno;
 
     private String cVipPassword;
 
@@ -154,14 +163,6 @@ public class User {
     private String cZhongjianrenName;
 
     private String cXy;
-
-    private Double cTotalPay;
-
-    private Double cTotalSale;
-
-    private String cHide;
-
-    private Double cTotalAverage;
 
     private Integer cTotalOrder;
 
@@ -310,6 +311,11 @@ public class User {
     public User(String cId, Double cUb) {
         this.cId = cId;
         this.cUb = cUb;
+    }
+
+    public User(Double cGold, String cId) {
+        this.cId = cId;
+        this.cGold = cGold;
     }
 
     public User(String cId, Integer cGoldGz) {

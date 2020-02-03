@@ -21,6 +21,9 @@ public interface ShopTrolleyMapper {
 
     int updateByPrimaryKey(ShopTrolley record);
 
+    @Select("select * from t_shop_trolley where 1 = 1 ${swhere}")
+    ShopTrolley selectBySwhere(@Param("swhere") String swhere);
+
     /**
      * @Description 条件筛选获取所有的订单
      * @param swhere    条件 " and ...." 注意前面的空格
@@ -33,12 +36,13 @@ public interface ShopTrolleyMapper {
     /**
      * @Description 通过商品id获取购物车中此商品的条数
      * @param pId       商品id
+     * @param userId
      * @return int      条数
      * @Author dongxiangwei
      * @Date 19:31 2020/1/9
      **/
-    @Select("select count(*) from t_shop_trolley where st_product_id = #{pId}")
-    int getCountByProductId(@Param("pId") String pId);
+    @Select("select count(*) from t_shop_trolley where st_product_id = #{pId} and st_userId = #{userId}")
+    int getCountByProductId(@Param("pId") String pId,@Param("userId") String userId);
 
     @Delete(" delete from t_shop_trolley where st_userId = #{uId}")
     int delAllByUserId(@Param("uId") String uId);

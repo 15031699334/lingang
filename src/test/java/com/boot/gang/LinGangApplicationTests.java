@@ -14,9 +14,14 @@ class LinGangApplicationTests {
     UserMapper userMapper;
     @Test
     void test() {
-        User user = userMapper.findByPhone("111111");
-        User user1 = userMapper.selectByPrimaryKey("1");
-        System.out.println("用户信息: " + user + ",  用户信息" + user1);
+//        User user = userMapper.findByPhone("111111");
+//        User user1 = userMapper.selectByPrimaryKey("1");
+//        System.out.println("用户信息: " + user + ",  用户信息" + user1);
+        for (int i=0;i<30;i++)
+//       (数据类型)(最小值+Math.random()*(最大值-最小值+1))
+        {System.out.println((int) (200+Math.random()*(500-200+1)));
+        }
+
     }
 
 }

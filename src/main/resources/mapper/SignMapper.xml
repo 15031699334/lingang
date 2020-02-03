@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boot.gang.mapper.SignMapper" >
+  <resultMap id="BaseResultMap" type="com.boot.gang.entity.Sign" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="user_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cnt_days" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="last_sign_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="dou_day" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, cnt_days, last_sign_time, dou_day
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sign
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_sign
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.boot.gang.entity.Sign" >
+    insert into t_sign (id, user_id, cnt_days, 
+      last_sign_time, dou_day)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{cntDays,jdbcType=INTEGER}, 
+      #{lastSignTime,jdbcType=TIMESTAMP}, #{douDay,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boot.gang.entity.Sign" >
+    insert into t_sign
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="cntDays != null" >
+        cnt_days,
+      </if>
+      <if test="lastSignTime != null" >
+        last_sign_time,
+      </if>
+      <if test="douDay != null" >
+        dou_day,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="cntDays != null" >
+        #{cntDays,jdbcType=INTEGER},
+      </if>
+      <if test="lastSignTime != null" >
+        #{lastSignTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="douDay != null" >
+        #{douDay,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boot.gang.entity.Sign" >
+    update t_sign
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="cntDays != null" >
+        cnt_days = #{cntDays,jdbcType=INTEGER},
+      </if>
+      <if test="lastSignTime != null" >
+        last_sign_time = #{lastSignTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="douDay != null" >
+        dou_day = #{douDay,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boot.gang.entity.Sign" >
+    update t_sign
+    set user_id = #{userId,jdbcType=VARCHAR},
+      cnt_days = #{cntDays,jdbcType=INTEGER},
+      last_sign_time = #{lastSignTime,jdbcType=TIMESTAMP},
+      dou_day = #{douDay,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

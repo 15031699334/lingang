@@ -80,9 +80,10 @@ public class Coupons {
 
     private String cHide;
 
-    public Coupons(String cCouponsTypeId, String cUserId) {
+    public Coupons(String cCouponsTypeId, String cUserId, Double cPrice) {
         this.cCouponsTypeId = cCouponsTypeId;
         this.cUserId = cUserId;
+        this.cPrice = cPrice;
     }
 
     public Coupons(String cId, String cBlockId, String cCityId, Date cCreateTime, String cCreateUser, String cDistrictId, Date cLastUpdateTime, String cLastUpdateUser, String cProvinceId, Date cBeginTime, String cCode, String cCouponsTypeId, Date cEndTime, String cFromArg, Integer cIfOverdue, Integer cIfReceive, Integer cIfUse, String cLogo, String cName, Double cPrice, String cUserId, Integer cNum, Integer cReceiveNum, Integer cType, Integer cUseNum, String cHide, String cRealname, String cCreateUserId, Double cLimitPrice, String cOutTradeNo, String cTransactionId, Integer cUserNo, String cPrId, String cPrName, String cShopId, String cShopName) {

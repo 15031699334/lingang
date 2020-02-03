@@ -49,9 +49,9 @@ public class Product {
 
     private String cLogo;   // xxxx.png
 
-    private String cName;
+    private String cName;       // 商品名称
 
-    private Double cNowPrice;
+    private Double cNowPrice;       // 现价
 
     private String cNowPriceDescription;
 
@@ -73,21 +73,21 @@ public class Product {
 
     private String cShopColumnId;
 
-    private String cShopColumnTypeId;
+    private String cShopColumnTypeId;   // 品名id
 
-    private String cShopId;
+    private String cShopId;         // 所属商铺id
 
     private Integer cSoldNum;
 
-    private Integer cStockNum;
+    private Integer cStockNum;      // 库存 吨数
 
-    private String cSummary;
+    private String cSummary;        // 简介 备注
 
     private Double cThreeGold;
 
     private Integer cTicketNum;
 
-    private Double cTwoGold;
+    private Double cTwoGold;        // 宽度    此参数 在后台配库存时存入    用于web 商城页面搜索功能
 
     private Double cScore;
 
@@ -103,7 +103,7 @@ public class Product {
 
     private String cProductRelationId;
 
-    private Double cGold;
+    private Double cGold;           // 厚度        此参数 在后台配库存时存入    用于web 商城页面搜索功能
 
     private String cJianmoney;
 
@@ -113,7 +113,7 @@ public class Product {
 
     private String cXsnum;
 
-    private String cZkbl;
+    private String cZkbl;       // 所属仓库 // 添加商品时 商户所属的库同步过来
 
     private String cAgentId;
 
@@ -141,7 +141,7 @@ public class Product {
 
     private String cYunfeeTitle;
 
-    private String cP1;
+    private String cP1;         // 材料   // 返回前台的时用的字段
 
     private String cP2;
 
@@ -157,13 +157,13 @@ public class Product {
 
     private String cPrtype;
 
-    private String cP0;
+    private String cP0;             // 规格   // 返回前台时用的字段
 
     private Double cNewYunfei;
 
     private String cDescription;
 
-    private String cPriceList;
+    private String cPriceList;      // 规格及库存所在字段
 
     private String cPriceType;
 

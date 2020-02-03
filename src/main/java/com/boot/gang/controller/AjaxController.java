@@ -2,23 +2,27 @@ package com.boot.gang.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.boot.gang.entity.*;
-import com.boot.gang.service.CommonService;
-import com.boot.gang.service.ProductService;
-import com.boot.gang.service.ShopTrolleyService;
-import com.boot.gang.service.TokenService;
-import com.boot.gang.util.MsgUtil;
+import com.boot.gang.mapper.OrderMapper;
+import com.boot.gang.service.*;
+import com.boot.gang.util.*;
+import com.rabbitmq.tools.json.JSONUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @ClassName: lingang
@@ -42,6 +46,14 @@ public class AjaxController {
     ProductService productService;
     @Autowired
     ShopTrolleyService shopTrolleyService;
+    @Autowired
+    SignService signService;
+
+    @Value("${gongzhangPath}")
+    private String gongzhangPath;
+
+    @Value("${uploadPath}")
+    private String path;
     /**
      * @Description  通过id 获取相应对象信息
      * @param entity    实体类名称
@@ -70,7 +82,7 @@ public class AjaxController {
             user.setcPassword("");
             return msgUtil.jsonSuccessMsg("获取成功", "user", user);
         }
-        if (entity.equals("dz")){
+        if (entity.equals("dz")){   //地址
             try {
                 tokenService.getIdByToken(request);
             } catch (Exception e) {
@@ -86,9 +98,37 @@ public class AjaxController {
             }
             return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(userId, "gd"));
         }
-        if (entity.equals("hb"))
+        if (entity.equals("hb"))    // 红包
             return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "hb"));
+        if (entity.equals("cz")) {   //  材质
+            String chl = request.getParameter("chl");
+            return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(chl, "cz"));
+        }
+        if (entity.equals("gg")) {   // 规格
+            String chl = request.getParameter("chl");
+            return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(chl, "gg"));
+        }
+        if (entity.equals("gwc")) {     // 购物车  需要验证是否登录
+            try {
+                tokenService.getIdByToken(request);
+            } catch (Exception e) {
+                return msgUtil.jsonToLoginMsg();
+            }
+            return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "gwc"));
+        }
+        if (entity.equals("jhcg"))        // 拼购商品
+            return msgUtil.jsonSuccessMsg("获取成功","data", commonService.findObjectById(id, "PlanShopping"));
 
+        if (entity.equals("news")){     // 获取新闻 今日快讯 活动
+            return msgUtil.jsonSuccessMsg("获取成功","data", commonService.findObjectById(id, "news"));
+        }
+        if (entity.equals("jjqs")) {   // 获取卷价趋势
+            return msgUtil.jsonSuccessMsg("获取成功","data", commonService.findObjectById("volume_price_list", "Config"));
+        }
+        if (entity.equals("spkc")) {  // 根据购物车id查询商品库存
+
+            return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "spkc"));
+        }
         return msgUtil.jsonErrorMsg("路径错误");
     }
 
@@ -106,21 +146,21 @@ public class AjaxController {
         if (entity.equals("dz")) {        // 收货地址
             List<Address> list = commonService.getList("Address", request, pageIndex, pageSize);
             if (list == null) {
-                return msgUtil.jsonToLoginMsg();
+                list = new ArrayList<>();
             }
             map.put("address", list);
         }
         if (entity.equals("dd")) {        // 订单
             List<Order> list = commonService.getList("Order", request, pageIndex, pageSize);
             if (list == null) {
-                return msgUtil.jsonToLoginMsg();
+                list = new ArrayList<>();
             }
             map.put("order", list);
         }
         if (entity.equals("fk")){        // 付款记录
             List<OrderRecord> list = commonService.getList(entity, request, pageIndex, pageSize);
             if (list == null) {
-                return msgUtil.jsonToLoginMsg();
+                list = new ArrayList<>();
             }
             map.put("record", list);
         }
@@ -158,13 +198,35 @@ public class AjaxController {
             map.put("data", commonService.getList("gc", request, pageIndex, pageSize));
         if (entity.equals("sp"))       // 商品
             map.put("data", productService.getList(request, pageIndex, pageSize));
+
+        if (entity.equals("pt")){       // 参与拼团页面
+            map.put("data", commonService.getList("pt",request, pageIndex, pageSize));
+        }
+        if (entity.equals("mypt")){     // 我的拼团
+            map.put("data", commonService.getList("mypt",request, pageIndex, pageSize));
+        }
+        if (entity.equals("jhcg"))      // 计划采购订单列表
+            map.put("data", commonService.getList("jhcg",request, pageIndex, pageSize));
+        if (entity.equals("news"))      // 新闻
+            map.put("data", commonService.getList("news", request, pageIndex, pageSize));
+        if (entity.equals("hd"))      // 活动
+            map.put("data", commonService.getList("active", request, pageIndex, pageSize));
+        if (entity.equals("kx")) {       //
+            List<Map> list = commonService.getList("kx", request, pageIndex, pageSize);
+            map.put("data", list);
+//            map.put("data", commonService.getList("kx", request, pageIndex, pageSize));
+        }
+        if (entity.equals("dt"))        // 临钢动态
+            map.put("data", commonService.getList("dt", request, pageIndex, pageSize));
+        if (entity.equals("bar"))       // 兑换酒 订单 钢豆订单
+            map.put("data", commonService.getList("bar", request, pageIndex, pageSize));
         if (map.isEmpty()){
             return msgUtil.jsonErrorMsg("路径错误");
         }
         return msgUtil.jsonSuccessMsg("获取成功", map);
     }
     /**
-     * @Description  添加
+       * @Description  添加
      * @param entity    实体类名称
      * @param json    对象的属性
      * @return java.lang.Object
@@ -192,8 +254,9 @@ public class AjaxController {
                 return msgUtil.jsonErrorMsg("添加失败");
             }
         }
-        if (entity.equals("jf")){
+        if (entity.equals("jf")){   // 钢豆数量变更
             try {
+                Integer type = 0;
                 IntegralDetail integralDetail = JSONObject.toJavaObject(json, IntegralDetail.class);
 //                System.out.println(integralDetail.toString());
                 // 赋值
@@ -202,7 +265,6 @@ public class AjaxController {
                 integralDetail.setiRealname(user.getcRealname());
                 integralDetail.setiId(System.nanoTime()+"");
                 integralDetail.setiCreatetime(new Date());
-                commonService.save(integralDetail, "IntegralDetail");     // 保存
                 if (json.containsKey("mlNum")){     // 含有此参数是 一定是抽奖操作
                     IntegralDetail detail = new IntegralDetail();
                     detail.setiId("cj" + System.nanoTime()+ "");
@@ -212,19 +274,23 @@ public class AjaxController {
                     detail.setiChangetype(1);
                     detail.setiNowintegral(json.getDouble("nowMlNum"));
                     detail.setiCreatetime(new Date());
-                    detail.setiIntegraltype(2);
-                    detail.setiReason("50积分抽奖获得");
+                    detail.setiIntegraltype(integralDetail.getiIntegraltype());
+                    detail.setiReason(integralDetail.getiReason() + json.getDouble("mlNum") + "微升");
 //                    System.out.println(detail);
                     commonService.save(detail, "IntegralDetail");         //保存
                 }
+                if (integralDetail.getiIntegraltype() == 3 || integralDetail.getiIntegraltype() == 2){
+                    integralDetail.setiIntegraltype(1);
+                }
+                commonService.save(integralDetail, "IntegralDetail");     // 保存
             } catch (Exception e) {
                 e.printStackTrace();
                 return msgUtil.jsonErrorMsg("添加失败");
             }
         }
         if (entity.equals("gwc")){  // 添加购物车
-            String pId = json.getString("pId");
-            if (shopTrolleyService.getCountByProductId(pId) > 0){
+            String pId = json.getString("pId");     // 商品id
+            if (shopTrolleyService.getCountByProductId(pId, userId) > 0){
                 return msgUtil.jsonErrorMsg("当前商品购物车已存在");
             }
             try {
@@ -237,12 +303,13 @@ public class AjaxController {
         }
         if (entity.equals("yhq")){      // 用户领取优惠券
             String couponId = json.getString("cId");
-            Coupons coupons = new Coupons(couponId, userId);
+            String cPrice = json.getString("cPrice");
+            Coupons coupons = new Coupons(couponId, userId, Double.parseDouble(cPrice));
             try {
                 commonService.save(coupons, "Coupons");
             } catch (Exception e) {
                 e.printStackTrace();
-                return msgUtil.jsonErrorMsg("添加失败");
+                return msgUtil.jsonErrorMsg(e.getMessage());
             }
         }
 
@@ -250,13 +317,55 @@ public class AjaxController {
         if (entity.equals("dd")){   // 生成订单
             try {
                 Order order = JSONObject.toJavaObject(json, Order.class);
-                order.setcCreateUser(userId);
-                order.setcId("OD"+System.nanoTime());
+                order.setcUserId(userId);
+                order.setcState(1);
+                order.setcId("O"+System.nanoTime());
+                order.setcOrderNo("NO" + System.nanoTime());
                 order.setcCreateTime(new Date());
                 commonService.save(order, "Order");
             } catch (Exception e) {
                 e.printStackTrace();
-                return msgUtil.jsonErrorMsg("添加失败");
+                return msgUtil.jsonErrorMsg(e.getMessage());
+            }
+        }
+
+        if (entity.equals("fb")){   // 客户反馈
+            try {
+                Feedback feedBack = JSONObject.toJavaObject(json, Feedback.class);
+                feedBack.setcUserid(userId);
+                feedBack.setcId("FB" + System.nanoTime());
+                feedBack.setcCreatetime(new Date());
+                feedBack.setcLastupdatetime(new Date());
+
+                System.out.println(feedBack.getcMsg());
+                System.out.println(feedBack.getcContent());
+                System.out.println(feedBack.getcRealname());
+
+                commonService.save(feedBack, "FeedBack");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return msgUtil.jsonErrorMsg(e.getMessage());
+            }
+        }
+        if (entity.equals("jhcg")){     // 添加计划采购
+            try {
+                PlanShopping planShopping =  JSONObject.toJavaObject(json, PlanShopping.class);
+                planShopping.setcId("PS" + System.nanoTime());
+                planShopping.setcUserId(userId);
+                commonService.save(planShopping, "jhcg");
+            }catch (Exception e){
+                return msgUtil.jsonErrorMsg("添加错误");
+            }
+        }
+        if (entity.equals("bar")) {  // 添加酒
+            try {
+            OrderBar orderBar = JSONObject.toJavaObject(json, OrderBar.class);
+            orderBar.setcUserId(userId);
+            orderBar.setcId("OB" + System.nanoTime());
+            orderBar.setcCreateTime(new Date());
+            commonService.save(orderBar, "bar");
+            }catch (Exception e){
+                return msgUtil.jsonErrorMsg("添加错误");
             }
         }
         return msgUtil.jsonSuccessMsg("添加成功");
@@ -299,6 +408,41 @@ public class AjaxController {
                     address.setcLastUpdateTime(new Date());
                     commonService.update(address, "Address");
                 }
+                if (entity.equals("ddtj")){     // 订单提交  提交后 后台可展示
+                    String order_id = json.getString("cId");
+                    Order order = (Order) commonService.findObjectById(order_id, "Order");
+                    order.setcHide("2");
+                    try {
+                        commonService.update(order, "Order");
+                    }catch (Exception e){
+                        return msgUtil.jsonErrorMsg("当前订单商品库存不足");
+                    }
+                    return msgUtil.jsonSuccessMsg("提交成功");
+                }
+                if (entity.equals("jhcg")){     // 修改计划采购
+                    PlanShopping planShopping = JSONObject.toJavaObject(json, PlanShopping.class);
+                    commonService.update(planShopping, "PlanShopping");
+                    return msgUtil.jsonSuccessMsg("提交成功");
+                }
+                if (entity.equals("ddjg")){     // 订单加工信息修改     // 优化 添加用户验证
+                    OrderDetail orderDetail = JSONObject.toJavaObject(json, OrderDetail.class);
+                    commonService.update(orderDetail, "ddjg");
+                }
+                if (entity.equals("ddqx")) {      // 取消订单
+                    try {
+                        tokenService.getIdByToken(request);
+                    } catch (Exception e) {
+                        return msgUtil.jsonToLoginMsg();
+                    }
+//                    Order order = new Order();
+//                    order.setcId(json.getString("cId"));
+//                    order.setcState(0);
+//                    commonService.update(order, "Order");
+                    String order_id = json.getString("cId");
+                    commonService.delete(order_id, "Order");    // 删除订单及其详情
+                    return msgUtil.jsonSuccessMsg("取消成功");
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
                 return msgUtil.jsonErrorMsg("修改失败");
@@ -307,7 +451,7 @@ public class AjaxController {
     }
 
     /**
-     * @Description
+     * @Description     // 删除方法
      * @param entity
      * @param id        对象的id
      * @return com.alibaba.fastjson.JSONObject
@@ -330,15 +474,194 @@ public class AjaxController {
             if (entity.equals("gwc")){           // 删除单个购物车商品
                 commonService.delete(id, "ShopTrolley");
             }
-            if (entity.equals("allgwc")){
+            if (entity.equals("allgwc")){       // 清空购物车
                 int count = shopTrolleyService.delAllByUserId(userId);
                 if (count == 0){
                     msgUtil.jsonErrorMsg("购物车中没有商品");
                 }
             }
+            if (entity.equals("jhcg")){     // 删除计划采购的订单
+                commonService.delete(id, "PlanShopping");
+            }
+            if (entity.equals("ddsc"))      // 订单删除
+                commonService.delete(id, "Order");
         } catch (Exception e) {
             return msgUtil.jsonErrorMsg(e.getMessage());
         }
         return msgUtil.jsonSuccessMsg("删除成功");
+    }
+
+
+    /**
+     * @Description     签到
+     * @param request
+     * @return com.alibaba.fastjson.JSONObject
+     * @Author dongxiangwei
+     * @Date 12:20 2020/1/16
+     **/
+    @RequestMapping("sign")
+    public JSONObject sign(HttpServletRequest request){
+        String userId;
+        try {
+            userId = tokenService.getIdByToken(request);
+        } catch (Exception e) {
+            return msgUtil.jsonToLoginMsg();
+        }
+        Sign sign = null;
+        try {
+            sign = signService.sign(userId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return msgUtil.jsonErrorMsg(e.getMessage());
+        }
+        Map map = new HashMap();
+        map.put("sign_state", "0");     // 不可继续签到
+        if (DateUtil.getFormateDay(new Date()).equals(DateUtil.getFormateDay(sign.getLastSignTime()))){
+            map.put("sign", sign);
+            return msgUtil.jsonSuccessMsg("签到成功", "data", map);   // 不能点击签到
+        }
+        return msgUtil.jsonSuccessMsg("签到成功", "data", sign);
+    }
+
+    /**
+     * @Description     提交个人简历
+     * @param json
+     * @return com.alibaba.fastjson.JSONObject
+     * @Author dongxiangwei
+     * @Date 11:56 2020/1/16
+     **/
+    @PostMapping("subgrjl")
+    public JSONObject addResume(@RequestBody JSONObject json){
+
+        try {
+            Resume resume =  JSONObject.toJavaObject(json, Resume.class);
+            resume.setcId("R" + System.nanoTime());
+            resume.setcCreateTime(new Date());
+            resume.setcLastUpdateTime(new Date());
+            commonService.save(resume, "grjl");
+        }catch (Exception e){
+            return msgUtil.jsonErrorMsg("添加错误");
+        }
+        return msgUtil.jsonSuccessMsg("添加成功");
+    }
+
+    @ResponseBody
+    @RequestMapping("upload{type}.html")
+    public String uploadFile(@PathVariable String type, @RequestParam(value = "file", required = false) MultipartFile file, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+        String domain = "zheok.com"; //设置domain，用于跨域
+        String setDomain = "<script>document.domain = '"+domain+"';</script>";
+        if (file != null) {
+            String fileName = file.getOriginalFilename();
+            String suffix = fileName.substring(fileName.indexOf("."));
+            String newfileName= "";
+            if (fileName != null && !"".equals(fileName)) {
+//                String path = session.getServletContext().getRealPath("/");
+//                String path = "D:\\myapp\\lingang\\upload\\";
+                String fpath="";
+                switch (type){
+                    case "head":    // 头像
+                        newfileName = "H"+System.nanoTime() + ".png";
+                        fpath += PathUtil.PATH_UPLOAD_HEAD_LOGO;
+                        break;
+                    case "jl":      // 简历
+                        newfileName = "L"+System.nanoTime() + ".png";
+                        fpath += PathUtil.PATH_UPLOAD_LICENSE;
+                        break;
+                    case "lt" :      // 聊天
+                        newfileName = "CH"+System.nanoTime() + suffix;
+                        fpath += PathUtil.PATH_UPLOAD_CHAT;
+                        break;
+                    default:
+                        newfileName = "img"+System.nanoTime()+".png";
+                        fpath += "upload/images";
+                }
+                File targetFile = new File(path+fpath, newfileName);
+                if (!targetFile.exists()) {
+                    targetFile.mkdirs();
+                }
+                // 保存
+                try {
+                    file.transferTo(targetFile);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                String s = msgUtil.jsonSuccessMsg(fpath + "/" + newfileName).toString().replaceAll("\"", "\\\"");
+                return setDomain + s;
+            }
+        }
+        return setDomain + msgUtil.jsonErrorMsg("上传失败").toString();
+    }
+
+    /**
+     * @Description 打印 pdf
+     * @param response
+     * @param orderId     订单id
+     * @param request
+     * @return void
+     * @Author dongxiangwei
+     * @Date 23:35 2020/1/17
+     **/
+    @GetMapping("exportPdf")
+    public void exportPdf(HttpServletResponse response, String orderId, HttpServletRequest request) throws IOException {
+        ServletOutputStream outputStream = response.getOutputStream();
+        response.setHeader("Content-Disposition", "attachment;filename=" + new String("订单合同".getBytes(), "iso8859-1") + ".pdf");
+        System.out.println(orderId);
+        Order order = (Order) commonService.findObjectById(orderId, "Order");
+        request.setAttribute("orderNo", order.getcOrderNo());
+        List<OrderDetail> details = commonService.getList("OrderDetail",request, null,null );
+        User user = (User) commonService.findObjectById(order.getcUserId(), "User");
+        Map<String, String> map1 = new HashMap<>();
+        map1.put("name", user.getcRealname() == null? " ": user.getcRealname());
+        map1.put("address", (user.getcProvince() == null? "": user.getcProvince()) + (user.getcCity() == null? "": user.getcCity()) + (user.getcDistrict() == null? "": user.getcDistrict()) + (user.getcAddressId() == null? "": user.getcAddressId()));
+        map1.put("phone", user.getcPhone() == null? " ": user.getcPhone());
+        map1.put("fax", "");    // 传真
+        map1.put("openBank", user.getcNowCityName() == null? " ": user.getcNowCityName());   // 开户行
+        map1.put("bankCode", user.getcVipCardno() == null? " ": user.getcVipCardno());   //  账号
+        map1.put("signature", "");  // 委托人签字
+        System.out.println(" 需求方信息 " + map1);
+        Map map = new HashMap();
+        map.put("name", order.getcRealname());
+        map.put("address", order.getcProvinceId() + order.getcCityId() + (order.getcDistrictId() == null? "": order.getcDistrictId() ) + order.getcAddressid());
+        map.put("createTime", DateUtil.getFormate(order.getcCreateTime()));
+        map.put("pickUpAddress", "临沂临钢库");
+        map.put("pickUpType",   details.get(0).getdExtract());
+        map.put("freightType","汽运");
+        map.put("freightFeePayType", "需方自付");
+        map.put("freightAddress", order.getcProvinceId() + order.getcCityId() + (order.getcDistrictId() == null? "": order.getcDistrictId() ) + order.getcAddressid());
+        map.put("cutType", details.get(0).getdProcessrequirement());
+        List<List<String>> lists = new ArrayList<>();
+        List<String> biaotou = new ArrayList<>();
+        biaotou.add("");
+        biaotou.add("钢厂");
+        biaotou.add("品名");
+        biaotou.add("材质");
+        biaotou.add("规格");
+        biaotou.add("数量(吨)");
+        biaotou.add("单价(元)");
+        biaotou.add("仓库");
+        lists.add(biaotou);
+        for (int i = 0; i<  details.size();i ++){
+            List<String> strings = new ArrayList<>();
+            strings.add(i + 1 + "");
+            OrderDetail orderDetail = details.get(i);
+            strings.add(orderDetail.getdShopname());
+            strings.add(orderDetail.getdShopcolumntype());
+            strings.add(orderDetail.getdProducttexture());
+            strings.add(orderDetail.getdProductspec());
+            strings.add(orderDetail.getdTonnum());
+            strings.add(orderDetail.getdPrice() + "");
+            strings.add(orderDetail.getdStorename());
+            lists.add(strings);
+        }
+        lists.add(new ArrayList(Arrays.asList(order.getcPrice().toString())));
+        lists.add(new ArrayList<>(Arrays.asList(MoneyUtils.NumToRMBStr(order.getcPrice().doubleValue()))));
+//        System.out.println(Arrays.toString(lists.toArray()));
+        map.put("productDetail", lists);
+        map.put("secondInfo", map1);
+//        System.out.println("主页信息: " + map);
+        PdfUtil.exportPdf(map, "http://lingang.zheok.com:8081/img/gongzhang.png", outputStream);
+        outputStream.flush();
+        outputStream.close();
     }
 }

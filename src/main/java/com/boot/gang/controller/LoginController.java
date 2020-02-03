@@ -68,8 +68,56 @@ public class LoginController {
                 }
             }
         }
-
     }
+    /**
+     * @Description     // 找回密码
+     * @param
+     * @return com.alibaba.fastjson.JSONObject
+     * @Author dongxiangwei
+     * @Date 19:14 2020/1/16
+     **/
+    @ResponseBody
+    @PostMapping("findPassword")
+    public JSONObject findByCode(@RequestBody JSONObject json){
+        String phone = json.getString("phone");   // 发送短信验证码之前会进行验证此电话号是否已经验证过
+        String code = json.getString("code");
+        String password = json.getString("password");
+        if (!phone.matches(StringUtil.REGEX_MOBILE))    // 手机号正则判断
+            return msgUtil.jsonErrorMsg("手机号格式错误");
+        // 手机号是否已存在
+        User user = loginService.findByPhone(phone);
+        if (user == null) {
+            return msgUtil.jsonErrorMsg("此电话号未注册");
+        }
+        // 验证码判断
+        try {
+            String codeRedis = redisUtil.get(phone).toString();
+            if (!code.equals(codeRedis)) {
+                return msgUtil.jsonErrorMsg("验证码错误, 请重新输入");
+            }
+        } catch (NullPointerException e) {
+            return msgUtil.jsonErrorMsg("此电话号未发送验证码");
+        }
+
+        // 密码比对及位数校验
+        if (!password.matches(StringUtil.REGEX_PASSWORD)) {
+            return msgUtil.jsonSuccessMsg("您输入的密码必须由6-16个英文字母和数字的字符串组成");
+        }
+        // 保存
+        try {
+            user.setcPassword(password);
+            commonService.update(user, "User");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return msgUtil.jsonErrorMsg("修改失败");
+        }
+        return msgUtil.jsonSuccessMsg("找回成功");
+    }
+
+
+
+
+
 
 //    @ResponseBody
 //    @ApiImplicitParams({
@@ -105,18 +153,23 @@ public class LoginController {
         if (!phone.matches(StringUtil.REGEX_MOBILE))    // 手机号正则判断
             return msgUtil.jsonErrorMsg("手机号格式错误");
         // 手机号是否已存在
-        User user = loginService.findByPhone(phone);
-        if (user != null) {
-            return msgUtil.jsonErrorMsg("此电话号已注册");
-        }
+//        User user = loginService.findByPhone(phone);
+//        if (user != null) {
+//            return msgUtil.jsonErrorMsg("此电话号已注册");
+//        }
         // 第三方发送短信
-
-
+        String code = SendSms.randomCode();
+        try {
+            SendSms.sendYanZheng(phone, code);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // redis保存验证码
-        redisUtil.set(phone, "123456");
+        redisUtil.set(phone, code);
         System.out.println(redisUtil.get(phone));
         return msgUtil.jsonSuccessMsg("发送成功", new HashMap());
     }
+
 
     /**
      * @param json 手机号/验证码/密码

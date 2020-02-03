@@ -8,30 +8,39 @@ import java.util.List;
 public class Order {
     private String cId;             //
 
-    private List<OrderDetail> detailList;
+    private List<OrderDetail> detailList;       // 用于查询时输出
 
+    private List<Order> orderList;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date cCreateTime;       // 订单创建时间
 
     private String cOrderNo;        // 订单号
 
-    private Integer cState;         //  订单状态  0:订单取消 1:待付款 2: 已付款、待发货  3:已发货  4:已收货   5:完结
+    private Integer cState;         //  订单状态  0:订单取消 1:待审核 2: 初审  3:审核通过   4:订单完结
 
     private Double cPrice;          // 订单总金额
 
     private String cUserId;         // 下单人id
 
-    private String cPhone;          // 客户手机
+    private String cPhone;          // 收货地址中的手机号
 
-    private String cRealname;       // 客户姓名
+    private String cRealname;       // 收货地址中的人名
 
-    private String cCouponId;       // 优惠券id
+    private String cProvinceId;     // 收货地址: 省份
+
+    private String cCityId;         // 收货地址: 城市
+
+    private String cDistrictId;     // 收货地址: 县区
+
+    private String cAddressid;      // 收货详细地址
+
+    private String cCouponId;       // 优惠券id    // 已领取的优惠券id t_coupons表的id
 
     private Double cCouponPrice;    // 优惠卷优惠金额
 
     private Integer cCategory;      // 订单类别 1=普通订单 2=拼团订单
 
-    private String cCouponComment;      // 优惠券备注
+    private String cCouponComment;      // 优惠券备注(名称)
 
     private String cGroupNum;       // 拼团号(拼团发起单单号)
 
@@ -41,7 +50,7 @@ public class Order {
     private Date cPayTime;          // 实际支付时间
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date cPlanPayTime;      // 计划支付时间
+    private Date cPlanPayTime;         // 计划采购时间        才参数为"" 则不是计划采购订单
 
     private String cPlatformComment;        //平台优惠备注
 
@@ -64,17 +73,26 @@ public class Order {
 
     private String cParamList;                  // 付款记录是用到的 展示所有商品
 
+    private String cTransactionId;    // 此参数为购物车下单时传入的购物车id组成的数组格式为   "1,2"
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date cGroupEndTime;       // 拼团结束时间
+
+    private Double cZjrFl;              // 拼团订单的剩余吨数
+
+    private Double cGzFl;               // 拼团时 用户拼团订单拼的吨数
+
+    private String cTrackingComp;        // 发票地址
+
+    private String cHide;               // 是否隐藏  1=是 2=否    // web端订单列表页提交订单按钮点击触发修改
+
+    private String cZkbl;               // 仓库名
+
+    private String cInvoiceTitle;
+
     private String cBlockId;
 
-    private String cCityId;
-
-    private String cDistrictId;
-
     private String cLastUpdateUser;
-
-    private String cProvinceId;
-
-    private String cAddressid;
 
     private String cCreateUser;
 
@@ -88,8 +106,6 @@ public class Order {
 
     private String cGuige;
 
-    private Double cGzFl;
-
     private Integer cIfCanInvoice;
 
     private Integer cIfReply;
@@ -97,8 +113,6 @@ public class Order {
     private Integer cIfTake;
 
     private Integer cIfxianshang;
-
-    private String cInvoiceTitle;
 
     private String cLeixing;
 
@@ -134,11 +148,7 @@ public class Order {
 
     private String cTihuoShopId;
 
-    private String cTrackingComp;
-
     private String cTrackingNo;
-
-    private String cTransactionId;
 
     private Integer cType;
 
@@ -148,15 +158,11 @@ public class Order {
 
     private Double cZhPrice;
 
-    private Double cZjrFl;
-
     private String cFactId;
 
     private String cFactName;
 
     private String cShopName;
-
-    private String cHide;
 
     private Double cFactMoney;
 
@@ -214,15 +220,15 @@ public class Order {
 
     private String cXsnum;
 
-    private String cZkbl;
 
     private Double cMtlGold;
 
-    public Order(String cId, String cBlockId, String cCityId, Date cCreateTime, String cCreateUser, String cDistrictId, Date cLastUpdateTime, String cLastUpdateUser, String cProvinceId, String cAddressid, String cCouponId, Double cCouponPrice, Date cFahuoTime, Double cGold, String cGoodsInterval, Integer cGoodsSex, Integer cGoodsTotal, String cGuige, Double cGzFl, Integer cIfCanInvoice, Integer cIfReply, Integer cIfTake, Integer cIfxianshang, String cInvoiceTitle, String cLeixing, String cLogisticsId, Integer cNum, String cOrderNo, Integer cOrderSsid, String cOutTradeNo, String cParamList, String cPayType, String cPayUser, Double cPrice, String cProductCode, String cProductId, String cProductLogo, String cProductName, String cRequire, Double cSexPrice, String cShopbId, String cShopId, Date cShouhuoTime, Integer cState, String cSummary, String cTihuoShopId, String cTrackingComp, String cTrackingNo, String cTransactionId, Integer cType, Double cUnitPrice, String cUserId, Double cYoufeiFee, Double cZhPrice, Double cZjrFl, String cFactId, String cFactName, String cShopName, String cHide, Double cFactMoney, Double cPlatMoney, Double cShopMoney, Integer cRefundNum, Integer cDispute, String cPhone, String cRealname, Integer cStage, String cAgentId, Double cAgentMoney, String cAgentName, String cProduct2Id, Double cOneGold, Double cThreeGold, Double cTwoGold, String cTihuoShopCode, String cTihuoShopName, Double cFuwuFee, String cIfZiti, Integer cSctype, String cFuwuFeeType, String cUserNo, Integer cIfPingjia, String cMemberId, String cMemberName, Integer cMemberNo, String cMemberTime, String cPingjiaMemo, Integer cPingjiaStar, String cXsnum, String cZkbl, Double cMtlGold, Integer cCategory, String cCouponComment, String cGroupNum, Double cMoneyPay, Date cPayTime, Date cPlanPayTime, String cPlatformComment, Double cPlatformPrice, Double cTransportPrice, String cTransportationRequirement, String cWhiteNoteComment, Double cWhiteNotePrice) {
+    public Order(String cId, String cBlockId, String cCityId, Date cCreateTime,Date cGroupEndTime, String cCreateUser, String cDistrictId, Date cLastUpdateTime, String cLastUpdateUser, String cProvinceId, String cAddressid, String cCouponId, Double cCouponPrice, Date cFahuoTime, Double cGold, String cGoodsInterval, Integer cGoodsSex, Integer cGoodsTotal, String cGuige, Double cGzFl, Integer cIfCanInvoice, Integer cIfReply, Integer cIfTake, Integer cIfxianshang, String cInvoiceTitle, String cLeixing, String cLogisticsId, Integer cNum, String cOrderNo, Integer cOrderSsid, String cOutTradeNo, String cParamList, String cPayType, String cPayUser, Double cPrice, String cProductCode, String cProductId, String cProductLogo, String cProductName, String cRequire, Double cSexPrice, String cShopbId, String cShopId, Date cShouhuoTime, Integer cState, String cSummary, String cTihuoShopId, String cTrackingComp, String cTrackingNo, String cTransactionId, Integer cType, Double cUnitPrice, String cUserId, Double cYoufeiFee, Double cZhPrice, Double cZjrFl, String cFactId, String cFactName, String cShopName, String cHide, Double cFactMoney, Double cPlatMoney, Double cShopMoney, Integer cRefundNum, Integer cDispute, String cPhone, String cRealname, Integer cStage, String cAgentId, Double cAgentMoney, String cAgentName, String cProduct2Id, Double cOneGold, Double cThreeGold, Double cTwoGold, String cTihuoShopCode, String cTihuoShopName, Double cFuwuFee, String cIfZiti, Integer cSctype, String cFuwuFeeType, String cUserNo, Integer cIfPingjia, String cMemberId, String cMemberName, Integer cMemberNo, String cMemberTime, String cPingjiaMemo, Integer cPingjiaStar, String cXsnum, String cZkbl, Double cMtlGold, Integer cCategory, String cCouponComment, String cGroupNum, Double cMoneyPay, Date cPayTime, Date cPlanPayTime, String cPlatformComment, Double cPlatformPrice, Double cTransportPrice, String cTransportationRequirement, String cWhiteNoteComment, Double cWhiteNotePrice) {
         this.cId = cId;
         this.cBlockId = cBlockId;
         this.cCityId = cCityId;
         this.cCreateTime = cCreateTime;
+        this.cGroupEndTime = cGroupEndTime;
         this.cCreateUser = cCreateUser;
         this.cDistrictId = cDistrictId;
         this.cLastUpdateTime = cLastUpdateTime;
@@ -1158,6 +1164,22 @@ public class Order {
 
     public void setDetailList(List<OrderDetail> detailList) {
         this.detailList = detailList;
+    }
+
+    public Date getcGroupEndTime() {
+        return cGroupEndTime;
+    }
+
+    public void setcGroupEndTime(Date cGroupEndTime) {
+        this.cGroupEndTime = cGroupEndTime;
+    }
+
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
     }
 
     @Override

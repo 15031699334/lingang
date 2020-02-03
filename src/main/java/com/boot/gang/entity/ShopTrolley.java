@@ -10,42 +10,46 @@ import java.util.Date;
  * @Date 18:39 2020/1/9
  **/
 public class ShopTrolley {
-    private String stId;
+    private String stId;        // 购物车id
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date stCreatettime;
+    private Date stCreatettime;     // 添加时间
 
     private String stNowPriceDescription;
 
-    private String stProductId;
+    private String stProductId;     // 商品id
 
-    private String stProductName;
+    private String stShopColumnTypeId;  // 商品类别id
 
-    private String stProductspec;
+    private String stProductName;   // 商品名称
 
-    private String stProducttexture;
+    private String stProductspec;   // 规格
 
-    private String stRealname;
+    private String stProducttexture;        // 材质
 
-    private String stShopId;
+    private String stRealname;      // 用户真实姓名
+
+    private String stShopId;        // 商户id
 
     private Integer stState;
 
-    private String stStoreaddress;
+    private String stStoreaddress;      // 仓库地址
 
-    private String stTonnum;
+    private String stTonnum;            // 吨数
 
-    private String stUserid;
+    private String stUserid;            // 用户id
 
-    private Double stNowPrice;
+    private Double stNowPrice;          // 现价
 
-    private Double stOriginalPrice;
+    private Double stOriginalPrice;     // 原价
 
-    private Double stPrice;
+    private Double stPrice;             // 单价
 
     private String stShopName;
 
-    public ShopTrolley(String stId, Date stCreatettime, String stNowPriceDescription, String stProductId, String stProductName, String stProductspec, String stProducttexture, String stRealname, String stShopId, Integer stState, String stStoreaddress, String stTonnum, String stUserid, Double stNowPrice, Double stOriginalPrice, Double stPrice, String stShopName) {
+    private Integer stProductNum;
+
+    public ShopTrolley(String stId, Date stCreatettime, String stNowPriceDescription, String stProductId, String stProductName, String stProductspec, String stProducttexture, String stRealname, String stShopId, Integer stState, String stStoreaddress, String stTonnum, String stUserid, Double stNowPrice, Double stOriginalPrice, Double stPrice, String stShopName, String stShopColumnTypeId, Integer stProductNum) {
         this.stId = stId;
         this.stCreatettime = stCreatettime;
         this.stNowPriceDescription = stNowPriceDescription;
@@ -63,6 +67,8 @@ public class ShopTrolley {
         this.stOriginalPrice = stOriginalPrice;
         this.stPrice = stPrice;
         this.stShopName = stShopName;
+        this.stShopColumnTypeId = stShopColumnTypeId;
+        this.stProductNum = stProductNum;
     }
 
     public ShopTrolley(String stProductId, String stUserid) {
@@ -104,6 +110,14 @@ public class ShopTrolley {
 
     public void setStProductId(String stProductId) {
         this.stProductId = stProductId == null ? null : stProductId.trim();
+    }
+
+    public String getStShopColumnTypeId() {
+        return stShopColumnTypeId;
+    }
+
+    public void setStShopColumnTypeId(String stShopColumnTypeId) {
+        this.stShopColumnTypeId = stShopColumnTypeId;
     }
 
     public String getStProductName() {
@@ -208,5 +222,13 @@ public class ShopTrolley {
 
     public void setStShopName(String stShopName) {
         this.stShopName = stShopName;
+    }
+
+    public Integer getStProductNum() {
+        return stProductNum;
+    }
+
+    public void setStProductNum(Integer stProductNum) {
+        this.stProductNum = stProductNum;
     }
 }

@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boot.gang.mapper.ResumeMapper" >
+  <resultMap id="BaseResultMap" type="com.boot.gang.entity.Resume" >
+    <constructor >
+      <idArg column="c_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_address" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_age" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_birthday" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_education" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_evection" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_findjob" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_informTime" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_jiguan" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_job" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_last_update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="c_like" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_marry" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_money" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_msg" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_other" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_position" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_real_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_school" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_sex" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_subject" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_summary" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_telephone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_toPhoneTime" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_user_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_family" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_id, c_address, c_age, c_birthday, c_create_time, c_education, c_evection, c_findjob, 
+    c_informTime, c_jiguan, c_job, c_last_update_time, c_like, c_marry, c_money, c_msg, 
+    c_other, c_position, c_real_name, c_school, c_sex, c_subject, c_summary, c_telephone, 
+    c_toPhoneTime, c_user_id, c_family
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_resume
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_resume
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boot.gang.entity.Resume" >
+    insert into t_resume (c_id, c_address, c_age, 
+      c_birthday, c_create_time, c_education, 
+      c_evection, c_findjob, c_informTime, 
+      c_jiguan, c_job, c_last_update_time, 
+      c_like, c_marry, c_money, 
+      c_msg, c_other, c_position, 
+      c_real_name, c_school, c_sex, 
+      c_subject, c_summary, c_telephone, 
+      c_toPhoneTime, c_user_id, c_family
+      )
+    values (#{cId,jdbcType=VARCHAR}, #{cAddress,jdbcType=VARCHAR}, #{cAge,jdbcType=VARCHAR}, 
+      #{cBirthday,jdbcType=VARCHAR}, #{cCreateTime,jdbcType=TIMESTAMP}, #{cEducation,jdbcType=VARCHAR}, 
+      #{cEvection,jdbcType=VARCHAR}, #{cFindjob,jdbcType=VARCHAR}, #{cInformtime,jdbcType=VARCHAR}, 
+      #{cJiguan,jdbcType=VARCHAR}, #{cJob,jdbcType=VARCHAR}, #{cLastUpdateTime,jdbcType=TIMESTAMP}, 
+      #{cLike,jdbcType=VARCHAR}, #{cMarry,jdbcType=VARCHAR}, #{cMoney,jdbcType=VARCHAR}, 
+      #{cMsg,jdbcType=VARCHAR}, #{cOther,jdbcType=VARCHAR}, #{cPosition,jdbcType=VARCHAR}, 
+      #{cRealName,jdbcType=VARCHAR}, #{cSchool,jdbcType=VARCHAR}, #{cSex,jdbcType=VARCHAR}, 
+      #{cSubject,jdbcType=VARCHAR}, #{cSummary,jdbcType=VARCHAR}, #{cTelephone,jdbcType=VARCHAR}, 
+      #{cTophonetime,jdbcType=VARCHAR}, #{cUserId,jdbcType=VARCHAR}, #{cFamily,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boot.gang.entity.Resume" >
+    insert into t_resume
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        c_id,
+      </if>
+      <if test="cAddress != null" >
+        c_address,
+      </if>
+      <if test="cAge != null" >
+        c_age,
+      </if>
+      <if test="cBirthday != null" >
+        c_birthday,
+      </if>
+      <if test="cCreateTime != null" >
+        c_create_time,
+      </if>
+      <if test="cEducation != null" >
+        c_education,
+      </if>
+      <if test="cEvection != null" >
+        c_evection,
+      </if>
+      <if test="cFindjob != null" >
+        c_findjob,
+      </if>
+      <if test="cInformtime != null" >
+        c_informTime,
+      </if>
+      <if test="cJiguan != null" >
+        c_jiguan,
+      </if>
+      <if test="cJob != null" >
+        c_job,
+      </if>
+      <if test="cLastUpdateTime != null" >
+        c_last_update_time,
+      </if>
+      <if test="cLike != null" >
+        c_like,
+      </if>
+      <if test="cMarry != null" >
+        c_marry,
+      </if>
+      <if test="cMoney != null" >
+        c_money,
+      </if>
+      <if test="cMsg != null" >
+        c_msg,
+      </if>
+      <if test="cOther != null" >
+        c_other,
+      </if>
+      <if test="cPosition != null" >
+        c_position,
+      </if>
+      <if test="cRealName != null" >
+        c_real_name,
+      </if>
+      <if test="cSchool != null" >
+        c_school,
+      </if>
+      <if test="cSex != null" >
+        c_sex,
+      </if>
+      <if test="cSubject != null" >
+        c_subject,
+      </if>
+      <if test="cSummary != null" >
+        c_summary,
+      </if>
+      <if test="cTelephone != null" >
+        c_telephone,
+      </if>
+      <if test="cTophonetime != null" >
+        c_toPhoneTime,
+      </if>
+      <if test="cUserId != null" >
+        c_user_id,
+      </if>
+      <if test="cFamily != null" >
+        c_family,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        #{cId,jdbcType=VARCHAR},
+      </if>
+      <if test="cAddress != null" >
+        #{cAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cAge != null" >
+        #{cAge,jdbcType=VARCHAR},
+      </if>
+      <if test="cBirthday != null" >
+        #{cBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreateTime != null" >
+        #{cCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cEducation != null" >
+        #{cEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="cEvection != null" >
+        #{cEvection,jdbcType=VARCHAR},
+      </if>
+      <if test="cFindjob != null" >
+        #{cFindjob,jdbcType=VARCHAR},
+      </if>
+      <if test="cInformtime != null" >
+        #{cInformtime,jdbcType=VARCHAR},
+      </if>
+      <if test="cJiguan != null" >
+        #{cJiguan,jdbcType=VARCHAR},
+      </if>
+      <if test="cJob != null" >
+        #{cJob,jdbcType=VARCHAR},
+      </if>
+      <if test="cLastUpdateTime != null" >
+        #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cLike != null" >
+        #{cLike,jdbcType=VARCHAR},
+      </if>
+      <if test="cMarry != null" >
+        #{cMarry,jdbcType=VARCHAR},
+      </if>
+      <if test="cMoney != null" >
+        #{cMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="cMsg != null" >
+        #{cMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="cOther != null" >
+        #{cOther,jdbcType=VARCHAR},
+      </if>
+      <if test="cPosition != null" >
+        #{cPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="cRealName != null" >
+        #{cRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="cSchool != null" >
+        #{cSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="cSex != null" >
+        #{cSex,jdbcType=VARCHAR},
+      </if>
+      <if test="cSubject != null" >
+        #{cSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="cSummary != null" >
+        #{cSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="cTelephone != null" >
+        #{cTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="cTophonetime != null" >
+        #{cTophonetime,jdbcType=VARCHAR},
+      </if>
+      <if test="cUserId != null" >
+        #{cUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="cFamily != null" >
+        #{cFamily,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boot.gang.entity.Resume" >
+    update t_resume
+    <set >
+      <if test="cAddress != null" >
+        c_address = #{cAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cAge != null" >
+        c_age = #{cAge,jdbcType=VARCHAR},
+      </if>
+      <if test="cBirthday != null" >
+        c_birthday = #{cBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreateTime != null" >
+        c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cEducation != null" >
+        c_education = #{cEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="cEvection != null" >
+        c_evection = #{cEvection,jdbcType=VARCHAR},
+      </if>
+      <if test="cFindjob != null" >
+        c_findjob = #{cFindjob,jdbcType=VARCHAR},
+      </if>
+      <if test="cInformtime != null" >
+        c_informTime = #{cInformtime,jdbcType=VARCHAR},
+      </if>
+      <if test="cJiguan != null" >
+        c_jiguan = #{cJiguan,jdbcType=VARCHAR},
+      </if>
+      <if test="cJob != null" >
+        c_job = #{cJob,jdbcType=VARCHAR},
+      </if>
+      <if test="cLastUpdateTime != null" >
+        c_last_update_time = #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cLike != null" >
+        c_like = #{cLike,jdbcType=VARCHAR},
+      </if>
+      <if test="cMarry != null" >
+        c_marry = #{cMarry,jdbcType=VARCHAR},
+      </if>
+      <if test="cMoney != null" >
+        c_money = #{cMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="cMsg != null" >
+        c_msg = #{cMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="cOther != null" >
+        c_other = #{cOther,jdbcType=VARCHAR},
+      </if>
+      <if test="cPosition != null" >
+        c_position = #{cPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="cRealName != null" >
+        c_real_name = #{cRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="cSchool != null" >
+        c_school = #{cSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="cSex != null" >
+        c_sex = #{cSex,jdbcType=VARCHAR},
+      </if>
+      <if test="cSubject != null" >
+        c_subject = #{cSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="cSummary != null" >
+        c_summary = #{cSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="cTelephone != null" >
+        c_telephone = #{cTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="cTophonetime != null" >
+        c_toPhoneTime = #{cTophonetime,jdbcType=VARCHAR},
+      </if>
+      <if test="cUserId != null" >
+        c_user_id = #{cUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="cFamily != null" >
+        c_family = #{cFamily,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boot.gang.entity.Resume" >
+    update t_resume
+    set c_address = #{cAddress,jdbcType=VARCHAR},
+      c_age = #{cAge,jdbcType=VARCHAR},
+      c_birthday = #{cBirthday,jdbcType=VARCHAR},
+      c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
+      c_education = #{cEducation,jdbcType=VARCHAR},
+      c_evection = #{cEvection,jdbcType=VARCHAR},
+      c_findjob = #{cFindjob,jdbcType=VARCHAR},
+      c_informTime = #{cInformtime,jdbcType=VARCHAR},
+      c_jiguan = #{cJiguan,jdbcType=VARCHAR},
+      c_job = #{cJob,jdbcType=VARCHAR},
+      c_last_update_time = #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      c_like = #{cLike,jdbcType=VARCHAR},
+      c_marry = #{cMarry,jdbcType=VARCHAR},
+      c_money = #{cMoney,jdbcType=VARCHAR},
+      c_msg = #{cMsg,jdbcType=VARCHAR},
+      c_other = #{cOther,jdbcType=VARCHAR},
+      c_position = #{cPosition,jdbcType=VARCHAR},
+      c_real_name = #{cRealName,jdbcType=VARCHAR},
+      c_school = #{cSchool,jdbcType=VARCHAR},
+      c_sex = #{cSex,jdbcType=VARCHAR},
+      c_subject = #{cSubject,jdbcType=VARCHAR},
+      c_summary = #{cSummary,jdbcType=VARCHAR},
+      c_telephone = #{cTelephone,jdbcType=VARCHAR},
+      c_toPhoneTime = #{cTophonetime,jdbcType=VARCHAR},
+      c_user_id = #{cUserId,jdbcType=VARCHAR},
+      c_family = #{cFamily,jdbcType=VARCHAR}
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </update>
+</mapper>

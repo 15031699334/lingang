@@ -17,8 +17,8 @@ public class ShopTrolleyServiceImpl implements ShopTrolleyService {
     @Autowired
     ShopTrolleyMapper shopTrolleyMapper;
     @Override
-    public int getCountByProductId(String pId) {
-        return shopTrolleyMapper.getCountByProductId(pId);
+    public int getCountByProductId(String pId, String userId) {
+        return shopTrolleyMapper.getCountByProductId(pId, userId);
     }
 
     @Override
