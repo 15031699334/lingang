@@ -16,6 +16,8 @@ public class OrderDetail {
 
     private String dProcessrequirement;     // 加工要求
 
+    private String dProcessway;         // 加工方式
+
     private String dProductid;          //      商品id
 
     private String dProductnum;         // 商品数量
@@ -40,12 +42,13 @@ public class OrderDetail {
 
     private String dExtract;            // 提货信息
 
-    public OrderDetail(String dId, Date dCreatetime, String dOrderno, Double dProcessprice, String dProcessrequirement, String dProductid, String dProductnum, String dProductspec, String dProducttexture, String dShopcolumntype, String dShopcolumntypeid, String dShopid, String dShopname, String dTonnum, Double dPrice, String dStorename, String dExtract) {
+    public OrderDetail(String dId, Date dCreatetime, String dOrderno, Double dProcessprice, String dProcessrequirement, String dProcessway, String dProductid, String dProductnum, String dProductspec, String dProducttexture, String dShopcolumntype, String dShopcolumntypeid, String dShopid, String dShopname, String dTonnum, Double dPrice, String dStorename, String dExtract) {
         this.dId = dId;
         this.dCreatetime = dCreatetime;
         this.dOrderno = dOrderno;
         this.dProcessprice = dProcessprice;
         this.dProcessrequirement = dProcessrequirement;
+        this.dProcessway = dProcessway;
         this.dProductid = dProductid;
         this.dProductnum = dProductnum;
         this.dProductspec = dProductspec;
@@ -102,6 +105,14 @@ public class OrderDetail {
 
     public void setdProcessrequirement(String dProcessrequirement) {
         this.dProcessrequirement = dProcessrequirement == null ? null : dProcessrequirement.trim();
+    }
+
+    public String getdProcessway() {
+        return dProcessway;
+    }
+
+    public void setdProcessway(String dProcessway) {
+        this.dProcessway = dProcessway;
     }
 
     public String getdProductid() {

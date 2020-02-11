@@ -1,7 +1,9 @@
 package com.boot.gang.service.Impl;
 
+import com.boot.gang.entity.Config;
 import com.boot.gang.entity.Product;
 import com.boot.gang.entity.ProductRelationNode;
+import com.boot.gang.mapper.ConfigMapper;
 import com.boot.gang.mapper.ProductMapper;
 import com.boot.gang.mapper.ProductRelationNodeMapper;
 import com.boot.gang.service.ProductService;
@@ -22,9 +24,11 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    ProductMapper productMapper;
+    private ProductMapper productMapper;
     @Autowired
-    ProductRelationNodeMapper productRelationNodeMapper;
+    private ProductRelationNodeMapper productRelationNodeMapper;
+    @Autowired
+    private ConfigMapper configMapper;
     @Override
     public List getList(HttpServletRequest request, String pageIndex, String pageSize) {
         String provinceId = request.getParameter("pId");     // 地区id
@@ -35,6 +39,7 @@ public class ProductServiceImpl implements ProductService {
         String caizhi = request.getParameter("cz");             // 材质
         String thickness = request.getParameter("thickness");          // 厚度
         String width = request.getParameter("width");          // 宽度
+        String extent = request.getParameter("extent");         // 长度
         StringBuffer sb = new StringBuffer();
         if (!StringUtil.isNullOrEmpty(provinceId)){
             sb.append(" and c_province_id = '" + provinceId + "'");
@@ -110,19 +115,46 @@ public class ProductServiceImpl implements ProductService {
             if (!width_prefix.equals("0") && !width_suffix.equals("0"))     // 限制了最大值和最小值
                 sb.append(" and c_two_gold >= " + width_prefix + " and c_two_gold <= " + width_suffix);
         }
+
+        if (!StringUtil.isNullOrEmpty(extent)){ // 长度
+            if (!extent.equals("C")){   // 为C时所有的都出
+                String [] extents = extent.split(",");   //  0,0 / 0,1200 / 800,0 / 800,1200
+                String extent_prefix = extents[0];  // 起始值
+                String extent_suffix = extents[1];  // 最大值
+                if (extent_prefix.equals("0") && !extent_suffix.equals("0"))    // 没有限制最大值
+                    sb.append(" and c_three_gold <= " + extent_suffix);
+                if (!extent_prefix.equals("0") && extent_suffix.equals("0"))      // 没有限制最小值
+                    sb.append(" and c_three_gold >= " + extent_prefix);
+                if (!extent_prefix.equals("0") && !extent_suffix.equals("0"))     // 限制了最大值和最小值
+                    sb.append(" and c_three_gold >= " + extent_prefix + " and c_three_gold <= " + extent_suffix);
+            }
+        }
         if (!StringUtil.isNullOrEmpty(pageIndex) && !StringUtil.isNullOrEmpty(pageSize)) {
             sb.append(" and limit " + pageIndex + ", " + pageSize);
         }
-//        System.out.println(sb.toString());
+        System.out.println(sb.toString());
+//        List<Product> products = productMapper.getList(sb.toString());
+//        for (Product product: products){
+//            List<ProductRelationNode> productRelationNodes = productRelationNodeMapper.getList(" and c_product_id = '" + product.getcId() + "'");
+//            product.setPrnList(productRelationNodes);
+//            String [] c_price_list = product.getcPriceList().split("=");
+//            String [] p_data = c_price_list[0].split("\\+");
+////            System.out.println(p_data[0] + ", 材料: " + p_data[1]);
+////                product.setcP0(p_data[0]);  // 规格
+////                product.setcP1(p_data[1]);  // 材料
+//            product.setcTop(p_data[0]);     // 规格
+//            product.setcXsnum(p_data[1]);     // 材质
+//        }
+
         List<ProductRelationNode> list = productRelationNodeMapper.getList(sb.toString());
-        for (ProductRelationNode product:list){
+        for (ProductRelationNode product:list){//这一个循环里的代码,如果没用,就删除
             String [] c_price_list = product.getcPriceList().split("=");
             String [] p_data = c_price_list[0].split("\\+");
 //            System.out.println(p_data[0] + ", 材料: " + p_data[1]);
 //                product.setcP0(p_data[0]);  // 规格
 //                product.setcP1(p_data[1]);  // 材料
-                    product.setcTop(p_data[0]);     // 规格
-                    product.setcXsnum(p_data[1]);     // 材质
+            product.setcTop(p_data[0]);     // 规格
+            product.setcXsnum(p_data[1]);     // 材质
         }
         return list;
     }

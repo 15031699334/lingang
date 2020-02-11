@@ -5,4 +5,6 @@ import com.boot.gang.entity.Config;
 public interface ConfigService {
 
      int upVolumePriceList(Config config);
+
+    Config selectByPrimaryKey(String id);
 }
