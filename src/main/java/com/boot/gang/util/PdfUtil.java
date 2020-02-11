@@ -146,7 +146,7 @@ public class PdfUtil {
         //图片大小自适应
         image.scaleToFit(100, 100);
         //添加图片
-        image.setAbsolutePosition(195, 255-hNum*20);
+        image.setAbsolutePosition(195, 270-hNum*20);
         return image;
     }
 

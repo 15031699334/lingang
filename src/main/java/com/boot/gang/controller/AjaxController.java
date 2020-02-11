@@ -666,10 +666,10 @@ public class AjaxController {
         map.put("freightType","汽运");
         map.put("freightFeePayType", details.get(0).getdExtract().equals("代运") ? "代收代付":"需方自付");
         map.put("freightAddress", order.getcProvinceId() + order.getcCityId() + (order.getcDistrictId() == null? "": order.getcDistrictId() ) + order.getcAddressid());
-        map.put("cutType", details.get(0).getdProcessrequirement());
+        map.put("cutType", details.get(0).getdProcessway()+"：" +details.get(0).getdProcessrequirement());
         List<List<String>> lists = new ArrayList<>();
         List<String> biaotou = new ArrayList<>();
-        biaotou.add("");
+        biaotou.add("序号");
         biaotou.add("钢厂");
         biaotou.add("品名");
         biaotou.add("材质");
