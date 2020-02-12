@@ -3,6 +3,7 @@ package com.boot.gang.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.boot.gang.entity.User;
 import com.boot.gang.service.CommonService;
+import com.boot.gang.service.ConfigService;
 import com.boot.gang.service.LoginService;
 import com.boot.gang.service.TokenService;
 import com.boot.gang.util.*;
@@ -27,17 +28,19 @@ import java.util.HashMap;
 public class LoginController {
 
     @Autowired
-    LoginService loginService;
+    private LoginService loginService;
     @Autowired
-    CommonService commonService;
+    private CommonService commonService;
     @Autowired
-    TokenService tokenService;
+    private TokenService tokenService;
     @Autowired
-    RedisUtil redisUtil;
+    private RedisUtil redisUtil;
     @Autowired
-    MsgUtil msgUtil;
+    private MsgUtil msgUtil;
     @Autowired
-    UploadFileUtil uploadFileUtil;
+    private UploadFileUtil uploadFileUtil;
+    @Autowired
+    private ConfigService configService;
     //登录
     @ResponseBody
     @PostMapping("/login")
@@ -208,6 +211,11 @@ public class LoginController {
         // 保存
         try {
             commonService.save(new User(System.nanoTime() + "", phone, password, new Date()), "User");
+            String send_phone = configService.selectByPrimaryKey("order_notice_phone").getcComment();
+            String [] phones = send_phone.split(",");
+            for (int i = 0; i < phones.length;i ++ ){
+                SendSms.sendNewNotice(phones[i], "用户注册");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return msgUtil.jsonErrorMsg("注册失败");

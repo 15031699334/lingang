@@ -3,15 +3,18 @@ package com.boot.gang.service.Impl;
 import com.boot.gang.entity.Config;
 import com.boot.gang.entity.Product;
 import com.boot.gang.entity.ProductRelationNode;
+import com.boot.gang.entity.ProductVo;
 import com.boot.gang.mapper.ConfigMapper;
 import com.boot.gang.mapper.ProductMapper;
 import com.boot.gang.mapper.ProductRelationNodeMapper;
 import com.boot.gang.service.ProductService;
+import com.boot.gang.util.DoubleUtil;
 import com.boot.gang.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ConfigMapper configMapper;
     @Override
-    public List getList(HttpServletRequest request, String pageIndex, String pageSize) {
+    public List getList(HttpServletRequest request, String pageIndex, String pageSize) throws Exception{
         String provinceId = request.getParameter("pId");     // 地区id
         String shopName = request.getParameter("shopName");         // 商户
         String shopColumnTypeId = request.getParameter("sCTId"); //品名id
@@ -41,6 +44,7 @@ public class ProductServiceImpl implements ProductService {
         String width = request.getParameter("width");          // 宽度
         String extent = request.getParameter("extent");         // 长度
         StringBuffer sb = new StringBuffer();
+        sb.append(" and c_stock_num > 0 ");
         if (!StringUtil.isNullOrEmpty(provinceId)){
             sb.append(" and c_province_id = '" + provinceId + "'");
         }
@@ -132,7 +136,7 @@ public class ProductServiceImpl implements ProductService {
         if (!StringUtil.isNullOrEmpty(pageIndex) && !StringUtil.isNullOrEmpty(pageSize)) {
             sb.append(" and limit " + pageIndex + ", " + pageSize);
         }
-        System.out.println(sb.toString());
+//        System.out.println(sb.toString());
 //        List<Product> products = productMapper.getList(sb.toString());
 //        for (Product product: products){
 //            List<ProductRelationNode> productRelationNodes = productRelationNodeMapper.getList(" and c_product_id = '" + product.getcId() + "'");
@@ -145,17 +149,84 @@ public class ProductServiceImpl implements ProductService {
 //            product.setcTop(p_data[0]);     // 规格
 //            product.setcXsnum(p_data[1]);     // 材质
 //        }
-
         List<ProductRelationNode> list = productRelationNodeMapper.getList(sb.toString());
-        for (ProductRelationNode product:list){//这一个循环里的代码,如果没用,就删除
-            String [] c_price_list = product.getcPriceList().split("=");
+        for (ProductRelationNode node: list){   // 先将材质规格赋值
+            String [] c_price_list = node.getcPriceList().split("=");
             String [] p_data = c_price_list[0].split("\\+");
-//            System.out.println(p_data[0] + ", 材料: " + p_data[1]);
-//                product.setcP0(p_data[0]);  // 规格
-//                product.setcP1(p_data[1]);  // 材料
-            product.setcTop(p_data[0]);     // 规格
-            product.setcXsnum(p_data[1]);     // 材质
+            node.setcTop(p_data[0]);     // 规格
+            node.setcXsnum(p_data[1]);     // 材质
         }
-        return list;
+        List<ProductVo> productVos = new ArrayList<>();
+        for (int i = 0;i< list.size();i++){ // 将所得参数根据  厂商名/ 品名/ 材质/ 规格 四项 分组
+            List<ProductRelationNode> nodes = new ArrayList<>();
+            if (i != list.size() - 1){  // 不是最后一个
+                ProductRelationNode prn = list.get(i);
+                ProductRelationNode prn_next = list.get(i + 1);
+                nodes.add(prn);
+                Integer cStockNum = prn.getcStockNum();      // 库存数量
+                Double  cSexPrice = prn.getcSexPrice();    // 吨数
+                while (comparePRN(prn, prn_next)){      // 判定是否相同 参数变更
+                    if (i + 2 != list.size()){
+                        i += 1;
+                        prn = list.get(i);
+                        prn_next = list.get(i + 1);
+                        cStockNum += prn.getcStockNum();
+                        cSexPrice = DoubleUtil.add(cSexPrice, prn.getcSexPrice());
+                        nodes.add(prn);
+                    }else {
+                        i += 1;
+                        prn = list.get(i);
+                        cStockNum += prn.getcStockNum();
+                        cSexPrice = DoubleUtil.add(cSexPrice, prn.getcSexPrice());
+                        nodes.add(prn);
+                        break;
+                    }
+                }
+                // ProductVo 赋值
+                ProductVo productVo = prnVoSetValue(prn, nodes, cStockNum, cSexPrice);
+                productVos.add(productVo);
+            }else {
+                ProductRelationNode prn = list.get(i);
+                nodes.add(prn);
+                // ProductVo 赋值
+                ProductVo productVo = prnVoSetValue(prn, nodes, prn.getcStockNum(), prn.getcSexPrice());
+                productVos.add(productVo);
+            }
+        }
+        return productVos;
     }
+
+    /**
+     * @Description     比较两个商品的数据     厂商名/ 品名/ 材质/ 规格 四项是否相同
+     * @param prn       商品对象1
+     * @param prn_next  对象2
+     * @return boolean  true = 相同
+     * @Author dongxiangwei
+     * @Date 15:59 2020/2/12
+     **/
+    private boolean comparePRN(ProductRelationNode prn, ProductRelationNode prn_next){
+        // 比较的四项    厂商名/ 品名/ 材质/ 规格 四项相同则录入
+        if (prn.getcShopName().equals(prn_next.getcShopName()) && prn.getcName().equals(prn_next.getcName()) && prn.getcXsnum().equals(prn_next.getcXsnum()) && prn.getcTop().equals(prn_next.getcTop())){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    private ProductVo prnVoSetValue(ProductRelationNode prn, List<ProductRelationNode> nodes, Integer cStockNum, Double cSexPrice){
+        ProductVo productVo = new ProductVo();
+        productVo.setcLogo(prn.getcLogo() == null? "" : prn.getcLogo());
+        productVo.setcShopName(prn.getcShopName());
+        productVo.setcName(prn.getcName());
+        productVo.setcXsnum(prn.getcXsnum());
+        productVo.setcTop(prn.getcTop());
+        productVo.setcZkbl(prn.getcZkbl());
+        productVo.setcStockNum(cStockNum);
+        productVo.setcSexPrice(cSexPrice);
+        productVo.setcNowPrice(prn.getcNowPrice());
+        productVo.setcSummary(prn.getcSummary());
+        productVo.setPrnList(nodes);
+        return productVo;
+    }
+
 }

@@ -12,5 +12,5 @@ import java.util.List;
 
 public interface ProductService {
 
-    List getList(HttpServletRequest request, String pageIndex, String pageSize);
+    List getList(HttpServletRequest request, String pageIndex, String pageSize) throws Exception;
 }

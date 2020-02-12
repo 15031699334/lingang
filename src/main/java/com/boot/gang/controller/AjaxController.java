@@ -214,7 +214,12 @@ public class AjaxController {
             }else {
                 map.put("marketType", "0");
             }
-            map.put("data", productService.getList(request, pageIndex, pageSize));
+            try {
+                map.put("data", productService.getList(request, pageIndex, pageSize));
+            } catch (Exception e) {
+                map.put("data", new ArrayList<>());
+                e.printStackTrace();
+            }
         }
         if (entity.equals("pt")){       // 参与拼团页面
             map.put("data", commonService.getList("pt",request, pageIndex, pageSize));

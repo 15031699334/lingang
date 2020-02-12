@@ -61,11 +61,11 @@ public class ProductRelationNode {
 
     private Date cJztime;
 
-    private String cLogo;
+    private String cLogo;           // logo
 
     private Integer cMyStockNum;
 
-    private Double cNowPrice;
+    private Double cNowPrice;       // 单价
 
     private String cNowPriceDescription;
 
@@ -87,7 +87,7 @@ public class ProductRelationNode {
 
     private String cProductId;
 
-    private String cName;
+    private String cName;           // 品名
 
     private String cProductRelationId;
 
@@ -125,11 +125,11 @@ public class ProductRelationNode {
 
     private Integer cSoldNum;
 
-    private Integer cStockNum;          //吨数
+    private Integer cStockNum;          //库存卷数
 
     private String cSummary;            // 备注
 
-    private Double cThreeGold;
+    private Double cThreeGold;          // 厚度
 
     private Integer cTicketNum;
 

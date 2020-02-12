@@ -185,6 +185,75 @@ public class SendSms {
         return response;
     }
 
+    public static HttpResponse sendNewNotice(String phones, String code) throws IOException, Exception {
+        //必填,请参考"开发准备"获取如下数据,替换为实际值
+        String sender = "8820011413400"; //国内短信签名通道号或国际/港澳台短信通道号
+        String templateId = "799c4ff6d0be4355923b47d16d8e1bf1"; //模板ID
+
+        //条件必填,国内短信关注,当templateId指定的模板类型为通用模板时生效且必填,必须是已审核通过的,与模板类型一致的签名名称
+        //国际/港澳台短信不用关注该参数
+        String signature = "临钢网"; //签名名称
+
+        //必填,全局号码格式(包含国家码),示例:+8615123456789,多个号码之间用英文逗号分隔
+//        String receiver = "18609681472,15001078187,17865130905"; //短信接收人号码
+        String receiver = phones;
+        //选填,短信状态报告接收地址,推荐使用域名,为空或者不填表示不接收状态报告
+        String statusCallBack = "";
+
+        /**
+         * 选填,使用无变量模板时请赋空值 String templateParas = "";
+         * 单变量模板示例:模板内容为"您的验证码是${1}"时,templateParas可填写为"[\"369751\"]"
+         * 双变量模板示例:模板内容为"您有${1}件快递请到${2}领取"时,templateParas可填写为"[\"3\",\"人民公园正门\"]"
+         * 模板中的每个变量都必须赋值，且取值不能为空
+         * 查看更多模板和变量规范:产品介绍>模板和变量规范
+         */
+//        String templateParas = "[\"369751\"]"; //模板变量
+        String templateParas = "[\""+code+"\"]"; //模板变量
+
+        //请求Body,不携带签名名称时,signature请填null
+        String body = buildRequestBody(sender, receiver, templateId, templateParas, statusCallBack, signature);
+        if (null == body || body.isEmpty()) {
+            System.out.println("body is null.");
+            return null;
+        }
+
+        //请求Headers中的X-WSSE参数值
+        String wsseHeader = buildWsseHeader(appKey, appSecret);
+        if (null == wsseHeader || wsseHeader.isEmpty()) {
+            System.out.println("wsse header is null.");
+            return null;
+        }
+
+        //如果JDK版本低于1.8,可使用如下代码
+        //为防止因HTTPS证书认证失败造成API调用失败,需要先忽略证书信任问题
+        //CloseableHttpClient client = HttpClients.custom()
+        //        .setSSLContext(new SSLContextBuilder().loadTrustMaterial(null, new TrustStrategy() {
+        //            @Override
+        //            public boolean isTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+        //                return true;
+        //            }
+        //        }).build()).setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE).build();
+
+        //如果JDK版本是1.8,可使用如下代码
+        //为防止因HTTPS证书认证失败造成API调用失败,需要先忽略证书信任问题
+        CloseableHttpClient client = HttpClients.custom()
+                .setSSLContext(new SSLContextBuilder().loadTrustMaterial(null,
+                        (x509CertChain, authType) -> true).build())
+                .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
+                .build();
+
+        HttpResponse response = client.execute(RequestBuilder.create("POST")//请求方法POST
+                .setUri(url)
+                .addHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded")
+                .addHeader(HttpHeaders.AUTHORIZATION, AUTH_HEADER_VALUE)
+                .addHeader("X-WSSE", wsseHeader)
+                .setEntity(new StringEntity(body)).build());
+
+        System.out.println(response.toString()); //打印响应头域信息
+        System.out.println(EntityUtils.toString(response.getEntity())); //打印响应消息实体
+        return response;
+    }
+
     /**
      * 构造请求Body体
      * @param sender

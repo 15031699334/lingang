@@ -29,7 +29,7 @@ public class TimeTask {
 		configService.upVolumePriceList(config);
 	}
 	// 每4小时执行一次
-	@Scheduled(cron = "0 */30 * * * ?")
+	@Scheduled(cron = "0 */2 * * * ?")
 	public void checkOrder() {
 		System.out.println("=== 订单筛查 ===");
 		try {

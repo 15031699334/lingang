@@ -36,13 +36,15 @@ public class OrderDetail {
 
     private String dTonnum;             // 吨数
 
-    private Double dPrice;              // 价格 单价
+    private Double dPrnPrice;           // 商品单价
+
+    private Double dPrice;              // 价格 单价    (后台可修改)
 
     private String dStorename;          // 仓库名称
 
     private String dExtract;            // 提货信息
 
-    public OrderDetail(String dId, Date dCreatetime, String dOrderno, Double dProcessprice, String dProcessrequirement, String dProcessway, String dProductid, String dProductnum, String dProductspec, String dProducttexture, String dShopcolumntype, String dShopcolumntypeid, String dShopid, String dShopname, String dTonnum, Double dPrice, String dStorename, String dExtract) {
+    public OrderDetail(String dId, Date dCreatetime, String dOrderno, Double dProcessprice, String dProcessrequirement, String dProcessway, String dProductid, String dProductnum, String dProductspec, String dProducttexture, String dShopcolumntype, String dShopcolumntypeid, String dShopid, String dShopname, String dTonnum, Double dPrnPrice, Double dPrice, String dStorename, String dExtract) {
         this.dId = dId;
         this.dCreatetime = dCreatetime;
         this.dOrderno = dOrderno;
@@ -58,6 +60,7 @@ public class OrderDetail {
         this.dShopid = dShopid;
         this.dShopname = dShopname;
         this.dTonnum = dTonnum;
+        this.dPrnPrice = dPrnPrice;
         this.dPrice = dPrice;
         this.dStorename = dStorename;
         this.dExtract = dExtract;
@@ -185,6 +188,14 @@ public class OrderDetail {
 
     public void setdTonnum(String dTonnum) {
         this.dTonnum = dTonnum == null ? null : dTonnum.trim();
+    }
+
+    public Double getdPrnPrice() {
+        return dPrnPrice;
+    }
+
+    public void setdPrnPrice(Double dPrnPrice) {
+        this.dPrnPrice = dPrnPrice;
     }
 
     public Double getdPrice() {
