@@ -187,8 +187,8 @@ public class SendSms {
 
     public static HttpResponse sendNewNotice(String phones, String code) throws IOException, Exception {
         //必填,请参考"开发准备"获取如下数据,替换为实际值
-        String sender = "8820011413400"; //国内短信签名通道号或国际/港澳台短信通道号
-        String templateId = "799c4ff6d0be4355923b47d16d8e1bf1"; //模板ID
+        String sender = "8820021228841"; //国内短信签名通道号或国际/港澳台短信通道号
+        String templateId = "e6a2341b65284fa1974177ed60e30c1a"; //模板ID
 
         //条件必填,国内短信关注,当templateId指定的模板类型为通用模板时生效且必填,必须是已审核通过的,与模板类型一致的签名名称
         //国际/港澳台短信不用关注该参数
@@ -196,6 +196,7 @@ public class SendSms {
 
         //必填,全局号码格式(包含国家码),示例:+8615123456789,多个号码之间用英文逗号分隔
 //        String receiver = "18609681472,15001078187,17865130905"; //短信接收人号码
+        phones=phones.replace("，",",");
         String receiver = phones;
         //选填,短信状态报告接收地址,推荐使用域名,为空或者不填表示不接收状态报告
         String statusCallBack = "";
