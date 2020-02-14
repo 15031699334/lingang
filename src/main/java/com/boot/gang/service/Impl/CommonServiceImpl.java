@@ -290,7 +290,8 @@ public class CommonServiceImpl implements CommonService {
                 User user = userMapper.selectByPrimaryKey(order.getcUserId());  // 获取当前用户的信息
                 OrderDetail  od_in = order.getDetailList().get(0);
                 String c_group_num = order.getcGroupNum();
-                if (c_group_num.equals("")) {   // 拼团 母订单(主订单)
+                if (c_group_num.equals("")) {   // 拼团 母
+                    // 订单(主订单)
                     order.setcGroupNum(order.getcOrderNo());    //添加拼团订单号
                     ProductRelationNode product = productRelationNodeMapper.selectByPrimaryKey(order.getcTransactionId());  // 获取到商品信息
                     if (product == null){
