@@ -37,17 +37,19 @@ import java.util.*;
 public class AjaxController {
 
     @Autowired
-    CommonService commonService;
+    private CommonService commonService;
     @Autowired
-    MsgUtil msgUtil;
+    private MsgUtil msgUtil;
     @Autowired
-    TokenService tokenService;
+    private TokenService tokenService;
     @Autowired
-    ProductService productService;
+    private ProductService productService;
     @Autowired
-    ShopTrolleyService shopTrolleyService;
+    private ShopTrolleyService shopTrolleyService;
     @Autowired
-    SignService signService;
+    private SignService signService;
+    @Autowired
+    private ConfigService configService;
 
     @Value("${gongzhangPath}")
     private String gongzhangPath;
@@ -98,8 +100,15 @@ public class AjaxController {
             }
             return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(userId, "gd"));
         }
-        if (entity.equals("hb"))    // 红包
-            return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "hb"));
+        if (entity.equals("hb")) {   // 红包
+            Coupons coupons = (Coupons) commonService.findObjectById(id, "hb");
+            if (coupons == null){
+                return msgUtil.jsonErrorMsg("红包过期");
+            }else {
+                return msgUtil.jsonSuccessMsg("获取成功", "data", coupons);
+            }
+
+        }
         if (entity.equals("cz")) {   //  材质
             String chl = request.getParameter("chl");
             return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(chl, "cz"));
@@ -116,7 +125,7 @@ public class AjaxController {
             }
             return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "gwc"));
         }
-        if (entity.equals("jhcg"))        // 拼购商品
+        if (entity.equals("jhcg"))        // 计划采购
             return msgUtil.jsonSuccessMsg("获取成功","data", commonService.findObjectById(id, "PlanShopping"));
 
         if (entity.equals("news")){     // 获取新闻 今日快讯 活动
@@ -196,9 +205,22 @@ public class AjaxController {
 
         if (entity.equals("gc"))            // 钢厂
             map.put("data", commonService.getList("gc", request, pageIndex, pageSize));
-        if (entity.equals("sp"))       // 商品
-            map.put("data", productService.getList(request, pageIndex, pageSize));
-
+        if (entity.equals("sp")) {    // 商品
+            String time_open = configService.selectByPrimaryKey("time_open").getcComment();
+            String time_close = configService.selectByPrimaryKey("time_close").getcComment();
+            int hour = new Date().getHours();
+            if (hour >= Integer.parseInt(time_open) && hour < Integer.parseInt(time_close)){    // 开市
+                map.put("marketType", "1");
+            }else {
+                map.put("marketType", "0");
+            }
+            try {
+                map.put("data", productService.getList(request, pageIndex, pageSize));
+            } catch (Exception e) {
+                map.put("data", new ArrayList<>());
+                e.printStackTrace();
+            }
+        }
         if (entity.equals("pt")){       // 参与拼团页面
             map.put("data", commonService.getList("pt",request, pageIndex, pageSize));
         }
@@ -275,7 +297,7 @@ public class AjaxController {
                     detail.setiNowintegral(json.getDouble("nowMlNum"));
                     detail.setiCreatetime(new Date());
                     detail.setiIntegraltype(integralDetail.getiIntegraltype());
-                    detail.setiReason(integralDetail.getiReason() + json.getDouble("mlNum") + "微升");
+                    detail.setiReason(integralDetail.getiReason() + json.getDouble("mlNum") + "毫升");
 //                    System.out.println(detail);
                     commonService.save(detail, "IntegralDetail");         //保存
                 }
@@ -318,9 +340,9 @@ public class AjaxController {
             try {
                 Order order = JSONObject.toJavaObject(json, Order.class);
                 order.setcUserId(userId);
-                order.setcState(1);
-                order.setcId("O"+System.nanoTime());
-                order.setcOrderNo("NO" + System.nanoTime());
+                order.setcState(0);
+                order.setcId("O"+DateUtil.getDateFormat(new Date(),"yyyyMMddHHmmss"));
+                order.setcOrderNo("" + DateUtil.getDateFormat(new Date(),"yyyyMMddHHmmss"));
                 order.setcCreateTime(new Date());
                 commonService.save(order, "Order");
             } catch (Exception e) {
@@ -352,6 +374,7 @@ public class AjaxController {
                 PlanShopping planShopping =  JSONObject.toJavaObject(json, PlanShopping.class);
                 planShopping.setcId("PS" + System.nanoTime());
                 planShopping.setcUserId(userId);
+                planShopping.setcCreateTime(new Date());
                 commonService.save(planShopping, "jhcg");
             }catch (Exception e){
                 return msgUtil.jsonErrorMsg("添加错误");
@@ -412,6 +435,7 @@ public class AjaxController {
                     String order_id = json.getString("cId");
                     Order order = (Order) commonService.findObjectById(order_id, "Order");
                     order.setcHide("2");
+                    order.setcState(1);
                     try {
                         commonService.update(order, "Order");
                     }catch (Exception e){
@@ -434,15 +458,14 @@ public class AjaxController {
                     } catch (Exception e) {
                         return msgUtil.jsonToLoginMsg();
                     }
-//                    Order order = new Order();
-//                    order.setcId(json.getString("cId"));
-//                    order.setcState(0);
-//                    commonService.update(order, "Order");
                     String order_id = json.getString("cId");
                     commonService.delete(order_id, "Order");    // 删除订单及其详情
                     return msgUtil.jsonSuccessMsg("取消成功");
                 }
-
+                if (entity.equals("pdxg")) {      // 拼单修改
+                    Order order = JSONObject.toJavaObject(json,Order.class);
+                    commonService.update(order, "Order");
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 return msgUtil.jsonErrorMsg("修改失败");
@@ -594,6 +617,23 @@ public class AjaxController {
     }
 
     /**
+     * @Description 每隔30分钟检查一次,是否有订单需要自动取消
+     * @param
+     * @return
+     * @Author dongxiangwei
+     * @Date 22:58 2020/2/1
+     **/
+    @RequestMapping(value = "/checkOrder", method = RequestMethod.POST)
+    public JSONObject checkOrder() {
+        try {
+            commonService.checkOrder();
+        }catch (Exception e){
+            return msgUtil.jsonErrorMsg("清理出现异常");
+        }
+        return msgUtil.jsonSuccessMsg("筛查成功");
+    }
+
+    /**
      * @Description 打印 pdf
      * @param response
      * @param orderId     订单id
@@ -604,16 +644,17 @@ public class AjaxController {
      **/
     @GetMapping("exportPdf")
     public void exportPdf(HttpServletResponse response, String orderId, HttpServletRequest request) throws IOException {
-        ServletOutputStream outputStream = response.getOutputStream();
-        response.setHeader("Content-Disposition", "attachment;filename=" + new String("订单合同".getBytes(), "iso8859-1") + ".pdf");
-        System.out.println(orderId);
+
         Order order = (Order) commonService.findObjectById(orderId, "Order");
+        ServletOutputStream outputStream = response.getOutputStream();
+        //response.setHeader("Content-Disposition", "attachment;filename=" + new String("订单合同".getBytes(), "iso8859-1") + ".pdf");
+        response.setHeader("Content-Disposition", "attachment;filename=" + new String("订单合同: ".getBytes(), "iso8859-1") +order.getcOrderNo()+ ".pdf");
         request.setAttribute("orderNo", order.getcOrderNo());
         List<OrderDetail> details = commonService.getList("OrderDetail",request, null,null );
         User user = (User) commonService.findObjectById(order.getcUserId(), "User");
         Map<String, String> map1 = new HashMap<>();
         map1.put("name", user.getcRealname() == null? " ": user.getcRealname());
-        map1.put("address", (user.getcProvince() == null? "": user.getcProvince()) + (user.getcCity() == null? "": user.getcCity()) + (user.getcDistrict() == null? "": user.getcDistrict()) + (user.getcAddressId() == null? "": user.getcAddressId()));
+        map1.put("address", order.getcProvinceId() + order.getcCityId() + (order.getcDistrictId() == null? "": order.getcDistrictId() ) + order.getcAddressid());
         map1.put("phone", user.getcPhone() == null? " ": user.getcPhone());
         map1.put("fax", "");    // 传真
         map1.put("openBank", user.getcNowCityName() == null? " ": user.getcNowCityName());   // 开户行
@@ -622,17 +663,18 @@ public class AjaxController {
         System.out.println(" 需求方信息 " + map1);
         Map map = new HashMap();
         map.put("name", order.getcRealname());
-        map.put("address", order.getcProvinceId() + order.getcCityId() + (order.getcDistrictId() == null? "": order.getcDistrictId() ) + order.getcAddressid());
+        map.put("orderNo", order.getcOrderNo());
+        map.put("address", "临沂市经济开发区沂蒙云谷B座6层");
         map.put("createTime", DateUtil.getFormate(order.getcCreateTime()));
         map.put("pickUpAddress", "临沂临钢库");
         map.put("pickUpType",   details.get(0).getdExtract());
         map.put("freightType","汽运");
-        map.put("freightFeePayType", "需方自付");
+        map.put("freightFeePayType", details.get(0).getdExtract().equals("代运") ? "代收代付":"需方自付");
         map.put("freightAddress", order.getcProvinceId() + order.getcCityId() + (order.getcDistrictId() == null? "": order.getcDistrictId() ) + order.getcAddressid());
-        map.put("cutType", details.get(0).getdProcessrequirement());
+        map.put("cutType", details.get(0).getdProcessway()+"：" +details.get(0).getdProcessrequirement());
         List<List<String>> lists = new ArrayList<>();
         List<String> biaotou = new ArrayList<>();
-        biaotou.add("");
+        biaotou.add("序号");
         biaotou.add("钢厂");
         biaotou.add("品名");
         biaotou.add("材质");
@@ -654,13 +696,14 @@ public class AjaxController {
             strings.add(orderDetail.getdStorename());
             lists.add(strings);
         }
-        lists.add(new ArrayList(Arrays.asList(order.getcPrice().toString())));
-        lists.add(new ArrayList<>(Arrays.asList(MoneyUtils.NumToRMBStr(order.getcPrice().doubleValue()))));
+        lists.add(new ArrayList(Arrays.asList("小写(人民币): "+order.getcPrice().toString()+"元")));
+        lists.add(new ArrayList<>(Arrays.asList("大写(人民币): "+MoneyUtils.NumToRMBStr(order.getcPrice().doubleValue()))));
 //        System.out.println(Arrays.toString(lists.toArray()));
         map.put("productDetail", lists);
         map.put("secondInfo", map1);
 //        System.out.println("主页信息: " + map);
-        PdfUtil.exportPdf(map, "http://lingang.zheok.com:8081/img/gongzhang.png", outputStream);
+        PdfUtil.exportPdf(map,details.size(), "http://lingang.zheok.com:8081/img/gongzhang.png", outputStream);
+        //PdfUtil.exportPdf(map, "e:\\test\\gongzhang.png", outputStream);
         outputStream.flush();
         outputStream.close();
     }

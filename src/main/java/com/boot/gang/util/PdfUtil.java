@@ -15,9 +15,10 @@ import com.itextpdf.text.pdf.*;
 import javax.servlet.ServletOutputStream;
 
 public class PdfUtil {
-    public static void exportPdf(Map<String, Object> map, String gongzhangPath, ServletOutputStream outputStream) {
+    public static void exportPdf(Map<String, Object> map,int hNum, String gongzhangPath, ServletOutputStream outputStream) {
         //参数区
         String name = map.get("name") == null ? "供方甲方山东临钢电子商务股份有限公司" : map.get("name").toString();
+        String orderNo = map.get("orderNo") == null? "":map.get("orderNo").toString();
         String address = map.get("address") == null ? "测试地址" : map.get("address").toString();
         String createTime = map.get("createTime") == null ? "2020-01-17" : map.get("createTime").toString();
         //提货地点
@@ -40,13 +41,13 @@ public class PdfUtil {
         Map<String, String> secondInfoMap = (Map<String, String>) map.get("secondInfo");
         if(secondInfoMap == null) {
             secondInfoMap = new HashMap<>();
-            secondInfoMap.put("name", "乐映文化");
-            secondInfoMap.put("address", "乐映文化");
-            secondInfoMap.put("phone", "乐映文化");
-            secondInfoMap.put("fax", "乐映文化");
-            secondInfoMap.put("openBank", "乐映文化");
-            secondInfoMap.put("bankCode", "乐映文化");
-            secondInfoMap.put("signature", "乐映文化");
+            secondInfoMap.put("name", "临钢网");
+            secondInfoMap.put("address", "临钢网");
+            secondInfoMap.put("phone", "临钢网");
+            secondInfoMap.put("fax", "临钢网");
+            secondInfoMap.put("openBank", "临钢网");
+            secondInfoMap.put("bankCode", "临钢网");
+            secondInfoMap.put("signature", "临钢网");
         }
 
         Document document = new Document(PageSize.A4);
@@ -54,21 +55,25 @@ public class PdfUtil {
             PdfWriter writer = PdfWriter.getInstance(document, outputStream);
             document.open();
             BaseFont bf = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H",BaseFont.NOT_EMBEDDED);
-            Font fontChinese = new Font(bf, 20, Font.NORMAL);
+            Font fontChinese = new Font(bf, 16, Font.NORMAL);
             Font bodyChinese = new Font(bf, 9, Font.NORMAL);
-            Paragraph paragraph = new Paragraph("供需合同", fontChinese);
+          /*  Paragraph paragraph = new Paragraph("供需合同", fontChinese);
             paragraph.setAlignment(1);
-            document.add(paragraph);
-            document.add(addFirst(bodyChinese));
+            document.add(paragraph);*/
+            Paragraph paragraph = new Paragraph();
+
+            document.add(addBiaoTi(fontChinese,bodyChinese,"供需合同","合同编号: "+orderNo));
+            document.add(addYeTou(bodyChinese,"供方(甲方): 山东临钢电子商务股份有限公司","合同编号: "+orderNo,"需方(乙方): "+name,"签约地点: " + address,"签约时间: " + createTime));
+            /*document.add(addFirst(bodyChinese,orderNo));
             document.add(addTwo(bodyChinese, name, address));
-            document.add(addThree(bodyChinese, createTime));
+            document.add(addThree(bodyChinese, createTime));*/
             document.add(addString(bodyChinese, "为确保买卖双方双方的共同利益实现互利双赢的目的，根据《中华人民共和国合同法》之规定，经供需双方充分协商" +
                     "特订立此合同以便共同遵守。"));
             document.add(addString(bodyChinese, "一、 货物明细"));
             document.add(addTable(bodyChinese, list));
             document.add(addString(bodyChinese, "二、质量标准：按产品对应钢厂的现行牌号产品对应的标准执行。"));
             //提货方式
-            paragraph = new Paragraph();
+
             paragraph.add(new Chunk("三、<交提>货地点：", bodyChinese));
             paragraph.add(undefinedString(bodyChinese, pickUpAddress));
             paragraph.add(new Chunk("          提货方式：", bodyChinese));
@@ -103,7 +108,7 @@ public class PdfUtil {
 
             document.add(addTailTable(bodyChinese, secondInfoMap));
             document.add(addString(bodyChinese,"注:以上横线处内容手写或涂改无效。"));
-            document.add(addImages(gongzhangPath));
+            document.add(addImages(gongzhangPath,hNum));
             document.close();
             writer.close();
         } catch (DocumentException e) {
@@ -134,14 +139,14 @@ public class PdfUtil {
         return list;
     }
 
-    private static Element addImages(String imagePath) throws IOException, BadElementException {
+    private static Element addImages(String imagePath,int hNum) throws IOException, BadElementException {
         //根据路径读取图片
         Image image = Image.getInstance(imagePath);
         //获取图片页面
         //图片大小自适应
         image.scaleToFit(100, 100);
         //添加图片
-        image.setAbsolutePosition(230, 230);
+        image.setAbsolutePosition(195, 270-hNum*20);
         return image;
     }
 
@@ -253,7 +258,7 @@ public class PdfUtil {
                 PdfPCell cell = new PdfPCell(paragraph);
                 cell.setColspan(8);
                 cell.setVerticalAlignment(Element.ALIGN_CENTER);
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
                 cell.setLeading(0, (float) 1.4);
 //                cell.setFixedHeight(16);
                 table.addCell(cell);
@@ -273,44 +278,139 @@ public class PdfUtil {
         table.setSplitLate(false);
         return table;
     }
+    private static Element addBiaoTi(Font fontChinese,Font bodyChinese,String s1, String s2) throws DocumentException {
+        int ch=20;
+        PdfPTable table =  new PdfPTable(3);
+        table.setHorizontalAlignment(Element.ALIGN_CENTER);
+        //// 设置表格宽度比例为%100
+        table.setWidthPercentage(100);
+        // 设置表格的宽度
+        table.setTotalWidth(520);
+        // 也可以每列分别设置宽度
+        table.setTotalWidth(new float[] { 200,80,240 });
+        // 锁住宽度
+        table.setLockedWidth(true);
+        // 设置表格上面空白宽度
+        table.setSpacingBefore(15f);
+        // 设置表格下面空白宽度
+        table.setSpacingAfter(10f);
+        // 设置表格默认为无边框
+        table.getDefaultCell().setBorder(0);
+        Paragraph p1 = new Paragraph("", bodyChinese);
+        PdfPCell c1 = new PdfPCell(p1);
+        c1.setBorder(Rectangle.NO_BORDER);
+        c1.setFixedHeight(ch);
+        table.addCell(c1);
+        Paragraph p2 = new Paragraph(s1, fontChinese);
+        PdfPCell c2 = new PdfPCell(p2);
+        c2.setBorder(Rectangle.NO_BORDER);
+        c2.setFixedHeight(ch);
+        table.addCell(c2);
+        Paragraph p3 = new Paragraph(s2, bodyChinese);
+        PdfPCell c3 = new PdfPCell(p3);
+        c3.setVerticalAlignment(PdfPCell.ALIGN_BOTTOM);
+        c3.setBorder(Rectangle.NO_BORDER);
+        c3.setFixedHeight(ch);
+        table.addCell(c3);
+
+
+
+        return table;
+    }
+    private static Element addYeTou(Font bodyChinese, String s1,String s2,String s3,String s4,String s6) throws DocumentException {
+        int ch=20;
+        PdfPTable table =  new PdfPTable(2);
+        //// 设置表格宽度比例为%100
+        table.setWidthPercentage(100);
+        // 设置表格的宽度
+        table.setTotalWidth(520);
+        // 也可以每列分别设置宽度
+        table.setTotalWidth(new float[] { 260,260 });
+        // 锁住宽度
+        table.setLockedWidth(true);
+        // 设置表格上面空白宽度
+        table.setSpacingBefore(15f);
+        // 设置表格下面空白宽度
+        table.setSpacingAfter(10f);
+        // 设置表格默认为无边框
+        table.getDefaultCell().setBorder(0);
+        Paragraph p1 = new Paragraph(s1, bodyChinese);
+        PdfPCell c1 = new PdfPCell(p1);
+        c1.setBorder(Rectangle.NO_BORDER);
+        c1.setFixedHeight(ch);
+        table.addCell(c1);
+        Paragraph p2 = new Paragraph(s4, bodyChinese);
+        PdfPCell c2 = new PdfPCell(p2);
+        c2.setBorder(Rectangle.NO_BORDER);
+        c2.setFixedHeight(ch);
+        table.addCell(c2);
+        Paragraph p3 = new Paragraph(s3, bodyChinese);
+        PdfPCell c3 = new PdfPCell(p3);
+        c3.setBorder(Rectangle.NO_BORDER);
+        c3.setFixedHeight(ch);
+        table.addCell(c3);
+        Paragraph p4 = new Paragraph(s6, bodyChinese);
+        PdfPCell c4 = new PdfPCell(p4);
+        c4.setBorder(Rectangle.NO_BORDER);
+        c4.setFixedHeight(ch);
+        table.addCell(c4);
+
+
+        return table;
+    }
 
     private static Element addString(Font bodyChinese, String str) {
         Paragraph paragraph = new Paragraph(str, bodyChinese);;
         return  paragraph;
 
     }
+    private static String buqichangdu(String tmpStr, int Lth) throws UnsupportedEncodingException {
+        if(tmpStr.getBytes("GBK").length > Lth) {
+            byte[] nameBytes = tmpStr.getBytes("GBK");
+            byte[] tmp = new byte[Lth];
+            for(int i = 0; i < Lth; i ++) {
+                tmp[i] = nameBytes[i];
+            }
+            tmpStr = new String(tmp, "GBK");
+        } else {
+            while(tmpStr.getBytes("GBK").length < Lth) {
+                tmpStr += " ";
+            }
+        }
 
-    private static Element addFirst(Font bodyChinese) {
+        return tmpStr;
+
+    }
+    private static Element addFirst(Font bodyChinese,String orderNo) throws UnsupportedEncodingException {
         Paragraph paragraph = new Paragraph(30);
-        Chunk chunk = new Chunk("供方(甲方): 山东临钢电子商务股份有限公司", bodyChinese);
-        Chunk temp = new Chunk("                      ");
-        Chunk chunk1 = new Chunk("台同编号: 临沂市经济开发区沂蒙云谷B座6层", bodyChinese);
+        Chunk chunk = new Chunk(buqichangdu("供方(甲方): 山东临钢电子商务股份有限公司",70), bodyChinese);
+        Chunk chunk1 = new Chunk("合同编号: "+orderNo, bodyChinese);
         paragraph.add(chunk);
-        paragraph.add(temp);
         paragraph.add(chunk1);
         return paragraph;
     }
 
 
     private static Element addTwo(Font bodyChinese, String name, String address) throws UnsupportedEncodingException {
+
         Paragraph paragraph = new Paragraph();
-        Chunk chunk = new Chunk("需方(乙方): ", bodyChinese);
-        if(name.getBytes("GBK").length > 44) {
-            byte[] nameBytes = name.getBytes("GBK");
-            byte[] tmp = new byte[44];
-            for(int i = 0; i < 44; i ++) {
-                tmp[i] = nameBytes[i];
-            }
-            name = new String(tmp, "GBK");
-        } else {
-            while(name.getBytes("GBK").length < 44) {
-                name += " ";
-            }
-        }
-        Chunk temp = new Chunk(name, bodyChinese);
+        Chunk chunk = new Chunk(buqichangdu("需方(乙方): "+name,70), bodyChinese);
+//        if(name.getBytes("GBK").length > 60) {
+//            byte[] nameBytes = name.getBytes("GBK");
+//            byte[] tmp = new byte[60];
+//            for(int i = 0; i < 60; i ++) {
+//                tmp[i] = nameBytes[i];
+//            }
+//            name = new String(tmp, "GBK");
+//        } else {
+//            while(name.getBytes("GBK").length < 60) {
+//                name += " ";
+//            }
+//        }
+//        Chunk temp = new Chunk(name, bodyChinese);
         Chunk chunk1 = new Chunk("签约地点: " + address, bodyChinese);
         paragraph.add(chunk);
-        paragraph.add(temp);
+//        paragraph.add(temp);
         paragraph.add(chunk1);
         return paragraph;
     }
@@ -318,7 +418,7 @@ public class PdfUtil {
 
     private static Element addThree(Font bodyChinese, String datetime) throws UnsupportedEncodingException {
         Paragraph paragraph = new Paragraph();
-        Chunk chunk = new Chunk("                                                        ", bodyChinese);
+        Chunk chunk = new Chunk(buqichangdu("   ",70), bodyChinese);
         Chunk chunk1 = new Chunk("签约时间: " + datetime, bodyChinese);
         paragraph.add(chunk);
         paragraph.add(chunk1);

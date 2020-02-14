@@ -8,6 +8,7 @@
       <arg column="d_orderNo" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="d_processPrice" jdbcType="DOUBLE" javaType="java.lang.Double" />
       <arg column="d_processRequirement" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="d_processWay" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="d_productId" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="d_productNum" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="d_productSpec" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -17,15 +18,16 @@
       <arg column="d_shopId" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="d_shopName" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="d_tonNum" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="d_prn_price" jdbcType="DOUBLE" javaType="java.lang.Double" />
       <arg column="d_price" jdbcType="DOUBLE" javaType="java.lang.Double" />
       <arg column="d_storeName" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="d_extract" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    d_id, d_createTime, d_orderNo, d_processPrice, d_processRequirement, d_productId, 
+    d_id, d_createTime, d_orderNo, d_processPrice, d_processRequirement, d_processWay, d_productId,
     d_productNum, d_productSpec, d_productTexture, d_shopColumnType, d_shopColumnTypeId, 
-    d_shopId, d_shopName, d_tonNum, d_price, d_storeName, d_extract
+    d_shopId, d_shopName, d_tonNum, d_prn_price, d_price, d_storeName, d_extract
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -39,16 +41,16 @@
   </delete>
   <insert id="insert" parameterType="com.boot.gang.entity.OrderDetail" >
     insert into t_order_detail (d_id, d_createTime, d_orderNo, 
-      d_processPrice, d_processRequirement, d_productId, 
+      d_processPrice, d_processRequirement, d_processWay, d_productId,
       d_productNum, d_productSpec, d_productTexture, 
       d_shopColumnType, d_shopColumnTypeId, d_shopId, 
-      d_shopName, d_tonNum, d_price, 
+      d_shopName, d_tonNum, d_prn_price, d_price,
       d_storeName, d_extract)
     values (#{dId,jdbcType=VARCHAR}, #{dCreatetime,jdbcType=TIMESTAMP}, #{dOrderno,jdbcType=VARCHAR}, 
-      #{dProcessprice,jdbcType=DOUBLE}, #{dProcessrequirement,jdbcType=VARCHAR}, #{dProductid,jdbcType=VARCHAR}, 
+      #{dProcessprice,jdbcType=DOUBLE}, #{dProcessrequirement,jdbcType=VARCHAR}, #{dProcessway,jdbcType=VARCHAR}, #{dProductid,jdbcType=VARCHAR},
       #{dProductnum,jdbcType=VARCHAR}, #{dProductspec,jdbcType=VARCHAR}, #{dProducttexture,jdbcType=VARCHAR}, 
       #{dShopcolumntype,jdbcType=VARCHAR}, #{dShopcolumntypeid,jdbcType=VARCHAR}, #{dShopid,jdbcType=VARCHAR}, 
-      #{dShopname,jdbcType=VARCHAR}, #{dTonnum,jdbcType=VARCHAR}, #{dPrice,jdbcType=DOUBLE}, 
+      #{dShopname,jdbcType=VARCHAR}, #{dTonnum,jdbcType=VARCHAR}, #{dPrnPrice,jdbcType=DOUBLE}, #{dPrice,jdbcType=DOUBLE},
       #{dStorename,jdbcType=VARCHAR}, #{dExtract,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.boot.gang.entity.OrderDetail" >
@@ -68,6 +70,9 @@
       </if>
       <if test="dProcessrequirement != null" >
         d_processRequirement,
+      </if>
+      <if test="dProcessway != null" >
+        d_processWay,
       </if>
       <if test="dProductid != null" >
         d_productId,
@@ -96,6 +101,9 @@
       <if test="dTonnum != null" >
         d_tonNum,
       </if>
+      <if test="dPrnPrice != null" >
+        d_prn_price,
+      </if>
       <if test="dPrice != null" >
         d_price,
       </if>
@@ -121,6 +129,9 @@
       </if>
       <if test="dProcessrequirement != null" >
         #{dProcessrequirement,jdbcType=VARCHAR},
+      </if>
+      <if test="dProcessway != null" >
+        #{dProcessway,jdbcType=VARCHAR},
       </if>
       <if test="dProductid != null" >
         #{dProductid,jdbcType=VARCHAR},
@@ -149,6 +160,9 @@
       <if test="dTonnum != null" >
         #{dTonnum,jdbcType=VARCHAR},
       </if>
+      <if test="dPrnPrice != null" >
+        #{dPrnPrice,jdbcType=DOUBLE},
+      </if>
       <if test="dPrice != null" >
         #{dPrice,jdbcType=DOUBLE},
       </if>
@@ -174,6 +188,9 @@
       </if>
       <if test="dProcessrequirement != null" >
         d_processRequirement = #{dProcessrequirement,jdbcType=VARCHAR},
+      </if>
+      <if test="dProcessway != null" >
+        d_processWay = #{dProcessway,jdbcType=VARCHAR},
       </if>
       <if test="dProductid != null" >
         d_productId = #{dProductid,jdbcType=VARCHAR},
@@ -202,6 +219,9 @@
       <if test="dTonnum != null" >
         d_tonNum = #{dTonnum,jdbcType=VARCHAR},
       </if>
+      <if test="dPrnPrice != null" >
+        d_prn_price = #{dPrnPrice,jdbcType=DOUBLE},
+      </if>
       <if test="dPrice != null" >
         d_price = #{dPrice,jdbcType=DOUBLE},
       </if>
@@ -220,6 +240,7 @@
       d_orderNo = #{dOrderno,jdbcType=VARCHAR},
       d_processPrice = #{dProcessprice,jdbcType=DOUBLE},
       d_processRequirement = #{dProcessrequirement,jdbcType=VARCHAR},
+      d_processWay = #{dProcessway,jdbcType=VARCHAR},
       d_productId = #{dProductid,jdbcType=VARCHAR},
       d_productNum = #{dProductnum,jdbcType=VARCHAR},
       d_productSpec = #{dProductspec,jdbcType=VARCHAR},
@@ -229,6 +250,7 @@
       d_shopId = #{dShopid,jdbcType=VARCHAR},
       d_shopName = #{dShopname,jdbcType=VARCHAR},
       d_tonNum = #{dTonnum,jdbcType=VARCHAR},
+      d_prn_price = #{dPrnPrice,jdbcType=DOUBLE},
       d_price = #{dPrice,jdbcType=DOUBLE},
       d_storeName = #{dStorename,jdbcType=VARCHAR},
       d_extract = #{dExtract,jdbcType=VARCHAR}

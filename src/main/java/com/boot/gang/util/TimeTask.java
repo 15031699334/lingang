@@ -1,6 +1,7 @@
 package com.boot.gang.util;
 
 import com.boot.gang.entity.Config;
+import com.boot.gang.service.CommonService;
 import com.boot.gang.service.ConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -11,7 +12,8 @@ public class TimeTask {
 
 	@Autowired
 	private ConfigService configService;
-
+	@Autowired
+	private CommonService commonService;
 //	public static void main(String[] args) {
 //		getJson();
 //	}
@@ -23,8 +25,18 @@ public class TimeTask {
 //		System.out.println(excutePostClient);
 		Config config = new Config();
 		config.setcId("volume_price_list");
-		config.setcValue(excutePostClient);
+		config.setcComment(excutePostClient);
 		configService.upVolumePriceList(config);
+	}
+	// 每4小时执行一次
+	@Scheduled(cron = "0 */2 * * * ?")
+	public void checkOrder() {
+		System.out.println("=== 订单筛查 ===");
+		try {
+			commonService.checkOrder();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 //	// 每天0点执行

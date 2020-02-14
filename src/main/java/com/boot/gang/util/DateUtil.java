@@ -1,5 +1,6 @@
 package com.boot.gang.util;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -197,4 +198,15 @@ public class DateUtil {
 		}
 		return date;
 	}
+
+	public static String getYesterday(){
+        DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar=Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY,-24);
+        String yesterdayDate=dateFormat.format(calendar.getTime());
+        return yesterdayDate;
+    }
+
+
+
 }

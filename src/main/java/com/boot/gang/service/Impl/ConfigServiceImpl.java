@@ -21,4 +21,9 @@ public class ConfigServiceImpl implements ConfigService {
     public int upVolumePriceList(Config config) {
         return configMapper.updateByPrimaryKey(config);
     }
+
+    @Override
+    public Config selectByPrimaryKey(String id) {
+        return configMapper.selectByPrimaryKey(id);
+    }
 }

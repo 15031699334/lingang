@@ -11,6 +11,8 @@ public interface CommonService {
 
     void update(Object object, String entity) throws Exception;
 
+    void checkOrder() throws Exception;
+
     List getList(String entity, HttpServletRequest request, String pageIndex, String pageSize);
 
     void delete(String id, String entity) throws Exception;

@@ -1,7 +1,7 @@
 package com.boot.gang.mapper;
 
-import com.boot.gang.entity.Address;
 import com.boot.gang.entity.Order;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -29,6 +29,9 @@ public interface OrderMapper {
      **/
     @Select("select * from t_order where 1 = 1 ${swhere}")
     List<Order> getList(@Param("swhere") String swhere);
+
+    @Delete("delete from t_order where 1 = 1 ${swhere}")
+    void Delete(@Param("swhere") String swhere);
 
     @Select("select " +
             " c_order_no,c_create_time, c_pay_time, c_money_pay, c_price " +
