@@ -22,6 +22,8 @@ public class Order {
 
     private String cUserId;         // 下单人id
 
+    private String cCreateUser;     // 用户昵称
+
     private String cPhone;          // 收货地址中的手机号
 
     private String cRealname;       // 收货地址中的人名
@@ -90,11 +92,9 @@ public class Order {
 
     private String cInvoiceTitle;
 
-    private String cBlockId;
+    private String cBlockId;            // 收货地址id
 
     private String cLastUpdateUser;
-
-    private String cCreateUser;
 
     private Date cFahuoTime;
 

@@ -31,7 +31,7 @@ public interface OrderMapper {
     List<Order> getList(@Param("swhere") String swhere);
 
     @Delete("delete from t_order where 1 = 1 ${swhere}")
-    void Delete(@Param("swhere") String swhere);
+    void delete(@Param("swhere") String swhere);
 
     @Select("select " +
             " c_order_no,c_create_time, c_pay_time, c_money_pay, c_price " +

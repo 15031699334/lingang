@@ -101,7 +101,7 @@ public class AjaxController {
             return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(userId, "gd"));
         }
         if (entity.equals("hb")) {   // 红包
-            Coupons coupons = (Coupons) commonService.findObjectById(id, "hb");
+            CouponsType coupons = (CouponsType) commonService.findObjectById(id, "hb");
             if (coupons == null){
                 return msgUtil.jsonErrorMsg("红包过期");
             }else {
@@ -422,7 +422,11 @@ public class AjaxController {
                         user.setcIfShop(1);
                     }
                     user.setcLastUpdateTime(new Date());
-                    commonService.update(user, "User");
+                    try {
+                        commonService.update(user, "User");
+                    }catch (Exception e){
+                        return msgUtil.jsonErrorMsg(e.getMessage());
+                    }
                 }
                 if (entity.equals("dz")){           // 收货地址
                     String userId = tokenService.getIdByToken(request);
@@ -439,7 +443,7 @@ public class AjaxController {
                     try {
                         commonService.update(order, "Order");
                     }catch (Exception e){
-                        return msgUtil.jsonErrorMsg("当前订单商品库存不足");
+                        return msgUtil.jsonErrorMsg(e.getMessage());
                     }
                     return msgUtil.jsonSuccessMsg("提交成功");
                 }
@@ -465,6 +469,10 @@ public class AjaxController {
                 if (entity.equals("pdxg")) {      // 拼单修改
                     Order order = JSONObject.toJavaObject(json,Order.class);
                     commonService.update(order, "Order");
+                }
+                if (entity.equals("ddshdz")){   //订单收货地址 修改
+                    Order order = JSONObject.toJavaObject(json,Order.class);
+                    commonService.update(order, "ddshdz");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -508,6 +516,8 @@ public class AjaxController {
             }
             if (entity.equals("ddsc"))      // 订单删除
                 commonService.delete(id, "Order");
+            if (entity.equals("ddsp"))      // 订单商品
+                commonService.delete(id, "OrderDetail");
         } catch (Exception e) {
             return msgUtil.jsonErrorMsg(e.getMessage());
         }

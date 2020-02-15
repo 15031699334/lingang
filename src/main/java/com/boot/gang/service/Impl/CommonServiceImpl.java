@@ -243,14 +243,14 @@ public class CommonServiceImpl implements CommonService {
 
         if (entity.equals("Order")){    // 添加订单
             Order order = (Order) object;
+            User user = userMapper.selectByPrimaryKey(order.getcUserId());  // 获取当前用户的信息
+            order.setcCreateUser(user.getcUsername());  // 用户昵称
             Double price = 0.0;
 //            System.out.println(order);
             if (order.getcCategory() == 1){     // 普通订单
                 List<OrderDetail>  details = order.getDetailList();
                 List<String> shopTrolleyIds = new ArrayList<>();    // 删除购物车商品所用
-
                 for (OrderDetail orderDetail: details){
-
                     shopTrolleyIds.add(orderDetail.getdId());
                     ShopTrolley  shopTrolley = shopTrolleyMapper.selectBySwhere(" and st_userId = '"+order.getcUserId()+"' and st_id = '" + orderDetail.getdId() + "'");
                     price += DoubleUtil.mul(shopTrolley.getStPrice(), Double.parseDouble(shopTrolley.getStTonnum()));
@@ -262,7 +262,7 @@ public class CommonServiceImpl implements CommonService {
                 }
                 price = price - order.getcCouponPrice() - order.getcGold();
 //                System.out.println("传入价格: " + order.getcPrice() + ", 算出的价格: " + price);
-                if (!price.equals(order.getcPrice())){
+                if (!DoubleUtil.round(price, 2).equals(order.getcPrice())){
                     throw new Exception("订单提交价格错误");
                 }
                 // 添加订单信息
@@ -275,7 +275,6 @@ public class CommonServiceImpl implements CommonService {
                     couponsMapper.updateByPrimaryKeySelective(coupons);
                 }
                 if (order.getcNum() != 0){   // 判断钢豆数量
-                    User user = userMapper.selectByPrimaryKey(order.getcUserId());
                     Double goldGZ = Double.parseDouble(user.getcGoldGz()- order.getcNum() + "");    // 钢豆变化的数量
                     IntegralDetail integralDetail = new IntegralDetail("GD" +System.nanoTime(), order.getcNum().doubleValue(), 0, new Date(), goldGZ, order.getcOrderNo(), user.getcRealname(), order.getcUserId(), "用户下单抵扣金额", 1);
                     integralDetailMapper.insertSelective(integralDetail);
@@ -287,7 +286,6 @@ public class CommonServiceImpl implements CommonService {
                     shopTrolleyMapper.deleteByPrimaryKey(id);
                 }
             }else {     // cCategory == 2  添加拼购订单
-                User user = userMapper.selectByPrimaryKey(order.getcUserId());  // 获取当前用户的信息
                 OrderDetail  od_in = order.getDetailList().get(0);
                 String c_group_num = order.getcGroupNum();
                 if (c_group_num.equals("")) {   // 拼团 母
@@ -400,7 +398,15 @@ public class CommonServiceImpl implements CommonService {
     @Transactional
     public void update(Object object, String entity) throws Exception {
         if (entity.equals("User")){
-            userMapper.updateByPrimaryKeySelective((User) object);
+            User user = (User) object;
+            if (null != user.getcUsername()){
+//                System.out.println("传入的用户昵称 : "+ user.getcUsername());
+                List<User> users = userMapper.getList(" and c_username = '" + user.getcUsername() + "'");
+                if (users.size() > 0){
+                    throw new Exception("用户昵称不可重复");
+                }
+            }
+            userMapper.updateByPrimaryKeySelective(user);
         }
         if (entity.equals("Address")){
             Address address = (Address) object;
@@ -417,43 +423,38 @@ public class CommonServiceImpl implements CommonService {
                 for (OrderDetail orderDetail: list){
                     ProductRelationNode prn = productRelationNodeMapper.selectByPrimaryKey(orderDetail.getdProductid());
                     if (prn.getcStockNum() < Integer.parseInt(orderDetail.getdProductnum()))
-                        throw new Exception("库存不足");
+                        throw new Exception("吨数："+orderDetail.getdTonnum()+ "，单价: " + orderDetail.getdPrice() + " 的商品库存不足");
                     prn.setcStockNum(prn.getcStockNum() - Integer.parseInt(orderDetail.getdProductnum()));
                     prn.setcStockNum(0);
                     productRelationNodeMapper.updateByPrimaryKeySelective(prn);
                 }
                 orderMapper.updateByPrimaryKeySelective(order);
                 sendMsg("订单提交成功");      // 发送短信
-            }else {         // 拼团订单 修改内容      暂时不用
+            }else {         // 拼团订单 修改内容
                 String orderId = order.getcId();
                 List<OrderDetail> list = orderDetailMapper.getList(" and d_orderNo = '" + order.getcOrderNo() + "'");
                 Order order_begin = orderMapper.selectByPrimaryKey(orderId);    // 修改前的订单数据
                 Double cGzFl_change = order_begin.getcGzFl() - order.getcGzFl();     // 原本的拼的吨数减去现在的
                 if (order_begin.getcGroupNum().equals(order_begin.getcOrderNo())){  // 满足条件 则为 主单
-                    Double cZjrFl_changed = order_begin.getcZjrFl() + cGzFl_change;     // 剩余量改变后的数值
-                    if (cZjrFl_changed < 0){
-                        throw new Exception("405");     // 剩余量不足
-                    }
-                    order_begin.setcGzFl(cZjrFl_changed);
-                    orderMapper.updateByPrimaryKeySelective(order_begin);   // 修改剩余吨数
 
-                    ProductRelationNode prn = productRelationNodeMapper.selectByPrimaryKey(list.get(0).getdProductid());
-                    prn.setcStockNum(0);
-                    productRelationNodeMapper.updateByPrimaryKeySelective(prn);
+
+
+//                    Double cZjrFl_changed = order_begin.getcZjrFl() + cGzFl_change;     // 剩余量改变后的数值
+//                    if (cZjrFl_changed < 0){
+//                        throw new Exception("405");     // 剩余量不足
+//                    }
+//                    order_begin.setcGzFl(cZjrFl_changed);
+//                    orderMapper.updateByPrimaryKeySelective(order_begin);   // 修改剩余吨数
 
                 }else {     // 副单
                     Order order_primary = orderMapper.selectByOrderNo(order_begin.getcGroupNum());  // 查询主单
-                    Double cZjrFl_changed = order_primary.getcZjrFl() + cGzFl_change;     // 剩余量改变后的数值
-                    if (cZjrFl_changed < 0){
-                        throw new Exception("405");     // 剩余量不足
-                    }
-                    order_primary.setcGzFl(cZjrFl_changed);
-                    orderMapper.updateByPrimaryKeySelective(order_primary);     // 修改主单的剩余吨数
-                    orderMapper.updateByPrimaryKeySelective(order);             // 修改副单的拼购吨数
-
-                    ProductRelationNode prn = productRelationNodeMapper.selectByPrimaryKey(list.get(0).getdProductid());
-                    prn.setcStockNum(0);
-                    productRelationNodeMapper.updateByPrimaryKeySelective(prn);
+//                    Double cZjrFl_changed = order_primary.getcZjrFl() + cGzFl_change;     // 剩余量改变后的数值
+//                    if (cZjrFl_changed < 0){
+//                        throw new Exception("405");     // 剩余量不足
+//                    }
+//                    order_primary.setcGzFl(cZjrFl_changed);
+//                    orderMapper.updateByPrimaryKeySelective(order_primary);     // 修改主单的剩余吨数
+//                    orderMapper.updateByPrimaryKeySelective(order);             // 修改副单的拼购吨数
                 }
             }
         }
@@ -463,6 +464,18 @@ public class CommonServiceImpl implements CommonService {
         if (entity.equals("ddjg")){ // 订单加工信息的修改
             OrderDetail orderDetail = (OrderDetail) object;
             orderDetailMapper.updateByPrimaryKeySelective(orderDetail);
+        }
+        if (entity.equals("ddshdz")) {  // 订单收货地址 修改
+            Order order = (Order) object;
+            String aId = order.getcBlockId();   // 传入的收货地址id
+            Address address = addressMapper.selectByPrimaryKey(aId);
+            order.setcRealname(address.getcName());
+            order.setcPhone(address.getcPhone());
+            order.setcProvinceId(address.getcProvinceId());
+            order.setcCityId(address.getcCityId());
+            order.setcDistrictId(address.getcDistrictId());
+            order.setcAddressid(address.getcAddress());
+            orderMapper.updateByPrimaryKeySelective(order);
         }
 
     }
@@ -551,7 +564,12 @@ public class CommonServiceImpl implements CommonService {
 //            return volumePriceMapper.getList(" and c_province = '" + provence + "' and to_days(c_create_time) = to_days(now()) order by c_create_time desc");
         }
         if (entity.equals("cjdt")){   // 首页成交动态(滚动)
-            return orderRecordMapper.getList(" and or_state = 1 order by or_createtTime desc");
+            List<OrderRecord> recordList = orderRecordMapper.getList(" and or_state = 1 order by or_createtTime desc");
+            for (OrderRecord orderRecord : recordList){     // 只是展示 不考虑性能  实际应该添加字段 这里主要为了前端可以不用变更
+                User user = userMapper.selectByPrimaryKey(orderRecord.getOrUserid());
+                orderRecord.setOrRealname(user.getcUsername());
+            }
+            return recordList;
         }
         if (entity.equals("zxcj")){   // 首页最新成交
             return orderDetailMapper.getNowList(" and o.c_state != 0 order by d_createTime desc");
@@ -621,7 +639,11 @@ public class CommonServiceImpl implements CommonService {
                         order.setcZjrFl(order_primary.getcZjrFl());
                     }
                     order.setDetailList(orderDetailMapper.getList(" and d_orderNo = '" + order_no + "'"));
-                    order.setOrderList(orderMapper.getList(" and c_group_num = '" + orderGroupNum + "' order by c_group_num desc, c_create_time asc"));       // 将所有用户的信息传入
+                    List<Order> orderList = orderMapper.getList(" and c_group_num = '" + orderGroupNum + "' order by c_group_num desc, c_create_time asc");
+                    for(Order order1: orderList){
+                        order1.setcRealname(order.getcCreateUser());
+                    }
+                    order.setOrderList(orderList);       // 将所有用户的信息传入
 
                 }
                 return orders;
@@ -763,10 +785,16 @@ public class CommonServiceImpl implements CommonService {
                     orderDetailMapper.deleteByOrderNo(order.getcOrderNo()); // 删除订单商品信息
                     orderMapper.deleteByPrimaryKey(id);    // 删除当前拼团订单
                 }
-
-
                 count = 1;
             }
+        }
+        if (entity.equals("OrderDetail")) {     //订单商品删除
+            OrderDetail od = orderDetailMapper.selectByPrimaryKey(id);
+            List<OrderDetail> details = orderDetailMapper.getList(" and d_orderNo = '" + od.getdOrderno() + "'");
+            if (details.size() == 1){
+                orderMapper.delete(" and c_order_no = '" + od.getdOrderno() + "'");
+            }
+            count = orderDetailMapper.deleteByPrimaryKey(id);
         }
         if (count != 1){
             if (count == 0){

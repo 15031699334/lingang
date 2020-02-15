@@ -99,7 +99,7 @@ public class DoubleUtil {
      * @param scale 小数点后保留几位
      * @return 四舍五入后的结果
      */
-    public static double round(double value,int scale){
+    public static Double round(double value,int scale){
         if(scale<0){
             throw new IllegalArgumentException("The scale must be a positive integer or zero");
         }
