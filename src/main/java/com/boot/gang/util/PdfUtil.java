@@ -1,7 +1,13 @@
 package com.boot.gang.util;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import javax.servlet.ServletOutputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -9,12 +15,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.*;
-
-import javax.servlet.ServletOutputStream;
-
 public class PdfUtil {
+
+    /**
+     * 生成 pdf图片
+     * @param map
+     * @param hNum
+     * @param gongzhangPath
+     * @param outputStream
+     * @param hadGZ
+     * @throws FileNotFoundException
+     */
+    public static void exportPdf1(Map<String, Object> map,int hNum, String gongzhangPath, ServletOutputStream outputStream, boolean hadGZ) {
+
+    }
+
+
+
+
     /**
      *      生成pdf
      * @param map       参数
@@ -24,6 +42,32 @@ public class PdfUtil {
      * @param hadGZ             true= 有公章 false=无公章
      */
     public static void exportPdf(Map<String, Object> map,int hNum, String gongzhangPath, ServletOutputStream outputStream, boolean hadGZ) {
+        Document document = new Document(PageSize.A4);
+        try {
+            PdfWriter writer = PdfWriter.getInstance(document, outputStream);
+            // 导入数据
+            insertPDFIo(map, hNum, gongzhangPath, outputStream, hadGZ, document);
+            document.close();
+            writer.close();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * pdf 添加数据
+     * @param map
+     * @param hNum
+     * @param gongzhangPath
+     * @param outputStream
+     * @param hadGZ
+     * @param document
+     * @return
+     * @throws Exception
+     */
+    private static Document insertPDFIo(Map<String, Object> map,int hNum, String gongzhangPath, ServletOutputStream outputStream, boolean hadGZ, Document document) throws Exception{
         //参数区
         String name = map.get("name") == null ? "供方甲方山东临钢电子商务股份有限公司" : map.get("name").toString();
         String orderNo = map.get("orderNo") == null? "":map.get("orderNo").toString();
@@ -57,77 +101,65 @@ public class PdfUtil {
             secondInfoMap.put("bankCode", "临钢网");
             secondInfoMap.put("signature", "临钢网");
         }
-
-        Document document = new Document(PageSize.A4);
-        try {
-            PdfWriter writer = PdfWriter.getInstance(document, outputStream);
-            document.open();
-            BaseFont bf = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H",BaseFont.NOT_EMBEDDED);
-            Font fontChinese = new Font(bf, 16, Font.NORMAL);
-            Font bodyChinese = new Font(bf, 9, Font.NORMAL);
+        document.open();
+        BaseFont bf = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H",BaseFont.NOT_EMBEDDED);
+        Font fontChinese = new Font(bf, 16, Font.NORMAL);
+        Font bodyChinese = new Font(bf, 9, Font.NORMAL);
           /*  Paragraph paragraph = new Paragraph("供需合同", fontChinese);
             paragraph.setAlignment(1);
             document.add(paragraph);*/
-            Paragraph paragraph = new Paragraph();
+        Paragraph paragraph = new Paragraph();
 
-            document.add(addBiaoTi(fontChinese,bodyChinese,"供需合同","合同编号: "+orderNo));
-            document.add(addYeTou(bodyChinese,"供方(甲方): 山东临钢电子商务股份有限公司","合同编号: "+orderNo,"需方(乙方): "+name,"签约地点: " + address,"签约时间: " + createTime));
+        document.add(addBiaoTi(fontChinese,bodyChinese,"供需合同","合同编号: "+orderNo));
+        document.add(addYeTou(bodyChinese,"供方(甲方): 山东临钢电子商务股份有限公司","合同编号: "+orderNo,"需方(乙方): "+name,"签约地点: " + address,"签约时间: " + createTime));
             /*document.add(addFirst(bodyChinese,orderNo));
             document.add(addTwo(bodyChinese, name, address));
             document.add(addThree(bodyChinese, createTime));*/
-            document.add(addString(bodyChinese, "为确保买卖双方双方的共同利益实现互利双赢的目的，根据《中华人民共和国合同法》之规定，经供需双方充分协商" +
-                    "特订立此合同以便共同遵守。"));
-            document.add(addString(bodyChinese, "一、 货物明细"));
-            // 商品内容
-            document.add(addTable(bodyChinese, list));
-            document.add(addString(bodyChinese, "二、质量标准：按产品对应钢厂的现行牌号产品对应的标准执行。"));
-            //提货方式
-            paragraph.add(new Chunk("三、<交提>货地点：", bodyChinese));
-            paragraph.add(undefinedString(bodyChinese, pickUpAddress));
-            paragraph.add(new Chunk("          提货方式：", bodyChinese));
-            paragraph.add(undefinedString(bodyChinese, pickUpType));
-            document.add(paragraph);
-            //运货方式
-            paragraph = new Paragraph();
-            paragraph.add(new Chunk("四、运货方式：", bodyChinese));
-            paragraph.add(undefinedString(bodyChinese, freightType));
-            paragraph.add(new Chunk("      运费支付：", bodyChinese));
-            paragraph.add(undefinedString(bodyChinese, freightFeePayType));
-            paragraph.add(new Chunk("      目的地：", bodyChinese));
-            paragraph.add(undefinedString(bodyChinese, freightAddress));
-            document.add(paragraph);
+        document.add(addString(bodyChinese, "为确保买卖双方双方的共同利益实现互利双赢的目的，根据《中华人民共和国合同法》之规定，经供需双方充分协商" +
+                "特订立此合同以便共同遵守。"));
+        document.add(addString(bodyChinese, "一、 货物明细"));
+        // 商品内容
+        document.add(addTable(bodyChinese, list));
+        document.add(addString(bodyChinese, "二、质量标准：按产品对应钢厂的现行牌号产品对应的标准执行。"));
+        //提货方式
+        paragraph.add(new Chunk("三、<交提>货地点：", bodyChinese));
+        paragraph.add(undefinedString(bodyChinese, pickUpAddress));
+        paragraph.add(new Chunk("          提货方式：", bodyChinese));
+        paragraph.add(undefinedString(bodyChinese, pickUpType));
+        document.add(paragraph);
+        //运货方式
+        paragraph = new Paragraph();
+        paragraph.add(new Chunk("四、运货方式：", bodyChinese));
+        paragraph.add(undefinedString(bodyChinese, freightType));
+        paragraph.add(new Chunk("      运费支付：", bodyChinese));
+        paragraph.add(undefinedString(bodyChinese, freightFeePayType));
+        paragraph.add(new Chunk("      目的地：", bodyChinese));
+        paragraph.add(undefinedString(bodyChinese, freightAddress));
+        document.add(paragraph);
 
-            document.add(addString(bodyChinese,"五、验收标准及异议处理："));
-            document.add(addString(bodyChinese,"1、重量验收标准：按供方出库单记录为结算重量。"));
-            document.add(addString(bodyChinese,"2、数量异议处理：双方约定，过磅抄码计重，磅差执行国标±3‰ ,若超出±3‰原产品封存复磅。"));
-            document.add(addString(bodyChinese,"3、质量异议处理：需方于收货后7日内以书面形式向供方提出异议，并将原产品封存，供方根据钢厂质量保证书及钢厂代表现场勘查情况处理相关质量问题，逾期供方不承担任何责任。"));
-            document.add(addString(bodyChinese,"六、付款方式及期限："));
-            document.add(addString(bodyChinese,"1、需方按照平台规则在平台拍到产品后，需在两小时内把全额货款汇到供方指定账户（以供方进账时间为准），款到账后合同生效，提货后由供方向需方开具全额增值税发票。"));
-            document.add(addString(bodyChinese,"2、供需双方约定以人民币为结算货币，可通过电汇、现金、银行承兑汇票等结算方式进行付款。实际结算金额按需方实提进行货款多退少补；"));
-            document.add(addString(bodyChinese,"3、如果需方未按合同约定付清款项，供方有权处理所有货物，此客户不再享有锁货权利。"));
-            //剪切尺寸及方式
+        document.add(addString(bodyChinese,"五、验收标准及异议处理："));
+        document.add(addString(bodyChinese,"1、重量验收标准：按供方出库单记录为结算重量。"));
+        document.add(addString(bodyChinese,"2、数量异议处理：双方约定，过磅抄码计重，磅差执行国标±3‰ ,若超出±3‰原产品封存复磅。"));
+        document.add(addString(bodyChinese,"3、质量异议处理：需方于收货后7日内以书面形式向供方提出异议，并将原产品封存，供方根据钢厂质量保证书及钢厂代表现场勘查情况处理相关质量问题，逾期供方不承担任何责任。"));
+        document.add(addString(bodyChinese,"六、付款方式及期限："));
+        document.add(addString(bodyChinese,"1、需方按照平台规则在平台拍到产品后，需在两小时内把全额货款汇到供方指定账户（以供方进账时间为准），款到账后合同生效，提货后由供方向需方开具全额增值税发票。"));
+        document.add(addString(bodyChinese,"2、供需双方约定以人民币为结算货币，可通过电汇、现金、银行承兑汇票等结算方式进行付款。实际结算金额按需方实提进行货款多退少补；"));
+        document.add(addString(bodyChinese,"3、如果需方未按合同约定付清款项，供方有权处理所有货物，此客户不再享有锁货权利。"));
+        //剪切尺寸及方式
             /*paragraph = new Paragraph();
             paragraph.add(new Chunk("七、剪切尺寸及方式：", bodyChinese));
             paragraph.add(undefinedString(bodyChinese, cutType));
             document.add(paragraph);*/
-            document.add(addString(bodyChinese,"七、合同生效及解除方式：需方按时支付货款后合同生效，本合同一式两份，双方各执壹份，传真件具有同等法律效力，供需双方钱货两清后合同自然解除。"));
-            document.add(addString(bodyChinese,"八、争议及解决办法：本台同在执行过程中，如发生争议，应由供需双方友好协商解决。如协商不能解决，可向供方" +
-                    "所在地法院提起诉讼，依法追究违约方责任。"));
+        document.add(addString(bodyChinese,"七、合同生效及解除方式：需方按时支付货款后合同生效，本合同一式两份，双方各执壹份，传真件具有同等法律效力，供需双方钱货两清后合同自然解除。"));
+        document.add(addString(bodyChinese,"八、争议及解决办法：本台同在执行过程中，如发生争议，应由供需双方友好协商解决。如协商不能解决，可向供方" +
+                "所在地法院提起诉讼，依法追究违约方责任。"));
 
-            document.add(addTailTable(bodyChinese, secondInfoMap));
-            document.add(addString(bodyChinese,"注:以上横线处内容手写或涂改无效。"));
-            if (hadGZ){
-                document.add(addImages(gongzhangPath,hNum));
-            }
-            document.close();
-            writer.close();
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        document.add(addTailTable(bodyChinese, secondInfoMap));
+        document.add(addString(bodyChinese,"注:以上横线处内容手写或涂改无效。"));
+        if (hadGZ){
+            document.add(addImages(gongzhangPath,hNum));
         }
+        return document;
     }
 
     private static List<List<String>> createTestList() {
@@ -267,8 +299,16 @@ public class PdfUtil {
         table.setSplitRows(true);
         //表格数据填写
         for(int i=0;i<row;i++){
-            if(i >= row - 2) {
-                Paragraph paragraph = new Paragraph(String.valueOf(tableList.get(i).get(0)), bodyChinese);
+            if(i >= row - 2) {      // 倒数第二行    价格77.77
+                String price = tableList.get(i).get(0);
+                BaseFont bf1 = null;
+                try {
+                    bf1 = BaseFont.createFont("C:/Windows/Fonts/simfang.ttf",BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Font priceChinese = new Font(bf1, 10, Font.NORMAL, null);
+                Paragraph paragraph = new Paragraph(price, priceChinese);
                 PdfPCell cell = new PdfPCell(paragraph);
                 cell.setColspan(9);
                 cell.setVerticalAlignment(Element.ALIGN_CENTER);
@@ -279,7 +319,7 @@ public class PdfUtil {
                 continue;
             }
             List<String> list = tableList.get(i);
-            for(int j=0;j<column;j++){
+            for(int j=0;j<column;j++){  // 商品信息
                 Paragraph paragraph = new Paragraph(String.valueOf(list.get(j)), bodyChinese);
                 PdfPCell cell = new PdfPCell(paragraph);
                 cell.setVerticalAlignment(Element.ALIGN_CENTER);

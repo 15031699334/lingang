@@ -210,6 +210,20 @@
             <artifactId>itext-asian</artifactId>
             <version>5.2.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.16</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.kenai.nbpwr/com-sun-pdfview -->
+        <dependency>
+            <groupId>com.kenai.nbpwr</groupId>
+            <artifactId>com-sun-pdfview</artifactId>
+            <version>1.0.5-201003191900</version>
+        </dependency>
+
+
     </dependencies>
     <build>
         <plugins>
