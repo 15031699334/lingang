@@ -16,7 +16,7 @@ public class Order {
 
     private String cOrderNo;        // 订单号
 
-    private Integer cState;         //  订单状态  0:待提交 1:待审核 2: 初审  3:审核通过   4:订单完结
+    private Integer cState;         //  订单状态  0:待提交 1:待审核 2: 初审  3:审核通过   4:订单完结    5=库存不足(拼团时使用)
 
     private Double cPrice;          // 订单总金额
 

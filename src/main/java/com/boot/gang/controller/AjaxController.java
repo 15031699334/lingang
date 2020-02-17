@@ -440,6 +440,7 @@ public class AjaxController {
                     Order order = (Order) commonService.findObjectById(order_id, "Order");
                     order.setcHide("2");
                     order.setcState(1);
+                    order.setcLastUpdateTime(new Date());
                     try {
                         commonService.update(order, "Order");
                     }catch (Exception e){
@@ -468,6 +469,7 @@ public class AjaxController {
                 }
                 if (entity.equals("pdxg")) {      // 拼单修改
                     Order order = JSONObject.toJavaObject(json,Order.class);
+                    order.setcLastUpdateTime(new Date());
                     commonService.update(order, "Order");
                 }
                 if (entity.equals("ddshdz")){   //订单收货地址 修改
@@ -644,7 +646,7 @@ public class AjaxController {
     }
 
     /**
-     * @Description 打印 pdf
+     * @Description 打印 pdf  有公章
      * @param response
      * @param orderId     订单id
      * @param request
@@ -653,7 +655,41 @@ public class AjaxController {
      * @Date 23:35 2020/1/17
      **/
     @GetMapping("exportPdf")
-    public void exportPdf(HttpServletResponse response, String orderId, HttpServletRequest request) throws IOException {
+    public void exportPdfWithGZ(HttpServletResponse response, String orderId, HttpServletRequest request){
+        try {
+            exportPdf(response, orderId, request, true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * @Description 打印 pdf  无
+     * @param response
+     * @param orderId     订单id
+     * @param request
+     * @return void
+     * @Author dongxiangwei
+     * @Date 23:35 2020/1/17
+     **/
+    @GetMapping("exportPdfNoGZ")
+    public void exportPdfNoGZ(HttpServletResponse response, String orderId, HttpServletRequest request){
+        try {
+            exportPdf(response, orderId, request, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 打印   pdf
+     * @param response
+     * @param orderId   订单id
+     * @param request
+     * @param hadGZ     true= 有公章 false=无公章
+     * @throws IOException
+     */
+    public void exportPdf(HttpServletResponse response, String orderId, HttpServletRequest request, boolean hadGZ) throws IOException {
 
         Order order = (Order) commonService.findObjectById(orderId, "Order");
         ServletOutputStream outputStream = response.getOutputStream();
@@ -670,7 +706,7 @@ public class AjaxController {
         map1.put("openBank", user.getcNowCityName() == null? " ": user.getcNowCityName());   // 开户行
         map1.put("bankCode", user.getcVipCardno() == null? " ": user.getcVipCardno());   //  账号
         map1.put("signature", "");  // 委托人签字
-        System.out.println(" 需求方信息 " + map1);
+//        System.out.println(" 需求方信息 " + map1);
         Map map = new HashMap();
         map.put("name", order.getcRealname());
         map.put("orderNo", order.getcOrderNo());
@@ -690,6 +726,7 @@ public class AjaxController {
         biaotou.add("材质");
         biaotou.add("规格");
         biaotou.add("数量(吨)");
+        biaotou.add("加工信息");
         biaotou.add("单价(元)");
         biaotou.add("仓库");
         lists.add(biaotou);
@@ -702,6 +739,17 @@ public class AjaxController {
             strings.add(orderDetail.getdProducttexture());
             strings.add(orderDetail.getdProductspec());
             strings.add(orderDetail.getdTonnum());
+            String process = "";
+            if (orderDetail.getdProcessway().equals("") && orderDetail.getdProcessrequirement().equals("")){
+                process += "无";
+            }else if (orderDetail.getdProcessway().equals("") && !orderDetail.getdProcessrequirement().equals("")){
+                process +=  orderDetail.getdProcessrequirement();
+            }else if (!orderDetail.getdProcessway().equals("") && orderDetail.getdProcessrequirement().equals("")){
+                process += orderDetail.getdProcessway();
+            }else {
+                process += orderDetail.getdProcessway() + "：" + orderDetail.getdProcessrequirement();
+            }
+            strings.add(process);
             strings.add(orderDetail.getdPrice() + "");
             strings.add(orderDetail.getdStorename());
             lists.add(strings);
@@ -712,7 +760,7 @@ public class AjaxController {
         map.put("productDetail", lists);
         map.put("secondInfo", map1);
 //        System.out.println("主页信息: " + map);
-        PdfUtil.exportPdf(map,details.size(), "http://lingang.zheok.com:8081/img/gongzhang.png", outputStream);
+        PdfUtil.exportPdf(map,details.size(), "http://lingang.zheok.com:8081/img/gongzhang.png", outputStream, hadGZ);
         //PdfUtil.exportPdf(map, "e:\\test\\gongzhang.png", outputStream);
         outputStream.flush();
         outputStream.close();

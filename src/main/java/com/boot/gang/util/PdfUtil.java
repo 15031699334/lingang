@@ -15,7 +15,15 @@ import com.itextpdf.text.pdf.*;
 import javax.servlet.ServletOutputStream;
 
 public class PdfUtil {
-    public static void exportPdf(Map<String, Object> map,int hNum, String gongzhangPath, ServletOutputStream outputStream) {
+    /**
+     *      生成pdf
+     * @param map       参数
+     * @param hNum
+     * @param gongzhangPath     公章路径
+     * @param outputStream
+     * @param hadGZ             true= 有公章 false=无公章
+     */
+    public static void exportPdf(Map<String, Object> map,int hNum, String gongzhangPath, ServletOutputStream outputStream, boolean hadGZ) {
         //参数区
         String name = map.get("name") == null ? "供方甲方山东临钢电子商务股份有限公司" : map.get("name").toString();
         String orderNo = map.get("orderNo") == null? "":map.get("orderNo").toString();
@@ -70,10 +78,10 @@ public class PdfUtil {
             document.add(addString(bodyChinese, "为确保买卖双方双方的共同利益实现互利双赢的目的，根据《中华人民共和国合同法》之规定，经供需双方充分协商" +
                     "特订立此合同以便共同遵守。"));
             document.add(addString(bodyChinese, "一、 货物明细"));
+            // 商品内容
             document.add(addTable(bodyChinese, list));
             document.add(addString(bodyChinese, "二、质量标准：按产品对应钢厂的现行牌号产品对应的标准执行。"));
             //提货方式
-
             paragraph.add(new Chunk("三、<交提>货地点：", bodyChinese));
             paragraph.add(undefinedString(bodyChinese, pickUpAddress));
             paragraph.add(new Chunk("          提货方式：", bodyChinese));
@@ -98,17 +106,19 @@ public class PdfUtil {
             document.add(addString(bodyChinese,"2、供需双方约定以人民币为结算货币，可通过电汇、现金、银行承兑汇票等结算方式进行付款。实际结算金额按需方实提进行货款多退少补；"));
             document.add(addString(bodyChinese,"3、如果需方未按合同约定付清款项，供方有权处理所有货物，此客户不再享有锁货权利。"));
             //剪切尺寸及方式
-            paragraph = new Paragraph();
+            /*paragraph = new Paragraph();
             paragraph.add(new Chunk("七、剪切尺寸及方式：", bodyChinese));
             paragraph.add(undefinedString(bodyChinese, cutType));
-            document.add(paragraph);
-            document.add(addString(bodyChinese,"八、合同生效及解除方式：需方按时支付货款后合同生效，本合同一式两份，双方各执壹份，传真件具有同等法律效力，供需双方钱货两清后合同自然解除。"));
-            document.add(addString(bodyChinese,"九、争议及解决办法：本台同在执行过程中，如发生争议，应由供需双方友好协商解决。如协商不能解决，可向供方" +
+            document.add(paragraph);*/
+            document.add(addString(bodyChinese,"七、合同生效及解除方式：需方按时支付货款后合同生效，本合同一式两份，双方各执壹份，传真件具有同等法律效力，供需双方钱货两清后合同自然解除。"));
+            document.add(addString(bodyChinese,"八、争议及解决办法：本台同在执行过程中，如发生争议，应由供需双方友好协商解决。如协商不能解决，可向供方" +
                     "所在地法院提起诉讼，依法追究违约方责任。"));
 
             document.add(addTailTable(bodyChinese, secondInfoMap));
             document.add(addString(bodyChinese,"注:以上横线处内容手写或涂改无效。"));
-            document.add(addImages(gongzhangPath,hNum));
+            if (hadGZ){
+                document.add(addImages(gongzhangPath,hNum));
+            }
             document.close();
             writer.close();
         } catch (DocumentException e) {
@@ -146,7 +156,7 @@ public class PdfUtil {
         //图片大小自适应
         image.scaleToFit(100, 100);
         //添加图片
-        image.setAbsolutePosition(195, 270-hNum*20);
+        image.setAbsolutePosition(195, 286-hNum*20);
         return image;
     }
 
@@ -241,9 +251,13 @@ public class PdfUtil {
         float width[] = new float[size];
         for(int i=0;i<size;i++){
             if(i==0){
-                width[i]=60f;
-            }else{
-                width[i]=(tatalWidth-60)/(size-1);
+                width[i]=30f;
+            }else if (i == 4){
+                width[i]=70f;
+            }else if (i == 6){
+                width[i]=120f;
+            }else {
+                width[i]=(tatalWidth-220)/(size-3);
             }
         }
         table.setTotalWidth(width);
@@ -256,7 +270,7 @@ public class PdfUtil {
             if(i >= row - 2) {
                 Paragraph paragraph = new Paragraph(String.valueOf(tableList.get(i).get(0)), bodyChinese);
                 PdfPCell cell = new PdfPCell(paragraph);
-                cell.setColspan(8);
+                cell.setColspan(9);
                 cell.setVerticalAlignment(Element.ALIGN_CENTER);
                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
                 cell.setLeading(0, (float) 1.4);
@@ -287,7 +301,7 @@ public class PdfUtil {
         // 设置表格的宽度
         table.setTotalWidth(520);
         // 也可以每列分别设置宽度
-        table.setTotalWidth(new float[] { 200,80,240 });
+        table.setTotalWidth(new float[] { 220,80,220 });
         // 锁住宽度
         table.setLockedWidth(true);
         // 设置表格上面空白宽度
@@ -309,6 +323,7 @@ public class PdfUtil {
         Paragraph p3 = new Paragraph(s2, bodyChinese);
         PdfPCell c3 = new PdfPCell(p3);
         c3.setVerticalAlignment(PdfPCell.ALIGN_BOTTOM);
+        c3.setHorizontalAlignment(Element.ALIGN_RIGHT);
         c3.setBorder(Rectangle.NO_BORDER);
         c3.setFixedHeight(ch);
         table.addCell(c3);
@@ -325,7 +340,7 @@ public class PdfUtil {
         // 设置表格的宽度
         table.setTotalWidth(520);
         // 也可以每列分别设置宽度
-        table.setTotalWidth(new float[] { 260,260 });
+        table.setTotalWidth(new float[] { 340,180 });
         // 锁住宽度
         table.setLockedWidth(true);
         // 设置表格上面空白宽度
