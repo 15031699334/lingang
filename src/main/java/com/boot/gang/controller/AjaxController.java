@@ -240,6 +240,8 @@ public class AjaxController {
             map.put("data", commonService.getList("dt", request, pageIndex, pageSize));
         if (entity.equals("bar"))       // 兑换酒 订单 钢豆订单
             map.put("data", commonService.getList("bar", request, pageIndex, pageSize));
+        if (entity.equals("fb"))       // 反馈记录
+            map.put("data", commonService.getList("fb", request, pageIndex, pageSize));
         if (map.isEmpty()) {
             return msgUtil.jsonErrorMsg("路径错误");
         }
@@ -353,15 +355,13 @@ public class AjaxController {
         if (entity.equals("fb")) {   // 客户反馈
             try {
                 Feedback feedBack = JSONObject.toJavaObject(json, Feedback.class);
+                System.out.println(userId);
                 feedBack.setcUserid(userId);
+                User user = (User) commonService.findObjectById(userId, "User");
+                feedBack.setcRealname(user.getcRealname());
                 feedBack.setcId("FB" + System.nanoTime());
                 feedBack.setcCreatetime(new Date());
                 feedBack.setcLastupdatetime(new Date());
-
-                System.out.println(feedBack.getcMsg());
-                System.out.println(feedBack.getcContent());
-                System.out.println(feedBack.getcRealname());
-
                 commonService.save(feedBack, "FeedBack");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -756,7 +756,7 @@ public class AjaxController {
             strings.add(orderDetail.getdShopcolumntype());
             strings.add(orderDetail.getdProducttexture());
             strings.add(orderDetail.getdProductspec());
-            strings.add(orderDetail.getdTonnum());
+            strings.add(order.getcCategory() == 1 ? orderDetail.getdTonnum() : order.getcGzFl().toString());
             String process = "";
             if (orderDetail.getdProcessway().equals("") && orderDetail.getdProcessrequirement().equals("")) {
                 process += "无";

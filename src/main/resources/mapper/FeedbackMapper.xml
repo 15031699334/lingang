@@ -12,11 +12,12 @@
       <arg column="c_realName" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_status" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="c_userId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_replyMsg" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
     c_id, c_content, c_createTime, c_images, c_lastUpdateTime, c_msg, c_realName, c_status, 
-    c_userId
+    c_userId, c_replyMsg
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -31,11 +32,11 @@
   <insert id="insert" parameterType="com.boot.gang.entity.Feedback" >
     insert into t_feedback (c_id, c_content, c_createTime, 
       c_images, c_lastUpdateTime, c_msg, 
-      c_realName, c_status, c_userId
+      c_realName, c_status, c_userId, c_replyMsg
       )
     values (#{cId,jdbcType=VARCHAR}, #{cContent,jdbcType=VARCHAR}, #{cCreatetime,jdbcType=TIMESTAMP}, 
       #{cImages,jdbcType=VARCHAR}, #{cLastupdatetime,jdbcType=TIMESTAMP}, #{cMsg,jdbcType=VARCHAR}, 
-      #{cRealname,jdbcType=VARCHAR}, #{cStatus,jdbcType=INTEGER}, #{cUserid,jdbcType=VARCHAR}
+      #{cRealname,jdbcType=VARCHAR}, #{cStatus,jdbcType=INTEGER}, #{cUserid,jdbcType=VARCHAR}, #{cReplymsg,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.boot.gang.entity.Feedback" >
@@ -68,6 +69,9 @@
       <if test="cUserid != null" >
         c_userId,
       </if>
+      <if test="cReplymsg != null" >
+        c_replyMsg,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="cId != null" >
@@ -96,6 +100,9 @@
       </if>
       <if test="cUserid != null" >
         #{cUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="cReplymsg != null" >
+        #{cReplymsg,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -126,6 +133,9 @@
       <if test="cUserid != null" >
         c_userId = #{cUserid,jdbcType=VARCHAR},
       </if>
+      <if test="cReplymsg != null" >
+        c_replyMsg = #{cReplymsg,jdbcType=VARCHAR},
+      </if>
     </set>
     where c_id = #{cId,jdbcType=VARCHAR}
   </update>
@@ -138,7 +148,8 @@
       c_msg = #{cMsg,jdbcType=VARCHAR},
       c_realName = #{cRealname,jdbcType=VARCHAR},
       c_status = #{cStatus,jdbcType=INTEGER},
-      c_userId = #{cUserid,jdbcType=VARCHAR}
+      c_userId = #{cUserid,jdbcType=VARCHAR},
+      c_replyMsg = #{cReplymsg,jdbcType=VARCHAR}
     where c_id = #{cId,jdbcType=VARCHAR}
   </update>
 </mapper>

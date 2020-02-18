@@ -1,27 +1,33 @@
 package com.boot.gang.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Feedback {
     private String cId;
 
-    private String cContent;
+    private String cContent;    // 反馈内容
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date cCreatetime;
 
     private String cImages;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date cLastupdatetime;
 
-    private String cMsg;
+    private String cMsg;        // 反馈备注
 
-    private String cRealname;
+    private String cRealname;       // 姓名
 
     private Integer cStatus;
 
     private String cUserid;
 
-    public Feedback(String cId, String cContent, Date cCreatetime, String cImages, Date cLastupdatetime, String cMsg, String cRealname, Integer cStatus, String cUserid) {
+    private String cReplymsg;      // 客户回复信息
+
+    public Feedback(String cId, String cContent, Date cCreatetime, String cImages, Date cLastupdatetime, String cMsg, String cRealname, Integer cStatus, String cUserid, String cReplymsg) {
         this.cId = cId;
         this.cContent = cContent;
         this.cCreatetime = cCreatetime;
@@ -31,6 +37,7 @@ public class Feedback {
         this.cRealname = cRealname;
         this.cStatus = cStatus;
         this.cUserid = cUserid;
+        this.cReplymsg = cReplymsg;
     }
 
     public Feedback() {
@@ -107,5 +114,13 @@ public class Feedback {
 
     public void setcUserid(String cUserid) {
         this.cUserid = cUserid == null ? null : cUserid.trim();
+    }
+
+    public String getcReplymsg() {
+        return cReplymsg;
+    }
+
+    public void setcReplymsg(String cReplymsg) {
+        this.cReplymsg = cReplymsg;
     }
 }

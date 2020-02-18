@@ -214,7 +214,7 @@ public class LoginController {
             String send_phone = configService.selectByPrimaryKey("order_notice_phone").getcComment();
             String [] phones = send_phone.split(",");
             for (int i = 0; i < phones.length;i ++ ){
-                SendSms.sendNewNotice(phones[i], "用户注册");
+                SendSms.sendNewNotice(phones[i], "新用户注册");
             }
         } catch (Exception e) {
             e.printStackTrace();
