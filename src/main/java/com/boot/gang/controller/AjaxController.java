@@ -361,7 +361,6 @@ public class AjaxController {
                 feedBack.setcRealname(user.getcRealname());
                 feedBack.setcId("FB" + System.nanoTime());
                 feedBack.setcCreatetime(new Date());
-                feedBack.setcLastupdatetime(new Date());
                 commonService.save(feedBack, "FeedBack");
             } catch (Exception e) {
                 e.printStackTrace();
