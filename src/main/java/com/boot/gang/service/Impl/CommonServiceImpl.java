@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -77,6 +76,10 @@ public class CommonServiceImpl implements CommonService {
     private SignMapper signMapper;
     @Autowired
     private ProductRelationNodeMapper productRelationNodeMapper;
+    @Autowired
+    private VolumePriceTrendMapper volumePriceTrendMapper;
+    @Autowired
+    private OrderPreorderMapper orderPreorderMapper;
     @Autowired
     private ConfigService configService;
 
@@ -209,6 +212,7 @@ public class CommonServiceImpl implements CommonService {
             shopTrolley.setStProductName(product.getcName());
             shopTrolley.setStShopId(product.getcShopId());
             shopTrolley.setStShopName(product.getcShopName());
+            shopTrolley.setStProductSex(product.getcGoodsSex().toString());
             shopTrolley.setStStoreaddress(product.getcZkbl());
             // 规格 材质 吨数
             String[] c_price_list = product.getcPriceList().split("=");
@@ -251,18 +255,19 @@ public class CommonServiceImpl implements CommonService {
                 for (OrderDetail orderDetail : details) {
                     shopTrolleyIds.add(orderDetail.getdId());
                     ShopTrolley shopTrolley = shopTrolleyMapper.selectBySwhere(" and st_userId = '" + order.getcUserId() + "' and st_id = '" + orderDetail.getdId() + "'");
-                    price += DoubleUtil.mul(shopTrolley.getStPrice(), Double.parseDouble(shopTrolley.getStTonnum()));
+                    Double tunPrice = DoubleUtil.mul(shopTrolley.getStPrice(), Double.parseDouble(shopTrolley.getStTonnum()));
+                    Double dPrice = DoubleUtil.mul(tunPrice, Double.parseDouble(orderDetail.getdProductnum()));
                     if (shopTrolley == null) {
                         throw new Exception("购物车不存在当前商品");
                     }
-                    OrderDetail detail_new = new OrderDetail("OD" + System.nanoTime(), new Date(), order.getcOrderNo(), 0.0, orderDetail.getdProcessrequirement(), "", shopTrolley.getStProductId(), "1", shopTrolley.getStProductspec(), shopTrolley.getStProducttexture(), shopTrolley.getStProductName(), shopTrolley.getStShopColumnTypeId(), shopTrolley.getStShopId(), shopTrolley.getStShopName(), shopTrolley.getStTonnum(), shopTrolley.getStPrice(), shopTrolley.getStPrice(), shopTrolley.getStStoreaddress(), orderDetail.getdExtract());
+                    OrderDetail detail_new = new OrderDetail("OD" + System.nanoTime(), new Date(), order.getcOrderNo(), 0.0, orderDetail.getdProcessrequirement(), "", shopTrolley.getStProductId(), orderDetail.getdProductnum(),shopTrolley.getStProductSex(), shopTrolley.getStProductspec(), shopTrolley.getStProducttexture(), shopTrolley.getStProductName(), shopTrolley.getStShopColumnTypeId(), shopTrolley.getStShopId(), shopTrolley.getStShopName(), shopTrolley.getStTonnum(), shopTrolley.getStPrice(), dPrice, shopTrolley.getStStoreaddress(), orderDetail.getdExtract());
                     orderDetailMapper.insertSelective(detail_new);     // 添加订单详情商品信息
                 }
-                price = price - order.getcCouponPrice() - order.getcGold();
+               // price = price - order.getcCouponPrice() - order.getcGold();
 //                System.out.println("传入价格: " + order.getcPrice() + ", 算出的价格: " + price);
-                if (!DoubleUtil.round(price, 2).equals(order.getcPrice())) {
-                    throw new Exception("订单提交价格错误");
-                }
+//                if (!DoubleUtil.round(price, 2).equals(order.getcPrice())) {
+//                    throw new Exception("订单提交价格错误");
+//                }
                 // 添加订单信息
                 orderMapper.insertSelective(order); // 添加完成
                 // 修改优惠券状态
@@ -306,7 +311,7 @@ public class CommonServiceImpl implements CommonService {
                     }
                     order.setcZjrFl(sy);    // 将主订单的剩余量修改
 
-                    OrderDetail orderDetail = new OrderDetail("OD" + System.nanoTime(), new Date(), order.getcOrderNo(), 0.0, od_in.getdProcessrequirement(), od_in.getdProcessway(), product.getcId(), "1", p_data[0], p_data[1], product.getcName(), product.getcShopColumnTypeId(), product.getcShopId(), product.getcShopName(), product.getcSexPrice().toString(), product.getcNowPrice(), product.getcNowPrice(), product.getcZkbl(), "");
+                    OrderDetail orderDetail = new OrderDetail("OD" + System.nanoTime(), new Date(), order.getcOrderNo(), 0.0, od_in.getdProcessrequirement(), od_in.getdProcessway(), product.getcId(), "1","0", p_data[0], p_data[1], product.getcName(), product.getcShopColumnTypeId(), product.getcShopId(), product.getcShopName(), product.getcSexPrice().toString(), product.getcNowPrice(), product.getcNowPrice(), product.getcZkbl(), "");
                     orderDetailMapper.insertSelective(orderDetail);     // 添加订单详情商品信息
                     // 添加订单信息
                     order.setcRealname(user.getcRealname());
@@ -339,7 +344,7 @@ public class CommonServiceImpl implements CommonService {
                         throw new Exception("吨数大于商品吨数");
                     }
                     order_group_init.setcZjrFl(sy); // 将主订单的剩余量修改
-                    OrderDetail orderDetail = new OrderDetail("OD" + System.nanoTime(), new Date(), order.getcOrderNo(), 0.0, od_in.getdProcessrequirement(), od_in.getdProcessway(), product.getcId(), "1", p_data[0], p_data[1], product.getcName(), product.getcShopColumnTypeId(), product.getcShopId(), product.getcShopName(), product.getcSexPrice().toString(), product.getcNowPrice(), product.getcNowPrice(), product.getcZkbl(), "");
+                    OrderDetail orderDetail = new OrderDetail("OD" + System.nanoTime(), new Date(), order.getcOrderNo(), 0.0, od_in.getdProcessrequirement(), od_in.getdProcessway(), product.getcId(), "1","0", p_data[0], p_data[1], product.getcName(), product.getcShopColumnTypeId(), product.getcShopId(), product.getcShopName(), product.getcSexPrice().toString(), product.getcNowPrice(), product.getcNowPrice(), product.getcZkbl(), "");
                     orderDetailMapper.insertSelective(orderDetail);     // 添加订单详情商品信息
                     // 添加订单信息
                     order.setcGroupEndTime(order_group_init.getcGroupEndTime());
@@ -390,6 +395,19 @@ public class CommonServiceImpl implements CommonService {
             integralDetailMapper.insertSelective(integralDetail);   // 添加明细变化
             orderBarMapper.insertSelective(orderBar);               // 添加酒订单
         }
+        if (entity.equals("OP")) {  // 预购订单
+            OrderPreorder orderPreorder = (OrderPreorder) object;
+            User user = userMapper.selectByPrimaryKey(orderPreorder.getOpUserId());
+            orderPreorder.setOpRealName(user.getcRealname());
+            ProductRelationNode prn = productRelationNodeMapper.selectByPrimaryKey(orderPreorder.getOpPrnId());
+            orderPreorder.setOpPrice(prn.getcNowPrice());
+            orderPreorder.setOpPrnName(prn.getcName());
+            orderPreorder.setOpCreateTime(new Date());
+            String [] texttrue_spec = prn.getcPriceList().split("\\+");
+            orderPreorder.setOpTexttrue(texttrue_spec[0]);
+            orderPreorder.setOpSpec(texttrue_spec[1]);
+            orderPreorderMapper.insertSelective(orderPreorder);
+        }
     }
 
     @Override
@@ -423,7 +441,9 @@ public class CommonServiceImpl implements CommonService {
                     if (prn.getcStockNum() < Integer.parseInt(orderDetail.getdProductnum()))
                         throw new Exception("吨数：" + orderDetail.getdTonnum() + "，单价: " + orderDetail.getdPrice() + " 的商品库存不足");
                     prn.setcStockNum(prn.getcStockNum() - Integer.parseInt(orderDetail.getdProductnum()));
-                    prn.setcStockNum(0);
+                    if (prn.getcStockNum() == 0) {
+                        prn.setcStockNum(0);
+                    }
                     productRelationNodeMapper.updateByPrimaryKeySelective(prn);
                 }
                 orderMapper.updateByPrimaryKeySelective(order);
@@ -553,9 +573,9 @@ public class CommonServiceImpl implements CommonService {
             String shopColumnId = request.getParameter("id");
             return shopColumnTypeMapper.getList(" and c_if_open = 1 and c_column_id = " + shopColumnId + " order by c_sort asc");
         }
-        if (entity.equals("pm")) {      // 删选 获取品名
+        if (entity.equals("pm")) {      // 筛选 获取品名
             String shopColumnId = request.getParameter("id");
-            return shopColumnTypeMapper.getList(" and c_name != '全部' and c_column_id = " + shopColumnId + " order by c_sort asc");
+            return shopColumnTypeMapper.getList(" and c_name != '全部' and c_column_id = " + shopColumnId + " and c_hide = 's' order by c_sort asc");
         }
         if (entity.equals("Province")) {   // 省份列表(商品筛选)
             return provinceMapper.getList(" and c_hide = 1 order by c_sort asc");
@@ -570,10 +590,10 @@ public class CommonServiceImpl implements CommonService {
         }
         if (entity.equals("cjdt")) {   // 首页成交动态(滚动)
             List<OrderRecord> recordList = orderRecordMapper.getList(" and or_state = 1 order by or_createtTime desc");
-            for (OrderRecord orderRecord : recordList) {     // 只是展示 不考虑性能  实际应该添加字段 这里主要为了前端可以不用变更
-                User user = userMapper.selectByPrimaryKey(orderRecord.getOrUserid());
-                orderRecord.setOrRealname(user.getcUsername());
-            }
+//            for (OrderRecord orderRecord : recordList) {     // 只是展示 不考虑性能  实际应该添加字段 这里主要为了前端可以不用变更
+//                User user = userMapper.selectByPrimaryKey(orderRecord.getOrUserid());
+//                orderRecord.setOrRealname(user.getcUsername());
+//            }
             return recordList;
         }
         if (entity.equals("zxcj")) {   // 首页最新成交
@@ -737,6 +757,24 @@ public class CommonServiceImpl implements CommonService {
             String orderNo = request.getAttribute("orderNo").toString();
             return orderDetailMapper.getList(" and d_orderNo = '" + orderNo + "'");
         }
+        if (entity.equals("VolumePriceTrend")) {   // 卷价趋势  // 0=螺纹 1=冷轧 2=热轧
+            String vpt_type = request.getAttribute("vpt_type").toString();
+            return  volumePriceTrendMapper.getList(" and vpt_type_name = '" + vpt_type + "' order by vpt_time desc limit 7");
+        }
+        if (entity.equals("PRN_spec")) {    // 获取商品的规格参数
+            String chl = request.getParameter("chl");
+            List<ProductRelationNode> prns = productRelationNodeMapper.getList(" and c_shop_column_type_id = '" + chl + "' and c_hide = 's' ");
+            List<String> specs = new ArrayList<>();
+                System.out.println("shang" + prns.size());
+            for (ProductRelationNode prn : prns) {
+                System.out.println(prn);
+                String spec = prn.getcPriceList().split("\\+")[0];
+                if (!specs.contains(spec)){
+                    specs.add(spec);
+                }
+            }
+            return specs;
+        }
         return null;
     }
 
@@ -759,8 +797,8 @@ public class CommonServiceImpl implements CommonService {
                 List<OrderDetail> list = orderDetailMapper.getList(" and d_orderNo = '" + order.getcOrderNo() + "'");
                 for (OrderDetail orderDetail : list) {
                     ProductRelationNode prn = productRelationNodeMapper.selectByPrimaryKey(orderDetail.getdProductid());
-//                    prn.setcStockNum(prn.getcStockNum() + Integer.parseInt(orderDetail.getdProductnum()));
-                    prn.setcStockNum(1);    // 固定赋值1    于总添加
+                    prn.setcStockNum(prn.getcStockNum() + Integer.parseInt(orderDetail.getdProductnum()));
+//                    prn.setcStockNum(1);    // 固定赋值1
                     productRelationNodeMapper.updateByPrimaryKeySelective(prn);
                 }
                 orderDetailMapper.deleteByOrderNo(order.getcOrderNo());     // 订单商品信息删除

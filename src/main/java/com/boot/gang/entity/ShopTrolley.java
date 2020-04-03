@@ -24,7 +24,7 @@ public class ShopTrolley {
     private String stProductName;   // 商品名称
 
     private String stProductspec;   // 规格
-
+    private String stProductSex;   // 吨  或  根
     private String stProducttexture;        // 材质
 
     private String stRealname;      // 用户真实姓名
@@ -49,13 +49,14 @@ public class ShopTrolley {
 
     private Integer stProductNum;
 
-    public ShopTrolley(String stId, Date stCreatettime, String stNowPriceDescription, String stProductId, String stProductName, String stProductspec, String stProducttexture, String stRealname, String stShopId, Integer stState, String stStoreaddress, String stTonnum, String stUserid, Double stNowPrice, Double stOriginalPrice, Double stPrice, String stShopName, String stShopColumnTypeId, Integer stProductNum) {
+    public ShopTrolley(String stId, Date stCreatettime, String stNowPriceDescription, String stProductId, String stProductName, String stProductspec,String stProductSex, String stProducttexture, String stRealname, String stShopId, Integer stState, String stStoreaddress, String stTonnum, String stUserid, Double stNowPrice, Double stOriginalPrice, Double stPrice, String stShopName, String stShopColumnTypeId, Integer stProductNum) {
         this.stId = stId;
         this.stCreatettime = stCreatettime;
         this.stNowPriceDescription = stNowPriceDescription;
         this.stProductId = stProductId;
         this.stProductName = stProductName;
         this.stProductspec = stProductspec;
+        this.stProductSex=stProductSex;
         this.stProducttexture = stProducttexture;
         this.stRealname = stRealname;
         this.stShopId = stShopId;
@@ -135,7 +136,13 @@ public class ShopTrolley {
     public void setStProductspec(String stProductspec) {
         this.stProductspec = stProductspec == null ? null : stProductspec.trim();
     }
+    public String getStProductSex() {
+        return stProductSex;
+    }
 
+    public void setStProductSex(String stProductSex) {
+        this.stProductSex = stProductSex == null ? null : stProductSex.trim();
+    }
     public String getStProducttexture() {
         return stProducttexture;
     }

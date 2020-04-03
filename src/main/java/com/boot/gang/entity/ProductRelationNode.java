@@ -35,7 +35,7 @@ public class ProductRelationNode {
 
     private Double cFactGold;
 
-    private Double cGold;               //厚度
+    private Double cGold;               //长度
 
     private String cGoodsInterval;
 

@@ -11,6 +11,7 @@
       <arg column="d_processWay" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="d_productId" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="d_productNum" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="d_product_sex" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="d_productSpec" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="d_productTexture" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="d_shopColumnType" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -26,7 +27,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     d_id, d_createTime, d_orderNo, d_processPrice, d_processRequirement, d_processWay, d_productId,
-    d_productNum, d_productSpec, d_productTexture, d_shopColumnType, d_shopColumnTypeId, 
+    d_productNum, d_product_sex, d_productSpec, d_productTexture, d_shopColumnType, d_shopColumnTypeId,
     d_shopId, d_shopName, d_tonNum, d_prn_price, d_price, d_storeName, d_extract
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -42,13 +43,13 @@
   <insert id="insert" parameterType="com.boot.gang.entity.OrderDetail" >
     insert into t_order_detail (d_id, d_createTime, d_orderNo, 
       d_processPrice, d_processRequirement, d_processWay, d_productId,
-      d_productNum, d_productSpec, d_productTexture, 
+      d_productNum, d_product_sex, d_productSpec, d_productTexture,
       d_shopColumnType, d_shopColumnTypeId, d_shopId, 
       d_shopName, d_tonNum, d_prn_price, d_price,
       d_storeName, d_extract)
     values (#{dId,jdbcType=VARCHAR}, #{dCreatetime,jdbcType=TIMESTAMP}, #{dOrderno,jdbcType=VARCHAR}, 
       #{dProcessprice,jdbcType=DOUBLE}, #{dProcessrequirement,jdbcType=VARCHAR}, #{dProcessway,jdbcType=VARCHAR}, #{dProductid,jdbcType=VARCHAR},
-      #{dProductnum,jdbcType=VARCHAR}, #{dProductspec,jdbcType=VARCHAR}, #{dProducttexture,jdbcType=VARCHAR}, 
+      #{dProductnum,jdbcType=VARCHAR},#{dProductSex,jdbcType=VARCHAR}, #{dProductspec,jdbcType=VARCHAR}, #{dProducttexture,jdbcType=VARCHAR},
       #{dShopcolumntype,jdbcType=VARCHAR}, #{dShopcolumntypeid,jdbcType=VARCHAR}, #{dShopid,jdbcType=VARCHAR}, 
       #{dShopname,jdbcType=VARCHAR}, #{dTonnum,jdbcType=VARCHAR}, #{dPrnPrice,jdbcType=DOUBLE}, #{dPrice,jdbcType=DOUBLE},
       #{dStorename,jdbcType=VARCHAR}, #{dExtract,jdbcType=VARCHAR})
@@ -79,6 +80,9 @@
       </if>
       <if test="dProductnum != null" >
         d_productNum,
+      </if>
+      <if test="dProductSex != null" >
+        d_product_sex,
       </if>
       <if test="dProductspec != null" >
         d_productSpec,
@@ -139,6 +143,9 @@
       <if test="dProductnum != null" >
         #{dProductnum,jdbcType=VARCHAR},
       </if>
+      <if test="dProductSex != null" >
+        #{dProductSex,jdbcType=VARCHAR},
+      </if>
       <if test="dProductspec != null" >
         #{dProductspec,jdbcType=VARCHAR},
       </if>
@@ -198,6 +205,9 @@
       <if test="dProductnum != null" >
         d_productNum = #{dProductnum,jdbcType=VARCHAR},
       </if>
+      <if test="dProductSex != null" >
+        d_product_sex = #{dProductSex,jdbcType=VARCHAR},
+      </if>
       <if test="dProductspec != null" >
         d_productSpec = #{dProductspec,jdbcType=VARCHAR},
       </if>
@@ -243,6 +253,7 @@
       d_processWay = #{dProcessway,jdbcType=VARCHAR},
       d_productId = #{dProductid,jdbcType=VARCHAR},
       d_productNum = #{dProductnum,jdbcType=VARCHAR},
+      d_product_sex = #{dProductSex,jdbcType=VARCHAR},
       d_productSpec = #{dProductspec,jdbcType=VARCHAR},
       d_productTexture = #{dProducttexture,jdbcType=VARCHAR},
       d_shopColumnType = #{dShopcolumntype,jdbcType=VARCHAR},

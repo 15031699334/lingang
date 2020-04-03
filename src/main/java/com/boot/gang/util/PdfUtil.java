@@ -69,7 +69,7 @@ public class PdfUtil {
      */
     private static Document insertPDFIo(Map<String, Object> map,int hNum, String gongzhangPath, ServletOutputStream outputStream, boolean hadGZ, Document document) throws Exception{
         //参数区
-        String name = map.get("name") == null ? "供方甲方山东临钢电子商务股份有限公司" : map.get("name").toString();
+        String name = map.get("name") == null ? "供方：山东临钢电子商务股份有限公司" : map.get("name").toString();
         String orderNo = map.get("orderNo") == null? "":map.get("orderNo").toString();
         String address = map.get("address") == null ? "测试地址" : map.get("address").toString();
         String createTime = map.get("createTime") == null ? "2020-01-17" : map.get("createTime").toString();
@@ -205,9 +205,9 @@ public class PdfUtil {
         float width[] = new float[size];
         for(int i=0;i<size;i++){
             if(i==0){
-                width[i]=240f;
+                width[i]=260f;
             }else{
-                width[i]=240f;
+                width[i]=230f;
             }
         }
         table.setTotalWidth(width);
@@ -221,17 +221,17 @@ public class PdfUtil {
                 Paragraph paragraph = null;
                 if(j == 0) {
                     if(i == 0) {
-                        paragraph = new Paragraph("供方：泰州慧钢网电子商务有限公司", bodyChinese );
+                        paragraph = new Paragraph("供方：山东临钢电子商务股份有限公司", bodyChinese );
                     } else if(i == 1) {
-                        paragraph = new Paragraph("地址：江苏省泰州市每陵区罡杨站前路", bodyChinese );
+                        paragraph = new Paragraph("地址：临沂市经济开发区沂蒙云谷B座6层", bodyChinese );
                     }else if(i == 2) {
-                        paragraph = new Paragraph("电话：0523-80767000    80767177", bodyChinese );
+                        paragraph = new Paragraph("电话：0539-6387606", bodyChinese );
                     }else if(i == 3) {
-                        paragraph = new Paragraph("传真：0523-80767106    80767096", bodyChinese );
+                        paragraph = new Paragraph("传真：0539-6387608", bodyChinese );
                     }else if(i == 4) {
-                        paragraph = new Paragraph("开户行：江苏姜堰农村商业银行股份有限公司罡杨支行", bodyChinese );
+                        paragraph = new Paragraph("开户行：中国农业银行股份有限公司临沂经济技术开发区支行", bodyChinese );
                     }else if(i == 5) {
-                        paragraph = new Paragraph("账号： 3212840221010088889995", bodyChinese );
+                        paragraph = new Paragraph("账号： 15873201045555669", bodyChinese );
                     }else if(i == 6) {
                         paragraph = new Paragraph("委托代理人签字：", bodyChinese );
                     }

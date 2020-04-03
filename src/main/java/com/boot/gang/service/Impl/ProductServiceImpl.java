@@ -44,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
         String width = request.getParameter("width");          // 宽度
         String extent = request.getParameter("extent");         // 长度
         StringBuffer sb = new StringBuffer();
-        sb.append(" and c_stock_num > 0 ");
+        sb.append(" and c_stock_num > 0  and c_hide = 's'");
         if (!StringUtil.isNullOrEmpty(provinceId)){
             sb.append(" and c_province_id = '" + provinceId + "'");
         }
@@ -134,7 +134,7 @@ public class ProductServiceImpl implements ProductService {
             }
         }
         if (!StringUtil.isNullOrEmpty(pageIndex) && !StringUtil.isNullOrEmpty(pageSize)) {
-            sb.append(" and limit " + pageIndex + ", " + pageSize);
+            sb.append(" limit " + Integer.parseInt(pageIndex) * Integer.parseInt(pageSize) + ", " + pageSize);
         }
 //        System.out.println(sb.toString());
 //        List<Product> products = productMapper.getList(sb.toString());

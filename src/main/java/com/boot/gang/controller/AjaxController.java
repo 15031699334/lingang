@@ -2,10 +2,8 @@ package com.boot.gang.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.boot.gang.entity.*;
-import com.boot.gang.mapper.OrderMapper;
 import com.boot.gang.service.*;
 import com.boot.gang.util.*;
-import com.rabbitmq.tools.json.JSONUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -21,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -107,13 +104,12 @@ public class AjaxController {
             }
 
         }
-        if (entity.equals("cz")) {   //  材质
+        if (entity.equals("cz")) {   //  材质 config表 里面的数据
             String chl = request.getParameter("chl");
             return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(chl, "cz"));
         }
-        if (entity.equals("gg")) {   // 规格
-            String chl = request.getParameter("chl");
-            return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(chl, "gg"));
+        if (entity.equals("gg")) {   // 通过品类id 获取prn表中的规格
+            return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.getList("PRN_spec", request, null, null));
         }
         if (entity.equals("gwc")) {     // 购物车  需要验证是否登录
             try {
@@ -129,13 +125,57 @@ public class AjaxController {
         if (entity.equals("news")) {     // 获取新闻 今日快讯 活动
             return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "news"));
         }
-        if (entity.equals("jjqs")) {   // 获取卷价趋势
-            return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById("volume_price_list", "Config"));
+        if (entity.equals("jjqs")) {   // 获取卷价趋势    // 0=螺纹 1=冷轧 2=热轧
+//            return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById("volume_price_list", "Config"));
+            request.setAttribute("vpt_type", "0");
+            List<VolumePriceTrend> lwlist = commonService.getList("VolumePriceTrend", request, null, null);
+            request.setAttribute("vpt_type", "1");
+            List<VolumePriceTrend> lzlist = commonService.getList("VolumePriceTrend", request, null, null);
+            request.setAttribute("vpt_type", "2");
+            List<VolumePriceTrend> rzlist = commonService.getList("VolumePriceTrend", request, null, null);
+            Map<String, List> map = new HashMap<>();
+            List<String> hg_date = new ArrayList<>();
+            List<Double> hg_lw = new ArrayList<>();
+            List<Double> hg_lz = new ArrayList<>();
+            List<Double> hg_rz = new ArrayList<>();
+            for (int i = 6; i > -1; i --) {
+                String day = DateUtil.getDateFormat(DateUtil.addDay(new Date(), -i), "MM-dd");
+                hg_date.add(day);
+                for (VolumePriceTrend volumePriceTrend: lwlist){    // 螺纹
+                    if (DateUtil.getDateFormat(volumePriceTrend.getVptTime(), "MM-dd").equals(day)){
+                        hg_lw.add(volumePriceTrend.getVptPrice());
+                    }
+                }
+                if (hg_lw.size() < 7 - i){
+                    hg_lw.add(0.0);
+                }
+                for (VolumePriceTrend volumePriceTrend: lzlist){    // 冷轧
+                    if (DateUtil.getDateFormat(volumePriceTrend.getVptTime(), "MM-dd").equals(day)){
+                        hg_lz.add(volumePriceTrend.getVptPrice());
+                    }
+                }
+                if (hg_lz.size() < 7 - i){
+                    hg_lz.add(0.0);
+                }
+                for (VolumePriceTrend volumePriceTrend: rzlist){    // 热轧
+                    if (DateUtil.getDateFormat(volumePriceTrend.getVptTime(), "MM-dd").equals(day)){
+                        hg_rz.add(volumePriceTrend.getVptPrice());
+                    }
+                }
+                if (hg_rz.size() < 7 - i){
+                    hg_rz.add(0.0);
+                }
+            }
+            map.put("hg_date", hg_date);
+            map.put("hg_lw", hg_lw);
+            map.put("hg_lz", hg_lz);
+            map.put("hg_rz", hg_rz);
+            return msgUtil.jsonSuccessMsg("获取成功", "data", map);
         }
         if (entity.equals("spkc")) {  // 根据购物车id查询商品库存
-
             return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "spkc"));
         }
+
         return msgUtil.jsonErrorMsg("路径错误");
     }
 
@@ -245,6 +285,8 @@ public class AjaxController {
         if (map.isEmpty()) {
             return msgUtil.jsonErrorMsg("路径错误");
         }
+
+
         return msgUtil.jsonSuccessMsg("获取成功", map);
     }
 
@@ -388,6 +430,16 @@ public class AjaxController {
             } catch (Exception e) {
                 return msgUtil.jsonErrorMsg("添加错误");
             }
+        }
+        if (entity.equals("ygdd")) {    // 预购订单
+            try {
+                OrderPreorder orderPreorder = JSONObject.toJavaObject(json, OrderPreorder.class);
+                orderPreorder.setOpUserId(userId);
+                commonService.save(orderPreorder, "OP");
+            }catch (Exception e) {
+                return msgUtil.jsonErrorMsg(e.getMessage());
+            }
+
         }
         return msgUtil.jsonSuccessMsg("添加成功");
     }
@@ -742,7 +794,7 @@ public class AjaxController {
         biaotou.add("品名");
         biaotou.add("材质");
         biaotou.add("规格");
-        biaotou.add("数量(吨)");
+        biaotou.add("重量");
         biaotou.add("加工信息");
         biaotou.add("单价(元)");
         biaotou.add("仓库");
@@ -755,7 +807,11 @@ public class AjaxController {
             strings.add(orderDetail.getdShopcolumntype());
             strings.add(orderDetail.getdProducttexture());
             strings.add(orderDetail.getdProductspec());
-            strings.add(order.getcCategory() == 1 ? orderDetail.getdTonnum() : order.getcGzFl().toString());
+            if(orderDetail.getdProductSex().equals("1")) {
+                strings.add(DoubleUtil.round(Double.parseDouble(orderDetail.getdTonnum())*Double.parseDouble(orderDetail.getdProductnum()), 4)+"吨");
+            }else{
+                strings.add(order.getcCategory() == 1 ? orderDetail.getdTonnum() : order.getcGzFl().toString());
+            }
             String process = "";
             if (orderDetail.getdProcessway().equals("") && orderDetail.getdProcessrequirement().equals("")) {
                 process += "无";
@@ -767,7 +823,7 @@ public class AjaxController {
                 process += orderDetail.getdProcessway() + "：" + orderDetail.getdProcessrequirement();
             }
             strings.add(process);
-            strings.add(orderDetail.getdPrice() + "");
+            strings.add(orderDetail.getdPrnPrice() + "");
             strings.add(orderDetail.getdStorename());
             lists.add(strings);
         }

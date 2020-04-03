@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boot.gang.mapper.OrderPreorderMapper" >
+  <resultMap id="BaseResultMap" type="com.boot.gang.entity.OrderPreorder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="op_create_time" property="opCreateTime" jdbcType="TIMESTAMP" />
+    <result column="op_last_update_time" property="opLastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="op_price" property="opPrice" jdbcType="DOUBLE" />
+    <result column="op_prn_id" property="opPrnId" jdbcType="VARCHAR" />
+    <result column="op_prn_name" property="opPrnName" jdbcType="VARCHAR" />
+    <result column="op_real_name" property="opRealName" jdbcType="VARCHAR" />
+    <result column="op_spec" property="opSpec" jdbcType="VARCHAR" />
+    <result column="op_texttrue" property="opTexttrue" jdbcType="VARCHAR" />
+    <result column="op_user_id" property="opUserId" jdbcType="VARCHAR" />
+    <result column="op_status" property="opStatus" jdbcType="INTEGER" />
+    <result column="op_phone" property="opPhone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, op_create_time, op_last_update_time, op_price, op_prn_id, op_prn_name, op_real_name, 
+    op_spec, op_texttrue, op_user_id, op_status, op_phone
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_preorder
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_order_preorder
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.boot.gang.entity.OrderPreorder" >
+    insert into t_order_preorder (id, op_create_time, op_last_update_time, 
+      op_price, op_prn_id, op_prn_name, 
+      op_real_name, op_spec, op_texttrue, 
+      op_user_id, op_status, op_phone
+      )
+    values (#{id,jdbcType=INTEGER}, #{opCreateTime,jdbcType=TIMESTAMP}, #{opLastUpdateTime,jdbcType=TIMESTAMP}, 
+      #{opPrice,jdbcType=DOUBLE}, #{opPrnId,jdbcType=VARCHAR}, #{opPrnName,jdbcType=VARCHAR}, 
+      #{opRealName,jdbcType=VARCHAR}, #{opSpec,jdbcType=VARCHAR}, #{opTexttrue,jdbcType=VARCHAR}, 
+      #{opUserId,jdbcType=VARCHAR}, #{opStatus,jdbcType=INTEGER}, #{opPhone,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boot.gang.entity.OrderPreorder" >
+    insert into t_order_preorder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="opCreateTime != null" >
+        op_create_time,
+      </if>
+      <if test="opLastUpdateTime != null" >
+        op_last_update_time,
+      </if>
+      <if test="opPrice != null" >
+        op_price,
+      </if>
+      <if test="opPrnId != null" >
+        op_prn_id,
+      </if>
+      <if test="opPrnName != null" >
+        op_prn_name,
+      </if>
+      <if test="opRealName != null" >
+        op_real_name,
+      </if>
+      <if test="opSpec != null" >
+        op_spec,
+      </if>
+      <if test="opTexttrue != null" >
+        op_texttrue,
+      </if>
+      <if test="opUserId != null" >
+        op_user_id,
+      </if>
+      <if test="opStatus != null" >
+        op_status,
+      </if>
+      <if test="opPhone != null" >
+        op_phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="opCreateTime != null" >
+        #{opCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opLastUpdateTime != null" >
+        #{opLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opPrice != null" >
+        #{opPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="opPrnId != null" >
+        #{opPrnId,jdbcType=VARCHAR},
+      </if>
+      <if test="opPrnName != null" >
+        #{opPrnName,jdbcType=VARCHAR},
+      </if>
+      <if test="opRealName != null" >
+        #{opRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="opSpec != null" >
+        #{opSpec,jdbcType=VARCHAR},
+      </if>
+      <if test="opTexttrue != null" >
+        #{opTexttrue,jdbcType=VARCHAR},
+      </if>
+      <if test="opUserId != null" >
+        #{opUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="opStatus != null" >
+        #{opStatus,jdbcType=INTEGER},
+      </if>
+      <if test="opPhone != null" >
+        #{opPhone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boot.gang.entity.OrderPreorder" >
+    update t_order_preorder
+    <set >
+      <if test="opCreateTime != null" >
+        op_create_time = #{opCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opLastUpdateTime != null" >
+        op_last_update_time = #{opLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opPrice != null" >
+        op_price = #{opPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="opPrnId != null" >
+        op_prn_id = #{opPrnId,jdbcType=VARCHAR},
+      </if>
+      <if test="opPrnName != null" >
+        op_prn_name = #{opPrnName,jdbcType=VARCHAR},
+      </if>
+      <if test="opRealName != null" >
+        op_real_name = #{opRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="opSpec != null" >
+        op_spec = #{opSpec,jdbcType=VARCHAR},
+      </if>
+      <if test="opTexttrue != null" >
+        op_texttrue = #{opTexttrue,jdbcType=VARCHAR},
+      </if>
+      <if test="opUserId != null" >
+        op_user_id = #{opUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="opStatus != null" >
+        op_status = #{opStatus,jdbcType=INTEGER},
+      </if>
+      <if test="opPhone != null" >
+        op_phone = #{opPhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boot.gang.entity.OrderPreorder" >
+    update t_order_preorder
+    set op_create_time = #{opCreateTime,jdbcType=TIMESTAMP},
+      op_last_update_time = #{opLastUpdateTime,jdbcType=TIMESTAMP},
+      op_price = #{opPrice,jdbcType=DOUBLE},
+      op_prn_id = #{opPrnId,jdbcType=VARCHAR},
+      op_prn_name = #{opPrnName,jdbcType=VARCHAR},
+      op_real_name = #{opRealName,jdbcType=VARCHAR},
+      op_spec = #{opSpec,jdbcType=VARCHAR},
+      op_texttrue = #{opTexttrue,jdbcType=VARCHAR},
+      op_user_id = #{opUserId,jdbcType=VARCHAR},
+      op_status = #{opStatus,jdbcType=INTEGER},
+      op_phone = #{opPhone,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

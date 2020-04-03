@@ -23,7 +23,7 @@ public class OrderDetail {
     private String dProductnum;         // 商品数量
 
     private String dProductspec;        // 商品规格
-
+    private String dProductSex;        // 吨    根
     private String dProducttexture;     // 材质
 
     private String dShopcolumntype;     // 商品类别名称
@@ -44,7 +44,7 @@ public class OrderDetail {
 
     private String dExtract;            // 提货信息
 
-    public OrderDetail(String dId, Date dCreatetime, String dOrderno, Double dProcessprice, String dProcessrequirement, String dProcessway, String dProductid, String dProductnum, String dProductspec, String dProducttexture, String dShopcolumntype, String dShopcolumntypeid, String dShopid, String dShopname, String dTonnum, Double dPrnPrice, Double dPrice, String dStorename, String dExtract) {
+    public OrderDetail(String dId, Date dCreatetime, String dOrderno, Double dProcessprice, String dProcessrequirement, String dProcessway, String dProductid, String dProductnum, String dProductSex,String dProductspec, String dProducttexture, String dShopcolumntype, String dShopcolumntypeid, String dShopid, String dShopname, String dTonnum, Double dPrnPrice, Double dPrice, String dStorename, String dExtract) {
         this.dId = dId;
         this.dCreatetime = dCreatetime;
         this.dOrderno = dOrderno;
@@ -54,6 +54,7 @@ public class OrderDetail {
         this.dProductid = dProductid;
         this.dProductnum = dProductnum;
         this.dProductspec = dProductspec;
+        this.dProductSex=dProductSex;
         this.dProducttexture = dProducttexture;
         this.dShopcolumntype = dShopcolumntype;
         this.dShopcolumntypeid = dShopcolumntypeid;
@@ -141,7 +142,13 @@ public class OrderDetail {
     public void setdProductspec(String dProductspec) {
         this.dProductspec = dProductspec == null ? null : dProductspec.trim();
     }
+    public String getdProductSex() {
+        return dProductSex;
+    }
 
+    public void setdProductSex(String dProductSex) {
+        this.dProductSex = dProductSex == null ? null : dProductSex.trim();
+    }
     public String getdProducttexture() {
         return dProducttexture;
     }
