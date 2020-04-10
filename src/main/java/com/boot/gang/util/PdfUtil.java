@@ -188,7 +188,7 @@ public class PdfUtil {
         //图片大小自适应
         image.scaleToFit(100, 100);
         //添加图片
-        image.setAbsolutePosition(195, 286-hNum*20);
+        image.setAbsolutePosition(195, 286-hNum*20-10);
         return image;
     }
 
@@ -299,7 +299,7 @@ public class PdfUtil {
         table.setSplitRows(true);
         //表格数据填写
         for(int i=0;i<row;i++){
-            if(i >= row - 2) {      // 倒数第二行    价格77.77
+            if(i >= row - 3) {      // 倒数第二行    价格77.77
                 String price = tableList.get(i).get(0);
                 BaseFont bf1 = null;
                 try {

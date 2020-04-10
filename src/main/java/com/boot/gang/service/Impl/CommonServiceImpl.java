@@ -399,6 +399,7 @@ public class CommonServiceImpl implements CommonService {
             OrderPreorder orderPreorder = (OrderPreorder) object;
             User user = userMapper.selectByPrimaryKey(orderPreorder.getOpUserId());
             orderPreorder.setOpRealName(user.getcRealname());
+            orderPreorder.setOpPhone(user.getcPhone());
             ProductRelationNode prn = productRelationNodeMapper.selectByPrimaryKey(orderPreorder.getOpPrnId());
             orderPreorder.setOpPrice(prn.getcNowPrice());
             orderPreorder.setOpPrnName(prn.getcName());
@@ -575,7 +576,7 @@ public class CommonServiceImpl implements CommonService {
         }
         if (entity.equals("pm")) {      // 筛选 获取品名
             String shopColumnId = request.getParameter("id");
-            return shopColumnTypeMapper.getList(" and c_name != '全部' and c_column_id = " + shopColumnId + " and c_hide = 's' order by c_sort asc");
+            return shopColumnTypeMapper.getList(" and c_name != '全部' and c_column_id = " + shopColumnId + " and c_if_open = 1 and c_hide = 's' order by c_sort asc");
         }
         if (entity.equals("Province")) {   // 省份列表(商品筛选)
             return provinceMapper.getList(" and c_hide = 1 order by c_sort asc");

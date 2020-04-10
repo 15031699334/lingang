@@ -138,16 +138,18 @@ public class AjaxController {
             List<Double> hg_lw = new ArrayList<>();
             List<Double> hg_lz = new ArrayList<>();
             List<Double> hg_rz = new ArrayList<>();
+            // 数据赋值
             for (int i = 6; i > -1; i --) {
-                String day = DateUtil.getDateFormat(DateUtil.addDay(new Date(), -i), "MM-dd");
+//                String day = DateUtil.getDateFormat(DateUtil.addDay(new Date(), -i), "MM-dd");
+                String day = DateUtil.getDateFormat(lwlist.get(i).getVptTime(), "MM-dd");
                 hg_date.add(day);
-                for (VolumePriceTrend volumePriceTrend: lwlist){    // 螺纹
+                for (VolumePriceTrend volumePriceTrend: lwlist){
                     if (DateUtil.getDateFormat(volumePriceTrend.getVptTime(), "MM-dd").equals(day)){
                         hg_lw.add(volumePriceTrend.getVptPrice());
                     }
                 }
                 if (hg_lw.size() < 7 - i){
-                    hg_lw.add(0.0);
+                    hg_lw.add(lwlist.get(i).getVptPrice());
                 }
                 for (VolumePriceTrend volumePriceTrend: lzlist){    // 冷轧
                     if (DateUtil.getDateFormat(volumePriceTrend.getVptTime(), "MM-dd").equals(day)){
@@ -155,7 +157,7 @@ public class AjaxController {
                     }
                 }
                 if (hg_lz.size() < 7 - i){
-                    hg_lz.add(0.0);
+                    hg_lz.add(lzlist.get(i).getVptPrice());
                 }
                 for (VolumePriceTrend volumePriceTrend: rzlist){    // 热轧
                     if (DateUtil.getDateFormat(volumePriceTrend.getVptTime(), "MM-dd").equals(day)){
@@ -163,7 +165,7 @@ public class AjaxController {
                     }
                 }
                 if (hg_rz.size() < 7 - i){
-                    hg_rz.add(0.0);
+                    hg_rz.add(rzlist.get(i).getVptPrice());
                 }
             }
             map.put("hg_date", hg_date);
@@ -431,7 +433,7 @@ public class AjaxController {
                 return msgUtil.jsonErrorMsg("添加错误");
             }
         }
-        if (entity.equals("ygdd")) {    // 预购订单
+        if (entity.equals("ygdd")) {    // opStatus 1=询价管理   2=意向管理
             try {
                 OrderPreorder orderPreorder = JSONObject.toJavaObject(json, OrderPreorder.class);
                 orderPreorder.setOpUserId(userId);
@@ -439,7 +441,6 @@ public class AjaxController {
             }catch (Exception e) {
                 return msgUtil.jsonErrorMsg(e.getMessage());
             }
-
         }
         return msgUtil.jsonSuccessMsg("添加成功");
     }
@@ -799,6 +800,7 @@ public class AjaxController {
         biaotou.add("单价(元)");
         biaotou.add("仓库");
         lists.add(biaotou);
+        Double allTon = 0.0;
         for (int i = 0; i < details.size(); i++) {
             List<String> strings = new ArrayList<>();
             strings.add(i + 1 + "");
@@ -808,9 +810,18 @@ public class AjaxController {
             strings.add(orderDetail.getdProducttexture());
             strings.add(orderDetail.getdProductspec());
             if(orderDetail.getdProductSex().equals("1")) {
-                strings.add(DoubleUtil.round(Double.parseDouble(orderDetail.getdTonnum())*Double.parseDouble(orderDetail.getdProductnum()), 4)+"吨");
+                Double tonNum = DoubleUtil.round(Double.parseDouble(orderDetail.getdTonnum())*Double.parseDouble(orderDetail.getdProductnum()), 4);
+                allTon = DoubleUtil.round(allTon + tonNum, 4);
+                strings.add(tonNum +"吨");
             }else{
-                strings.add(order.getcCategory() == 1 ? orderDetail.getdTonnum() : order.getcGzFl().toString());
+                if(order.getcCategory()==1){
+                    strings.add( orderDetail.getdTonnum() +"吨" );
+                    allTon = DoubleUtil.round(allTon + Double.parseDouble(orderDetail.getdTonnum()), 4);
+                }else{
+                    strings.add(order.getcGzFl() +"吨" );
+                    allTon = DoubleUtil.round(allTon + order.getcGzFl(),4);
+                }
+
             }
             String process = "";
             if (orderDetail.getdProcessway().equals("") && orderDetail.getdProcessrequirement().equals("")) {
@@ -827,6 +838,8 @@ public class AjaxController {
             strings.add(orderDetail.getdStorename());
             lists.add(strings);
         }
+        System.out.println("pdf 订单总重量: " + allTon);
+        lists.add(new ArrayList(Arrays.asList("总重量: " + allTon + "吨")));
         lists.add(new ArrayList(Arrays.asList("小写(人民币): " + order.getcPrice().toString() + "元")));
         lists.add(new ArrayList<>(Arrays.asList("大写(人民币): " + MoneyUtils.NumToRMBStr(order.getcPrice().doubleValue()))));
 //        System.out.println(Arrays.toString(lists.toArray()));
