@@ -332,24 +332,42 @@ public class AjaxController {
                 integralDetail.setiRealname(user.getcRealname());
                 integralDetail.setiId(System.nanoTime() + "");
                 integralDetail.setiCreatetime(new Date());
+                Double num = 0.0;
                 if (json.containsKey("mlNum")) {     // 含有此参数是 一定是抽奖操作
+                    // 随机获取的酒的ml数
+                    String bar_min = configService.selectByPrimaryKey("bar_min").getcComment(); // 酒限制 最小值
+                    String bar_max = configService.selectByPrimaryKey("bar_max").getcComment(); // 酒限制 最大值
+                    num = DoubleUtil.round(Integer.parseInt(bar_min) + Math.random() * (Integer.parseInt(bar_max) - Integer.parseInt(bar_min)), 0);
+                    // 原本有的酒的ml数
+                    Double barNumBefore = 0.0;
+                    if (integralDetail.getiIntegraltype() == 2) {   // 2= 茅台ml数 3=五粮液
+                        barNumBefore = user.getcUb();
+                    }else if (integralDetail.getiIntegraltype() == 3){
+                        barNumBefore = user.getcGold();
+                    }else {
+                        return msgUtil.jsonErrorMsg("参数传入错误");
+                    }
+                    System.out.println("最小值: " + bar_min + ", 最大值: " + bar_max + ", 抽到的酒ml数: " + num + ", 原本的ml数: " + barNumBefore);
                     IntegralDetail detail = new IntegralDetail();
                     detail.setiId("cj" + System.nanoTime() + "");
                     detail.setiUserid(userId);
                     detail.setiRealname(user.getcRealname());
-                    detail.setiChangeintegral(json.getDouble("mlNum"));
+                    detail.setiChangeintegral(num);
                     detail.setiChangetype(1);
-                    detail.setiNowintegral(json.getDouble("nowMlNum"));
+                    detail.setiNowintegral(DoubleUtil.round(barNumBefore + num, 2));    // 现在的ml数
                     detail.setiCreatetime(new Date());
                     detail.setiIntegraltype(integralDetail.getiIntegraltype());
-                    detail.setiReason(integralDetail.getiReason() + json.getDouble("mlNum") + "毫升");
+                    detail.setiReason(integralDetail.getiReason() + DoubleUtil.round(num / 1000, 3) + "毫升");
 //                    System.out.println(detail);
-                    commonService.save(detail, "IntegralDetail");         //保存
+                    commonService.save(detail, "IntegralDetail");         //保存酒明细
                 }
                 if (integralDetail.getiIntegraltype() == 3 || integralDetail.getiIntegraltype() == 2) {
                     integralDetail.setiIntegraltype(1);
+                    if (num != 0.0)
+                        integralDetail.setiReason(integralDetail.getiReason() + DoubleUtil.round(num / 1000, 3) + "毫升");
                 }
-                commonService.save(integralDetail, "IntegralDetail");     // 保存
+                commonService.save(integralDetail, "IntegralDetail");     // 保存钢豆明细
+                return msgUtil.jsonSuccessMsg("抽奖成功", "num", num);
             } catch (Exception e) {
                 e.printStackTrace();
                 return msgUtil.jsonErrorMsg("添加失败");
@@ -405,6 +423,7 @@ public class AjaxController {
                 feedBack.setcRealname(user.getcRealname());
                 feedBack.setcId("FB" + System.nanoTime());
                 feedBack.setcCreatetime(new Date());
+                feedBack.setcLastupdatetime(new Date());
                 commonService.save(feedBack, "FeedBack");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -634,7 +653,7 @@ public class AjaxController {
     @ResponseBody
     @RequestMapping("upload{type}.html")
     public String uploadFile(@PathVariable String type, @RequestParam(value = "file", required = false) MultipartFile file, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
-        String domain = "zheok.com"; //设置domain，用于跨域
+        String domain = "lingangsteel.com"; //设置domain，用于跨域
         String setDomain = "<script>document.domain = '" + domain + "';</script>";
         if (file != null) {
             String fileName = file.getOriginalFilename();
@@ -659,7 +678,7 @@ public class AjaxController {
                         break;
                     default:
                         newfileName = "img" + System.nanoTime() + ".png";
-                        fpath += "upload/images";
+                        fpath += "/upload/images";
                 }
                 File targetFile = new File(path + fpath, newfileName);
                 if (!targetFile.exists()) {
@@ -847,9 +866,9 @@ public class AjaxController {
         map.put("secondInfo", map1);
 //        System.out.println("主页信息: " + map);
         if (type.equals("1")) {
-            PdfUtil.exportPdf(map, details.size(), "http://lingang.zheok.com:8081/img/gongzhang.png", outputStream, order.getcSctype() == 0);
+            PdfUtil.exportPdf(map, details.size(), gongzhangPath, outputStream, order.getcSctype() == 0);
         }else {
-            PdfUtil.exportPdf1(map, details.size(), "http://lingang.zheok.com:8081/img/gongzhang.png", outputStream, order.getcSctype() == 0);
+            PdfUtil.exportPdf1(map, details.size(), gongzhangPath, outputStream, order.getcSctype() == 0);
         }
         //PdfUtil.exportPdf(map, "e:\\test\\gongzhang.png", outputStream);
         outputStream.flush();

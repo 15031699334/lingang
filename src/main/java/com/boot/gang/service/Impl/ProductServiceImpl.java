@@ -133,9 +133,11 @@ public class ProductServiceImpl implements ProductService {
                     sb.append(" and c_three_gold >= " + extent_prefix + " and c_three_gold <= " + extent_suffix);
             }
         }
+        sb.append(" order by c_product_id asc,c_price_list asc");
         if (!StringUtil.isNullOrEmpty(pageIndex) && !StringUtil.isNullOrEmpty(pageSize)) {
             sb.append(" limit " + Integer.parseInt(pageIndex) * Integer.parseInt(pageSize) + ", " + pageSize);
         }
+
 //        System.out.println(sb.toString());
 //        List<Product> products = productMapper.getList(sb.toString());
 //        for (Product product: products){
@@ -150,6 +152,7 @@ public class ProductServiceImpl implements ProductService {
 //            product.setcXsnum(p_data[1]);     // 材质
 //        }
         List<ProductRelationNode> list = productRelationNodeMapper.getList(sb.toString());
+
         for (ProductRelationNode node: list){   // 先将材质规格赋值
             String [] c_price_list = node.getcPriceList().split("=");
             String [] p_data = c_price_list[0].split("\\+");
