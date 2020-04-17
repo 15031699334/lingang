@@ -133,7 +133,7 @@ public class ProductServiceImpl implements ProductService {
                     sb.append(" and c_three_gold >= " + extent_prefix + " and c_three_gold <= " + extent_suffix);
             }
         }
-        sb.append(" order by c_product_id asc,c_price_list asc");
+        sb.append(" order by c_shop_id asc, c_product_code asc,c_price_list asc");
         if (!StringUtil.isNullOrEmpty(pageIndex) && !StringUtil.isNullOrEmpty(pageSize)) {
             sb.append(" limit " + Integer.parseInt(pageIndex) * Integer.parseInt(pageSize) + ", " + pageSize);
         }

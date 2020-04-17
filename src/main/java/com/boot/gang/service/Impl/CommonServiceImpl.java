@@ -122,7 +122,7 @@ public class CommonServiceImpl implements CommonService {
             return map;
         }
         if (entity.equals("hb")) {        // 获取红包
-            List<CouponsType> couponsTypes = couponsTypeMapper.getList(" and now() <= c_end_time and now() > c_begin_time and c_id = '" + id + "'");
+            List<CouponsType> couponsTypes = couponsTypeMapper.getList(" and now() <= c_end_time and now() > c_begin_time ");
             Double price = 0.0;
             Double priceSuffix = 0.0;
             if (couponsTypes.isEmpty()) {
