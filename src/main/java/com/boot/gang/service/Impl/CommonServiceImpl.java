@@ -90,8 +90,8 @@ public class CommonServiceImpl implements CommonService {
         }
         if (entity.equals("Address"))   // 详细地址
             return addressMapper.selectByPrimaryKey(id);
-        if (entity.equals("Product"))   // 商品详情
-            return provinceMapper.selectByPrimaryKey(id);
+        if (entity.equals("PRN"))   // 商品详情
+            return productRelationNodeMapper.selectByPrimaryKey(id);
         if (entity.equals("gd")) {
             Map<String, Object> map = new HashMap();
             User user = userMapper.selectByPrimaryKey(id);
@@ -122,13 +122,17 @@ public class CommonServiceImpl implements CommonService {
             return map;
         }
         if (entity.equals("hb")) {        // 获取红包
-            List<CouponsType> couponsTypes = couponsTypeMapper.getList(" and now() <= c_end_time and now() > c_begin_time ");
+            List<CouponsType> couponsTypes = couponsTypeMapper.getList(" and now() <= c_end_time and now() > c_begin_time  order by c_create_time desc");
             Double price = 0.0;
             Double priceSuffix = 0.0;
             if (couponsTypes.isEmpty()) {
                 return null;
             } else {
                 CouponsType couponsType = couponsTypes.get(0);
+                List<Coupons> coupons = couponsMapper.getList(" and c_coupons_type_id = '" + couponsType.getcId() + "'");
+                if (coupons.size() > couponsType.getcNum()){
+                    return null;
+                }
                 price = couponsType.getcPrice();    // 优惠金额最小值
                 priceSuffix = couponsType.getcPriceSuffix();    // 优惠金额最大值
                 if (priceSuffix != 0)   // 若果没有设置最大值 返回的金额为本身
@@ -228,6 +232,13 @@ public class CommonServiceImpl implements CommonService {
         if (entity.equals("Coupons")) {  // 用户领取优惠券
             Coupons coupons = (Coupons) object;
             CouponsType couponsType = couponsTypeMapper.selectByPrimaryKey(coupons.getcCouponsTypeId());
+            if (couponsType == null) {
+                throw new Exception("红包已失效, 请刷新页面");
+            }
+            List<Coupons> list = couponsMapper.getList(" and c_coupons_type_id = '" + couponsType.getcId() + "'");
+            if (list.size() > couponsType.getcNum()){
+                throw new Exception("红包已领完 请静候下次活动");
+            }
             coupons.setcBeginTime(couponsType.getcBeginTime());
             coupons.setcEndTime(couponsType.getcEndTime());
             coupons.setcName(couponsType.getcName());
@@ -269,6 +280,7 @@ public class CommonServiceImpl implements CommonService {
 //                    throw new Exception("订单提交价格错误");
 //                }
                 // 添加订单信息
+                order.setcTransactionId("");
                 orderMapper.insertSelective(order); // 添加完成
                 // 修改优惠券状态
                 if (order.getcCouponPrice() != 0) {

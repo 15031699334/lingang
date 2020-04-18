@@ -286,14 +286,14 @@ public class PdfUtil {
         for(int i=0;i<size;i++){
             if(i==0){
                 width[i]=30f;
-            }else if (i == 3){
+            }else if (i == 3 || i == 8){
                 width[i]=60f;
             }else if (i == 4){
                 width[i]=70f;
             }else if (i == 6){
                 width[i]=100f;
             }else {
-                width[i]=(tatalWidth-260)/(size-4);
+                width[i]=(tatalWidth-260)/(size - 5);
             }
         }
         table.setTotalWidth(width);
@@ -307,8 +307,8 @@ public class PdfUtil {
                 String price = tableList.get(i).get(0);
                 BaseFont bf1 = null;
                 try {
-                    bf1 = BaseFont.createFont("C:\\Windows\\Fonts\\simfang.ttf",BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-//                    bf1 = BaseFont.createFont("/usr/share/fonts/simfang.ttf",BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+//                    bf1 = BaseFont.createFont("C:\\Windows\\Fonts\\simfang.ttf",BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+                    bf1 = BaseFont.createFont("/usr/share/fonts/simfang.ttf",BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

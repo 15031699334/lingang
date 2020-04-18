@@ -817,7 +817,7 @@ public class AjaxController {
         biaotou.add("重量");
         biaotou.add("加工信息");
         biaotou.add("单价(元)");
-        biaotou.add("仓库");
+        biaotou.add("库存备注");
         lists.add(biaotou);
         Double allTon = 0.0;
         for (int i = 0; i < details.size(); i++) {
@@ -854,7 +854,8 @@ public class AjaxController {
             }
             strings.add(process);
             strings.add(orderDetail.getdPrnPrice() + "");
-            strings.add(orderDetail.getdStorename());
+            ProductRelationNode node = (ProductRelationNode) commonService.findObjectById(orderDetail.getdProductid(), "PRN");
+            strings.add(node.getcSummary());
             lists.add(strings);
         }
         System.out.println("pdf 订单总重量: " + allTon);
