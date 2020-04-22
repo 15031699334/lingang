@@ -98,7 +98,10 @@ public class AjaxController {
         if (entity.equals("hb")) {   // 红包
             CouponsType coupons = (CouponsType) commonService.findObjectById(id, "hb");
             if (coupons == null) {
-                return msgUtil.jsonErrorMsg("红包过期");
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("code", 3);
+                jsonObject.put("msg", "");
+                return jsonObject;
             } else {
                 return msgUtil.jsonSuccessMsg("获取成功", "data", coupons);
             }
@@ -518,6 +521,16 @@ public class AjaxController {
                 }
                 return msgUtil.jsonSuccessMsg("提交成功");
             }
+            if (entity.equals("ODProductNum")) {    // 订单商品数量
+                OrderDetail orderDetail = new OrderDetail();
+                orderDetail.setdId(json.getString("odId"));  // 订单详情id
+                orderDetail.setdProductnum(json.getString("pNum")); // 商品数量
+                try {
+                    commonService.update(orderDetail, "OrderDetail");
+                } catch (Exception e) {
+                    return msgUtil.jsonErrorMsg(e.getMessage());
+                }
+            }
             if (entity.equals("jhcg")) {     // 修改计划采购
                 PlanShopping planShopping = JSONObject.toJavaObject(json, PlanShopping.class);
                 commonService.update(planShopping, "PlanShopping");
@@ -817,7 +830,7 @@ public class AjaxController {
         biaotou.add("重量");
         biaotou.add("加工信息");
         biaotou.add("单价(元)");
-        biaotou.add("库存备注");
+        biaotou.add("备注");
         lists.add(biaotou);
         Double allTon = 0.0;
         for (int i = 0; i < details.size(); i++) {

@@ -157,7 +157,9 @@ public class ProductRelationNode {
 
     private String cDescription;
 
-    public ProductRelationNode(String cId, String cBlockId, String cCityId, Date cCreateTime, String cCreateUser, String cDistrictId, Date cLastUpdateTime, String cLastUpdateUser, String cProvinceId, String cAgentId, String cAlbumId, String cBrandId, Double cCityGold, Integer cDiscount, Double cDistrictGold, Double cFactGold, Double cGold, String cGoodsInterval, Integer cGoodsSex, Integer cGoodsTotal, String cGuige, Integer cIfCanInvoice, Integer cIfPrivate, Integer cIfRecommend, Integer cIfRecommendPc, Integer ifShopInsideRecommend, Integer ifApprove, String cJianmoney, Date cJztime, String cLogo, Integer cMyStockNum, Double cNowPrice, String cNowPriceDescription, Double cOneGold, Double cOriginalPrice, Integer cPaixuNum, Double cPlatGold, String cPrefectureId, String cPriceList, String cPriceType, String cProductCode, String cProductId, String cName, String cProductRelationId, Integer cProductStockNum, String cPrtype, Double cPrvcGold, String cQrcodeUrl, Integer cReplynum, String cSalesInformation, String cSceneId, Double cScore, Double cSexPrice, String cShopColumnId, String cShopColumnTypeId, String cShopId, String cShopName, Double cShowPrice, String cShuxing, String cSn, Integer cSoldNum, Integer cStockNum, String cSummary, Double cThreeGold, Integer cTicketNum, String cTop, Double cTwoGold, String cUserId, String cXsnum, String cZkbl, String cHide, Integer ifHidePrice, String cPercentNowPrice, String cPercentSexPrice, Integer type, Double cNewYunfei, String cDescription) {
+    private Integer cShopSort;
+
+    public ProductRelationNode(String cId, String cBlockId, String cCityId, Date cCreateTime, String cCreateUser, String cDistrictId, Date cLastUpdateTime, String cLastUpdateUser, String cProvinceId, String cAgentId, String cAlbumId, String cBrandId, Double cCityGold, Integer cDiscount, Double cDistrictGold, Double cFactGold, Double cGold, String cGoodsInterval, Integer cGoodsSex, Integer cGoodsTotal, String cGuige, Integer cIfCanInvoice, Integer cIfPrivate, Integer cIfRecommend, Integer cIfRecommendPc, Integer ifShopInsideRecommend, Integer ifApprove, String cJianmoney, Date cJztime, String cLogo, Integer cMyStockNum, Double cNowPrice, String cNowPriceDescription, Double cOneGold, Double cOriginalPrice, Integer cPaixuNum, Double cPlatGold, String cPrefectureId, String cPriceList, String cPriceType, String cProductCode, String cProductId, String cName, String cProductRelationId, Integer cProductStockNum, String cPrtype, Double cPrvcGold, String cQrcodeUrl, Integer cReplynum, String cSalesInformation, String cSceneId, Double cScore, Double cSexPrice, String cShopColumnId, String cShopColumnTypeId, String cShopId, String cShopName, Double cShowPrice, String cShuxing, String cSn, Integer cSoldNum, Integer cStockNum, String cSummary, Double cThreeGold, Integer cTicketNum, String cTop, Double cTwoGold, String cUserId, String cXsnum, String cZkbl, String cHide, Integer ifHidePrice, String cPercentNowPrice, String cPercentSexPrice, Integer type, Double cNewYunfei, String cDescription, Integer cShopSort) {
         this.cId = cId;
         this.cBlockId = cBlockId;
         this.cCityId = cCityId;
@@ -235,6 +237,7 @@ public class ProductRelationNode {
         this.type = type;
         this.cNewYunfei = cNewYunfei;
         this.cDescription = cDescription;
+        this.cShopSort = cShopSort;
     }
 
     public ProductRelationNode() {
@@ -855,5 +858,13 @@ public class ProductRelationNode {
 
     public void setcDescription(String cDescription) {
         this.cDescription = cDescription == null ? null : cDescription.trim();
+    }
+
+    public Integer getcShopSort() {
+        return cShopSort;
+    }
+
+    public void setcShopSort(Integer cShopSort) {
+        this.cShopSort = cShopSort;
     }
 }

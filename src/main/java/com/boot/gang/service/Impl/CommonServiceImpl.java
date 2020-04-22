@@ -488,6 +488,36 @@ public class CommonServiceImpl implements CommonService {
                 }
             }
         }
+        if (entity.equals("OrderDetail")) {    // 修改订单商品数量
+            OrderDetail orderDetail = (OrderDetail) object;
+            OrderDetail detail_again = orderDetailMapper.selectByPrimaryKey(orderDetail.getdId());
+            ProductRelationNode prn = productRelationNodeMapper.selectByPrimaryKey(detail_again.getdProductid());
+            if (detail_again == null || prn == null) {
+                throw new Exception("参数传入错误");
+            }
+            Integer pNum_before = Integer.parseInt(detail_again.getdProductnum());
+            Integer pNum_get = Integer.parseInt(orderDetail.getdProductnum());
+            Integer productNum_sub = pNum_before - pNum_get;                    // 商品变动的数量
+            Double price_sub = productNum_sub * detail_again.getdPrnPrice() * Double.parseDouble(detail_again.getdTonnum());    // 变化的价格
+            Order order = orderMapper.selectByOrderNo(detail_again.getdOrderno());
+            // 商品库存处理
+            if (pNum_get > pNum_before) {   // 商品数量增加
+                if (prn.getcStockNum() + productNum_sub < 0) {
+                    throw  new Exception("库存不足");
+                }
+            }
+            // 修改库存
+            System.out.println("商品的数量变化: " + productNum_sub + ", 价格变化: " + price_sub);
+            prn.setcStockNum(prn.getcStockNum() + productNum_sub);
+            productRelationNodeMapper.updateByPrimaryKeySelective(prn);
+            // 订单详情价格修改
+            detail_again.setdProductnum(orderDetail.getdProductnum());
+            detail_again.setdPrice(DoubleUtil.round(detail_again.getdPrice() - price_sub, 2));
+            orderDetailMapper.updateByPrimaryKeySelective(detail_again);
+            // Order 价格修改
+            order.setcPrice(DoubleUtil.round(order.getcPrice() - price_sub, 2));
+            orderMapper.updateByPrimaryKeySelective(order);
+        }
         if (entity.equals("PlanShopping")) {     // 修改计划采购内容
             planShoppingMapper.updateByPrimaryKeySelective((PlanShopping) object);
         }
@@ -953,7 +983,7 @@ public class CommonServiceImpl implements CommonService {
     }
 
     public static void main(String[] args) {
-
-//        System.out.println(new Date().getHours());
+        int i =  (8 - 10) * 2;
+        System.out.println(i);
     }
 }
