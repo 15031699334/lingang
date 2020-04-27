@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.*;
 
 /**
@@ -77,7 +78,16 @@ public class AjaxController {
             }
             User user = (User) commonService.findObjectById(userId, "User");
             user.setcPassword("");
-            return msgUtil.jsonSuccessMsg("获取成功", "user", user);
+           /* List<CouponsType> list = commonService.getList("CouponsType", request,"0","100");
+            if(list.size()<1){
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("code", 3);
+                jsonObject.put("msg", "获取成功");
+                jsonObject.put("user", user);
+                return jsonObject;
+            }else {*/
+                return msgUtil.jsonSuccessMsg("获取成功", "user", user);
+            //}
         }
         if (entity.equals("dz")) {   //地址
             try {
@@ -126,7 +136,8 @@ public class AjaxController {
             return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "PlanShopping"));
 
         if (entity.equals("news")) {     // 获取新闻 今日快讯 活动
-            return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "news"));
+            Article article = (Article) commonService.findObjectById(id, "news");
+            return msgUtil.jsonSuccessMsg("获取成功", "data", article);
         }
         if (entity.equals("jjqs")) {   // 获取卷价趋势    // 0=螺纹 1=冷轧 2=热轧
 //            return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById("volume_price_list", "Config"));
@@ -251,8 +262,16 @@ public class AjaxController {
         if (entity.equals("sp")) {    // 商品
             String time_open = configService.selectByPrimaryKey("time_open").getcComment();
             String time_close = configService.selectByPrimaryKey("time_close").getcComment();
-            int hour = new Date().getHours();
-            if (hour >= Integer.parseInt(time_open) && hour < Integer.parseInt(time_close)) {    // 开市
+            DateFormat df3 = DateFormat.getTimeInstance();//只显示出时分秒
+//            Calendar cal = Calendar.getInstance();
+//            int hour = cal.get(Calendar.HOUR);      // 小时
+//            if (hour >= Integer.parseInt(time_open) && hour < Integer.parseInt(time_close)) {    // 开市
+
+            // Thu Jan 01 09:30:00 CST 1970   将三个时间 统一到1970.1.1
+            Date timeNow = DateUtil.getDate(df3.format(new Date()), "HH:mm");
+            Date timeOpen =DateUtil.getDate(time_open.replace("：",":"), "HH:mm");
+            Date timeClose =DateUtil.getDate(time_close.replace("：",":"), "HH:mm");
+            if (timeNow.after(timeOpen) && timeNow.before(timeClose)) {    // 开市
                 map.put("marketType", "1");
             } else {
                 map.put("marketType", "0");

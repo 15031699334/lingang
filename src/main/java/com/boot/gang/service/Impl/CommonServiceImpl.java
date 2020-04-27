@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
 import java.util.*;
 
 /**
@@ -156,7 +157,7 @@ public class CommonServiceImpl implements CommonService {
         }
         if (entity.equals("news")) {
             Article article = articleMapper.selectByPrimaryKey(id);
-            article.setcContent(article.getcContent().replaceAll("/attached/", "http://lg.zheok.com/attached/"));
+//            article.setcContent(article.getcContent().replaceAll("/attached/", "http://lg.zheok.com/attached/"));
             return article;
         }
         if (entity.equals("Order")) {
@@ -662,6 +663,14 @@ public class CommonServiceImpl implements CommonService {
                 return null;
             }
         }
+        if (entity.equals("CouponsType")) {  // 全部有效优惠券
+            try {
+                return couponsTypeMapper.getList("  and now() >= c_begin_time and now()< c_end_time  order by c_create_time desc");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
         if (entity.equals("pt")) {   // 拼团列表
 //            String product_id = request.getParameter("pId");
 //            if (!StringUtil.isNullOrEmpty(product_id)){
@@ -983,7 +992,14 @@ public class CommonServiceImpl implements CommonService {
     }
 
     public static void main(String[] args) {
-        int i =  (8 - 10) * 2;
-        System.out.println(i);
+        Calendar cal = Calendar.getInstance();
+        int hour = cal.get(Calendar.HOUR);      // 小时
+        int min = cal.get(Calendar.MINUTE);     // 分钟
+        System.out.println("小时: " + hour + ", 分钟: " + min);
+
+        System.out.println(DateUtil.getDate("9:30", "HH:mm"));
+        System.out.println(new Date().before(DateUtil.getDate("9:30", "HH:mm")));
+        DateFormat df3 = DateFormat.getTimeInstance();//只显示出时分秒
+        System.out.println(DateUtil.getDate(df3.format(new Date()), "HH:mm").before(DateUtil.getDate("21:30", "HH:mm")));
     }
 }

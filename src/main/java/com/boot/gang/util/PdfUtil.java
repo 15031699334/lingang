@@ -156,7 +156,7 @@ public class PdfUtil {
             paragraph.add(undefinedString(bodyChinese, cutType));
             document.add(paragraph);*/
         document.add(addString(bodyChinese, "七、合同生效及解除方式：需方按时支付货款后合同生效，本合同一式两份，双方各执壹份，传真件具有同等法律效力，供需双方钱货两清后合同自然解除。"));
-        document.add(addString(bodyChinese, "八、争议及解决办法：本台同在执行过程中，如发生争议，应由供需双方友好协商解决。如协商不能解决，可向供方" +
+        document.add(addString(bodyChinese, "八、争议及解决办法：本合同在执行过程中，如发生争议，应由供需双方友好协商解决。如协商不能解决，可向供方" +
                 "所在地法院提起诉讼，依法追究违约方责任。"));
 
         document.add(addTailTable(bodyChinese, secondInfoMap));
