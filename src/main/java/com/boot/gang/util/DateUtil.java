@@ -84,6 +84,15 @@ public class DateUtil {
       return  simpleDateFormat.parse(format);
     }
 
+    public static Date changeToTime(Date date) throws ParseException {
+        if (StringUtils.isEmpty(date)) {
+            return null;
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+        String format = simpleDateFormat.format(date);
+      return  simpleDateFormat.parse(format);
+    }
+
     public static String getFormateBy(Date date, String formate) {
         if (StringUtils.isEmpty(date)) {
             return null;

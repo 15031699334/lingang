@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -262,20 +263,28 @@ public class AjaxController {
         if (entity.equals("sp")) {    // 商品
             String time_open = configService.selectByPrimaryKey("time_open").getcComment();
             String time_close = configService.selectByPrimaryKey("time_close").getcComment();
-            DateFormat df3 = DateFormat.getTimeInstance();//只显示出时分秒
 //            Calendar cal = Calendar.getInstance();
 //            int hour = cal.get(Calendar.HOUR);      // 小时
 //            if (hour >= Integer.parseInt(time_open) && hour < Integer.parseInt(time_close)) {    // 开市
 
             // Thu Jan 01 09:30:00 CST 1970   将三个时间 统一到1970.1.1
-            Date timeNow = DateUtil.getDate(df3.format(new Date()), "HH:mm");
+            Date timeNow = null;
+            try {
+                timeNow = DateUtil.changeToTime(new Date());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             Date timeOpen =DateUtil.getDate(time_open.replace("：",":"), "HH:mm");
             Date timeClose =DateUtil.getDate(time_close.replace("：",":"), "HH:mm");
+            System.out.println("现在的时间: " + timeNow + " 开始时间: " + timeOpen + " , 闭市时间: " + timeClose);
+            System.out.println(timeNow.before(timeClose));
+            System.out.println(timeNow.after(timeOpen));
             if (timeNow.after(timeOpen) && timeNow.before(timeClose)) {    // 开市
                 map.put("marketType", "1");
             } else {
                 map.put("marketType", "0");
             }
+
             try {
                 map.put("data", productService.getList(request, pageIndex, pageSize));
             } catch (Exception e) {
