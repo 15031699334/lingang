@@ -381,6 +381,9 @@ public class CommonServiceImpl implements CommonService {
         }
         if (entity.equals("jhcg")) {        // 计划采购
             PlanShopping planShopping = (PlanShopping) object;
+            User user = userMapper.selectByPrimaryKey(planShopping.getcUserId());
+            planShopping.setcPhone(user.getcPhone());
+            planShopping.setcRealname(user.getcRealname());
             planShoppingMapper.insertSelective(planShopping);
             sendMsg("计划采购订单");      // 发送短信
         }
@@ -624,6 +627,10 @@ public class CommonServiceImpl implements CommonService {
         if (entity.equals("Province")) {   // 省份列表(商品筛选)
             return provinceMapper.getList(" and c_hide = 1 order by c_sort asc");
         }
+        if (entity.equals("City")) {   // 省份列表(商品筛选)
+            String provinceId = request.getParameter("pId");
+            return cityMapper.getList(" and c_province_id = '" + provinceId + "' ");
+        }
         if (entity.equals("jjsf")) {   // 首页卷价地区
             return provinceMapper.getList(" and is_volume_price = 1 order by c_sort asc");
         }
@@ -755,7 +762,9 @@ public class CommonServiceImpl implements CommonService {
                 return null;
             }
         }
-
+        if (entity.equals("alljhcg")) {     // 计划采购
+            return planShoppingMapper.getList(" order by c_create_time desc");
+        }
         if (entity.equals("news")) {     // 新闻
             return articleMapper.getList(" and c_article_type = 'news' order by c_create_time desc");
         }

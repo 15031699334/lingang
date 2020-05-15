@@ -323,10 +323,11 @@ public class User {
         this.cGoldGz = cGoldGz;
     }
 
-    public User(String cId, String cPhone, String cPassword, Date cCreateTime) {
+    public User(String cId, String cPhone, String cPassword, String cCreateUser, Date cCreateTime) {
         this.cId = cId;
         this.cPhone = cPhone;  
         this.cPassword = cPassword;
+        this.cCreateUser = cCreateUser;
         this.cCreateTime = cCreateTime;
     }
 

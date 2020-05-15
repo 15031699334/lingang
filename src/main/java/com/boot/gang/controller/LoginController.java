@@ -2,11 +2,9 @@ package com.boot.gang.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.boot.gang.entity.User;
-import com.boot.gang.service.CommonService;
-import com.boot.gang.service.ConfigService;
-import com.boot.gang.service.LoginService;
-import com.boot.gang.service.TokenService;
+import com.boot.gang.service.*;
 import com.boot.gang.util.*;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
+import org.slf4j.Logger;
 
 /**
  * @ClassName: lingang
@@ -26,7 +26,7 @@ import java.util.HashMap;
 @Controller
 @RequestMapping("/linU")
 public class LoginController {
-
+    private Logger logger = LoggerFactory.getLogger(LoginController.class);
     @Autowired
     private LoginService loginService;
     @Autowired
@@ -41,6 +41,8 @@ public class LoginController {
     private UploadFileUtil uploadFileUtil;
     @Autowired
     private ConfigService configService;
+    @Autowired
+    private UserService userService;
     //登录
     @ResponseBody
     @PostMapping("/login")
@@ -67,6 +69,32 @@ public class LoginController {
                     return msgUtil.jsonErrorMsg("登录失败,密码错误");
                 }else {
                     String token = tokenService.getToken(user);     // 生成token
+                    if (json.containsKey("openid") && !json.get("openid").equals("")) {
+                        // https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID
+                        String openid = json.getString("openid");
+                        String access_token = json.getString("access_token");
+                        // 首次更新头像
+                        String reverseGetClient = HttpUtil.excuteGetClient("https://api.weixin.qq.com/sns/userinfo", "?access_token=" + access_token + "&openid=" + openid, null);
+                        JSONObject reverseJson = JSONObject.parseObject(StringUtil.convertEncodingFormat(reverseGetClient, "iso-8859-1", "UTF-8"));
+                        logger.info(reverseJson.toJSONString());
+                        if (!reverseJson.containsKey("errcode")){
+                            logger.info("开始修改用户信息");
+
+                            if (StringUtil.isNullOrEmpty(user.getcNickname())) {
+                                user.setcNickname(reverseJson.getString("nickname"));
+                            }
+                            user.setcLogo(reverseJson.getString("headimgurl"));
+                            user.setcOpenid(openid);
+                            try {
+                                commonService.update(user, "User");
+                                logger.info("结束修改用户信息");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                return msgUtil.jsonErrorMsg("绑定失败");
+                            }
+                        }
+
+                    }
                     return msgUtil.jsonSuccessMsg("登录成功", "token", token);
                 }
             }
@@ -187,6 +215,9 @@ public class LoginController {
         String phone = json.getString("phone");   // 发送短信验证码之前会进行验证此电话号是否已经验证过
         String code = json.getString("code");
         String password = json.getString("password");
+        String createUser = "";
+        if (json.containsKey("createUser"))
+            createUser = json.getString("createUser");   // 责任经理名称
         if (!phone.matches(StringUtil.REGEX_MOBILE))    // 手机号正则判断
             return msgUtil.jsonErrorMsg("手机号格式错误");
         // 手机号是否已存在
@@ -210,7 +241,7 @@ public class LoginController {
         }
         // 保存
         try {
-            commonService.save(new User(System.nanoTime() + "", phone, password, new Date()), "User");
+            commonService.save(new User(System.nanoTime() + "", phone, password, createUser, new Date()), "User");
             String send_phone = configService.selectByPrimaryKey("order_notice_phone").getcComment();
             String [] phones = send_phone.split(",");
             for (int i = 0; i < phones.length;i ++ ){
@@ -250,7 +281,48 @@ public class LoginController {
         return msgUtil.jsonSuccessMsg("上传成功");
     }
 
+    /**
+     * @Description
+     * @param code_login    微信code
+     * @return com.alibaba.fastjson.JSONObject
+     * @Author dongxiangwei
+     * @Date 16:37 2020/5/15
+     **/
+    @ResponseBody
+    @RequestMapping(value = "weChatData", method = RequestMethod.POST)
+    public JSONObject weChatLogin(@RequestParam(value = "code") String code_login){
+        String AppID = "wx050cb64b3919b041";
+        String AppSecret = "015beb779d2af5f89eae2947fc2735ff";
+//        String httpUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + AppID + "&secret=" + AppSecret + "&code=" + code_login + "&grant_type=authorization_code";
+        String reversePostClient = HttpUtil.excuteGetClient("https://api.weixin.qq.com/sns/oauth2/access_token", "?appid=" + AppID + "&secret=" + AppSecret + "&code=" + code_login + "&grant_type=authorization_code", null);
+        JSONObject reverseJson = JSONObject.parseObject(StringUtil.convertEncodingFormat(reversePostClient, "iso-8859-1", "UTF-8"));
+        String errmsg = "登录错误";
+        if (reverseJson == null) {
+            return msgUtil.jsonErrorMsg(errmsg);
+        }else {
+            System.out.println(reverseJson.toJSONString());
+        }
+        // {"access_token":"ACCESS_TOKEN",  "expires_in":7200, "refresh_token":"REFRESH_TOKEN", "openid":"OPENID", "scope":"SCOPE"}
+        if (reverseJson.containsKey("errcode")) {
 
+            if (reverseJson.get("errcode").equals("40030")){
+                errmsg = "二维码失效, 请重新扫码登录";
+            }
+            return msgUtil.jsonErrorMsg(errmsg);
+        }
+        String openid = reverseJson.get("openid").toString();
+        String access_token = reverseJson.get("access_token").toString();
+        Map<String, String> map = new HashMap<>();
+        map.put("openid", openid);
+        map.put("access_token", access_token);
+        User user = userService.getUserByOpenId(openid);
+        if (user != null) {
+            String token = tokenService.getToken(user);
+            map.put("token", token);
+        }
+
+        return msgUtil.jsonSuccessMsg("获取成功", map);
+    }
 
 
 

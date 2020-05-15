@@ -55,38 +55,7 @@ public class City {
 
     private Integer cTop;
 
-    public City(String cId, Date cCreateTime, Date cLastUpdateTime, String cNo, String cName, String cProvinceId, Integer cSort, String cAdminId, String cAdminName, String cAreaId, String cAreaName, String cShopId, String cShopName, String cSsId, Integer cIfOpen, String cCityId, String cCreateUser, String cDistrictId, String cLastUpdateUser, String cAgenCode, String cAgenUserId, Integer cIfShop, String cLogo, String cBlockId, String cHide, Integer cTop) {
-        this.cId = cId;
-        this.cCreateTime = cCreateTime;
-        this.cLastUpdateTime = cLastUpdateTime;
-        this.cNo = cNo;
-        this.cName = cName;
-        this.cProvinceId = cProvinceId;
-        this.cSort = cSort;
-        this.cAdminId = cAdminId;
-        this.cAdminName = cAdminName;
-        this.cAreaId = cAreaId;
-        this.cAreaName = cAreaName;
-        this.cShopId = cShopId;
-        this.cShopName = cShopName;
-        this.cSsId = cSsId;
-        this.cIfOpen = cIfOpen;
-        this.cCityId = cCityId;
-        this.cCreateUser = cCreateUser;
-        this.cDistrictId = cDistrictId;
-        this.cLastUpdateUser = cLastUpdateUser;
-        this.cAgenCode = cAgenCode;
-        this.cAgenUserId = cAgenUserId;
-        this.cIfShop = cIfShop;
-        this.cLogo = cLogo;
-        this.cBlockId = cBlockId;
-        this.cHide = cHide;
-        this.cTop = cTop;
-    }
-
-    public City() {
-        super();
-    }
+    private String cStoreName;
 
     public String getcId() {
         return cId;
@@ -294,5 +263,13 @@ public class City {
 
     public void setcTop(Integer cTop) {
         this.cTop = cTop;
+    }
+
+    public String getcStoreName() {
+        return cStoreName;
+    }
+
+    public void setcStoreName(String cStoreName) {
+        this.cStoreName = cStoreName == null ? null : cStoreName.trim();
     }
 }

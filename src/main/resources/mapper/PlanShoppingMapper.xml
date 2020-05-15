@@ -22,12 +22,14 @@
       <arg column="c_texttrue" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_unit" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_user_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_realname" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
     c_id, c_block_id, c_city_id, c_create_time, c_create_user, c_district_id, c_hide, 
     c_last_update_time, c_last_update_user, c_province_id, c_explain, c_num, c_shop_column_name, 
-    c_shop_column_type_id, c_shopName, c_spec, c_texttrue, c_unit, c_user_id
+    c_shop_column_type_id, c_shopName, c_spec, c_texttrue, c_unit, c_user_id, c_phone, c_realname
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -46,14 +48,14 @@
       c_province_id, c_explain, c_num, 
       c_shop_column_name, c_shop_column_type_id, c_shopName, 
       c_spec, c_texttrue, c_unit, 
-      c_user_id)
+      c_user_id, c_phone, c_realname)
     values (#{cId,jdbcType=VARCHAR}, #{cBlockId,jdbcType=VARCHAR}, #{cCityId,jdbcType=VARCHAR}, 
       #{cCreateTime,jdbcType=TIMESTAMP}, #{cCreateUser,jdbcType=VARCHAR}, #{cDistrictId,jdbcType=VARCHAR}, 
       #{cHide,jdbcType=VARCHAR}, #{cLastUpdateTime,jdbcType=TIMESTAMP}, #{cLastUpdateUser,jdbcType=VARCHAR}, 
       #{cProvinceId,jdbcType=VARCHAR}, #{cExplain,jdbcType=VARCHAR}, #{cNum,jdbcType=VARCHAR}, 
       #{cShopColumnName,jdbcType=VARCHAR}, #{cShopColumnTypeId,jdbcType=VARCHAR}, #{cShopname,jdbcType=VARCHAR}, 
       #{cSpec,jdbcType=VARCHAR}, #{cTexttrue,jdbcType=VARCHAR}, #{cUnit,jdbcType=VARCHAR}, 
-      #{cUserId,jdbcType=VARCHAR})
+      #{cUserId,jdbcType=VARCHAR}, #{cPhone,jdbcType=VARCHAR}, #{cRealname,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.boot.gang.entity.PlanShopping" >
     insert into t_plan_shopping
@@ -115,6 +117,12 @@
       <if test="cUserId != null" >
         c_user_id,
       </if>
+      <if test="cPhone != null" >
+        c_phone,
+      </if>
+      <if test="cRealname != null" >
+        c_realname,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="cId != null" >
@@ -173,6 +181,12 @@
       </if>
       <if test="cUserId != null" >
         #{cUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="cPhone != null" >
+        #{cPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cRealname != null" >
+        #{cRealname,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -233,6 +247,12 @@
       <if test="cUserId != null" >
         c_user_id = #{cUserId,jdbcType=VARCHAR},
       </if>
+      <if test="cPhone != null" >
+        c_phone = #{cPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cRealname != null" >
+        c_realname = #{cRealname,jdbcType=VARCHAR},
+      </if>
     </set>
     where c_id = #{cId,jdbcType=VARCHAR}
   </update>
@@ -255,7 +275,9 @@
       c_spec = #{cSpec,jdbcType=VARCHAR},
       c_texttrue = #{cTexttrue,jdbcType=VARCHAR},
       c_unit = #{cUnit,jdbcType=VARCHAR},
-      c_user_id = #{cUserId,jdbcType=VARCHAR}
+      c_user_id = #{cUserId,jdbcType=VARCHAR},
+      c_phone = #{cPhone,jdbcType=VARCHAR},
+      c_realname = #{cRealname,jdbcType=VARCHAR}
     where c_id = #{cId,jdbcType=VARCHAR}
   </update>
 </mapper>

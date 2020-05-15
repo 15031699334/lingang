@@ -2,40 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.boot.gang.mapper.CityMapper" >
   <resultMap id="BaseResultMap" type="com.boot.gang.entity.City" >
-    <constructor >
-      <idArg column="c_id" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="c_last_update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="c_no" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_name" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_province_id" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_sort" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="c_admin_id" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_admin_name" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_area_id" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_area_name" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_shop_id" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_shop_name" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_ss_id" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_if_open" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="c_city_id" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_create_user" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_district_id" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_last_update_user" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_agen_code" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_agen_user_id" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_if_shop" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="c_logo" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_block_id" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_hide" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_top" jdbcType="INTEGER" javaType="java.lang.Integer" />
-    </constructor>
+    <id column="c_id" property="cId" jdbcType="VARCHAR" />
+    <result column="c_create_time" property="cCreateTime" jdbcType="TIMESTAMP" />
+    <result column="c_last_update_time" property="cLastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="c_no" property="cNo" jdbcType="VARCHAR" />
+    <result column="c_name" property="cName" jdbcType="VARCHAR" />
+    <result column="c_province_id" property="cProvinceId" jdbcType="VARCHAR" />
+    <result column="c_sort" property="cSort" jdbcType="INTEGER" />
+    <result column="c_admin_id" property="cAdminId" jdbcType="VARCHAR" />
+    <result column="c_admin_name" property="cAdminName" jdbcType="VARCHAR" />
+    <result column="c_area_id" property="cAreaId" jdbcType="VARCHAR" />
+    <result column="c_area_name" property="cAreaName" jdbcType="VARCHAR" />
+    <result column="c_shop_id" property="cShopId" jdbcType="VARCHAR" />
+    <result column="c_shop_name" property="cShopName" jdbcType="VARCHAR" />
+    <result column="c_ss_id" property="cSsId" jdbcType="VARCHAR" />
+    <result column="c_if_open" property="cIfOpen" jdbcType="INTEGER" />
+    <result column="c_city_id" property="cCityId" jdbcType="VARCHAR" />
+    <result column="c_create_user" property="cCreateUser" jdbcType="VARCHAR" />
+    <result column="c_district_id" property="cDistrictId" jdbcType="VARCHAR" />
+    <result column="c_last_update_user" property="cLastUpdateUser" jdbcType="VARCHAR" />
+    <result column="c_agen_code" property="cAgenCode" jdbcType="VARCHAR" />
+    <result column="c_agen_user_id" property="cAgenUserId" jdbcType="VARCHAR" />
+    <result column="c_if_shop" property="cIfShop" jdbcType="INTEGER" />
+    <result column="c_logo" property="cLogo" jdbcType="VARCHAR" />
+    <result column="c_block_id" property="cBlockId" jdbcType="VARCHAR" />
+    <result column="c_hide" property="cHide" jdbcType="VARCHAR" />
+    <result column="c_top" property="cTop" jdbcType="INTEGER" />
+    <result column="c_store_name" property="cStoreName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     c_id, c_create_time, c_last_update_time, c_no, c_name, c_province_id, c_sort, c_admin_id, 
     c_admin_name, c_area_id, c_area_name, c_shop_id, c_shop_name, c_ss_id, c_if_open, 
     c_city_id, c_create_user, c_district_id, c_last_update_user, c_agen_code, c_agen_user_id, 
-    c_if_shop, c_logo, c_block_id, c_hide, c_top
+    c_if_shop, c_logo, c_block_id, c_hide, c_top, c_store_name
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -56,7 +55,8 @@
       c_city_id, c_create_user, c_district_id, 
       c_last_update_user, c_agen_code, c_agen_user_id, 
       c_if_shop, c_logo, c_block_id, 
-      c_hide, c_top)
+      c_hide, c_top, c_store_name
+      )
     values (#{cId,jdbcType=VARCHAR}, #{cCreateTime,jdbcType=TIMESTAMP}, #{cLastUpdateTime,jdbcType=TIMESTAMP}, 
       #{cNo,jdbcType=VARCHAR}, #{cName,jdbcType=VARCHAR}, #{cProvinceId,jdbcType=VARCHAR}, 
       #{cSort,jdbcType=INTEGER}, #{cAdminId,jdbcType=VARCHAR}, #{cAdminName,jdbcType=VARCHAR}, 
@@ -65,7 +65,8 @@
       #{cCityId,jdbcType=VARCHAR}, #{cCreateUser,jdbcType=VARCHAR}, #{cDistrictId,jdbcType=VARCHAR}, 
       #{cLastUpdateUser,jdbcType=VARCHAR}, #{cAgenCode,jdbcType=VARCHAR}, #{cAgenUserId,jdbcType=VARCHAR}, 
       #{cIfShop,jdbcType=INTEGER}, #{cLogo,jdbcType=VARCHAR}, #{cBlockId,jdbcType=VARCHAR}, 
-      #{cHide,jdbcType=VARCHAR}, #{cTop,jdbcType=INTEGER})
+      #{cHide,jdbcType=VARCHAR}, #{cTop,jdbcType=INTEGER}, #{cStoreName,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.boot.gang.entity.City" >
     insert into t_city
@@ -148,6 +149,9 @@
       <if test="cTop != null" >
         c_top,
       </if>
+      <if test="cStoreName != null" >
+        c_store_name,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="cId != null" >
@@ -227,6 +231,9 @@
       </if>
       <if test="cTop != null" >
         #{cTop,jdbcType=INTEGER},
+      </if>
+      <if test="cStoreName != null" >
+        #{cStoreName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -308,6 +315,9 @@
       <if test="cTop != null" >
         c_top = #{cTop,jdbcType=INTEGER},
       </if>
+      <if test="cStoreName != null" >
+        c_store_name = #{cStoreName,jdbcType=VARCHAR},
+      </if>
     </set>
     where c_id = #{cId,jdbcType=VARCHAR}
   </update>
@@ -337,7 +347,8 @@
       c_logo = #{cLogo,jdbcType=VARCHAR},
       c_block_id = #{cBlockId,jdbcType=VARCHAR},
       c_hide = #{cHide,jdbcType=VARCHAR},
-      c_top = #{cTop,jdbcType=INTEGER}
+      c_top = #{cTop,jdbcType=INTEGER},
+      c_store_name = #{cStoreName,jdbcType=VARCHAR}
     where c_id = #{cId,jdbcType=VARCHAR}
   </update>
 </mapper>

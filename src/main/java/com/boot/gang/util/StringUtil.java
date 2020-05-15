@@ -2,6 +2,8 @@ package com.boot.gang.util;
 
 import org.springframework.stereotype.Component;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * @ClassName: lingang
  * @description: String 工具类
@@ -26,6 +28,27 @@ public class StringUtil {
     public static String splitEndByDiagonal(String str){
 
         return str.contains("/")? str.substring(str.lastIndexOf("/")+1): str;
+    }
+
+    /**
+     * @Description 将一段错误解码的字符串重新解码
+     * @param str :     参数
+     * @param formatFrom :  原来的格式
+     * @param FormatTo :    改为的格式
+     * @return java.lang.String
+     * @Author dongxiangwei -- seven
+     * @Date 2020/3/15 16:20
+     */
+    public static String convertEncodingFormat(String str, String formatFrom, String FormatTo) {
+        String result = null;
+        if (!(str == null || str.length() == 0)) {
+            try {
+                result = new String(str.getBytes(formatFrom), FormatTo);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
     }
 
 

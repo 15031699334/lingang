@@ -239,6 +239,9 @@ public class AjaxController {
             map.put("data", commonService.getList("VolumePrice", request, pageIndex, pageSize));
         if (entity.equals("sf"))         // 省份
             map.put("data", commonService.getList("Province", request, pageIndex, pageSize));
+        if (entity.equals("cs")) {  // 根据省份查询城市/仓库
+            map.put("data", commonService.getList("City", request, pageIndex, pageSize));
+        }
         if (entity.equals("jjsf"))         // 卷价省份
             map.put("data", commonService.getList("jjsf", request, pageIndex, pageSize));
         if (entity.equals("cjdt"))         // 成交动态
@@ -276,9 +279,6 @@ public class AjaxController {
             }
             Date timeOpen =DateUtil.getDate(time_open.replace("：",":"), "HH:mm");
             Date timeClose =DateUtil.getDate(time_close.replace("：",":"), "HH:mm");
-            System.out.println("现在的时间: " + timeNow + " 开始时间: " + timeOpen + " , 闭市时间: " + timeClose);
-            System.out.println(timeNow.before(timeClose));
-            System.out.println(timeNow.after(timeOpen));
             if (timeNow.after(timeOpen) && timeNow.before(timeClose)) {    // 开市
                 map.put("marketType", "1");
             } else {
@@ -300,6 +300,8 @@ public class AjaxController {
         }
         if (entity.equals("jhcg"))      // 计划采购订单列表
             map.put("data", commonService.getList("jhcg", request, pageIndex, pageSize));
+        if (entity.equals("alljhcg"))      // 计划采购订单列表
+            map.put("data", commonService.getList("alljhcg", request, pageIndex, pageSize));
         if (entity.equals("news"))      // 新闻
             map.put("data", commonService.getList("news", request, pageIndex, pageSize));
         if (entity.equals("hd"))      // 活动
@@ -838,7 +840,8 @@ public class AjaxController {
         map1.put("signature", "");  // 委托人签字
 //        System.out.println(" 需求方信息 " + map1);
         Map map = new HashMap();
-        map.put("name", order.getcRealname());
+        //map.put("name", order.getcRealname());
+        map.put("name",user.getcShopName());
         map.put("orderNo", order.getcOrderNo());
         map.put("address", "临沂市经济开发区沂蒙云谷B座6层");
         map.put("createTime", DateUtil.getFormate(order.getcCreateTime()));
@@ -896,7 +899,11 @@ public class AjaxController {
             strings.add(process);
             strings.add(orderDetail.getdPrnPrice() + "");
             ProductRelationNode node = (ProductRelationNode) commonService.findObjectById(orderDetail.getdProductid(), "PRN");
-            strings.add(node.getcSummary());
+            if(node!=null) {
+                strings.add(node.getcSummary());
+            }else{
+                strings.add("");//这里注意,最好是在下单的时候,吧备注写入到这个字段里
+            }
             lists.add(strings);
         }
         System.out.println("pdf 订单总重量: " + allTon);

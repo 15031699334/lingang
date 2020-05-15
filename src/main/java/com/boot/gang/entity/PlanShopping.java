@@ -13,6 +13,8 @@ public class PlanShopping {
 
     private String cCreateUser;
 
+    private String cPhone;          // 收货地址中的手机号
+    private String cRealname;       // 收货地址中的人名
     private String cDistrictId;
 
     private String cHide;
@@ -41,7 +43,7 @@ public class PlanShopping {
 
     private String cUnit;
 
-    public PlanShopping(String cId, String cBlockId, String cCityId, Date cCreateTime, String cCreateUser, String cDistrictId, String cHide, Date cLastUpdateTime, String cLastUpdateUser, String cProvinceId, String cExplain, String cNum, String cShopColumnName, String cShopColumnTypeId, String cShopname, String cSpec, String cTexttrue, String cUnit, String cUserId) {
+    public PlanShopping(String cId, String cBlockId, String cCityId, Date cCreateTime, String cCreateUser, String cDistrictId, String cHide, Date cLastUpdateTime, String cLastUpdateUser, String cProvinceId, String cExplain, String cNum, String cShopColumnName, String cShopColumnTypeId, String cShopname, String cSpec, String cTexttrue, String cUnit, String cUserId,String cPhone,String cRealname) {
         this.cId = cId;
         this.cBlockId = cBlockId;
         this.cCityId = cCityId;
@@ -61,6 +63,8 @@ public class PlanShopping {
         this.cTexttrue = cTexttrue;
         this.cUnit = cUnit;
         this.cUserId = cUserId;
+        this.cPhone=cPhone;
+        this.cRealname=cRealname;
     }
 
     public PlanShopping() {
@@ -218,4 +222,21 @@ public class PlanShopping {
     public void setcUserId(String cUserId) {
         this.cUserId = cUserId;
     }
+
+    public String getcPhone() {
+        return cPhone;
+    }
+
+    public void setcPhone(String cPhone) {
+        this.cPhone = cPhone == null ? null : cPhone.trim();
+    }
+
+    public String getcRealname() {
+        return cRealname;
+    }
+
+    public void setcRealname(String cRealname) {
+        this.cRealname = cRealname == null ? null : cRealname.trim();
+    }
+
 }

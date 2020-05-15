@@ -72,28 +72,30 @@ public class HttpUtil {
 	/**
 	 * 执行HTTPClient请求   Url传参
 	 * @param urlStr   请求地址
-	 * @param ifCharset 是否设置字符集  0为不设置 大于0为设置   全英文不需要设置
+	 * @param charset 是否设置字符集  0为不设置 大于0为设置   全英文不需要设置
 	 * @return	请求结果
 	 */
-	public static String excuteGetClient(String urlStr,int ifCharset){
+	public static String excuteGetClient(String urlStr, String params, String charset) {
 		String resultStr = null;
 		HttpClient httpclient = new HttpClient();
-		try {
-			urlStr = URLEncoder.encode(urlStr, "UTF-8");
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
+		urlStr = urlStr + params;
+//		logger.info(urlStr);
 		HttpMethod method = new GetMethod(urlStr);
-		if(ifCharset >0){
-			method.setRequestHeader("Content-type", "text/xml; charset=utf-8");
+		if (null != charset) {
+			method.addRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=" + charset);
+		} else {
+			method.addRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
 		}
-		try {
+		try
+		{
 			httpclient.executeMethod(method);
 			resultStr = method.getResponseBodyAsString();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			resultStr = null;
 			e.printStackTrace();
-		} 
+		}
 		return resultStr;
 	}
 	
