@@ -27,4 +27,13 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
+    @Override
+    public User getUserByQQOpenId(String openid) {
+        List<User> userList = userMapper.getList(" and c_qq_openid = '" + openid + "'");
+        if (userList != null && !userList.isEmpty()) {
+            return userList.get(0);
+        }
+        return null;
+    }
 }

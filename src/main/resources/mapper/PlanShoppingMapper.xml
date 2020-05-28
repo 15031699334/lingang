@@ -2,37 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.boot.gang.mapper.PlanShoppingMapper" >
   <resultMap id="BaseResultMap" type="com.boot.gang.entity.PlanShopping" >
-    <constructor >
-      <idArg column="c_id" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_block_id" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_city_id" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="c_create_user" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_district_id" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_hide" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_last_update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="c_last_update_user" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_province_id" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_explain" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_num" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_shop_column_name" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_shop_column_type_id" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_shopName" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_spec" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_texttrue" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_unit" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_user_id" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_phone" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="c_realname" jdbcType="VARCHAR" javaType="java.lang.String" />
-    </constructor>
+    <id column="c_id" property="cId" jdbcType="VARCHAR" />
+    <result column="c_block_id" property="cBlockId" jdbcType="VARCHAR" />
+    <result column="c_city_id" property="cCityId" jdbcType="VARCHAR" />
+    <result column="c_create_time" property="cCreateTime" jdbcType="TIMESTAMP" />
+    <result column="c_create_user" property="cCreateUser" jdbcType="VARCHAR" />
+    <result column="c_district_id" property="cDistrictId" jdbcType="VARCHAR" />
+    <result column="c_hide" property="cHide" jdbcType="VARCHAR" />
+    <result column="c_last_update_time" property="cLastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="c_last_update_user" property="cLastUpdateUser" jdbcType="VARCHAR" />
+    <result column="c_province_id" property="cProvinceId" jdbcType="VARCHAR" />
+    <result column="c_explain" property="cExplain" jdbcType="VARCHAR" />
+    <result column="c_num" property="cNum" jdbcType="VARCHAR" />
+    <result column="ps_type" property="psType" jdbcType="INTEGER" />
+    <result column="c_shop_column_name" property="cShopColumnName" jdbcType="VARCHAR" />
+    <result column="c_shop_column_type_id" property="cShopColumnTypeId" jdbcType="VARCHAR" />
+    <result column="c_shopName" property="cShopname" jdbcType="VARCHAR" />
+    <result column="c_spec" property="cSpec" jdbcType="VARCHAR" />
+    <result column="c_texttrue" property="cTexttrue" jdbcType="VARCHAR" />
+    <result column="c_unit" property="cUnit" jdbcType="VARCHAR" />
+    <result column="c_user_id" property="cUserId" jdbcType="VARCHAR" />
+    <result column="c_phone" property="cPhone" jdbcType="VARCHAR" />
+    <result column="c_realname" property="cRealname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    c_id, c_block_id, c_city_id, c_create_time, c_create_user, c_district_id, c_hide, 
-    c_last_update_time, c_last_update_user, c_province_id, c_explain, c_num, c_shop_column_name, 
-    c_shop_column_type_id, c_shopName, c_spec, c_texttrue, c_unit, c_user_id, c_phone, c_realname
+    c_id, c_block_id, c_city_id, c_create_time, c_create_user, c_district_id, c_hide,
+    c_last_update_time, c_last_update_user, c_province_id, c_explain, c_num, ps_type,
+    c_shop_column_name, c_shop_column_type_id, c_shopName, c_spec, c_texttrue, c_unit,
+    c_user_id, c_phone, c_realname
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from t_plan_shopping
     where c_id = #{cId,jdbcType=VARCHAR}
@@ -42,20 +42,22 @@
     where c_id = #{cId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.boot.gang.entity.PlanShopping" >
-    insert into t_plan_shopping (c_id, c_block_id, c_city_id, 
-      c_create_time, c_create_user, c_district_id, 
-      c_hide, c_last_update_time, c_last_update_user, 
-      c_province_id, c_explain, c_num, 
-      c_shop_column_name, c_shop_column_type_id, c_shopName, 
-      c_spec, c_texttrue, c_unit, 
-      c_user_id, c_phone, c_realname)
-    values (#{cId,jdbcType=VARCHAR}, #{cBlockId,jdbcType=VARCHAR}, #{cCityId,jdbcType=VARCHAR}, 
-      #{cCreateTime,jdbcType=TIMESTAMP}, #{cCreateUser,jdbcType=VARCHAR}, #{cDistrictId,jdbcType=VARCHAR}, 
-      #{cHide,jdbcType=VARCHAR}, #{cLastUpdateTime,jdbcType=TIMESTAMP}, #{cLastUpdateUser,jdbcType=VARCHAR}, 
-      #{cProvinceId,jdbcType=VARCHAR}, #{cExplain,jdbcType=VARCHAR}, #{cNum,jdbcType=VARCHAR}, 
-      #{cShopColumnName,jdbcType=VARCHAR}, #{cShopColumnTypeId,jdbcType=VARCHAR}, #{cShopname,jdbcType=VARCHAR}, 
-      #{cSpec,jdbcType=VARCHAR}, #{cTexttrue,jdbcType=VARCHAR}, #{cUnit,jdbcType=VARCHAR}, 
-      #{cUserId,jdbcType=VARCHAR}, #{cPhone,jdbcType=VARCHAR}, #{cRealname,jdbcType=VARCHAR})
+    insert into t_plan_shopping (c_id, c_block_id, c_city_id,
+      c_create_time, c_create_user, c_district_id,
+      c_hide, c_last_update_time, c_last_update_user,
+      c_province_id, c_explain, c_num,
+      ps_type, c_shop_column_name, c_shop_column_type_id,
+      c_shopName, c_spec, c_texttrue,
+      c_unit, c_user_id, c_phone,
+      c_realname)
+    values (#{cId,jdbcType=VARCHAR}, #{cBlockId,jdbcType=VARCHAR}, #{cCityId,jdbcType=VARCHAR},
+      #{cCreateTime,jdbcType=TIMESTAMP}, #{cCreateUser,jdbcType=VARCHAR}, #{cDistrictId,jdbcType=VARCHAR},
+      #{cHide,jdbcType=VARCHAR}, #{cLastUpdateTime,jdbcType=TIMESTAMP}, #{cLastUpdateUser,jdbcType=VARCHAR},
+      #{cProvinceId,jdbcType=VARCHAR}, #{cExplain,jdbcType=VARCHAR}, #{cNum,jdbcType=VARCHAR},
+      #{psType,jdbcType=INTEGER}, #{cShopColumnName,jdbcType=VARCHAR}, #{cShopColumnTypeId,jdbcType=VARCHAR},
+      #{cShopname,jdbcType=VARCHAR}, #{cSpec,jdbcType=VARCHAR}, #{cTexttrue,jdbcType=VARCHAR},
+      #{cUnit,jdbcType=VARCHAR}, #{cUserId,jdbcType=VARCHAR}, #{cPhone,jdbcType=VARCHAR},
+      #{cRealname,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.boot.gang.entity.PlanShopping" >
     insert into t_plan_shopping
@@ -95,6 +97,9 @@
       </if>
       <if test="cNum != null" >
         c_num,
+      </if>
+      <if test="psType != null" >
+        ps_type,
       </if>
       <if test="cShopColumnName != null" >
         c_shop_column_name,
@@ -161,6 +166,9 @@
       <if test="cNum != null" >
         #{cNum,jdbcType=VARCHAR},
       </if>
+      <if test="psType != null" >
+        #{psType,jdbcType=INTEGER},
+      </if>
       <if test="cShopColumnName != null" >
         #{cShopColumnName,jdbcType=VARCHAR},
       </if>
@@ -226,6 +234,9 @@
       <if test="cNum != null" >
         c_num = #{cNum,jdbcType=VARCHAR},
       </if>
+      <if test="psType != null" >
+        ps_type = #{psType,jdbcType=INTEGER},
+      </if>
       <if test="cShopColumnName != null" >
         c_shop_column_name = #{cShopColumnName,jdbcType=VARCHAR},
       </if>
@@ -269,6 +280,7 @@
       c_province_id = #{cProvinceId,jdbcType=VARCHAR},
       c_explain = #{cExplain,jdbcType=VARCHAR},
       c_num = #{cNum,jdbcType=VARCHAR},
+      ps_type = #{psType,jdbcType=INTEGER},
       c_shop_column_name = #{cShopColumnName,jdbcType=VARCHAR},
       c_shop_column_type_id = #{cShopColumnTypeId,jdbcType=VARCHAR},
       c_shopName = #{cShopname,jdbcType=VARCHAR},

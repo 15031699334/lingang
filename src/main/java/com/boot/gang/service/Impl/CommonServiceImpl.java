@@ -82,6 +82,10 @@ public class CommonServiceImpl implements CommonService {
     @Autowired
     private OrderPreorderMapper orderPreorderMapper;
     @Autowired
+    private PlanShoppingReplyMapper planShoppingReplyMapper;
+
+
+    @Autowired
     private ConfigService configService;
 
     @Override
@@ -379,15 +383,37 @@ public class CommonServiceImpl implements CommonService {
             Feedback feedback = (Feedback) object;
             feedbackMapper.insertSelective(feedback);
         }
-        if (entity.equals("jhcg")) {        // 计划采购
+        if (entity.equals("jhcg")) {        // 计划采购 / 求购信息
             PlanShopping planShopping = (PlanShopping) object;
             User user = userMapper.selectByPrimaryKey(planShopping.getcUserId());
             planShopping.setcPhone(user.getcPhone());
             planShopping.setcRealname(user.getcRealname());
             planShoppingMapper.insertSelective(planShopping);
-            sendMsg("计划采购订单");      // 发送短信
+            if (null == planShopping.getPsType()) {
+                sendMsg("计划采购订单");      // 发送短信
+            }
         }
-
+        if (entity.equals("PSR_Insert")) {  // 求购信息反馈
+            PlanShoppingReply psr = (PlanShoppingReply) object;
+            User user = userMapper.selectByPrimaryKey(psr.getPsrUserId());  // 回复人id
+            PlanShopping planShopping = planShoppingMapper.selectByPrimaryKey(psr.getPsId());   // 求购信息的id
+            psr.setPsrId("PSR" + System.nanoTime());
+            psr.setPsrPhone(user.getcPhone());
+            psr.setPsrRealname(user.getcRealname());
+            // 求购信息赋值
+            psr.setPsExplain(planShopping.getcExplain());
+            psr.setPsNum(planShopping.getcNum());
+            psr.setPsPhone(planShopping.getcPhone());
+            psr.setPsRealname(planShopping.getcRealname());
+            psr.setPsShopColumnName(planShopping.getcShopColumnName());
+            psr.setPsShopname(planShopping.getcShopname());
+            psr.setPsSpec(planShopping.getcSpec());
+            psr.setPsTexttrue(planShopping.getcTexttrue());
+            psr.setPsUnit(planShopping.getcUnit());
+            psr.setPsUserId(planShopping.getcUserId());
+            psr.setPsrCreateTime(new Date());
+            planShoppingReplyMapper.insertSelective(psr);
+        }
         if (entity.equals("grjl")) { // 个人简历
             resumeMapper.insertSelective((Resume) object);
         }
@@ -750,20 +776,26 @@ public class CommonServiceImpl implements CommonService {
             String userId;
             try {
                 userId = tokenService.getIdByToken(request);
-                List<PlanShopping> list = planShoppingMapper.getList(" and c_user_id = '" + userId + "'");
-//                List<Order> orders =  orderMapper.getList(" and c_category = 1 and ISNULL(c_plan_pay_time) < 1  and c_user_id = " + userId   + " order by  c_create_time desc");
-//                for (Order order : orders){
-//                    String order_no = order.getcOrderNo();
-//                    order.setDetailList(orderDetailMapper.getList(" and d_orderNo = '" + order_no + "'"));
-//                }
+                List<PlanShopping> list = planShoppingMapper.getList(" and c_user_id = '" + userId + "' and ps_type = 0");
                 return list;
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
             }
         }
-        if (entity.equals("alljhcg")) {     // 计划采购
-            return planShoppingMapper.getList(" order by c_create_time desc");
+        if (entity.equals("qgxx")) {     // 获取所有的求购信息
+            return planShoppingMapper.getList(" and ps_type = 1 order by c_create_time desc");
+        }
+        if (entity.equals("myqgxx")) {     // 获取我的所有的求购信息
+            String userId;
+            try {
+                userId = tokenService.getIdByToken(request);
+                List<PlanShopping> list = planShoppingMapper.getList(" and c_user_id = '" + userId + "' and ps_type = 1");
+                return list;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
         }
         if (entity.equals("news")) {     // 新闻
             return articleMapper.getList(" and c_article_type = 'news' order by c_create_time desc");
@@ -981,7 +1013,7 @@ public class CommonServiceImpl implements CommonService {
         }
 
         // 计划采购订单
-        List<PlanShopping> psList = planShoppingMapper.getList("");
+        List<PlanShopping> psList = planShoppingMapper.getList(" and ps_type = 0 ");
         for (PlanShopping planShopping : psList) {
             Date planTime = DateUtil.getDate(planShopping.getcBlockId(), "yyyy-MM-dd");
 //            System.out.println("计划时间: " + planTime);

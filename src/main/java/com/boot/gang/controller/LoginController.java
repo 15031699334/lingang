@@ -43,6 +43,11 @@ public class LoginController {
     private ConfigService configService;
     @Autowired
     private UserService userService;
+
+    //        腾讯参数          *-----------------------------------*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+    private String AppID = "101876285";
+    private  String AppSecret = "383944da3405ad4fe90e72e1eac4f37a";
+
     //登录
     @ResponseBody
     @PostMapping("/login")
@@ -69,31 +74,56 @@ public class LoginController {
                     return msgUtil.jsonErrorMsg("登录失败,密码错误");
                 }else {
                     String token = tokenService.getToken(user);     // 生成token
+
                     if (json.containsKey("openid") && !json.get("openid").equals("")) {
                         // https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID
                         String openid = json.getString("openid");
                         String access_token = json.getString("access_token");
-                        // 首次更新头像
-                        String reverseGetClient = HttpUtil.excuteGetClient("https://api.weixin.qq.com/sns/userinfo", "?access_token=" + access_token + "&openid=" + openid, null);
-                        JSONObject reverseJson = JSONObject.parseObject(StringUtil.convertEncodingFormat(reverseGetClient, "iso-8859-1", "UTF-8"));
-                        logger.info(reverseJson.toJSONString());
-                        if (!reverseJson.containsKey("errcode")){
-                            logger.info("开始修改用户信息");
+                        if (json.containsKey("bindType")){
+                            // 首次更新头像
+                            String reverseGetClient = HttpUtil.excuteGetClient("https://graph.qq.com/user/get_user_info", "?access_token=" + access_token + "&openid=" + openid + "&oauth_consumer_key=" + AppID, null);
+                            JSONObject reverseJson = JSONObject.parseObject(reverseGetClient);
+                            logger.info(reverseJson.toJSONString());
+                            if (reverseJson.get("ret").toString().equals("0")){
+                                logger.info("开始修改用户信息");
 
-                            if (StringUtil.isNullOrEmpty(user.getcNickname())) {
-                                user.setcNickname(reverseJson.getString("nickname"));
+                                if (StringUtil.isNullOrEmpty(user.getcNickname())) {
+                                    user.setcUsername(reverseJson.getString("nickname"));
+                                }
+                                if (StringUtil.isNullOrEmpty(user.getcLogo())){
+                                    user.setcLogo(reverseJson.getString("figureurl_qq_1"));
+                                }
+                                user.setQqOpenid(openid);
+                                try {
+                                    commonService.update(user, "User");
+                                    logger.info("结束修改用户信息");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    return msgUtil.jsonErrorMsg("绑定失败");
+                                }
                             }
-                            user.setcLogo(reverseJson.getString("headimgurl"));
-                            user.setcOpenid(openid);
-                            try {
-                                commonService.update(user, "User");
-                                logger.info("结束修改用户信息");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                return msgUtil.jsonErrorMsg("绑定失败");
+                        } else { // 微信
+                            // 首次更新头像
+                            String reverseGetClient = HttpUtil.excuteGetClient("https://api.weixin.qq.com/sns/userinfo", "?access_token=" + access_token + "&openid=" + openid, null);
+                            JSONObject reverseJson = JSONObject.parseObject(StringUtil.convertEncodingFormat(reverseGetClient, "iso-8859-1", "UTF-8"));
+                            logger.info(reverseJson.toJSONString());
+                            if (!reverseJson.containsKey("errcode")){
+                                logger.info("开始修改用户信息");
+
+                                if (StringUtil.isNullOrEmpty(user.getcNickname())) {
+                                    user.setcUsername(reverseJson.getString("nickname"));
+                                }
+                                user.setcLogo(reverseJson.getString("headimgurl"));
+                                user.setcOpenid(openid);
+                                try {
+                                    commonService.update(user, "User");
+                                    logger.info("结束修改用户信息");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    return msgUtil.jsonErrorMsg("绑定失败");
+                                }
                             }
                         }
-
                     }
                     return msgUtil.jsonSuccessMsg("登录成功", "token", token);
                 }
@@ -299,9 +329,9 @@ public class LoginController {
         String errmsg = "登录错误";
         if (reverseJson == null) {
             return msgUtil.jsonErrorMsg(errmsg);
-        }else {
+        }/*else {
             System.out.println(reverseJson.toJSONString());
-        }
+        }*/
         // {"access_token":"ACCESS_TOKEN",  "expires_in":7200, "refresh_token":"REFRESH_TOKEN", "openid":"OPENID", "scope":"SCOPE"}
         if (reverseJson.containsKey("errcode")) {
 
@@ -324,6 +354,59 @@ public class LoginController {
         return msgUtil.jsonSuccessMsg("获取成功", map);
     }
 
+    /**
+     * @Description
+     * @param code_login    微信code
+     * @return com.alibaba.fastjson.JSONObject
+     * @Author dongxiangwei
+     * @Date 16:37 2020/5/15
+     **/
+    @ResponseBody
+    @RequestMapping(value = "qqData", method = RequestMethod.POST)
+    public JSONObject qqLogin(@RequestParam(value = "code") String code_login, @RequestParam("reUrl") String reUrl){
+
+
+//        String httpUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + AppID + "&secret=" + AppSecret + "&code=" + code_login + "&grant_type=authorization_code";
+        String reverseGetClient = HttpUtil.excuteGetClient("https://graph.qq.com/oauth2.0/token", "?client_id=" + AppID + "&client_secret=" + AppSecret + "&code=" + code_login + "&redirect_uri=" + reUrl + "&grant_type=authorization_code", null);
+        JSONObject reverseJson = JSONObject.parseObject(JsonUtil.getJsonStrByQueryUrl(reverseGetClient));
+
+        String errmsg = "登录错误";
+        if (reverseJson == null && reverseJson.containsKey("access_token")) {
+            return msgUtil.jsonErrorMsg("access_token 获取错误");
+        }/*else {
+            System.out.println("access_token json:  " + reverseJson.toJSONString());
+        }*/
+        // {"access_token":"ACCESS_TOKEN",  "expires_in":7200, "refresh_token":"REFRESH_TOKEN", "openid":"OPENID", "scope":"SCOPE"}
+        if (reverseJson.containsKey("errcode")) {
+            if (reverseJson.get("errcode").equals("40030")){
+                errmsg = "二维码失效, 请重新扫码登录";
+            }
+            return msgUtil.jsonErrorMsg(errmsg);
+        }
+        String access_token = reverseJson.get("access_token").toString();
+
+        //
+        String reverseGetClient2 = HttpUtil.excuteGetClient("https://graph.qq.com/oauth2.0/me", "?access_token=" + access_token, null);
+        reverseGetClient2 = reverseGetClient2.replace("callback( " , "").replace(" );", "");
+        JSONObject reverseJson2 = JSONObject.parseObject(StringUtil.convertEncodingFormat(reverseGetClient2, "iso-8859-1", "UTF-8"));
+        if (reverseJson == null) {
+            return msgUtil.jsonErrorMsg("openid 获取错误");
+        }/*else {
+            System.out.println("openId json:  " + reverseJson2.toJSONString());
+        }*/
+
+        String openid = reverseJson2.get("openid").toString();
+        Map<String, String> map = new HashMap<>();
+        map.put("openid", openid);
+        map.put("access_token", access_token);
+        User user = userService.getUserByQQOpenId(openid);
+        if (user != null) {
+            String token = tokenService.getToken(user);
+            map.put("token", token);
+        }
+
+        return msgUtil.jsonSuccessMsg("获取成功", map);
+    }
 
 
 

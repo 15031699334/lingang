@@ -133,7 +133,7 @@ public class AjaxController {
             }
             return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "gwc"));
         }
-        if (entity.equals("jhcg"))        // 计划采购
+        if (entity.equals("jhcg"))        // 获取单个计划采购/求购信息
             return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById(id, "PlanShopping"));
 
         if (entity.equals("news")) {     // 获取新闻 今日快讯 活动
@@ -300,12 +300,19 @@ public class AjaxController {
         }
         if (entity.equals("jhcg"))      // 计划采购订单列表
             map.put("data", commonService.getList("jhcg", request, pageIndex, pageSize));
-        if (entity.equals("alljhcg"))      // 计划采购订单列表
-            map.put("data", commonService.getList("alljhcg", request, pageIndex, pageSize));
+
+        if (entity.equals("qgxx"))      // 获取所有的求购信息列表
+            map.put("data", commonService.getList("qgxx", request, pageIndex, pageSize));
+
+        if (entity.equals("myqgxx"))      // 获取当前用户所有的求购信息列表
+            map.put("data", commonService.getList("myqgxx", request, pageIndex, pageSize));
+
         if (entity.equals("news"))      // 新闻
             map.put("data", commonService.getList("news", request, pageIndex, pageSize));
+
         if (entity.equals("hd"))      // 活动
             map.put("data", commonService.getList("active", request, pageIndex, pageSize));
+
         if (entity.equals("kx")) {       //
             List<Map> list = commonService.getList("kx", request, pageIndex, pageSize);
             map.put("data", list);
@@ -470,6 +477,16 @@ public class AjaxController {
                 planShopping.setcUserId(userId);
                 planShopping.setcCreateTime(new Date());
                 commonService.save(planShopping, "jhcg");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return msgUtil.jsonErrorMsg("添加错误");
+            }
+        }
+        if (entity.equals("PSR")) {     // 添加求购信息的反馈
+            try {
+                PlanShoppingReply psr = JSONObject.toJavaObject(json, PlanShoppingReply.class);
+                psr.setPsrUserId(userId);
+                commonService.save(psr, "PSR_Insert");
             } catch (Exception e) {
                 return msgUtil.jsonErrorMsg("添加错误");
             }

@@ -1,5 +1,7 @@
 package com.boot.gang.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class PlanShopping {
@@ -9,33 +11,33 @@ public class PlanShopping {
 
     private String cCityId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date cCreateTime;
 
     private String cCreateUser;
 
-    private String cPhone;          // 收货地址中的手机号
-    private String cRealname;       // 收货地址中的人名
     private String cDistrictId;
 
     private String cHide;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date cLastUpdateTime;
 
     private String cLastUpdateUser;
 
     private String cProvinceId;
 
-    private String cUserId;
-
     private String cExplain;
 
     private String cNum;
+
+    private Integer psType;     // 0 = 计划采购 1 = 求购信息
 
     private String cShopColumnName;
 
     private String cShopColumnTypeId;
 
-    private String cShopname;
+    private String cShopname;   // 商品名
 
     private String cSpec;
 
@@ -43,33 +45,11 @@ public class PlanShopping {
 
     private String cUnit;
 
-    public PlanShopping(String cId, String cBlockId, String cCityId, Date cCreateTime, String cCreateUser, String cDistrictId, String cHide, Date cLastUpdateTime, String cLastUpdateUser, String cProvinceId, String cExplain, String cNum, String cShopColumnName, String cShopColumnTypeId, String cShopname, String cSpec, String cTexttrue, String cUnit, String cUserId,String cPhone,String cRealname) {
-        this.cId = cId;
-        this.cBlockId = cBlockId;
-        this.cCityId = cCityId;
-        this.cCreateTime = cCreateTime;
-        this.cCreateUser = cCreateUser;
-        this.cDistrictId = cDistrictId;
-        this.cHide = cHide;
-        this.cLastUpdateTime = cLastUpdateTime;
-        this.cLastUpdateUser = cLastUpdateUser;
-        this.cProvinceId = cProvinceId;
-        this.cExplain = cExplain;
-        this.cNum = cNum;
-        this.cShopColumnName = cShopColumnName;
-        this.cShopColumnTypeId = cShopColumnTypeId;
-        this.cShopname = cShopname;
-        this.cSpec = cSpec;
-        this.cTexttrue = cTexttrue;
-        this.cUnit = cUnit;
-        this.cUserId = cUserId;
-        this.cPhone=cPhone;
-        this.cRealname=cRealname;
-    }
+    private String cUserId;
 
-    public PlanShopping() {
-        super();
-    }
+    private String cPhone;
+
+    private String cRealname;
 
     public String getcId() {
         return cId;
@@ -167,6 +147,14 @@ public class PlanShopping {
         this.cNum = cNum == null ? null : cNum.trim();
     }
 
+    public Integer getPsType() {
+        return psType;
+    }
+
+    public void setPsType(Integer psType) {
+        this.psType = psType;
+    }
+
     public String getcShopColumnName() {
         return cShopColumnName;
     }
@@ -220,7 +208,7 @@ public class PlanShopping {
     }
 
     public void setcUserId(String cUserId) {
-        this.cUserId = cUserId;
+        this.cUserId = cUserId == null ? null : cUserId.trim();
     }
 
     public String getcPhone() {
@@ -238,5 +226,4 @@ public class PlanShopping {
     public void setcRealname(String cRealname) {
         this.cRealname = cRealname == null ? null : cRealname.trim();
     }
-
 }

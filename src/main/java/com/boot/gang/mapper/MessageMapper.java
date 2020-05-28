@@ -19,6 +19,17 @@ public interface MessageMapper {
 
     int updateByPrimaryKey(Message record);
 
-    @Select("select * from t_message where userId = #{userId}")
-    List<Message> getAll(@Param("userId") String userId);
+    @Select("select * from t_message where userId = #{userId} and to_days(createTime) = to_days(now())")
+    List<Message> getAllToday(@Param("userId") String userId);
+
+    @Select("<script>"
+            + "select * from t_message where userId = #{userId} and to_days(createTime) != to_days(now()) order by createTime desc"
+            + "<if test='pageNo != null and pageSize != null'>"
+            + " LIMIT #{pageNo},#{pageSize}"
+            + "</if>"
+            + "</script>")
+    List<Message> getPageAllNotToday(@Param("userId") String userId, @Param("pageNo") Integer pageNo, @Param("pageSize") Integer pageSize);
+
+    @Select("select count(id) from t_message where userId = #{userId} and to_days(createTime) != to_days(now())")
+    int getCountNotToday(@Param("userId") String userId);
 }

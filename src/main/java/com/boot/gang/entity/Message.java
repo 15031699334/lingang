@@ -28,9 +28,9 @@ public class Message implements Serializable {
 
     private String username;
 
-    private String userpic;
+    private String userpic;     //
 
-    private int messageType;
+    private int messageType;    // 0= 普通消息 1=文件消息
 
     public Message(Integer id, Date createtime, Date lastupdatetime, String adminname, String adminno, String adminpic, Integer recruitinfoid, Integer state, String summary, String userid, String username, String userpic, int messageType) {
         this.id = id;

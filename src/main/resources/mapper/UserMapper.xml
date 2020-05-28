@@ -34,6 +34,7 @@
       <arg column="c_country" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_language" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_openid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_qq_openid" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_subscribe_time" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_user_no" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="c_need_message" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -104,7 +105,7 @@
     c_if_have_shop, c_level, c_money, c_my_recommend_code, c_my_recommend_user_id, c_nickname, 
     c_password, c_phone, c_realname, c_score, c_sex, c_summary, c_username, c_address_id,
     c_gold, c_member_no, c_shop_id, c_work_no, c_member_state, c_province, c_city, c_country, 
-    c_language, c_openid, c_subscribe_time, c_user_no, c_need_message, c_create_user, 
+    c_language, c_openid, c_qq_openid, c_subscribe_time, c_user_no, c_need_message, c_create_user,
     c_last_update_user, c_city_id, c_district_id, c_province_id, c_ads_num, c_district, 
     c_temp_gold, c_vip_cardNo, c_vip_password, c_if_vip, c_pay_password, c_if_agent, 
     c_if_fact, c_if_shop, c_block_id, c_block, c_init_shop_id, c_agent_id, c_gongzhang_id, 
@@ -136,7 +137,7 @@
       c_gold, c_member_no, c_shop_id, 
       c_work_no, c_member_state, c_province, 
       c_city, c_country, c_language, 
-      c_openid, c_subscribe_time, c_user_no, 
+      c_openid, c_qq_openid, c_subscribe_time, c_user_no,
       c_need_message, c_create_user, c_last_update_user, 
       c_city_id, c_district_id, c_province_id, 
       c_ads_num, c_district, c_temp_gold, 
@@ -168,7 +169,7 @@
       #{cGold,jdbcType=DOUBLE}, #{cMemberNo,jdbcType=VARCHAR}, #{cShopId,jdbcType=VARCHAR}, 
       #{cWorkNo,jdbcType=VARCHAR}, #{cMemberState,jdbcType=INTEGER}, #{cProvince,jdbcType=VARCHAR}, 
       #{cCity,jdbcType=VARCHAR}, #{cCountry,jdbcType=VARCHAR}, #{cLanguage,jdbcType=VARCHAR}, 
-      #{cOpenid,jdbcType=VARCHAR}, #{cSubscribeTime,jdbcType=VARCHAR}, #{cUserNo,jdbcType=INTEGER}, 
+      #{cOpenid,jdbcType=VARCHAR}, #{qqOpenid,jdbcType=VARCHAR}, #{cSubscribeTime,jdbcType=VARCHAR}, #{cUserNo,jdbcType=INTEGER},
       #{cNeedMessage,jdbcType=INTEGER}, #{cCreateUser,jdbcType=VARCHAR}, #{cLastUpdateUser,jdbcType=VARCHAR}, 
       #{cCityId,jdbcType=VARCHAR}, #{cDistrictId,jdbcType=VARCHAR}, #{cProvinceId,jdbcType=VARCHAR}, 
       #{cAdsNum,jdbcType=INTEGER}, #{cDistrict,jdbcType=VARCHAR}, #{cTempGold,jdbcType=INTEGER}, 
@@ -286,6 +287,9 @@
       </if>
       <if test="cOpenid != null" >
         c_openid,
+      </if>
+      <if test="qqOpenid != null" >
+        c_qq_openid,
       </if>
       <if test="cSubscribeTime != null" >
         c_subscribe_time,
@@ -571,6 +575,9 @@
       <if test="cOpenid != null" >
         #{cOpenid,jdbcType=VARCHAR},
       </if>
+      <if test="qqOpenid != null" >
+        #{qqOpenid,jdbcType=VARCHAR},
+      </if>
       <if test="cSubscribeTime != null" >
         #{cSubscribeTime,jdbcType=VARCHAR},
       </if>
@@ -855,6 +862,9 @@
       <if test="cOpenid != null" >
         c_openid = #{cOpenid,jdbcType=VARCHAR},
       </if>
+      <if test="qqOpenid != null" >
+        c_qq_openid = #{qqOpenid,jdbcType=VARCHAR},
+      </if>
       <if test="cSubscribeTime != null" >
         c_subscribe_time = #{cSubscribeTime,jdbcType=VARCHAR},
       </if>
@@ -1079,6 +1089,7 @@
       c_country = #{cCountry,jdbcType=VARCHAR},
       c_language = #{cLanguage,jdbcType=VARCHAR},
       c_openid = #{cOpenid,jdbcType=VARCHAR},
+      c_qq_openid = #{qqOpenid,jdbcType=VARCHAR},
       c_subscribe_time = #{cSubscribeTime,jdbcType=VARCHAR},
       c_user_no = #{cUserNo,jdbcType=INTEGER},
       c_need_message = #{cNeedMessage,jdbcType=INTEGER},

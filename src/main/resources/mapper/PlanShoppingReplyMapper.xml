@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boot.gang.mapper.PlanShoppingReplyMapper" >
+  <resultMap id="BaseResultMap" type="com.boot.gang.entity.PlanShoppingReply" >
+    <id column="psr_id" property="psrId" jdbcType="VARCHAR" />
+    <result column="psr_create_time" property="psrCreateTime" jdbcType="TIMESTAMP" />
+    <result column="ps_id" property="psId" jdbcType="VARCHAR" />
+    <result column="ps_explain" property="psExplain" jdbcType="VARCHAR" />
+    <result column="ps_num" property="psNum" jdbcType="VARCHAR" />
+    <result column="ps_phone" property="psPhone" jdbcType="VARCHAR" />
+    <result column="psr_comment" property="psrComment" jdbcType="VARCHAR" />
+    <result column="psr_phone" property="psrPhone" jdbcType="VARCHAR" />
+    <result column="psr_realname" property="psrRealname" jdbcType="VARCHAR" />
+    <result column="psr_user_id" property="psrUserId" jdbcType="VARCHAR" />
+    <result column="ps_realname" property="psRealname" jdbcType="VARCHAR" />
+    <result column="ps_shop_column_name" property="psShopColumnName" jdbcType="VARCHAR" />
+    <result column="ps_shopName" property="psShopname" jdbcType="VARCHAR" />
+    <result column="ps_spec" property="psSpec" jdbcType="VARCHAR" />
+    <result column="ps_texttrue" property="psTexttrue" jdbcType="VARCHAR" />
+    <result column="ps_unit" property="psUnit" jdbcType="VARCHAR" />
+    <result column="ps_user_id" property="psUserId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    psr_id, psr_create_time, ps_id, ps_explain, ps_num, ps_phone, psr_comment, psr_phone, psr_realname,
+    psr_user_id, ps_realname, ps_shop_column_name, ps_shopName, ps_spec, ps_texttrue, 
+    ps_unit, ps_user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_plan_shopping_reply
+    where psr_id = #{psrId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_plan_shopping_reply
+    where psr_id = #{psrId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boot.gang.entity.PlanShoppingReply" >
+    insert into t_plan_shopping_reply (psr_id, psr_create_time, ps_id, ps_explain,
+      ps_num, ps_phone, psr_comment, 
+      psr_phone, psr_realname, psr_user_id, 
+      ps_realname, ps_shop_column_name, ps_shopName, 
+      ps_spec, ps_texttrue, ps_unit, 
+      ps_user_id)
+    values (#{psrId,jdbcType=VARCHAR}, #{psrCreateTime,jdbcType=TIMESTAMP}, #{psId,jdbcType=VARCHAR}, #{psExplain,jdbcType=VARCHAR},
+      #{psNum,jdbcType=VARCHAR}, #{psPhone,jdbcType=VARCHAR}, #{psrComment,jdbcType=VARCHAR}, 
+      #{psrPhone,jdbcType=VARCHAR}, #{psrRealname,jdbcType=VARCHAR}, #{psrUserId,jdbcType=VARCHAR}, 
+      #{psRealname,jdbcType=VARCHAR}, #{psShopColumnName,jdbcType=VARCHAR}, #{psShopname,jdbcType=VARCHAR}, 
+      #{psSpec,jdbcType=VARCHAR}, #{psTexttrue,jdbcType=VARCHAR}, #{psUnit,jdbcType=VARCHAR}, 
+      #{psUserId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boot.gang.entity.PlanShoppingReply" >
+    insert into t_plan_shopping_reply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="psrId != null" >
+        psr_id,
+      </if>
+      <if test="psrCreateTime != null" >
+        psr_create_time,
+      </if>
+      <if test="psExplain != null" >
+        ps_explain,
+      </if>
+      <if test="psId != null" >
+        ps_id,
+      </if>
+      <if test="psNum != null" >
+        ps_num,
+      </if>
+      <if test="psPhone != null" >
+        ps_phone,
+      </if>
+      <if test="psrComment != null" >
+        psr_comment,
+      </if>
+      <if test="psrPhone != null" >
+        psr_phone,
+      </if>
+      <if test="psrRealname != null" >
+        psr_realname,
+      </if>
+      <if test="psrUserId != null" >
+        psr_user_id,
+      </if>
+      <if test="psRealname != null" >
+        ps_realname,
+      </if>
+      <if test="psShopColumnName != null" >
+        ps_shop_column_name,
+      </if>
+      <if test="psShopname != null" >
+        ps_shopName,
+      </if>
+      <if test="psSpec != null" >
+        ps_spec,
+      </if>
+      <if test="psTexttrue != null" >
+        ps_texttrue,
+      </if>
+      <if test="psUnit != null" >
+        ps_unit,
+      </if>
+      <if test="psUserId != null" >
+        ps_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="psrId != null" >
+        #{psrId,jdbcType=VARCHAR},
+      </if>
+      <if test="psrCreateTime != null" >
+        #{psrCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="psExplain != null" >
+        #{psExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="psId != null" >
+        #{psId,jdbcType=VARCHAR},
+      </if>
+      <if test="psNum != null" >
+        #{psNum,jdbcType=VARCHAR},
+      </if>
+      <if test="psPhone != null" >
+        #{psPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="psrComment != null" >
+        #{psrComment,jdbcType=VARCHAR},
+      </if>
+      <if test="psrPhone != null" >
+        #{psrPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="psrRealname != null" >
+        #{psrRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="psrUserId != null" >
+        #{psrUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="psRealname != null" >
+        #{psRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="psShopColumnName != null" >
+        #{psShopColumnName,jdbcType=VARCHAR},
+      </if>
+      <if test="psShopname != null" >
+        #{psShopname,jdbcType=VARCHAR},
+      </if>
+      <if test="psSpec != null" >
+        #{psSpec,jdbcType=VARCHAR},
+      </if>
+      <if test="psTexttrue != null" >
+        #{psTexttrue,jdbcType=VARCHAR},
+      </if>
+      <if test="psUnit != null" >
+        #{psUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="psUserId != null" >
+        #{psUserId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boot.gang.entity.PlanShoppingReply" >
+    update t_plan_shopping_reply
+    <set >
+      <if test="psrCreateTime != null" >
+        psr_create_time = #{psrCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="psExplain != null" >
+        ps_explain = #{psExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="psId != null" >
+        ps_id = #{psId,jdbcType=VARCHAR},
+      </if>
+      <if test="psNum != null" >
+        ps_num = #{psNum,jdbcType=VARCHAR},
+      </if>
+      <if test="psPhone != null" >
+        ps_phone = #{psPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="psrComment != null" >
+        psr_comment = #{psrComment,jdbcType=VARCHAR},
+      </if>
+      <if test="psrPhone != null" >
+        psr_phone = #{psrPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="psrRealname != null" >
+        psr_realname = #{psrRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="psrUserId != null" >
+        psr_user_id = #{psrUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="psRealname != null" >
+        ps_realname = #{psRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="psShopColumnName != null" >
+        ps_shop_column_name = #{psShopColumnName,jdbcType=VARCHAR},
+      </if>
+      <if test="psShopname != null" >
+        ps_shopName = #{psShopname,jdbcType=VARCHAR},
+      </if>
+      <if test="psSpec != null" >
+        ps_spec = #{psSpec,jdbcType=VARCHAR},
+      </if>
+      <if test="psTexttrue != null" >
+        ps_texttrue = #{psTexttrue,jdbcType=VARCHAR},
+      </if>
+      <if test="psUnit != null" >
+        ps_unit = #{psUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="psUserId != null" >
+        ps_user_id = #{psUserId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where psr_id = #{psrId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boot.gang.entity.PlanShoppingReply" >
+    update t_plan_shopping_reply
+    set psr_create_time = #{psrCreateTime,jdbcType=TIMESTAMP},
+      ps_explain = #{psExplain,jdbcType=VARCHAR},
+      ps_id = #{psId,jdbcType=VARCHAR},
+      ps_num = #{psNum,jdbcType=VARCHAR},
+      ps_phone = #{psPhone,jdbcType=VARCHAR},
+      psr_comment = #{psrComment,jdbcType=VARCHAR},
+      psr_phone = #{psrPhone,jdbcType=VARCHAR},
+      psr_realname = #{psrRealname,jdbcType=VARCHAR},
+      psr_user_id = #{psrUserId,jdbcType=VARCHAR},
+      ps_realname = #{psRealname,jdbcType=VARCHAR},
+      ps_shop_column_name = #{psShopColumnName,jdbcType=VARCHAR},
+      ps_shopName = #{psShopname,jdbcType=VARCHAR},
+      ps_spec = #{psSpec,jdbcType=VARCHAR},
+      ps_texttrue = #{psTexttrue,jdbcType=VARCHAR},
+      ps_unit = #{psUnit,jdbcType=VARCHAR},
+      ps_user_id = #{psUserId,jdbcType=VARCHAR}
+    where psr_id = #{psrId,jdbcType=VARCHAR}
+  </update>
+</mapper>

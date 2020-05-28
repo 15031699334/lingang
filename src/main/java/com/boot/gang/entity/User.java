@@ -95,6 +95,10 @@ public class User {
 
     private Integer cScore;     // 首页红包是否展示  0=展示 1=不展示   // 此参数不可做其他用处 数据库类别与后端实体类 参数类别不对应 应该是有人做过修改
 
+    private String cOpenid;     // 微信的openid
+
+    private String qqOpenid;     // QQ的openid
+
     private Double cMoney;
 
     private String cMyRecommendCode;
@@ -116,8 +120,6 @@ public class User {
     private Integer cMemberState;
 
     private String cLanguage;
-
-    private String cOpenid;
 
     private String cSubscribeTime;
 
@@ -208,7 +210,7 @@ public class User {
 
 
 
-    public User(String cId, Date cCreateTime, Date cLastUpdateTime, String cBirthday, String cEmail, String cHandpic, String cIdCardNo, Integer cIfHaveShop, Integer cLevel, Double cMoney, String cMyRecommendCode, String cMyRecommendUserId, String cNickname, String cPassword, String cPhone, String cRealname, Integer cScore, String cSex, String cSummary, String cUsername, String cAddressId, Double cGold, String cMemberNo, String cShopId, String cWorkNo, Integer cMemberState, String cProvince, String cCity, String cCountry, String cLanguage, String cOpenid, String cSubscribeTime, Integer cUserNo, Integer cNeedMessage, String cCreateUser, String cLastUpdateUser, String cCityId, String cDistrictId, String cProvinceId, Integer cAdsNum, String cDistrict, Integer cTempGold, String cVipCardno, String cVipPassword, Integer cIfVip, String cPayPassword, Integer cIfAgent, Integer cIfFact, Integer cIfShop, String cBlockId, String cBlock, String cInitShopId, String cAgentId, String cGongzhangId, String cZhongjianrenId, String cQrcodeUrl, String cAgentName, String cGongzhangName, String cShopName, String cZhongjianrenName, String cXy, Double cTotalPay, Double cUb, Double cTotalSale, String cHide, String cNowCityId, String cNowCityName, Double cTotalAverage, Integer cTotalOrder, String cFactId, String cFactName, Integer cIfOpen, String cGeoCode, Integer cFold, String cChlType, String cDeviceId, Integer cGoldGz, String cPdf, Integer cRollNum, Integer cStar, Double cRollPay, Integer cGoldRoll, Integer cHaoyouNum, String cIfApp, String cVer, String cMyRecommendUserNo, Integer cFuwucishu, String cJingyan, Integer cPf1, Integer cPf2, Integer cPf3, Integer cXingji, String cZhicheng, String cLogo) {
+    public User(String cId, Date cCreateTime, Date cLastUpdateTime, String cBirthday, String cEmail, String cHandpic, String cIdCardNo, Integer cIfHaveShop, Integer cLevel, Double cMoney, String cMyRecommendCode, String cMyRecommendUserId, String cNickname, String cPassword, String cPhone, String cRealname, Integer cScore, String cSex, String cSummary, String cUsername, String cAddressId, Double cGold, String cMemberNo, String cShopId, String cWorkNo, Integer cMemberState, String cProvince, String cCity, String cCountry, String cLanguage, String cOpenid, String qqOpenid, String cSubscribeTime, Integer cUserNo, Integer cNeedMessage, String cCreateUser, String cLastUpdateUser, String cCityId, String cDistrictId, String cProvinceId, Integer cAdsNum, String cDistrict, Integer cTempGold, String cVipCardno, String cVipPassword, Integer cIfVip, String cPayPassword, Integer cIfAgent, Integer cIfFact, Integer cIfShop, String cBlockId, String cBlock, String cInitShopId, String cAgentId, String cGongzhangId, String cZhongjianrenId, String cQrcodeUrl, String cAgentName, String cGongzhangName, String cShopName, String cZhongjianrenName, String cXy, Double cTotalPay, Double cUb, Double cTotalSale, String cHide, String cNowCityId, String cNowCityName, Double cTotalAverage, Integer cTotalOrder, String cFactId, String cFactName, Integer cIfOpen, String cGeoCode, Integer cFold, String cChlType, String cDeviceId, Integer cGoldGz, String cPdf, Integer cRollNum, Integer cStar, Double cRollPay, Integer cGoldRoll, Integer cHaoyouNum, String cIfApp, String cVer, String cMyRecommendUserNo, Integer cFuwucishu, String cJingyan, Integer cPf1, Integer cPf2, Integer cPf3, Integer cXingji, String cZhicheng, String cLogo) {
         this.cId = cId;
         this.cCreateTime = cCreateTime;
         this.cLastUpdateTime = cLastUpdateTime;
@@ -240,6 +242,7 @@ public class User {
         this.cCountry = cCountry;
         this.cLanguage = cLanguage;
         this.cOpenid = cOpenid;
+        this.qqOpenid = qqOpenid;
         this.cSubscribeTime = cSubscribeTime;
         this.cUserNo = cUserNo;
         this.cNeedMessage = cNeedMessage;
@@ -1081,6 +1084,14 @@ public class User {
 
     public void setcLogo(String cLogo) {
         this.cLogo = cLogo == null ? null : cLogo.trim();
+    }
+
+    public String getQqOpenid() {
+        return qqOpenid;
+    }
+
+    public void setQqOpenid(String qqOpenid) {
+        this.qqOpenid = qqOpenid;
     }
 
     @Override

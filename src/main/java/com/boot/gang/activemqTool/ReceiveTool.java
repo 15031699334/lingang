@@ -78,7 +78,36 @@ public class ReceiveTool {
 			Message message = (Message) objectMessage.getObject();
 			messageList.add(message);
 			ite.remove();
+			try {
+//				logger.error(objectMessage.getJMSMessageID() + message.getSummary());
+				objectMessage.acknowledge();
+			} catch (JMSException e) {
+				e.printStackTrace();
+			}
 		}
 		return messageList;
 	}
+
+
+	/**
+	 * 获得内存中保存的activemq发送的未处理的消息，可多次读取
+	 * @param userId
+	 * @return
+	 * @throws JMSException
+	 */
+	public List<Message> listUnReadMessage(String userId) throws JMSException {
+		List<ObjectMessage> list = map.get(userId);
+		if (list == null) {
+			return new ArrayList<>();
+		}
+		List<Message> messageList = new ArrayList<>();
+		for (Iterator<ObjectMessage> ite = list.iterator(); ite.hasNext();) {
+			ObjectMessage objectMessage = ite.next();
+			Message message = (Message) objectMessage.getObject();
+			messageList.add(message);
+		}
+		return messageList;
+	}
+
+
 }
