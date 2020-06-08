@@ -1,19 +1,21 @@
 package com.boot.gang.service.Impl;
 
 import com.boot.gang.activemqTool.SendMessageTool;
+import com.boot.gang.entity.Admin;
 import com.boot.gang.entity.Message;
+import com.boot.gang.entity.MessageUserAdmin;
 import com.boot.gang.entity.User;
+import com.boot.gang.mapper.AdminMapper;
 import com.boot.gang.mapper.MessageMapper;
+import com.boot.gang.mapper.MessageUserAdminMapper;
 import com.boot.gang.mapper.UserMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.jms.JMSException;
 import java.util.*;
-import java.util.function.Predicate;
 
 /**
  * common操作方法
@@ -22,20 +24,23 @@ import java.util.function.Predicate;
  * 2020/1/6 11:30
  */
 @Service
-public class CommonService {
+public class MessageService {
 
-    private static Logger logger = LogManager.getLogger(CommonService.class);
+    private static Logger logger = LogManager.getLogger(MessageService.class);
     @Autowired
     private SendMessageTool sendMessageTool;
     @Autowired
     private MessageMapper messageMapper;
     @Autowired
+    private MessageUserAdminMapper messageUserAdminMapper;
+    @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private AdminMapper adminMapper;
 
     public void save(Message message) {
         try {
             int i = this.messageMapper.insertSelective(message);
-            System.out.println(i);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,24 +50,40 @@ public class CommonService {
      * 创建并发送消息
      * @param messageContent 消息内容
      * @param userId 发送的用户id
-     * @param recruitInfoId 招聘信息
+     * @param adminPic 接收者头像
      * @param adminName 消息接收者姓名
      * @param adminNo 消息接收者
      * @return 发送后的消息
      * @throws JMSException 发送的异常
      */
-    public Message sendMessage(String messageContent, String userId, Integer recruitInfoId, String adminNo, String adminName, Integer messageType) throws JMSException {
+    public Message sendMessage(String messageContent, String userId, String adminPic, String adminNo, String adminName, Integer messageType) throws JMSException {
         Message message = new Message();
-        // 招聘的冗余信息
         User user = userMapper.selectByPrimaryKey(userId);
-        message.setAdminno("11110");
-        message.setAdminname("管理员");
-        message.setAdminpic("http://lingangsteel.com/lingang/upload/images/986908100106000.jpg");
-//        if (recruitInfoId == null) {
-//            message.setRecruitInfoId(0);
-//        } else {
-//            message.setRecruitInfoId(recruitInfoId);
-//        }
+        Admin admin = null;
+//        logger.info("adminNo: " + adminNo + ", adminPic : " + adminPic + ", adminName : " + adminName);
+        if (adminNo == null) {
+            List<MessageUserAdmin> muas = messageUserAdminMapper.getList("and um_user_id = '" + userId + "' and um_status = 1 order by um_last_time desc");
+            if (muas == null || muas.isEmpty()) {   // 以前没聊过 没有专属客服
+                // 获取admin信息
+                List<Admin> aList = adminMapper.getList("and receiveMessage = 1 and c_hide = 's' order by role desc");
+                if (aList == null || aList.isEmpty()) {     // 所有人都不在线 发送给admin
+                    admin = adminMapper.selectByPrimaryKey("admin");
+                }else {     // 有人在线  随机给其中一个人发送 只有第一次会走这里 相当于专属客服
+                    // 随机分配的admin   (Math.random() * (max - min) + min) // [0, aList.size())
+                    int ran2 = (int) (Math.random() * aList.size());
+                    admin = aList.get(ran2);
+                }
+                // 添加 MessageUserAdmin
+                MessageUserAdmin messageUserAdmin = new MessageUserAdmin("MUA" + System.nanoTime(), admin.getcId(), new Date(), new Date(), userId);
+                messageUserAdminMapper.insertSelective(messageUserAdmin);
+            }else {     // 有专属客服
+                admin = adminMapper.selectByPrimaryKey(muas.get(0).getUmAdminId());
+            }
+        }
+
+        message.setAdminno(null == adminNo ? admin == null ? "" : admin.getAdminno() : adminNo);
+        message.setAdminname(null == adminName || adminName.equals("") ? admin == null ? "" : admin.getAdminname() : adminName);
+        message.setAdminpic(null == adminPic ? admin == null ? "" : admin.getAdminpic() : adminPic);
         // 0为 客户向客服发送
         message.setState(0);
         //消息内容

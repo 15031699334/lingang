@@ -210,7 +210,7 @@ public class LoginController {
     @PostMapping("/sendCode")
     @ResponseBody
     public JSONObject sendAuthCode(@RequestParam("phone") String phone) {
-        System.out.println(phone);
+//        System.out.println(phone);
         if (!phone.matches(StringUtil.REGEX_MOBILE))    // 手机号正则判断
             return msgUtil.jsonErrorMsg("手机号格式错误");
         // 手机号是否已存在

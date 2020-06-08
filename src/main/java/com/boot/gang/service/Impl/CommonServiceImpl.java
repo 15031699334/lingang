@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.sound.midi.Soundbank;
 import java.text.DateFormat;
 import java.util.*;
 
@@ -83,6 +84,8 @@ public class CommonServiceImpl implements CommonService {
     private OrderPreorderMapper orderPreorderMapper;
     @Autowired
     private PlanShoppingReplyMapper planShoppingReplyMapper;
+    @Autowired
+    private AdminMapper adminMapper;
 
 
     @Autowired
@@ -537,7 +540,7 @@ public class CommonServiceImpl implements CommonService {
                 }
             }
             // 修改库存
-            System.out.println("商品的数量变化: " + productNum_sub + ", 价格变化: " + price_sub);
+//            System.out.println("商品的数量变化: " + productNum_sub + ", 价格变化: " + price_sub);
             prn.setcStockNum(prn.getcStockNum() + productNum_sub);
             productRelationNodeMapper.updateByPrimaryKeySelective(prn);
             // 订单详情价格修改
@@ -858,15 +861,23 @@ public class CommonServiceImpl implements CommonService {
             String chl = request.getParameter("chl");
             List<ProductRelationNode> prns = productRelationNodeMapper.getList(" and c_shop_column_type_id = '" + chl + "' and c_hide = 's' ");
             List<String> specs = new ArrayList<>();
-                System.out.println("shang" + prns.size());
+//                System.out.println("shang" + prns.size());
             for (ProductRelationNode prn : prns) {
-                System.out.println(prn);
+//                System.out.println(prn);
                 String spec = prn.getcPriceList().split("\\+")[0];
                 if (!specs.contains(spec)){
                     specs.add(spec);
                 }
             }
             return specs;
+        }
+        if (entity.equals("kflb")) {    // 客服列表
+            try {
+                tokenService.getIdByToken(request);
+                return adminMapper.getList(" and receiveMessage = 1 order by role desc");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -962,7 +973,7 @@ public class CommonServiceImpl implements CommonService {
                 }
                 orderMapper.delete(" and c_order_no = '" + od.getdOrderno() + "'");
             } else {     // 修改订单的总金额
-                System.out.println("删除订单商品: 原总价: " + order.getcPrice() + ", 删除的商品的价格: " + od.getdPrice() * Double.parseDouble(od.getdTonnum()));
+//                System.out.println("删除订单商品: 原总价: " + order.getcPrice() + ", 删除的商品的价格: " + od.getdPrice() * Double.parseDouble(od.getdTonnum()));
                 Double price = DoubleUtil.sub(order.getcPrice(), od.getdPrice() * Double.parseDouble(od.getdTonnum()));
                 order.setcPrice(price);
                 orderMapper.updateByPrimaryKeySelective(order);
@@ -1033,14 +1044,17 @@ public class CommonServiceImpl implements CommonService {
     }
 
     public static void main(String[] args) {
-        Calendar cal = Calendar.getInstance();
-        int hour = cal.get(Calendar.HOUR);      // 小时
-        int min = cal.get(Calendar.MINUTE);     // 分钟
-        System.out.println("小时: " + hour + ", 分钟: " + min);
+//        Calendar cal = Calendar.getInstance();
+//        int hour = cal.get(Calendar.HOUR);      // 小时
+//        int min = cal.get(Calendar.MINUTE);     // 分钟
+//        System.out.println("小时: " + hour + ", 分钟: " + min);
 
-        System.out.println(DateUtil.getDate("9:30", "HH:mm"));
-        System.out.println(new Date().before(DateUtil.getDate("9:30", "HH:mm")));
-        DateFormat df3 = DateFormat.getTimeInstance();//只显示出时分秒
-        System.out.println(DateUtil.getDate(df3.format(new Date()), "HH:mm").before(DateUtil.getDate("21:30", "HH:mm")));
+        int max=2, a=0;
+        int ran2 = (int) (Math.random()*2);
+        System.out.println(ran2);
+//        System.out.println(DateUtil.getDate("9:30", "HH:mm"));
+//        System.out.println(new Date().before(DateUtil.getDate("9:30", "HH:mm")));
+//        DateFormat df3 = DateFormat.getTimeInstance();//只显示出时分秒
+//        System.out.println(DateUtil.getDate(df3.format(new Date()), "HH:mm").before(DateUtil.getDate("21:30", "HH:mm")));
     }
 }

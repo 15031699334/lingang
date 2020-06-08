@@ -2,8 +2,7 @@ package com.boot.gang.controller;
 
 import com.boot.gang.activemqTool.ReceiveTool;
 import com.boot.gang.entity.Message;
-import com.boot.gang.entity.User;
-import com.boot.gang.service.Impl.CommonService;
+import com.boot.gang.service.Impl.MessageService;
 import com.boot.gang.service.TokenService;
 import com.boot.gang.util.AjaxResult;
 import com.boot.gang.util.ResultCodeEnum;
@@ -13,7 +12,6 @@ import io.swagger.annotations.ApiParam;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.jms.JMSException;
@@ -35,7 +33,7 @@ public class MessageController {
 
     private static Logger logger = LogManager.getLogger(MessageController.class);
     @Autowired
-    private CommonService commonService;
+    private MessageService messageService;
     @Autowired
     private TokenService tokenService;
     @Autowired
@@ -46,14 +44,14 @@ public class MessageController {
      * 发送信息接口
      * @param request  获得请求的信息
      * @param messageContent 消息内容
-     * @param recruitInfoId 招聘信息
+     * @param adminPic 接收者头像
      * @return 发送情况
      */
     @PostMapping("/sendMessage")
 //    @ApiParam("发送消息")
     public AjaxResult sendMessage(HttpServletRequest request,
                                   @ApiParam(value = "消息内容", required = true) @RequestParam("messageContent")String messageContent,
-                                  @ApiParam(value = "招聘岗位主键，可为空") @RequestParam(value = "recruitInfoId", required = false) Integer recruitInfoId,
+                                  @ApiParam(value = "接收者头像") @RequestParam(value = "adminPic", required = false) String adminPic,
                                   @ApiParam(value = "消息接收者") @RequestParam(value = "adminNo", required = false)String adminNo,
                                   @ApiParam(value = "消息类别") @RequestParam(value = "messageType", required = false)Integer messageType,
                                   @ApiParam(value = "消息接收者名称") @RequestParam(value = "adminName", required = false)String adminName) throws JMSException {
@@ -64,13 +62,9 @@ public class MessageController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return AjaxResult.success(commonService.sendMessage(messageContent, userId, recruitInfoId, adminNo, adminName, messageType));
+        return AjaxResult.success(messageService.sendMessage(messageContent, userId, adminPic, adminNo, adminName, messageType));
     }
 
-    /**
-     *
-     * @return
-     */
     @GetMapping("listMessageOnMemory")
     @ApiParam("获得未读的消息---执行速度快")
     public AjaxResult listMessageOnMemory(HttpServletRequest request) throws JMSException {
@@ -85,31 +79,6 @@ public class MessageController {
         return AjaxResult.success(receiveTool.getMessageOnMemory(userId));
     }
 
-
-//    /**
-//     *  获得session中保存的user信息
-//     * @return
-//     */
-//    @GetMapping("listMessageOnMemory")
-//    @ApiOperation("获得未读的消息---执行速度快")
-//    public AjaxResult listMessageOnMemory(HttpServletRequest request,
-//                                          @ApiParam(value = "招聘岗位主键，可为空") @RequestParam(value = "recruitInfoId", required = false) Integer recruitInfoId) throws JMSException {
-//        String userId = "";
-//        try {
-//            userId = tokenService.getIdByToken(request);
-//        } catch (Exception e) {
-//            return AjaxResult.failure(ResultCodeEnum.USER_NOT_LOGGED_IN);
-//        }
-//        if(userId.equals("")) {
-//            return AjaxResult.failure(ResultCodeEnum.USER_NOT_LOGGED_IN);
-//        }
-//        return AjaxResult.success(receiveTool.getMessageOnMemory(userId));
-//    }
-
-    /**
-     *  获得session中保存的user信息
-     * @return
-     */
     @GetMapping("listUnReadMessage")
     @ApiOperation("获得未读消息的列表")
     public AjaxResult listUnReadMessage(HttpServletRequest request) throws JMSException {
@@ -129,7 +98,7 @@ public class MessageController {
 
 
     @GetMapping("listMessageOnDataBase")
-    @ApiOperation("获得所有的消息---执行速度慢")
+    @ApiOperation("获得所有的历史消息---执行速度慢")
     public AjaxResult listMessageOnDataBase(HttpServletRequest request,
                                             @ApiParam(value = "招聘岗位主键，可为空") @RequestParam(value = "recruitInfoId", required = false) Integer recruitInfoId,
                                             @ApiParam(value = "页码，默认为1") @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
@@ -144,10 +113,10 @@ public class MessageController {
             return AjaxResult.failure(ResultCodeEnum.USER_NOT_LOGGED_IN);
         }
         if(pageNo == 0) {
-            List<Message> messages = commonService.listMessageOnDataBaseToday(userId, recruitInfoId);
+            List<Message> messages = messageService.listMessageOnDataBaseToday(userId, recruitInfoId);
             return AjaxResult.success(messages);
         } else {
-            Map<String, Object> map= commonService.listMessageOnDataBase(pageNo, pageSize, userId, recruitInfoId);
+            Map<String, Object> map= messageService.listMessageOnDataBase(pageNo, pageSize, userId, recruitInfoId);
             return AjaxResult.success(map);
         }
     }

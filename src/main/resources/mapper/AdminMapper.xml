@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boot.gang.mapper.AdminMapper" >
+  <resultMap id="BaseResultMap" type="com.boot.gang.entity.Admin" >
+    <id column="c_id" property="cId" jdbcType="VARCHAR" />
+    <result column="c_block_id" property="cBlockId" jdbcType="VARCHAR" />
+    <result column="c_city_id" property="cCityId" jdbcType="VARCHAR" />
+    <result column="c_create_time" property="cCreateTime" jdbcType="TIMESTAMP" />
+    <result column="c_create_user" property="cCreateUser" jdbcType="VARCHAR" />
+    <result column="c_district_id" property="cDistrictId" jdbcType="VARCHAR" />
+    <result column="c_last_update_time" property="cLastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="c_last_update_user" property="cLastUpdateUser" jdbcType="VARCHAR" />
+    <result column="c_province_id" property="cProvinceId" jdbcType="VARCHAR" />
+    <result column="c_password" property="cPassword" jdbcType="VARCHAR" />
+    <result column="c_username" property="cUsername" jdbcType="VARCHAR" />
+    <result column="c_hide" property="cHide" jdbcType="VARCHAR" />
+    <result column="c_phone" property="cPhone" jdbcType="VARCHAR" />
+    <result column="c_photo" property="cPhoto" jdbcType="VARCHAR" />
+    <result column="c_qqNum" property="cQqnum" jdbcType="VARCHAR" />
+    <result column="adminName" property="adminname" jdbcType="VARCHAR" />
+    <result column="adminNo" property="adminno" jdbcType="VARCHAR" />
+    <result column="adminPic" property="adminpic" jdbcType="VARCHAR" />
+    <result column="receiveMessage" property="receivemessage" jdbcType="INTEGER" />
+    <result column="role" property="role" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.boot.gang.entity.Admin" extends="BaseResultMap" >
+    <result column="c_menu_str" property="cMenuStr" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_id, c_block_id, c_city_id, c_create_time, c_create_user, c_district_id, c_last_update_time, 
+    c_last_update_user, c_province_id, c_password, c_username, c_hide, c_phone, c_photo, 
+    c_qqNum, adminName, adminNo, adminPic, receiveMessage, role
+  </sql>
+  <sql id="Blob_Column_List" >
+    c_menu_str
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_admin
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_admin
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.boot.gang.entity.Admin" >
+    insert into t_admin (c_id, c_block_id, c_city_id, 
+      c_create_time, c_create_user, c_district_id, 
+      c_last_update_time, c_last_update_user, c_province_id, 
+      c_password, c_username, c_hide, 
+      c_phone, c_photo, c_qqNum, 
+      adminName, adminNo, adminPic, 
+      receiveMessage, role, c_menu_str
+      )
+    values (#{cId,jdbcType=VARCHAR}, #{cBlockId,jdbcType=VARCHAR}, #{cCityId,jdbcType=VARCHAR}, 
+      #{cCreateTime,jdbcType=TIMESTAMP}, #{cCreateUser,jdbcType=VARCHAR}, #{cDistrictId,jdbcType=VARCHAR}, 
+      #{cLastUpdateTime,jdbcType=TIMESTAMP}, #{cLastUpdateUser,jdbcType=VARCHAR}, #{cProvinceId,jdbcType=VARCHAR}, 
+      #{cPassword,jdbcType=VARCHAR}, #{cUsername,jdbcType=VARCHAR}, #{cHide,jdbcType=VARCHAR}, 
+      #{cPhone,jdbcType=VARCHAR}, #{cPhoto,jdbcType=VARCHAR}, #{cQqnum,jdbcType=VARCHAR}, 
+      #{adminname,jdbcType=VARCHAR}, #{adminno,jdbcType=VARCHAR}, #{adminpic,jdbcType=VARCHAR}, 
+      #{receivemessage,jdbcType=INTEGER}, #{role,jdbcType=VARCHAR}, #{cMenuStr,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.boot.gang.entity.Admin" >
+    insert into t_admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        c_id,
+      </if>
+      <if test="cBlockId != null" >
+        c_block_id,
+      </if>
+      <if test="cCityId != null" >
+        c_city_id,
+      </if>
+      <if test="cCreateTime != null" >
+        c_create_time,
+      </if>
+      <if test="cCreateUser != null" >
+        c_create_user,
+      </if>
+      <if test="cDistrictId != null" >
+        c_district_id,
+      </if>
+      <if test="cLastUpdateTime != null" >
+        c_last_update_time,
+      </if>
+      <if test="cLastUpdateUser != null" >
+        c_last_update_user,
+      </if>
+      <if test="cProvinceId != null" >
+        c_province_id,
+      </if>
+      <if test="cPassword != null" >
+        c_password,
+      </if>
+      <if test="cUsername != null" >
+        c_username,
+      </if>
+      <if test="cHide != null" >
+        c_hide,
+      </if>
+      <if test="cPhone != null" >
+        c_phone,
+      </if>
+      <if test="cPhoto != null" >
+        c_photo,
+      </if>
+      <if test="cQqnum != null" >
+        c_qqNum,
+      </if>
+      <if test="adminname != null" >
+        adminName,
+      </if>
+      <if test="adminno != null" >
+        adminNo,
+      </if>
+      <if test="adminpic != null" >
+        adminPic,
+      </if>
+      <if test="receivemessage != null" >
+        receiveMessage,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="cMenuStr != null" >
+        c_menu_str,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        #{cId,jdbcType=VARCHAR},
+      </if>
+      <if test="cBlockId != null" >
+        #{cBlockId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCityId != null" >
+        #{cCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreateTime != null" >
+        #{cCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCreateUser != null" >
+        #{cCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cDistrictId != null" >
+        #{cDistrictId,jdbcType=VARCHAR},
+      </if>
+      <if test="cLastUpdateTime != null" >
+        #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cLastUpdateUser != null" >
+        #{cLastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cProvinceId != null" >
+        #{cProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cPassword != null" >
+        #{cPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="cUsername != null" >
+        #{cUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="cHide != null" >
+        #{cHide,jdbcType=VARCHAR},
+      </if>
+      <if test="cPhone != null" >
+        #{cPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cPhoto != null" >
+        #{cPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="cQqnum != null" >
+        #{cQqnum,jdbcType=VARCHAR},
+      </if>
+      <if test="adminname != null" >
+        #{adminname,jdbcType=VARCHAR},
+      </if>
+      <if test="adminno != null" >
+        #{adminno,jdbcType=VARCHAR},
+      </if>
+      <if test="adminpic != null" >
+        #{adminpic,jdbcType=VARCHAR},
+      </if>
+      <if test="receivemessage != null" >
+        #{receivemessage,jdbcType=INTEGER},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="cMenuStr != null" >
+        #{cMenuStr,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boot.gang.entity.Admin" >
+    update t_admin
+    <set >
+      <if test="cBlockId != null" >
+        c_block_id = #{cBlockId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCityId != null" >
+        c_city_id = #{cCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreateTime != null" >
+        c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCreateUser != null" >
+        c_create_user = #{cCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cDistrictId != null" >
+        c_district_id = #{cDistrictId,jdbcType=VARCHAR},
+      </if>
+      <if test="cLastUpdateTime != null" >
+        c_last_update_time = #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cLastUpdateUser != null" >
+        c_last_update_user = #{cLastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cProvinceId != null" >
+        c_province_id = #{cProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cPassword != null" >
+        c_password = #{cPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="cUsername != null" >
+        c_username = #{cUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="cHide != null" >
+        c_hide = #{cHide,jdbcType=VARCHAR},
+      </if>
+      <if test="cPhone != null" >
+        c_phone = #{cPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cPhoto != null" >
+        c_photo = #{cPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="cQqnum != null" >
+        c_qqNum = #{cQqnum,jdbcType=VARCHAR},
+      </if>
+      <if test="adminname != null" >
+        adminName = #{adminname,jdbcType=VARCHAR},
+      </if>
+      <if test="adminno != null" >
+        adminNo = #{adminno,jdbcType=VARCHAR},
+      </if>
+      <if test="adminpic != null" >
+        adminPic = #{adminpic,jdbcType=VARCHAR},
+      </if>
+      <if test="receivemessage != null" >
+        receiveMessage = #{receivemessage,jdbcType=INTEGER},
+      </if>
+      <if test="role != null" >
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="cMenuStr != null" >
+        c_menu_str = #{cMenuStr,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.boot.gang.entity.Admin" >
+    update t_admin
+    set c_block_id = #{cBlockId,jdbcType=VARCHAR},
+      c_city_id = #{cCityId,jdbcType=VARCHAR},
+      c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
+      c_create_user = #{cCreateUser,jdbcType=VARCHAR},
+      c_district_id = #{cDistrictId,jdbcType=VARCHAR},
+      c_last_update_time = #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      c_last_update_user = #{cLastUpdateUser,jdbcType=VARCHAR},
+      c_province_id = #{cProvinceId,jdbcType=VARCHAR},
+      c_password = #{cPassword,jdbcType=VARCHAR},
+      c_username = #{cUsername,jdbcType=VARCHAR},
+      c_hide = #{cHide,jdbcType=VARCHAR},
+      c_phone = #{cPhone,jdbcType=VARCHAR},
+      c_photo = #{cPhoto,jdbcType=VARCHAR},
+      c_qqNum = #{cQqnum,jdbcType=VARCHAR},
+      adminName = #{adminname,jdbcType=VARCHAR},
+      adminNo = #{adminno,jdbcType=VARCHAR},
+      adminPic = #{adminpic,jdbcType=VARCHAR},
+      receiveMessage = #{receivemessage,jdbcType=INTEGER},
+      role = #{role,jdbcType=VARCHAR},
+      c_menu_str = #{cMenuStr,jdbcType=LONGVARCHAR}
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boot.gang.entity.Admin" >
+    update t_admin
+    set c_block_id = #{cBlockId,jdbcType=VARCHAR},
+      c_city_id = #{cCityId,jdbcType=VARCHAR},
+      c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
+      c_create_user = #{cCreateUser,jdbcType=VARCHAR},
+      c_district_id = #{cDistrictId,jdbcType=VARCHAR},
+      c_last_update_time = #{cLastUpdateTime,jdbcType=TIMESTAMP},
+      c_last_update_user = #{cLastUpdateUser,jdbcType=VARCHAR},
+      c_province_id = #{cProvinceId,jdbcType=VARCHAR},
+      c_password = #{cPassword,jdbcType=VARCHAR},
+      c_username = #{cUsername,jdbcType=VARCHAR},
+      c_hide = #{cHide,jdbcType=VARCHAR},
+      c_phone = #{cPhone,jdbcType=VARCHAR},
+      c_photo = #{cPhoto,jdbcType=VARCHAR},
+      c_qqNum = #{cQqnum,jdbcType=VARCHAR},
+      adminName = #{adminname,jdbcType=VARCHAR},
+      adminNo = #{adminno,jdbcType=VARCHAR},
+      adminPic = #{adminpic,jdbcType=VARCHAR},
+      receiveMessage = #{receivemessage,jdbcType=INTEGER},
+      role = #{role,jdbcType=VARCHAR}
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -11,10 +11,8 @@ import javax.servlet.ServletOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 
 public class PdfUtil {
@@ -74,7 +72,7 @@ public class PdfUtil {
      */
     private static Document insertPDFIo(Map<String, Object> map, int hNum, String gongzhangPath, ServletOutputStream outputStream, boolean hadGZ, Document document) throws Exception {
         //参数区
-        String name = map.get("name") == null ? "供方：山东临钢电子商务股份有限公司" : map.get("name").toString();
+        String name = map.get("name") == null ? "未设置公司及负责人名称" : map.get("name").toString();
         String orderNo = map.get("orderNo") == null ? "" : map.get("orderNo").toString();
         String address = map.get("address") == null ? "测试地址" : map.get("address").toString();
         String createTime = map.get("createTime") == null ? "2020-01-17" : map.get("createTime").toString();
@@ -95,17 +93,7 @@ public class PdfUtil {
         if (list == null) {
             list = createTestList();
         }
-        Map<String, String> secondInfoMap = (Map<String, String>) map.get("secondInfo");
-        if (secondInfoMap == null) {
-            secondInfoMap = new HashMap<>();
-            secondInfoMap.put("name", "临钢网");
-            secondInfoMap.put("address", "临钢网");
-            secondInfoMap.put("phone", "临钢网");
-            secondInfoMap.put("fax", "临钢网");
-            secondInfoMap.put("openBank", "临钢网");
-            secondInfoMap.put("bankCode", "临钢网");
-            secondInfoMap.put("signature", "临钢网");
-        }
+
         document.open();
         BaseFont bf = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
         Font fontChinese = new Font(bf, 16, Font.NORMAL);
@@ -159,6 +147,17 @@ public class PdfUtil {
         document.add(addString(bodyChinese, "八、争议及解决办法：本合同在执行过程中，如发生争议，应由供需双方友好协商解决。如协商不能解决，可向供方" +
                 "所在地法院提起诉讼，依法追究违约方责任。"));
 
+        Map<String, String> secondInfoMap = (Map<String, String>) map.get("secondInfo");
+        if (secondInfoMap == null) {
+            secondInfoMap = new HashMap<>();
+            secondInfoMap.put("name", "临钢网");
+            secondInfoMap.put("address", "临钢网");
+            secondInfoMap.put("phone", "临钢网");
+            secondInfoMap.put("fax", "临钢网");
+            secondInfoMap.put("openBank", "临钢网");
+            secondInfoMap.put("bankCode", "临钢网");
+            secondInfoMap.put("signature", "临钢网");
+        }
         document.add(addTailTable(bodyChinese, secondInfoMap));
         if (hadGZ) {
             document.add(addImages(gongzhangPath, hNum));
@@ -279,7 +278,7 @@ public class PdfUtil {
                     }
                 } else {
                     if (i == 0) {
-                        paragraph = new Paragraph("需方：" + secondInfoMap.get("name"), bodyChinese);
+                        paragraph = new Paragraph("需方：" + (secondInfoMap.get("name") == null ? "未设置公司及负责人名称" : secondInfoMap.get("name").toString()), bodyChinese);
                     } else if (i == 1) {
                         paragraph = new Paragraph("地址：" + secondInfoMap.get("address"), bodyChinese);
                     } else if (i == 2) {
@@ -367,6 +366,7 @@ public class PdfUtil {
                 continue;
             }
             List<String> list = tableList.get(i);
+            Collections.replaceAll(list, "0.0*0*0", "-------");
             for (int j = 0; j < column; j++) {  // 商品信息
                 Paragraph paragraph = new Paragraph(String.valueOf(list.get(j)), bodyChinese);
                 PdfPCell cell = new PdfPCell(paragraph);

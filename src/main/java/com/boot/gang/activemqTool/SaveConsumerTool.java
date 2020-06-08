@@ -1,7 +1,7 @@
 package com.boot.gang.activemqTool;
 
 import com.boot.gang.entity.Message;
-import com.boot.gang.service.Impl.CommonService;
+import com.boot.gang.service.Impl.MessageService;
 import com.boot.gang.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ import java.util.Date;
 public class SaveConsumerTool {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
-    private CommonService commonService;
+    private MessageService messageService;
 //    @JmsListener(destination = "${saveSendMessageQueue}", containerFactory = "jmsQueueListener")   //监听队列里面的消息
 //    public void receive(String msg) {
 //        System.out.println("监听器收到msg:" + msg);
@@ -37,8 +37,8 @@ public class SaveConsumerTool {
         try {
             Message message = (Message) objectMessage.getObject();
             message.setCreatetime(new Date());
-            System.out.println(JsonUtil.objectToJson(message));
-            commonService.save(message);
+//            System.out.println(JsonUtil.objectToJson(message));
+            messageService.save(message);
             objectMessage.acknowledge();// 使用手动签收模式，需要手动的调用，如果不在catch中调用session.recover()消息只会在重启服务后重发
         } catch (Exception e) {
             session.recover();// 此不可省略 重发信息使用

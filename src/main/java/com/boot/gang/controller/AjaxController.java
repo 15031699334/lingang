@@ -324,6 +324,8 @@ public class AjaxController {
             map.put("data", commonService.getList("bar", request, pageIndex, pageSize));
         if (entity.equals("fb"))       // 反馈记录
             map.put("data", commonService.getList("fb", request, pageIndex, pageSize));
+        if (entity.equals("kflb"))      // 客服列表
+            map.put("data", commonService.getList("kflb", request, pageIndex, pageSize));
         if (map.isEmpty()) {
             return msgUtil.jsonErrorMsg("路径错误");
         }
@@ -848,17 +850,17 @@ public class AjaxController {
         List<OrderDetail> details = commonService.getList("OrderDetail", request, null, null);
         User user = (User) commonService.findObjectById(order.getcUserId(), "User");
         Map<String, String> map1 = new HashMap<>();
-        map1.put("name", user.getcRealname() == null ? " " : user.getcRealname());
+        map1.put("name",  null != user.getcShopName() ? user.getcShopName() : user.getcRealname());
         map1.put("address", order.getcProvinceId() + order.getcCityId() + (order.getcDistrictId() == null ? "" : order.getcDistrictId()) + order.getcAddressid());
         map1.put("phone", user.getcPhone() == null ? " " : user.getcPhone());
-        map1.put("fax", "");    // 传真
+        map1.put("fax", null == user.getcWorkNo() || user.getcWorkNo().equals("") ? "" : user.getcWorkNo());    // 传真
         map1.put("openBank", user.getcNowCityName() == null ? " " : user.getcNowCityName());   // 开户行
         map1.put("bankCode", user.getcVipCardno() == null ? " " : user.getcVipCardno());   //  账号
         map1.put("signature", "");  // 委托人签字
 //        System.out.println(" 需求方信息 " + map1);
         Map map = new HashMap();
         //map.put("name", order.getcRealname());
-        map.put("name",user.getcShopName());
+        map.put("name", null != user.getcShopName() ? user.getcShopName() : user.getcRealname());
         map.put("orderNo", order.getcOrderNo());
         map.put("address", "临沂市经济开发区沂蒙云谷B座6层");
         map.put("createTime", DateUtil.getFormate(order.getcCreateTime()));
@@ -923,7 +925,6 @@ public class AjaxController {
             }
             lists.add(strings);
         }
-        System.out.println("pdf 订单总重量: " + allTon);
         lists.add(new ArrayList(Arrays.asList("总重量: " + allTon + "吨")));
         lists.add(new ArrayList(Arrays.asList("小写(人民币): " + order.getcPrice().toString() + "元")));
         lists.add(new ArrayList<>(Arrays.asList("大写(人民币): " + MoneyUtils.NumToRMBStr(order.getcPrice().doubleValue()))));
