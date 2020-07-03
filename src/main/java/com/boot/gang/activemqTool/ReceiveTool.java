@@ -1,8 +1,16 @@
 package com.boot.gang.activemqTool;
 
+import com.boot.gang.entity.Admin;
 import com.boot.gang.entity.Message;
+import com.boot.gang.entity.MessageUserAdmin;
+import com.boot.gang.mapper.AdminMapper;
+import com.boot.gang.mapper.MessageMapper;
+import com.boot.gang.mapper.MessageUserAdminMapper;
+import com.boot.gang.service.Impl.MessageService;
+import com.boot.gang.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
@@ -19,12 +27,12 @@ public class ReceiveTool {
 	/**
 	 * 保存客户消息的map
 	 */
-	private Map<String, List<ObjectMessage>> map = new HashMap<>();
+	private Map<String, List<ObjectMessage>> map = new HashMap<>();	// Map<userId, List<ObjectMessage>>
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    
 
-
-
+	//      service              -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+	@Autowired
+	private MessageService messageService;
 
     
     /**
@@ -36,8 +44,9 @@ public class ReceiveTool {
     * @throws
      */
     public void addMessage(ObjectMessage objectMessage) throws JMSException {
-    	String userId = ((Message) (objectMessage.getObject())).getUserid();
-    	this.addMessage(userId, objectMessage);
+		Message message = (Message) objectMessage.getObject();
+
+    	this.addMessage(message.getUserid(), message.getAdminno(), objectMessage);
     }
 
 	
@@ -51,7 +60,7 @@ public class ReceiveTool {
 	* @return void    返回类型
 	* @throws
 	 */
-	private void addMessage(String userId, ObjectMessage objectMessage) {
+	private void addMessage(String userId, String adminNo, ObjectMessage objectMessage) {
 		//在客服的专属集合里，获得此人已发送且未处理的消息列表
 		List<ObjectMessage> messageList = map.get(userId);
 		if(messageList == null) {
@@ -67,7 +76,8 @@ public class ReceiveTool {
 	 * @return
 	 * @throws JMSException
 	 */
-	public List<Message> getMessageOnMemory(String userId) throws JMSException {
+	public List<Message> getMessageOnMemory(String userId, String adminNo) throws JMSException {
+		adminNo = messageService.getAdminNo(userId, adminNo);
 		List<ObjectMessage> list = map.get(userId);
 		if (list == null) {
 			return new ArrayList<>();
@@ -76,17 +86,37 @@ public class ReceiveTool {
 		for (Iterator<ObjectMessage> ite = list.iterator(); ite.hasNext();) {
 			ObjectMessage objectMessage = ite.next();
 			Message message = (Message) objectMessage.getObject();
-			messageList.add(message);
-			ite.remove();
-			try {
+			if (message.getAdminno().equals(adminNo)) {
+				messageList.add(message);
+				ite.remove();
+				try {
 //				logger.error(objectMessage.getJMSMessageID() + message.getSummary());
-				objectMessage.acknowledge();
-			} catch (JMSException e) {
-				e.printStackTrace();
+					objectMessage.acknowledge();
+				} catch (JMSException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		return messageList;
 	}
+
+	/**
+	 * @Description 	未读消息数量
+	 * @param userId	用户id
+	 * @return java.lang.Integer
+	 * @Author dongxiangwei
+	 * @Date 16:39 2020/6/9
+	 **/
+	public Integer countMessageNotRead(String userId) {
+		int count = 0;
+		 List<ObjectMessage> listMsg = map.get(userId);
+		if (listMsg == null || listMsg.isEmpty()) {
+			return count;
+		}
+		return listMsg.size();
+	}
+
+
 
 
 	/**
@@ -95,7 +125,8 @@ public class ReceiveTool {
 	 * @return
 	 * @throws JMSException
 	 */
-	public List<Message> listUnReadMessage(String userId) throws JMSException {
+	public List<Message> listUnReadMessage(String userId, String adminNo) throws JMSException {
+		adminNo = messageService.getAdminNo(userId, adminNo);
 		List<ObjectMessage> list = map.get(userId);
 		if (list == null) {
 			return new ArrayList<>();
@@ -104,7 +135,9 @@ public class ReceiveTool {
 		for (Iterator<ObjectMessage> ite = list.iterator(); ite.hasNext();) {
 			ObjectMessage objectMessage = ite.next();
 			Message message = (Message) objectMessage.getObject();
-			messageList.add(message);
+			if (message.getAdminno().equals(adminNo)) {
+				messageList.add(message);
+			}
 		}
 		return messageList;
 	}

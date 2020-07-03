@@ -33,7 +33,7 @@ public class SaveConsumerTool {
     @JmsListener(destination = "${saveReplyMessageQueue}", containerFactory = "jmsQueueListener")
     public void receiveQueue(ObjectMessage objectMessage, Session session)
             throws JMSException {
-        logger.info(objectMessage.getJMSDestination() + "监听器读取数据：" + objectMessage.getObject());
+//        logger.info(objectMessage.getJMSDestination() + "监听器读取数据：" + objectMessage.getObject());
         try {
             Message message = (Message) objectMessage.getObject();
             message.setCreatetime(new Date());

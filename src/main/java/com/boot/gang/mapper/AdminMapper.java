@@ -31,4 +31,7 @@ public interface AdminMapper {
     @Select("select c_id, adminNo, adminName, adminPic, c_hide from t_admin where 1 = 1 ${swhere}")
     List<Admin> getList(@Param("swhere") String swhere);
 
+    @Select("select c_id, adminNo from t_admin where adminNo = #{adminNo}")
+    List<Admin> listCSByAdminNo(@Param("adminNo") String adminNo);
+
 }

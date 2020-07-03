@@ -1,11 +1,14 @@
 package com.boot.gang.controller;
 
 import com.boot.gang.activemqTool.ReceiveTool;
+import com.boot.gang.entity.Admin;
 import com.boot.gang.entity.Message;
+import com.boot.gang.entity.MessageUserAdmin;
 import com.boot.gang.service.Impl.MessageService;
 import com.boot.gang.service.TokenService;
 import com.boot.gang.util.AjaxResult;
 import com.boot.gang.util.ResultCodeEnum;
+import com.boot.gang.util.StringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.jms.JMSException;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -75,32 +79,45 @@ public class MessageController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return AjaxResult.success(receiveTool.getMessageOnMemory(userId));
+        String adminNo = request.getParameter("adminNo");
+        return AjaxResult.success(receiveTool.getMessageOnMemory(userId, adminNo));
     }
 
-    @GetMapping("listUnReadMessage")
-    @ApiOperation("获得未读消息的列表")
-    public AjaxResult listUnReadMessage(HttpServletRequest request) throws JMSException {
-//        logger.info("得未读消息的列息");
+//    @GetMapping("listUnReadMessage")
+//    @ApiOperation("获得未读消息的列表")
+//    public AjaxResult listUnReadMessage(HttpServletRequest request) throws JMSException {
+////        logger.info("得未读消息的列息");
+//        String userId = "";
+//        try {
+//            userId = tokenService.getIdByToken(request);
+//        } catch (Exception e) {
+//            return AjaxResult.failure(ResultCodeEnum.USER_NOT_LOGGED_IN);
+//        }
+//        if(userId.equals("")) {
+//            return AjaxResult.failure(ResultCodeEnum.USER_NOT_LOGGED_IN);
+//        }
+//        String adminNo = request.getParameter("adminNo");
+//        return AjaxResult.success(receiveTool.listUnReadMessage(userId, adminNo));
+//    }
+
+
+    @GetMapping("countUnReadMessage")
+    @ApiOperation("获取未读的消息的数量")
+    public AjaxResult countUnReadMessage(HttpServletRequest request){
         String userId = "";
         try {
             userId = tokenService.getIdByToken(request);
         } catch (Exception e) {
             return AjaxResult.failure(ResultCodeEnum.USER_NOT_LOGGED_IN);
         }
-        if(userId.equals("")) {
-            return AjaxResult.failure(ResultCodeEnum.USER_NOT_LOGGED_IN);
-        }
-        return AjaxResult.success(receiveTool.listUnReadMessage(userId));
+        return AjaxResult.success(receiveTool.countMessageNotRead(userId));
     }
-
 
 
     @GetMapping("listMessageOnDataBase")
     @ApiOperation("获得所有的历史消息---执行速度慢")
     public AjaxResult listMessageOnDataBase(HttpServletRequest request,
-                                            @ApiParam(value = "招聘岗位主键，可为空") @RequestParam(value = "recruitInfoId", required = false) Integer recruitInfoId,
+                                            @ApiParam(value = "客服服务号") @RequestParam(value = "adminNo", required = false) String adminNo,
                                             @ApiParam(value = "页码，默认为1") @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                                             @ApiParam(value = "每页条数，默认为10") @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         String userId = "";
@@ -113,10 +130,10 @@ public class MessageController {
             return AjaxResult.failure(ResultCodeEnum.USER_NOT_LOGGED_IN);
         }
         if(pageNo == 0) {
-            List<Message> messages = messageService.listMessageOnDataBaseToday(userId, recruitInfoId);
+            List<Message> messages = messageService.listMessageOnDataBaseToday(userId, adminNo);
             return AjaxResult.success(messages);
         } else {
-            Map<String, Object> map= messageService.listMessageOnDataBase(pageNo, pageSize, userId, recruitInfoId);
+            Map<String, Object> map= messageService.listMessageOnDataBase(pageNo, pageSize, userId, adminNo);
             return AjaxResult.success(map);
         }
     }

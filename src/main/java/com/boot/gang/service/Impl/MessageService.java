@@ -9,9 +9,11 @@ import com.boot.gang.mapper.AdminMapper;
 import com.boot.gang.mapper.MessageMapper;
 import com.boot.gang.mapper.MessageUserAdminMapper;
 import com.boot.gang.mapper.UserMapper;
+import com.boot.gang.util.StringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.jms.JMSException;
@@ -38,6 +40,10 @@ public class MessageService {
     @Autowired
     private AdminMapper adminMapper;
 
+
+    @Value("${defaultCSId}")
+    private String defaultCSId;
+
     public void save(Message message) {
         try {
             int i = this.messageMapper.insertSelective(message);
@@ -61,13 +67,13 @@ public class MessageService {
         User user = userMapper.selectByPrimaryKey(userId);
         Admin admin = null;
 //        logger.info("adminNo: " + adminNo + ", adminPic : " + adminPic + ", adminName : " + adminName);
-        if (adminNo == null) {
-            List<MessageUserAdmin> muas = messageUserAdminMapper.getList("and um_user_id = '" + userId + "' and um_status = 1 order by um_last_time desc");
+        List<MessageUserAdmin> muas = messageUserAdminMapper.getList("and um_user_id = '" + userId + "' and um_status = 1 order by um_last_time desc");
+        if (StringUtil.isNullOrEmpty(adminNo)) {    // 未指定客服
             if (muas == null || muas.isEmpty()) {   // 以前没聊过 没有专属客服
                 // 获取admin信息
                 List<Admin> aList = adminMapper.getList("and receiveMessage = 1 and c_hide = 's' order by role desc");
                 if (aList == null || aList.isEmpty()) {     // 所有人都不在线 发送给admin
-                    admin = adminMapper.selectByPrimaryKey("admin");
+                    admin = adminMapper.selectByPrimaryKey(defaultCSId);
                 }else {     // 有人在线  随机给其中一个人发送 只有第一次会走这里 相当于专属客服
                     // 随机分配的admin   (Math.random() * (max - min) + min) // [0, aList.size())
                     int ran2 = (int) (Math.random() * aList.size());
@@ -78,6 +84,18 @@ public class MessageService {
                 messageUserAdminMapper.insertSelective(messageUserAdmin);
             }else {     // 有专属客服
                 admin = adminMapper.selectByPrimaryKey(muas.get(0).getUmAdminId());
+            }
+        }else {     // 指定了客服 传入了adminNo
+            if (muas != null && !muas.isEmpty()) {
+                MessageUserAdmin messageUserAdmin = muas.get(0);
+                Admin adminSel = adminMapper.selectByPrimaryKey(messageUserAdmin.getUmAdminId());
+                logger.info("指定了客服号: " + adminNo + ",  原绑定的客服号:  " + adminSel.getAdminno());
+                if (!adminSel.getAdminno().equals(adminNo)){   //不相同 替换
+                    List<Admin> admins = adminMapper.listCSByAdminNo(adminNo);
+                    messageUserAdmin.setUmAdminId(admins.get(0).getcId());
+                    messageUserAdminMapper.updateByPrimaryKeySelective(messageUserAdmin);
+                    logger.info("修改完成");
+                }
             }
         }
 
@@ -103,11 +121,12 @@ public class MessageService {
     /**
      * 查看当天的Message消息
      * @param userId
-     * @param recruitInfoId
+     * @param adminNo
      * @return
      */
-    public List<Message> listMessageOnDataBaseToday(String userId, Integer recruitInfoId) {
-        return messageMapper.getAllToday(userId);
+    public List<Message> listMessageOnDataBaseToday(String userId, String adminNo) {
+        adminNo = getAdminNo(userId, adminNo);
+        return messageMapper.getAllToday(userId, adminNo);
     }
 
     /**
@@ -115,17 +134,32 @@ public class MessageService {
      * @param pageNo
      * @param pageSize
      * @param userId
-     * @param recruitInfoId
+     * @param adminNo
      * @return
      */
-    public Map<String, Object> listMessageOnDataBase(int pageNo, int pageSize, String userId, Integer recruitInfoId) {
+    public Map<String, Object> listMessageOnDataBase(int pageNo, int pageSize, String userId, String adminNo) {
         Map<String, Object> map = new HashMap<>();
         logger.info("service :  页码: " + pageNo + " , 数量: " + pageSize);
-        List<Message> messages = messageMapper.getPageAllNotToday(userId, (pageNo - 1) * pageSize, pageSize);
+        adminNo = getAdminNo(userId, adminNo);
+        List<Message> messages = messageMapper.getPageAllNotToday(userId, adminNo, (pageNo - 1) * pageSize, pageSize);
         Collections.reverse(messages);
         map.put("data", messages);
 //        logger.info( (int) Math.ceil(messageMapper.getCountNotToday(userId))/(double) pageSize);
-        map.put("totalPages", (int) Math.ceil(messageMapper.getCountNotToday(userId)/(double) pageSize));
+        map.put("totalPages", (int) Math.ceil(messageMapper.getCountNotToday(userId, adminNo)/(double) pageSize));
         return map;
+    }
+
+
+    //        内部方法         *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+    public String getAdminNo(String userId, String adminNo){
+        if (StringUtil.isNullOrEmpty(adminNo)){
+            List<MessageUserAdmin> muas = messageUserAdminMapper.getList("and um_user_id = '" + userId + "' and um_status = 1 order by um_last_time desc");
+            if (muas == null || muas.isEmpty()) {
+                adminNo = null;
+            }else {
+                adminNo = adminMapper.selectByPrimaryKey(muas.get(0).getUmAdminId()).getAdminno();
+            }
+        }
+        return adminNo;
     }
 }
