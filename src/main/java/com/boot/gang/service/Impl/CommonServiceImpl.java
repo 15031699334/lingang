@@ -806,6 +806,9 @@ public class CommonServiceImpl implements CommonService {
         if (entity.equals("active")) {   // 活动
             return articleMapper.getList(" and c_article_type = 'active' order by c_create_time desc");
         }
+        if (entity.equals("banner")) {   // 首页轮播图
+            return articleMapper.getList(" and c_article_type = 'banner' order by c_create_time desc");
+        }
         if (entity.equals("kx")) {   // 快讯
             // 查询数据库中存在的创建时间 按天分组
             List<String> dates = articleMapper.getDateGroupByDate();

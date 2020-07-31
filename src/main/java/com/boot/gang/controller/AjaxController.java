@@ -313,6 +313,9 @@ public class AjaxController {
         if (entity.equals("hd"))      // 活动
             map.put("data", commonService.getList("active", request, pageIndex, pageSize));
 
+        if (entity.equals("banner"))      // 首页轮播图
+            map.put("data", commonService.getList("banner", request, pageIndex, pageSize));
+
         if (entity.equals("kx")) {       //
             List<Map> list = commonService.getList("kx", request, pageIndex, pageSize);
             map.put("data", list);
