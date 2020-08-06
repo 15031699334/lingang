@@ -313,8 +313,10 @@ public class AjaxController {
         if (entity.equals("hd"))      // 活动
             map.put("data", commonService.getList("active", request, pageIndex, pageSize));
 
-        if (entity.equals("banner"))      // 首页轮播图
-            map.put("data", commonService.getList("banner", request, pageIndex, pageSize));
+        // 首页轮播图: banner, 临钢智享: banner1, 钢板资讯: banner2, 会员中心: banner3, 专属服务: banner4, 走进临钢: banner5, 临钢动态: banner6,
+        // 招贤纳士: banner7, 联系我们: banner8, 会员中心运费图: banner9, 会员中心仓储开平图: banner10, 首页广告位图片: banner11,  临钢智享视频: banner_video
+        if (entity.startsWith("banner"))
+            map.put("data", commonService.getList(entity, request, pageIndex, pageSize));
 
         if (entity.equals("kx")) {       //
             List<Map> list = commonService.getList("kx", request, pageIndex, pageSize);
