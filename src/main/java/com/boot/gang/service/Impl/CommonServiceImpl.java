@@ -806,7 +806,9 @@ public class CommonServiceImpl implements CommonService {
         if (entity.equals("active")) {   // 活动
             return articleMapper.getList(" and c_article_type = 'active' order by c_create_time desc");
         }
-        // 首页轮播图: banner, 临钢智享: banner1, 钢板资讯: banner2, 会员中心: banner3, 专属服务: banner4, 走进临钢: banner5, 临钢动态: banner6,
+        // 首页轮播图: banner, 临钢智享: banner1, 钢板资讯: banner2, 会员中心: banner3, 专属服务: banner4, 走进临钢临钢网: banner5_1,
+        // 走进临钢产品种类上: banner5_2_1, 走进临钢产品种类下: banner5_2_2,  走进临钢库存: banner5_3,
+        // 走进临钢生产线: banner5_4,  走进临钢设备摆放区域: banner5_5, 临钢动态: banner6,
         // 招贤纳士: banner7, 联系我们: banner8, 会员中心运费图: banner9, 会员中心仓储开平图: banner10, 首页广告位图片: banner11,  临钢智享视频: banner_video
         if (entity.startsWith("banner")) {
             return articleMapper.getList(" and c_article_type = '" + entity + "' order by c_create_time desc");
