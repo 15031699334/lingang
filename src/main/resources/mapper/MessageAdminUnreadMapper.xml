@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.boot.gang.mapper.MessageAdminUnreadMapper" >
+  <resultMap id="BaseResultMap" type="com.boot.gang.entity.MessageAdminUnread" >
+    <id column="au_id" property="auId" jdbcType="INTEGER" />
+    <result column="au_admin_no" property="auAdminNo" jdbcType="VARCHAR" />
+    <result column="au_create_time" property="auCreateTime" jdbcType="TIMESTAMP" />
+    <result column="au_user_id" property="auUserId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    au_id, au_admin_no, au_create_time, au_user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_message_admin_unread
+    where au_id = #{auId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_message_admin_unread
+    where au_id = #{auId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.boot.gang.entity.MessageAdminUnread" >
+    insert into t_message_admin_unread (au_id, au_admin_no, au_create_time, 
+      au_user_id)
+    values (#{auId,jdbcType=INTEGER}, #{auAdminNo,jdbcType=VARCHAR}, #{auCreateTime,jdbcType=TIMESTAMP}, 
+      #{auUserId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.boot.gang.entity.MessageAdminUnread" >
+    insert into t_message_admin_unread
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="auId != null" >
+        au_id,
+      </if>
+      <if test="auAdminNo != null" >
+        au_admin_no,
+      </if>
+      <if test="auCreateTime != null" >
+        au_create_time,
+      </if>
+      <if test="auUserId != null" >
+        au_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="auId != null" >
+        #{auId,jdbcType=INTEGER},
+      </if>
+      <if test="auAdminNo != null" >
+        #{auAdminNo,jdbcType=VARCHAR},
+      </if>
+      <if test="auCreateTime != null" >
+        #{auCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auUserId != null" >
+        #{auUserId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.boot.gang.entity.MessageAdminUnread" >
+    update t_message_admin_unread
+    <set >
+      <if test="auAdminNo != null" >
+        au_admin_no = #{auAdminNo,jdbcType=VARCHAR},
+      </if>
+      <if test="auCreateTime != null" >
+        au_create_time = #{auCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auUserId != null" >
+        au_user_id = #{auUserId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where au_id = #{auId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.boot.gang.entity.MessageAdminUnread" >
+    update t_message_admin_unread
+    set au_admin_no = #{auAdminNo,jdbcType=VARCHAR},
+      au_create_time = #{auCreateTime,jdbcType=TIMESTAMP},
+      au_user_id = #{auUserId,jdbcType=VARCHAR}
+    where au_id = #{auId,jdbcType=INTEGER}
+  </update>
+</mapper>

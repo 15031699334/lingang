@@ -1,20 +1,15 @@
 package com.boot.gang.service.Impl;
 
 import com.boot.gang.activemqTool.SendMessageTool;
-import com.boot.gang.entity.Admin;
-import com.boot.gang.entity.Message;
-import com.boot.gang.entity.MessageUserAdmin;
-import com.boot.gang.entity.User;
-import com.boot.gang.mapper.AdminMapper;
-import com.boot.gang.mapper.MessageMapper;
-import com.boot.gang.mapper.MessageUserAdminMapper;
-import com.boot.gang.mapper.UserMapper;
+import com.boot.gang.entity.*;
+import com.boot.gang.mapper.*;
 import com.boot.gang.util.StringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.jms.JMSException;
 import java.util.*;
@@ -35,6 +30,8 @@ public class MessageService {
     private MessageMapper messageMapper;
     @Autowired
     private MessageUserAdminMapper messageUserAdminMapper;
+    @Autowired
+    private MessageAdminUnreadMapper messageAdminUnreadMapper;
     @Autowired
     private UserMapper userMapper;
     @Autowired
@@ -98,7 +95,12 @@ public class MessageService {
                 }
             }
         }
-
+        List<MessageAdminUnread> maus = messageAdminUnreadMapper.getList("and au_user_id = '" + userId + "' and au_admin_no = '" + (null == adminNo ? admin == null ? "" : admin.getAdminno() : adminNo) + "'");
+        if (!CollectionUtils.isEmpty(maus)) {   // 删除
+            maus.forEach(mau ->{
+                   messageAdminUnreadMapper.deleteByPrimaryKey(mau.getAuId());
+            });
+        }
         message.setAdminno(null == adminNo ? admin == null ? "" : admin.getAdminno() : adminNo);
         message.setAdminname(null == adminName || adminName.equals("") ? admin == null ? "" : admin.getAdminname() : adminName);
         message.setAdminpic(null == adminPic ? admin == null ? "" : admin.getAdminpic() : adminPic);
