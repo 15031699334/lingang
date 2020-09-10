@@ -167,20 +167,20 @@ public class ProductServiceImpl implements ProductService {
                 ProductRelationNode prn_next = list.get(i + 1);
                 nodes.add(prn);
                 Integer cStockNum = prn.getcStockNum();      // 库存数量
-                Double  cSexPrice = prn.getcSexPrice();    // 吨数
+                Double  cSexPrice = DoubleUtil.round( prn.getcSexPrice() * prn.getcStockNum(), 4);    // 吨数
                 while (comparePRN(prn, prn_next)){      // 判定是否相同 参数变更
                     if (i + 2 != list.size()){
                         i += 1;
                         prn = list.get(i);
                         prn_next = list.get(i + 1);
                         cStockNum += prn.getcStockNum();
-                        cSexPrice = DoubleUtil.add(cSexPrice, prn.getcSexPrice());
+                        cSexPrice = DoubleUtil.round(cSexPrice + prn.getcSexPrice() * prn.getcStockNum(), 4);
                         nodes.add(prn);
                     }else {
                         i += 1;
                         prn = list.get(i);
                         cStockNum += prn.getcStockNum();
-                        cSexPrice = DoubleUtil.add(cSexPrice, prn.getcSexPrice());
+                        cSexPrice = DoubleUtil.round(cSexPrice + prn.getcSexPrice() * prn.getcStockNum(), 4);
                         nodes.add(prn);
                         break;
                     }
@@ -192,7 +192,8 @@ public class ProductServiceImpl implements ProductService {
                 ProductRelationNode prn = list.get(i);
                 nodes.add(prn);
                 // ProductVo 赋值
-                ProductVo productVo = prnVoSetValue(prn, nodes, prn.getcStockNum(), prn.getcSexPrice());
+                Double  cSexPrice = DoubleUtil.round( prn.getcSexPrice() * prn.getcStockNum(), 4);    // 吨数
+                ProductVo productVo = prnVoSetValue(prn, nodes, prn.getcStockNum(), cSexPrice);
                 productVos.add(productVo);
             }
         }
