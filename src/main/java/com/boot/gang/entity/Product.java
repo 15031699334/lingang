@@ -135,7 +135,7 @@ public class Product {
 
     private String cHide;
 
-    private Integer ifHidePrice;
+    private Integer ifHidePrice;    // 开闭市 0=开市 1=闭市
 
     private String cYunfeeId;
 
