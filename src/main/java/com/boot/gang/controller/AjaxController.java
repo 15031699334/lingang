@@ -49,6 +49,8 @@ public class AjaxController {
     private SignService signService;
     @Autowired
     private ConfigService configService;
+    @Autowired
+    private VolumePriceTrendService volumePriceTrendService;
 
     @Value("${gongzhangPath}")
     private String gongzhangPath;
@@ -139,6 +141,10 @@ public class AjaxController {
         if (entity.equals("news")) {     // 获取新闻 今日快讯 活动
             Article article = (Article) commonService.findObjectById(id, "news");
             return msgUtil.jsonSuccessMsg("获取成功", "data", article);
+        }
+        // 唐山地区  莱芜地区    邯郸地区    天津地区   1=唐山地区 2=莱芜地区 3=邯郸地区 4=天津地区
+        if (entity.equals("jjgl")) {    // 首页卷价管理
+            return msgUtil.jsonSuccessMsg("获取成功", "data", volumePriceTrendService.getVolumePriceTrend(request));
         }
         if (entity.equals("jjqs")) {   // 获取卷价趋势    // 0=螺纹 1=冷轧 2=热轧
 //            return msgUtil.jsonSuccessMsg("获取成功", "data", commonService.findObjectById("volume_price_list", "Config"));
@@ -307,13 +313,13 @@ public class AjaxController {
         if (entity.equals("myqgxx"))      // 获取当前用户所有的求购信息列表
             map.put("data", commonService.getList("myqgxx", request, pageIndex, pageSize));
 
-        if (entity.equals("news"))      // 新闻
-            map.put("data", commonService.getList("news", request, pageIndex, pageSize));
+        //  新闻 : news   活动: active  月度报告: ydbg   热点聚焦: rdjj  期货频道: qhpd
+        // 每周综述: mzzs  钢铁概览: gtgl  钢厂动态: gtdt  钢市分析: gsfx  国际频道: gjpd
+        if (entity.equals("news") || entity.equals("active") || entity.equals("ydbg") || entity.equals("rdjj") || entity.equals("qhpd")
+                || entity.equals("mzzs") || entity.equals("gtgl") || entity.equals("gtdt") || entity.equals("gsfx") || entity.equals("gjpd"))
+            map.put("data", commonService.getList(entity, request, pageIndex, pageSize));
 
-        if (entity.equals("hd"))      // 活动
-            map.put("data", commonService.getList("active", request, pageIndex, pageSize));
-
-        // 首页轮播图: banner, 临钢智享: banner1, 钢板资讯: banner2, 会员中心: banner3, 专属服务: banner4, 走进临钢轮播图: banner5, 走进临钢临钢网: banner5_1,
+        // 首页轮播图: banner, 临钢智享: banner1, 钢板资讯: banner2, 会员中心: banner3, 专属服务: banner4, 走进临钢轮播图: banner5, 首页钣金相册: banner5_0, 走进临钢临钢网: banner5_1,
         // 走进临钢产品种类上: banner5_2_1, 走进临钢产品种类下: banner5_2_2,  走进临钢库存: banner5_3, 走进临钢库存右图: banner5_3_1
         // 走进临钢生产线: banner5_4,  走进临钢设备摆放区域: banner5_5, 临钢动态: banner6,
         // 招贤纳士: banner7, 联系我们: banner8, 会员中心运费图: banner9, 会员中心仓储开平图: banner10, 首页广告位图片: banner11,  临钢智享视频: banner_video

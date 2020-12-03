@@ -7,10 +7,11 @@
     <result column="vpt_last_update_time" property="vptLastUpdateTime" jdbcType="TIMESTAMP" />
     <result column="vpt_price" property="vptPrice" jdbcType="DOUBLE" />
     <result column="vpt_type_name" property="vptTypeName" jdbcType="VARCHAR" />
+    <result column="vpt_type_num" property="vptTypeNum" jdbcType="VARCHAR" />
     <result column="vpt_time" property="vptTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, vpt_create_time, vpt_last_update_time, vpt_price, vpt_type_name, vpt_time
+    id, vpt_create_time, vpt_last_update_time, vpt_price, vpt_type_name, vpt_type_num, vpt_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,10 +25,10 @@
   </delete>
   <insert id="insert" parameterType="com.boot.gang.entity.VolumePriceTrend" >
     insert into t_volume_price_trend (id, vpt_create_time, vpt_last_update_time, 
-      vpt_price, vpt_type_name, vpt_time
+      vpt_price, vpt_type_name, vpt_type_num, vpt_time
       )
     values (#{id,jdbcType=INTEGER}, #{vptCreateTime,jdbcType=TIMESTAMP}, #{vptLastUpdateTime,jdbcType=TIMESTAMP}, 
-      #{vptPrice,jdbcType=DOUBLE}, #{vptTypeName,jdbcType=VARCHAR}, #{vptTime,jdbcType=TIMESTAMP}
+      #{vptPrice,jdbcType=DOUBLE}, #{vptTypeName,jdbcType=VARCHAR}, #{vptTypeNum,jdbcType=VARCHAR}, #{vptTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.boot.gang.entity.VolumePriceTrend" >
@@ -48,6 +49,9 @@
       <if test="vptTypeName != null" >
         vpt_type_name,
       </if>
+      <if test="vptTypeNum != null" >
+        vpt_type_num,
+      </if>
       <if test="vptTime != null" >
         vpt_time,
       </if>
@@ -65,8 +69,8 @@
       <if test="vptPrice != null" >
         #{vptPrice,jdbcType=DOUBLE},
       </if>
-      <if test="vptTypeName != null" >
-        #{vptTypeName,jdbcType=VARCHAR},
+      <if test="vptTypeNum != null" >
+        #{vptTypeNum,jdbcType=VARCHAR},
       </if>
       <if test="vptTime != null" >
         #{vptTime,jdbcType=TIMESTAMP},
@@ -88,6 +92,9 @@
       <if test="vptTypeName != null" >
         vpt_type_name = #{vptTypeName,jdbcType=VARCHAR},
       </if>
+      <if test="vptTypeNum != null" >
+        vpt_type_num = #{vptTypeNum,jdbcType=VARCHAR},
+      </if>
       <if test="vptTime != null" >
         vpt_time = #{vptTime,jdbcType=TIMESTAMP},
       </if>
@@ -100,6 +107,7 @@
       vpt_last_update_time = #{vptLastUpdateTime,jdbcType=TIMESTAMP},
       vpt_price = #{vptPrice,jdbcType=DOUBLE},
       vpt_type_name = #{vptTypeName,jdbcType=VARCHAR},
+      vpt_type_num = #{vptTypeNum,jdbcType=VARCHAR},
       vpt_time = #{vptTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>

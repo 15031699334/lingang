@@ -22,6 +22,8 @@ public class VolumePriceTrend {
 
     private String vptTypeName;
 
+    private String vptTypeNum;  // 分类号 0=卷价趋势 1=唐山地区 2=莱芜地区 3=邯郸地区 4=天津地区
+
     @JsonFormat(pattern = "MM-dd", timezone = "GMT+8")
     private Date vptTime;
 
@@ -63,6 +65,14 @@ public class VolumePriceTrend {
 
     public void setVptTypeName(String vptTypeName) {
         this.vptTypeName = vptTypeName == null ? null : vptTypeName.trim();
+    }
+
+    public String getVptTypeNum() {
+        return vptTypeNum;
+    }
+
+    public void setVptTypeNum(String vptTypeNum) {
+        this.vptTypeNum = vptTypeNum;
     }
 
     public Date getVptTime() {

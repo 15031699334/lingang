@@ -28,4 +28,9 @@ public interface VolumePriceTrendMapper {
      **/
     @Select("select * from t_volume_price_trend where 1 = 1 ${swhere}")
     List<VolumePriceTrend> getList(@Param("swhere") String swhere);
+
+    @Select("select vpt_type_name from t_volume_price_trend where vpt_type_num = #{vptTypeNum} group by vpt_type_name")
+    List<String> getVptTypeName(@Param("vptTypeNum") String vptTypeNum);
+
+
 }
