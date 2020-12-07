@@ -229,6 +229,7 @@ public class ProductServiceImpl implements ProductService {
         productVo.setcSexPrice(cSexPrice);
         productVo.setcNowPrice(prn.getcNowPrice());
         productVo.setcSummary(prn.getcSummary());
+        productVo.setIfHidePrice(prn.getIfHidePrice());
         productVo.setPrnList(nodes);
         return productVo;
     }

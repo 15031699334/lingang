@@ -20,6 +20,7 @@ public class ProductVo {
     private Double cSexPrice;   // 吨数
     private Double cNowPrice;   // 单价
     private String cSummary;    // 备注
+    private Integer ifHidePrice;   //  是否隐藏  0=否 1=是
     private List<ProductRelationNode> prnList;
 
     public String getcLogo() {
@@ -108,5 +109,13 @@ public class ProductVo {
 
     public void setPrnList(List<ProductRelationNode> prnList) {
         this.prnList = prnList;
+    }
+
+    public Integer getIfHidePrice() {
+        return ifHidePrice;
+    }
+
+    public void setIfHidePrice(Integer ifHidePrice) {
+        this.ifHidePrice = ifHidePrice;
     }
 }
