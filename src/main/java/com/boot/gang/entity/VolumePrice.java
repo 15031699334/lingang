@@ -20,6 +20,8 @@ public class VolumePrice {
 
     private String cHide;
 
+    private Integer cTop;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date cLastUpdateTime;
 
@@ -116,6 +118,14 @@ public class VolumePrice {
 
     public void setcHide(String cHide) {
         this.cHide = cHide == null ? null : cHide.trim();
+    }
+
+    public Integer getcTop() {
+        return cTop;
+    }
+
+    public void setcTop(Integer cTop) {
+        this.cTop = cTop;
     }
 
     public Date getcLastUpdateTime() {
