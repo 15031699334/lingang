@@ -19,13 +19,14 @@
       <arg column="c_stateChange" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_todayPrice" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="c_yesterdayPrice" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="c_sort" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="c_top" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
     c_id, c_block_id, c_city_id, c_create_time, c_create_user, c_district_id, c_hide, 
     c_last_update_time, c_last_update_user, c_province_id, c_province, c_shop_column_type, 
-    c_shop_column_type_id, c_stateChange, c_todayPrice, c_yesterdayPrice, c_top
+    c_shop_column_type_id, c_stateChange, c_todayPrice, c_yesterdayPrice, c_sort, c_top
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -43,13 +44,13 @@
       c_hide, c_last_update_time, c_last_update_user, 
       c_province_id, c_province, c_shop_column_type, 
       c_shop_column_type_id, c_stateChange, c_todayPrice, 
-      c_yesterdayPrice, c_top)
+      c_yesterdayPrice, c_sort, c_top)
     values (#{cId,jdbcType=VARCHAR}, #{cBlockId,jdbcType=VARCHAR}, #{cCityId,jdbcType=VARCHAR}, 
       #{cCreateTime,jdbcType=TIMESTAMP}, #{cCreateUser,jdbcType=VARCHAR}, #{cDistrictId,jdbcType=VARCHAR}, 
       #{cHide,jdbcType=VARCHAR}, #{cLastUpdateTime,jdbcType=TIMESTAMP}, #{cLastUpdateUser,jdbcType=VARCHAR}, 
       #{cProvinceId,jdbcType=VARCHAR}, #{cProvince,jdbcType=VARCHAR}, #{cShopColumnType,jdbcType=VARCHAR}, 
       #{cShopColumnTypeId,jdbcType=VARCHAR}, #{cStatechange,jdbcType=VARCHAR}, #{cTodayprice,jdbcType=VARCHAR}, 
-      #{cYesterdayprice,jdbcType=VARCHAR}, #{cTop,jdbcType=INTEGER})
+      #{cYesterdayprice,jdbcType=VARCHAR}, #{cSort,jdbcType=INTEGER}, #{cTop,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.boot.gang.entity.VolumePrice" >
     insert into t_volume_price
@@ -101,6 +102,9 @@
       </if>
       <if test="cYesterdayprice != null" >
         c_yesterdayPrice,
+      </if>
+      <if test="cSort != null" >
+        c_sort,
       </if>
       <if test="cTop != null" >
         c_top,
@@ -155,6 +159,9 @@
       <if test="cYesterdayprice != null" >
         #{cYesterdayprice,jdbcType=VARCHAR},
       </if>
+      <if test="cSort != null" >
+        #{cSort,jdbcType=INTEGER},
+      </if>
       <if test="cTop != null" >
         #{cTop,jdbcType=INTEGER},
       </if>
@@ -208,6 +215,9 @@
       <if test="cYesterdayprice != null" >
         c_yesterdayPrice = #{cYesterdayprice,jdbcType=VARCHAR},
       </if>
+      <if test="cSort != null" >
+        c_sort = #{cSort,jdbcType=INTEGER},
+      </if>
       <if test="cTop != null" >
         c_top = #{cTop,jdbcType=INTEGER},
       </if>
@@ -231,6 +241,7 @@
       c_stateChange = #{cStatechange,jdbcType=VARCHAR},
       c_todayPrice = #{cTodayprice,jdbcType=VARCHAR},
       c_yesterdayPrice = #{cYesterdayprice,jdbcType=VARCHAR},
+      c_sort = #{cSort,jdbcType=INTEGER},
       c_top = #{cTop,jdbcType=INTEGER}
     where c_id = #{cId,jdbcType=VARCHAR}
   </update>

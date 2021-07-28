@@ -20,6 +20,8 @@ public class VolumePrice {
 
     private String cHide;
 
+    private Integer cSort;
+
     private Integer cTop;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -118,6 +120,14 @@ public class VolumePrice {
 
     public void setcHide(String cHide) {
         this.cHide = cHide == null ? null : cHide.trim();
+    }
+
+    public Integer getcSort() {
+        return cSort;
+    }
+
+    public void setcSort(Integer cSort) {
+        this.cSort = cSort;
     }
 
     public Integer getcTop() {
