@@ -665,7 +665,7 @@ public class CommonServiceImpl implements CommonService {
         }
         if (entity.equals("VolumePrice")) {      // 今日卷价
             String provence = request.getParameter("pName");
-            return volumePriceMapper.getList(" and c_province = '" + provence + "' order by c_top desc, c_create_time desc");
+            return volumePriceMapper.getList(" and c_province = '" + provence + "' order by c_top desc, c_last_update_time desc");
 //            return volumePriceMapper.getList(" and c_province = '" + provence + "' and to_days(c_create_time) = to_days(now()) order by c_create_time desc");
         }
         if (entity.equals("cjdt")) {   // 首页成交动态(滚动)
